@@ -600,13 +600,13 @@ const AboutPage = () => {
             <StyledTeamWrapper>
               <div className="main">
                 {teamMembers.map((member, index) => {
-                  const delay = 200 + index * 100; // 100ms base + 100ms per index
+                  const delay = 50 + index * 100; // 100ms base + 100ms per index
                   return (
                     <div
                       className="profile-card"
                       key={index}
                       data-aos="fade-up"
-                      data-aos-anchor-placement="bottom-bottom"
+                      data-aos-anchor-placement="center-bottom"
                       data-aos-delay={delay}
                     >
                       <div className="img">
@@ -614,21 +614,21 @@ const AboutPage = () => {
                           src={member.image}
                           alt={member.name}
                           data-aos="flip-left"
-                          data-aos-anchor-placement="bottom-bottom"
+                          data-aos-anchor-placement="center-bottom"
                           data-aos-delay={delay}
                         />
                       </div>
                       <div className="caption">
                         <h3
                           data-aos="fade-right"
-                          data-aos-anchor-placement="bottom-bottom"
+                          data-aos-anchor-placement="center-bottom"
                           data-aos-delay={delay}
                         >
                           {member.name}
                         </h3>
                         <p
                           data-aos="fade-right"
-                         data-aos-anchor-placement="bottom-bottom"
+                         data-aos-anchor-placement="center-bottom"
                           data-aos-delay={delay}
                         >
                           {member.position}
