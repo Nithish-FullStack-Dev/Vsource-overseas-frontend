@@ -53,7 +53,11 @@ const OurServices: React.FC = () => {
 
   return (
     <section style={styles.section}>
-      <h2 style={styles.title} data-aos-anchor-placement="center-bottom" data-aos="zoom-in">
+      <h2
+        style={styles.title}
+        data-aos-anchor-placement="center-bottom"
+        data-aos="zoom-in"
+      >
         Our Services
       </h2>
       <div className="scroll-container">
@@ -64,19 +68,38 @@ const OurServices: React.FC = () => {
             data-aos="fade-up"
             data-aos-delay={index * 100}
             style={{
-              backgroundImage:` url(${service.backgroundImage})`,
+              backgroundImage: ` url(${service.backgroundImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
-            <div className="absolute inset-0 bg-black/60 rounded-[16px]"></div>
+            <div className="absolute inset-0 bg-black/50 rounded-[16px]"></div>
             <div className="relative z-10 flex flex-col items-center text-white">
-              <div className="icon-wrapper mb-4" data-aos="fade-right"  data-aos-delay={index * 200} data-aos-anchor-placement="center-bottom">{service.icon}</div>
-              <h3 className="text-lg font-bold mb-2 text-blue-500" data-aos="fade-right"  data-aos-delay={index * 200} data-aos-anchor-placement="center-bottom">
+              <div
+                className="icon-wrapper mb-4"
+                data-aos="fade-right"
+                data-aos-delay={index * 200}
+                data-aos-anchor-placement="center-bottom"
+              >
+                {service.icon}
+              </div>
+              <h3
+                className="text-lg font-bold mb-2 text-blue-500"
+                data-aos="fade-right"
+                data-aos-delay={index * 200}
+                data-aos-anchor-placement="center-bottom"
+              >
                 {service.title}
               </h3>
-              <p className="text-sm" data-aos="fade-right"  data-aos-delay={index * 200} data-aos-anchor-placement="center-bottom">{service.description}</p>
+              <p
+                className="text-sm"
+                data-aos="fade-right"
+                data-aos-delay={index * 200}
+                data-aos-anchor-placement="center-bottom"
+              >
+                {service.description}
+              </p>
             </div>
           </div>
         ))}
