@@ -71,183 +71,220 @@ const AboutSection: React.FC = () => {
   };
 
   return (
-    <section className="about-section" ref={sectionRef}>
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className={`content ${isVisible ? 'visible' : ''}`}>
-          <div className="text-section">
-            <h1>About Vsource Overseas</h1>
-            <p className="subheading">
-              <strong>Your Gateway to Global Academic Excellence</strong>
-            </p>
-            <p className="paragraph">
-              At VSource Overseas, we specialize in transforming academic ambition into international achievement. With a legacy of over 20 years, we are proud to be South India’s premier consultancy for Master’s admissions abroad, guiding thousands of students to top-ranked universities across the <strong>USA, UK, Canada, Ireland, France</strong> and other leading destinations.
-            </p>
-            <p className="paragraph">
-              We partner with globally accredited universities known for <strong>academic excellence, innovation, </strong>and <strong>industry relevance,</strong> ensuring our students receive not only a quality education but also a launchpad for global careers.
-            </p>
-            <p className="paragraph">
-              <strong>Our Legacy in Numbers</strong>
-            </p>
-            <div className="stats">
-              {stats.map((stat) => {
-                const count = useCounter(stat.value);
-                return (
-                  <div key={stat.id} className="stat-block">
-                    <img src={stat.icon} alt={stat.label} className="icon" />
-                    <div className="stat-info">
-                      <div className="count">{count}{stat.suffix}</div>
-                      <div className="label">{stat.label}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+ <section className="about-section" ref={sectionRef}>
+  <div className="w-full max-w-[1400px] mx-auto">
+    <div className={`content ${isVisible ? 'visible' : ''}`}>
+      
+      {/* LEFT TEXT SECTION */}
+      <div className="text-section" data-aos="fade-right" data-aos-duration="1000">
+        <h1 data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"  data-aos-anchor-placement="center-bottom" >
+          About Vsource Overseas
+        </h1>
 
-          <div className="image-section">
-            <img src="https://vsourcevarsity.com/assets/images/founder.webp" alt="Founder" />
-            <p className="caption">
-              <strong style={{ fontSize: '20px' }}>“</strong>Redefining Education for Tomorrow’s Innovators<strong style={{ fontSize: '20px' }}>”</strong>
-            </p>
-          </div>
+        <p className="subheading" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="400" data-aos-anchor-placement="center-bottom">
+          <strong>Your Gateway to Global Academic Excellence</strong>
+        </p>
+
+        <p className="paragraph" data-aos="fade-right" data-aos-anchor-placement="center-bottom" data-aos-duration="1000" data-aos-delay="600">
+          At VSource Overseas, we specialize in transforming academic ambition into international achievement. 
+          With a legacy of over 20 years, we are proud to be South India’s premier consultancy for Master’s admissions abroad, 
+          guiding thousands of students to top-ranked universities across the <strong>USA, UK, Canada, Ireland, France</strong> 
+          and other leading destinations.
+        </p>
+
+        <p className="paragraph"  data-aos="fade-right" data-aos-anchor-placement="center-bottom"  data-aos-duration="1000" data-aos-delay="800">
+          We partner with globally accredited universities known for <strong>academic excellence, innovation, </strong>
+          and <strong>industry relevance,</strong> ensuring our students receive not only a quality education but also a 
+          launchpad for global careers.
+        </p>
+
+        <p className="paragraph"  data-aos="fade-right" data-aos-anchor-placement="center-bottom"  data-aos-duration="1000" data-aos-delay="1000">
+          <strong>Our Legacy in Numbers</strong>
+        </p>
+
+        {/* STATS SECTION */}
+        <div className="stats" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="700">
+          {stats.map((stat, index) => {
+            const count = useCounter(stat.value);
+            return (
+              <div 
+                key={stat.id} 
+                className="stat-block" 
+                data-aos="fade-up" data-aos-anchor-placement="center-bottom"
+                data-aos-duration="1000" 
+                data-aos-delay={800 + index * 200}
+              >
+                <img src={stat.icon} alt={stat.label} className="icon" />
+                <div className="stat-info">
+                  <div className="count">{count}{stat.suffix}</div>
+                  <div className="label">{stat.label}</div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <style>{`
-        .about-section {
-          font-family: 'Barlow', sans-serif;
-          background-color: #fff;
-          color: #333;
-          padding: 40px 20px;
-        }
+      {/* RIGHT IMAGE SECTION */}
+      <div 
+        className="image-section" 
+         data-aos="fade-left" data-aos-anchor-placement="center-bottom" 
+        data-aos-duration="1200" 
+        data-aos-delay="400"
+      >
+        <img 
+          src="https://vsourcevarsity.com/assets/images/founder.webp" 
+          alt="Founder" 
+         data-aos="fade-left" data-aos-anchor-placement="center-bottom"
+          data-aos-duration="1200" 
+          data-aos-delay="500" 
+        />
+        <p className="caption" data-aos="fade-left" data-aos-anchor-placement="center-bottom" data-aos-duration="1000" data-aos-delay="700">
+          <strong style={{ fontSize: '20px' }}>“</strong>
+          Redefining Education for Tomorrow’s Innovators
+          <strong style={{ fontSize: '20px' }}>”</strong>
+        </p>
+      </div>
+    </div>
+  </div>
 
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 15px;
-          box-sizing: border-box;
-        }
+  {/* CSS */}
+  <style>{`
+    .about-section {
+      font-family: 'Barlow', sans-serif;
+      background-color: #fff;
+      color: #333;
+      padding: 40px 20px;
+    }
 
-        .content {
-          display: flex;
-          flex-direction: column;
-          gap: 40px;
-          opacity: 0;
-          transform: translateY(50px);
-          transition: all 0.8s ease-out;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      box-sizing: border-box;
+    }
 
-        .content.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
 
-        .text-section {
-          flex: 2;
-        }
+    .content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .image-section {
-          flex: 1;
-          border: 1px solid grey;
-          border-radius: 15px;
-          padding: 5px;
-          text-align: center;
-          max-width: 800px;
-          margin: 0 auto;
-        }
+    .text-section {
+      flex: 2;
+    }
 
-        .stats {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          margin: 20px 0;
-          border-top: 1px solid #ccc;
-          border-bottom: 1px solid #ccc;
-          padding: 20px 0;
-        }
+    .image-section {
+      flex: 1;
+      border: 1px solid grey;
+      border-radius: 15px;
+      padding: 5px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-        .stat-block {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          text-align: left;
-        }
+    .stats {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin: 20px 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding: 20px 0;
+    }
 
-        .stat-block .icon {
-          width: 40px;
-          height: 40px;
-          object-fit: contain;
-          flex-shrink: 0;
-        }
+    .stat-block {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-align: left;
+    }
 
-        .stat-info {
-          display: flex;
-        }
+    .stat-block .icon {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
 
-        .count {
-          font-size: 20px;
-          color: #1e73be;
-          font-weight: bold;
-        }
+    .stat-info {
+      display: flex;
+    }
 
-        .label {
-          font-size: 20px;
-          color: #555;
-          margin-left: 8px;
-        }
+    .count {
+      font-size: 20px;
+      color: #1e73be;
+      font-weight: bold;
+    }
 
-        h1 {
-          font-size: 29px;
-          color: #1e73be;
-          margin-top: 20px;
-        }
+    .label {
+      font-size: 20px;
+      color: #555;
+      margin-left: 8px;
+    }
 
-        .subheading {
-          font-size: 20px;
-          margin-bottom: 20px;
-          color: black;
-          margin-top: 20px;
-        }
+    h1 {
+      font-size: 29px;
+      color: #1e73be;
+      margin-top: 20px;
+    }
 
-        .paragraph {
-          font-size: 15px;
-          line-height: 1.6;
-          color: black;
-          margin-bottom: 15px;
-          margin-top: 10px;
-        }
+    .subheading {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: black;
+      margin-top: 20px;
+    }
 
-        .caption {
-          font-size: 15px;
-          color: black;
-          margin-top: 10px;
-        }
+    .paragraph {
+      font-size: 15px;
+      line-height: 1.6;
+      color: black;
+      margin-bottom: 15px;
+      margin-top: 10px;
+    }
 
-        @media (min-width: 768px) {
-          .content {
-            flex-direction: row;
-            align-items: center;
-          }
+    .caption {
+      font-size: 15px;
+      color: black;
+      margin-top: 10px;
+    }
 
-          .stat-info {
-            flex-direction: row !important;
-            align-items: center;
-          }
+    @media (min-width: 768px) {
+      .content {
+        flex-direction: row;
+        align-items: center;
+      }
 
-          .stats {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-          }
+      .stat-info {
+        flex-direction: row !important;
+        align-items: center;
+      }
 
-          .stat-block {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-          }
-        }
-      `}</style>
-    </section>
+      .stats {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .stat-block {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  `}</style>
+</section>
+
   );
 };
 

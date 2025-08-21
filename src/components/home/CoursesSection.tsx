@@ -204,7 +204,7 @@ export default function CoursesSection() {
               {/* reserve image area */}
               <div className="col-span-6 md:col-span-5" aria-hidden />
               {/* content area */}
-              <div className="col-span-6 md:col-span-7 flex flex-col mt-14 md:mt-0 md:pl-3 lg:pl-4 md:pt-10 sm:pt-0 sm:mt-0">
+              <div className="col-span-6 md:col-span-7 flex flex-col  md:mt-0 md:pl-3 lg:pl-4 md:pt-10 sm:pt-0 sm:mt-0">
                 <div className="text-[#2563EB] text-xs md:text-sm font-semibold uppercase tracking-wide">
                   {c.tag}
                 </div>
@@ -215,17 +215,19 @@ export default function CoursesSection() {
                 <div className="mt-2 md:mt-3 text-[#0F172A] font-semibold">
                   Why Study in {shortLabel(c.country)}
                 </div>
-                <ul className="mt-2 space-y-1.5 md:space-y-2">
-                  {c.description.map((line, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2 text-[13.5px] md:text-[15px] lg:text-base text-[#334155]"
-                    >
-                      <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
-                      <span className="leading-snug">{line}</span>
-                    </li>
-                  ))}
-                </ul>
+               <ul className="mt-2 space-y-1.5 md:space-y-2">
+  {c.description.map((line, i) => (
+    <li
+      key={i}
+      className={`flex items-start gap-2 text-[13.5px] md:text-[15px] lg:text-base text-[#334155] 
+        ${i > 1 ? "hidden sm:flex" : ""}`}
+    >
+      <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
+      <span className="leading-snug">{line}</span>
+    </li>
+  ))}
+</ul>
+
               </div>
             </div>
           </div>
@@ -307,7 +309,9 @@ export default function CoursesSection() {
               onClick={prev}
               className="flex sm:hidden absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70 transition z-10"
             >
-              <h1 className="text-xl">‹</h1>
+              <h1 className="text-xl"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 7L10 12L15 17" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></h1>
             </button>
             <button
               type="button"
@@ -315,7 +319,10 @@ export default function CoursesSection() {
               onClick={next}
               className="flex sm:hidden absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70 transition z-10"
             >
-              <h1>›</h1>
+              <h1 className="text-xl"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M9 7L14 12L9 17" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</h1>
             </button>
 
             {/* Desktop/tablet arrows (unchanged) */}

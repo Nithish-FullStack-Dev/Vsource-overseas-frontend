@@ -4,7 +4,7 @@ const AboutSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-const stats = [
+  const stats = [
     {
       id: 1,
       value: 100,
@@ -57,73 +57,73 @@ const stats = [
     <section className="about-section" ref={sectionRef}>
       <div className="w-full max-w-[1400px] mx-auto px-4">
         <div className="top-section">
-       <div className="left">
-  {/* Heading */}
-  <h2
-    data-aos="fade-right"
-    data-aos-anchor-placement="center-bottom"
-    data-aos-duration="1000"
-    data-aos-delay="0"
-  >
-    About Vsource Overseas
-  </h2>
+          <div className="left">
+            {/* Heading */}
+            <h2
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="0"
+            >
+              About Vsource Overseas
+            </h2>
 
-  {/* Paragraph */}
-  <p
-    className="desc"
-    data-aos="fade-right"
-    data-aos-anchor-placement="center-bottom"
-    data-aos-duration="1000"
-    data-aos-delay="200"
-  >
-    At Vsource Overseas, we specialize in transforming{" "}
-    <strong>academic ambition into international achievement</strong>. 
-    With a legacy spanning over 20 years, we proudly stand as 
-    South India’s premier consultancy for master’s admissions abroad.
-  </p>
+            {/* Paragraph */}
+            <p
+              className="desc"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              At Vsource Overseas, we specialize in transforming{" "}
+              <strong>academic ambition into international achievement</strong>.
+              With a legacy spanning over 20 years, we proudly stand as
+              South India’s premier consultancy for master’s admissions abroad.
+            </p>
 
-  {/* Features List */}
-  <ul className="features">
-    <li
-      data-aos="fade-right"
-      data-aos-delay="400"
-      data-aos-duration="800"
-      data-aos-anchor-placement="center-bottom"
-    >
-      <img
-        src="https://cdn-icons-png.flaticon.com/128/10490/10490249.png"
-        alt="check"
-      />
-      Guided thousands of students to top-ranked universities
-    </li>
+            {/* Features List */}
+            <ul className="features">
+              <li
+                data-aos="fade-right"
+                data-aos-delay="400"
+                data-aos-duration="800"
+                data-aos-anchor-placement="center-bottom"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/10490/10490249.png"
+                  alt="check"
+                />
+                Guided thousands of students to top-ranked universities
+              </li>
 
-    <li
-      data-aos="fade-right"
-      data-aos-delay="600"
-      data-aos-duration="800"
-      data-aos-anchor-placement="center-bottom"
-    >
-      <img
-        src="https://cdn-icons-png.flaticon.com/128/3176/3176293.png"
-        alt="globe"
-      />
-      Expertise in destinations like the USA, UK, Canada, Ireland, and more
-    </li>
+              <li
+                data-aos="fade-right"
+                data-aos-delay="600"
+                data-aos-duration="800"
+                data-aos-anchor-placement="center-bottom"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/3176/3176293.png"
+                  alt="globe"
+                />
+                Expertise in destinations like the USA, UK, Canada, Ireland, and more
+              </li>
 
-    <li
-      data-aos="fade-right"
-      data-aos-delay="800"
-      data-aos-duration="800"
-      data-aos-anchor-placement="center-bottom"
-    >
-      <img
-        src="https://cdn-icons-png.flaticon.com/128/7339/7339281.png"
-        alt="university"
-      />
-      Direct partnerships with globally accredited universities
-    </li>
-  </ul>
-</div>
+              <li
+                data-aos="fade-right"
+                data-aos-delay="800"
+                data-aos-duration="800"
+                data-aos-anchor-placement="center-bottom"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/7339/7339281.png"
+                  alt="university"
+                />
+                Direct partnerships with globally accredited universities
+              </li>
+            </ul>
+          </div>
 
 
 
@@ -137,11 +137,14 @@ const stats = [
           </div>
         </div>
 
-     <div className="bottom-section">
-          {stats.map((stat) => {
+        <div className="bottom-section">
+          {stats.map((stat, i) => {
             const count = useCounter(stat.value);
             return (
-              <div key={stat.id} className="stat-box">
+              <div key={stat.id} className="stat-box" data-aos="fade-up"
+                data-aos-delay={i * 200}   
+                data-aos-duration="1000"
+                data-aos-anchor-placement="center-bottom">
                 <img src={stat.icon} alt="" className="icon" />
                 <div className="count">
                   {count.toLocaleString("en-IN")}
@@ -163,9 +166,18 @@ const stats = [
         }
         .container { max-width: 1200px; margin: 0 auto; }
 
-        .top-section { display: grid; grid-template-columns: 1fr; gap: 24px; }
+      .top-section {
+          display: grid;
+          grid-template-columns: 1fr;   
+          gap: 24px;
+        }
+
         @media (min-width: 768px) {
-          .top-section { grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+          .top-section {
+            grid-template-columns: 65% 30%; 
+            gap: 32px;
+            align-items: start;
+          }
         }
 
         .left { min-width: 0; }
@@ -204,7 +216,7 @@ const stats = [
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border: 1px solid #cbd5e1;
+          border: 1px solid #0069E9;
           border-radius: 8px;
           padding: 13px;
           min-height: 80px;
@@ -233,7 +245,7 @@ const stats = [
           color: #111;
           line-height: 1.3;
           text-align: right;
-              width: 30%;
+              width: 34%;
         }
 
         /* Ultra-small phones */
