@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 const AboutSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -9,7 +9,7 @@ const AboutSection: React.FC = () => {
       id: 1,
       value: 100,
       suffix: "k+",
-      label: "Students\nEmpowered",
+      label: "Students Empowered",
       icon: "/assets/images/icons/student.svg",
     },
     {
@@ -30,7 +30,12 @@ const AboutSection: React.FC = () => {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); obs.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect();
+        }
+      },
       { threshold: 0.2 }
     );
     if (sectionRef.current) obs.observe(sectionRef.current);
@@ -78,8 +83,8 @@ const AboutSection: React.FC = () => {
             >
               At Vsource Overseas, we specialize in transforming{" "}
               <strong>academic ambition into international achievement</strong>.
-              With a legacy spanning over 20 years, we proudly stand as
-              South India’s premier consultancy for master’s admissions abroad.
+              With a legacy spanning over 20 years, we proudly stand as South
+              India’s premier consultancy for master’s admissions abroad.
             </p>
 
             {/* Features List */}
@@ -107,7 +112,8 @@ const AboutSection: React.FC = () => {
                   src="https://cdn-icons-png.flaticon.com/128/3176/3176293.png"
                   alt="globe"
                 />
-                Expertise in destinations like the USA, UK, Canada, Ireland, and more
+                Expertise in destinations like the USA, UK, Canada, Ireland, and
+                more
               </li>
 
               <li
@@ -125,15 +131,21 @@ const AboutSection: React.FC = () => {
             </ul>
           </div>
 
-
-
-          <div className="right" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000" data-aos-anchor-placement="center-bottom">
+          <div
+            className="right"
+            data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="2000"
+            data-aos-anchor-placement="center-bottom"
+          >
             <img
               src="https://vsourcevarsity.com/assets/images/founder.webp"
               alt="Founder"
               className="founder-img"
             />
-            <p className="quote">“Redefining Education for Tomorrow’s Innovators”</p>
+            <p className="quote">
+              “Redefining Education for Tomorrow’s Innovators”
+            </p>
           </div>
         </div>
 
@@ -141,10 +153,14 @@ const AboutSection: React.FC = () => {
           {stats.map((stat, i) => {
             const count = useCounter(stat.value);
             return (
-              <div key={stat.id} className="stat-box" data-aos="fade-up"
-                data-aos-delay={i * 200}   
+              <div
+                key={stat.id}
+                className="stat-box"
+                data-aos="fade-up"
+                data-aos-delay={i * 200}
                 data-aos-duration="1000"
-                data-aos-anchor-placement="center-bottom">
+                data-aos-anchor-placement="center-bottom"
+              >
                 <img src={stat.icon} alt="" className="icon" />
                 <div className="count">
                   {count.toLocaleString("en-IN")}
@@ -209,6 +225,12 @@ const AboutSection: React.FC = () => {
         @media (min-width: 1024px) {
           .bottom-section {
             grid-template-columns: repeat(3, 1fr); /* desktop */
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .bottom-section {
+            margin:0
           }
         }
 
