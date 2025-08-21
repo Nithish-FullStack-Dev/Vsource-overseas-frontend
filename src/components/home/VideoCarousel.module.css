@@ -6,8 +6,8 @@
   text-align: center;
   padding: 40px 20px;
   font-family: sans-serif;
-  max-height: 80dvh;
-  height: 80vh;
+  /* max-height: 80dvh;
+  height: 80vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,8 +55,8 @@
 
 .videoCard {
   flex: 0 0 auto;
-  height: 60dvh;
-  aspect-ratio: 16 / 9;
+  height: auto;
+  aspect-ratio: 9 / 16;
   position: relative;
   opacity: 0.4;
   transform: scale(0.8);
@@ -104,7 +104,7 @@
   }
   40% {
     opacity: 1;
-    transform: scale(1) translateY(-30px);
+    transform: scale(1) translateY(-40px);
   }
   100% {
     opacity: 1;
@@ -272,9 +272,7 @@
   .carousel {
     gap: 10px;
   }
-  .videoCard {
-    height: 45dvh;
-  }
+
   .video {
     height: calc(100% - 80px);
   }
@@ -323,9 +321,7 @@
   .carousel {
     gap: 8px;
   }
-  .videoCard {
-    height: 40dvh;
-  }
+ 
   .video {
     height: calc(100% - 70px);
   }
@@ -355,7 +351,7 @@
 @media (max-width: 480px) {
   .wrapper {
     padding: 15px 5px;
-    height: 60dvh;
+    height: auto;
   }
   .title {
     font-size: 30px;
@@ -363,9 +359,7 @@
   .carousel {
     gap: 5px;
   }
-  .videoCard {
-    height: 45dvh;
-  }
+
   .video {
     height: calc(100% - 60px);
   }
