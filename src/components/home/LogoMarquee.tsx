@@ -48,7 +48,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({
   const repeated = [...logos, ...logos, ...logos, ...logos]; // Prevent gaps
 
   return (
-    <div className="relative overflow-hidden w-full py-8 md:py-10">
+    <div className="relative overflow-hidden w-full py-8 md:py-8">
       {/* Country heading */}
       <div className="flex justify-center">
         <h3 className="text-center text-2xl md:text-3xl font-bold text-blue-800 mb-6 tracking-wide relative after:content-[''] after:block after:w-16 after:h-[3px] after:bg-blue-600 after:mx-auto after:mt-2">

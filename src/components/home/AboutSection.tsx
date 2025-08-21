@@ -228,12 +228,6 @@ const AboutSection: React.FC = () => {
           }
         }
 
-        @media (min-width: 1024px) {
-          .bottom-section {
-            margin:0
-          }
-        }
-
         .stat-box {
           display: flex;
           align-items: center;
