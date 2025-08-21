@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const animatedTexts = [
-  ["STUDY MASTER'S", "IN USA, UK IRELAND, CANADA, FRANCE"],
+  ["STUDY MASTER'S", "IN USA, UK, IRELAND, CANADA, FRANCE"],
 ];
 
 const Hero = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [showText, setShowText] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,17 +18,11 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowText(true);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex flex-col justify-center text-white overflow-hidden pt-16 md:pt-0">
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 md:pt-0">
+      {/* Desktop Background Image */}
       <motion.div
-        className="hidden md:block absolute inset-0 z-0"
+        className="absolute inset-0 hidden md:block z-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -41,6 +34,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
       </motion.div>
 
+      {/* Mobile Background */}
       <motion.div
         className="block md:hidden absolute inset-0 bg-center bg-cover bg-no-repeat z-0"
         initial={{ y: 200, opacity: 0 }}
@@ -51,38 +45,40 @@ const Hero = () => {
         }}
       />
 
-      <div className="w-full z-10 pointer-events-none overflow-visible">
+      {/* Right-side Girl Image (Hidden on Mobile) */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
           src="/assets/images/vsource.png"
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute bottom-0 right-0 left-40 w-full max-h-[120vh] object-contain"
+          className="object-contain h-full max-h-[120vh]"
+          style={{ right: 0 }}
         />
       </div>
 
-      {/* Desktop Content with Animation */}
+      {/* Content */}
       <motion.div
-        className="w-full max-w-[1400px] mx-auto px-4 z-20 text-center lg:text-left p-0"
+        className="w-full max-w-[1400px] mx-auto px-4 z-20 text-center lg:text-left"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.5 }}
       >
         <div className="grid lg:grid-cols-2 gap-8 items-center">
+          {/* Desktop Left Content */}
           <div className="hidden md:block space-y-6 pt-28">
             <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 shadow-md max-w-3xl space-y-4">
               <motion.h1
-                  initial={{ opacity: 0, x: -80 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.7 }}
-                  className="text-[42px] md:text-[52px] leading-tight font-bold text-black max-w-2xl"
-                  style={{ fontFamily: "Poppins, sans-serif" }}
-                >
-                  Your <span style={{ color: "#e40000" }}>Global</span> Pathway <br /> to Academic{" "}
-                  <span style={{ color: "#e40000" }}>Excellence</span>
-                </motion.h1>
-
+                initial={{ opacity: 0, x: -80 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                className="text-[42px] md:text-[52px] leading-tight font-bold text-black max-w-2xl"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                Your <span className="text-red-600">Global</span> Pathway <br />
+                to Academic <span className="text-red-600">Excellence</span>
+              </motion.h1>
 
               <div className="space-y-1">
                 {animatedTexts[currentTextIndex].map((line, idx) => (
@@ -97,10 +93,9 @@ const Hero = () => {
                   </motion.p>
                 ))}
               </div>
-
-        
             </div>
 
+            {/* 20 Years Logo */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
@@ -114,6 +109,7 @@ const Hero = () => {
               />
             </motion.div>
 
+            {/* Buttons */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
@@ -148,6 +144,7 @@ const Hero = () => {
               </Link>
             </motion.div>
 
+            {/* Rating Info */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
@@ -167,6 +164,7 @@ const Hero = () => {
             </motion.div>
           </div>
 
+          {/* Mobile Content */}
           <div className="md:hidden relative flex flex-col min-h-screen pt-[250px] px-4 z-10 font-[Poppins]">
             <motion.div
               initial={{ opacity: 0, x: -60 }}
@@ -242,6 +240,7 @@ const Hero = () => {
         </div>
       </motion.div>
 
+      {/* Scroll Down Arrow */}
       <div className="absolute bottom-4 md:bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white/50 flex items-center justify-center">
           <svg
@@ -262,15 +261,8 @@ const Hero = () => {
       </div>
 
       <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    .animate-blink {
-      animation: blink 1.4s infinite;
-    }
-  `}</style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+      `}</style>
     </section>
   );
 };
