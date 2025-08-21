@@ -13,17 +13,20 @@ const firstRow: Highlight[] = [
 ];
 
 const secondRow: Highlight[] = [
-  { label: "Major Cities", value: "Manchester, Birmingham, Liverpool, Glasgow, Edinburgh" },
+  {
+    label: "Major Cities",
+    value: "Manchester, Birmingham, Liverpool, Glasgow, Edinburgh",
+  },
   { label: "No. of International Students", value: "10,00,000" },
   { label: "Top Sectors", value: "Health Care, IT, AI, Retail Trade" },
 ];
 
 /* ---- Brand colors ---- */
 const BRAND = {
-  sectionBg: "#FFFCFB",   // base
-  cardBg: "#E5EBF0",      // neutral surface
-  accent: "#E3000F",      // for small accents
-  text: "#111111",        // readable on light bg
+  sectionBg: "#FFFCFB", // base
+  cardBg: "#E5EBF0", // neutral surface
+  accent: "#E3000F", // for small accents
+  text: "#111111", // readable on light bg
 };
 
 function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
@@ -78,16 +81,25 @@ function useCountUp({
 }
 
 function extractNumberParts(input: string) {
-  const match = input.match(/[\d.,]+/);
+  // Only extract if string actually starts or ends with a number
+  const match = input.match(/(^[\d.,]+|[\d.,]+$)/);
   if (!match)
-    return { hasNumber: false as const, before: "", after: input, target: 0, decimals: 0 };
+    return {
+      hasNumber: false as const,
+      before: "",
+      after: input,
+      target: 0,
+      decimals: 0,
+    };
 
   const raw = match[0];
   const before = input.slice(0, match.index!);
   const after = input.slice(match.index! + raw.length);
   const cleaned = raw.replace(/,/g, "");
   const parsed = Number(cleaned);
-  const decimals = cleaned.includes(".") ? (cleaned.split(".")[1]?.length || 0) : 0;
+  const decimals = cleaned.includes(".")
+    ? cleaned.split(".")[1]?.length || 0
+    : 0;
 
   return {
     hasNumber: true as const,
@@ -106,8 +118,13 @@ export default function OverviewHighlights() {
     >
       {/* Heading + Subheading */}
       <div className="text-center">
-        <h2 className="text-3xl md:text-5xl font-bold text-black">UK OVERVIEW</h2>
-        <p className="mt-2 text-base md:text-lg font-semibold" style={{ color: BRAND.accent }}>
+        <h2 className="text-3xl md:text-5xl font-bold text-black">
+          UK OVERVIEW
+        </h2>
+        <p
+          className="mt-2 text-base md:text-lg font-semibold"
+          style={{ color: BRAND.accent }}
+        >
           HIGHLIGHTS
         </p>
       </div>
@@ -115,7 +132,12 @@ export default function OverviewHighlights() {
       {/* First row: 4 boxes on desktop */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
         {firstRow.map((item, idx) => (
-          <HighlightCard key={item.label} label={item.label} value={item.value} index={idx} />
+          <HighlightCard
+            key={item.label}
+            label={item.label}
+            value={item.value}
+            index={idx}
+          />
         ))}
       </div>
 
@@ -134,7 +156,11 @@ export default function OverviewHighlights() {
   );
 }
 
-function HighlightCard({ label, value, index = 0 }: Highlight & { index?: number }) {
+function HighlightCard({
+  label,
+  value,
+  index = 0,
+}: Highlight & { index?: number }) {
   const { ref, inView } = useInView<HTMLDivElement>();
 
   const parts = extractNumberParts(value);
@@ -164,14 +190,15 @@ function HighlightCard({ label, value, index = 0 }: Highlight & { index?: number
     transitionDuration: "600ms",
     transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
     transitionDelay: inView ? `${delayMs}ms` : "0ms",
-    // optional subtle border to define the card on off-white bg
     border: "1px solid rgba(0,0,0,0.05)",
   };
 
   const valueStyle: React.CSSProperties = {
     transform: inView ? "translateX(0)" : "translateX(-16px)",
     opacity: inView ? 1 : 0,
-    transition: `transform 520ms cubic-bezier(0.22,1,0.36,1) ${inView ? delayMs + 120 : 0}ms, opacity 520ms ${inView ? delayMs + 120 : 0}ms`,
+    transition: `transform 520ms cubic-bezier(0.22,1,0.36,1) ${
+      inView ? delayMs + 120 : 0
+    }ms, opacity 520ms ${inView ? delayMs + 120 : 0}ms`,
     willChange: "transform, opacity",
   };
 
@@ -188,12 +215,18 @@ function HighlightCard({ label, value, index = 0 }: Highlight & { index?: number
           style={{ backgroundColor: BRAND.accent }}
           className="inline-block h-4 w-1.5 rounded"
         />
-        <div className="text-lg md:text-base font-bold" style={{ color: BRAND.text }}>
+        <div
+          className="text-lg md:text-base font-bold"
+          style={{ color: BRAND.text }}
+        >
           {label}
         </div>
       </div>
 
-      <div className="mt-1 text-base md:text-lg leading-snug" style={{ ...valueStyle, color: BRAND.text }}>
+      <div
+        className="mt-1 text-base md:text-lg leading-snug"
+        style={{ ...valueStyle, color: BRAND.text }}
+      >
         {parts.hasNumber ? (
           <>
             {parts.before}
