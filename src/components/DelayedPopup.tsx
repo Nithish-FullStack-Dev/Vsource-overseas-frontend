@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { programToOption } from '../lib/Popups';
 
-const DelayedPopup = () => {
-  const [showPopup, setShowPopup] = useState(false);
+interface DelayedPopupProps {
+  onClose: () => void;
+}
+
+const DelayedPopup: React.FC<DelayedPopupProps> = ({ onClose }) => {
+  const [showPopup, setShowPopup] = useState(true);
   const [selectedOption, setSelectedOption] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [name, setName] = useState("");
   const hasPopupShown = useRef(false);
+  const [animateIn, setAnimateIn] = useState(false);
 
   const options = [
     "Masters in abroad",
@@ -17,12 +21,14 @@ const DelayedPopup = () => {
   ];
 
   useEffect(() => {
+    // animate entrance
+    setTimeout(() => setAnimateIn(true), 50);
+
     if (sessionStorage.getItem('popup_canceled') !== 'true') {
       hasPopupShown.current = false;
     }
 
     const formSubmitted = localStorage.getItem('vsource_form_submitted') === 'true';
-
     if (formSubmitted) return;
 
     const checkScrollPosition = () => {
@@ -60,8 +66,12 @@ const DelayedPopup = () => {
   }, [showPopup]);
 
   const handleClose = () => {
-    setShowPopup(false);
-    sessionStorage.setItem('popup_canceled', 'true');
+    setAnimateIn(false);
+    setTimeout(() => {
+      setShowPopup(false);
+      sessionStorage.setItem('popup_canceled', 'true');
+      onClose(); // 🔹 minimize into button
+    }, 300);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -75,6 +85,7 @@ const DelayedPopup = () => {
     alert("Thank you! We'll call you back shortly.");
     localStorage.setItem('vsource_form_submitted', 'true');
     setShowPopup(false);
+    onClose();
   };
 
   const handleOptionClick = (option: string) => {
@@ -85,11 +96,14 @@ const DelayedPopup = () => {
   if (!showPopup) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
-      <div className="relative w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 transition-opacity duration-300">
+      <div
+        className={`relative w-full max-w-md rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 ${
+          animateIn ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
+        }`}
+      >
         <div className="bg-white p-6 text-gray-800 rounded-2xl">
-         <div className="bg-red-500 text-white py-4 px-6 -mx-6 -mt-6 mb-6 text-center relative rounded-t-2xl">
-
+          <div className="bg-red-500 text-white py-4 px-6 -mx-6 -mt-6 mb-6 text-center relative rounded-t-2xl">
             <h2 className="text-xl font-bold mb-1">Save</h2>
             <p className="text-xl font-semibold">big on your application fees!</p>
             <button

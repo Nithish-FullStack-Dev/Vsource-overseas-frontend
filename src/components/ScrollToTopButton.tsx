@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronUp, MessageSquareMore } from 'lucide-react';
+import { ChevronUp, MessageSquareMore, FileText } from 'lucide-react';
+import DelayedPopup from './DelayedPopup';
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [showForm, setShowForm] = useState(false); // Controls form popup
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -22,13 +24,22 @@ const ScrollToTopButton = () => {
   };
 
   const openLiveChat = () => {
-    alert('Live chat started...'); // Replace with your actual chat logic
+    alert('Live chat started...'); // Replace with chat logic
   };
 
   return (
     <>
       {isVisible && (
         <>
+          {/* Store Form Button */}
+          <button
+            onClick={() => setShowForm(true)}
+            className="fixed bottom-44 right-6 z-40 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-colors md:bottom-32"
+            aria-label="Store Form"
+          >
+            <FileText className="h-6 w-6" />
+          </button>
+
           {/* Live Chat Button */}
           <button
             onClick={openLiveChat}
@@ -47,6 +58,11 @@ const ScrollToTopButton = () => {
             <ChevronUp className="h-6 w-6" />
           </button>
         </>
+      )}
+
+      {/* Popup Form */}
+      {showForm && (
+        <DelayedPopup onClose={() => setShowForm(false)} />
       )}
     </>
   );
