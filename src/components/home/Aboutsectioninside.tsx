@@ -85,13 +85,12 @@ const AboutSection: React.FC = () => {
               data-aos-duration="1000"
               data-aos-delay="200"
               data-aos-anchor-placement="center-bottom"
-              className="sm:text-center"
             >
               About Vsource Overseas
             </h1>
 
             <p
-              className="subheading sm:text-center"
+              className="subheading"
               data-aos="fade-right"
               data-aos-duration="1000"
               data-aos-delay="400"
@@ -221,7 +220,7 @@ const AboutSection: React.FC = () => {
 
     .content {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 40px;
       opacity: 0;
       transform: translateY(50px);
@@ -234,28 +233,29 @@ const AboutSection: React.FC = () => {
     }
 
     .text-section {
-      flex: 2;
+     
+    flex-basis: 60%;
+    max-width: 60%;
     }
 
     .image-section {
-      flex: 1;
       border: 1px solid grey;
-      border-radius: 15px;
-      padding: 5px;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
+    border-radius: 15px;
+    padding: 5px;
+    text-align: center;
+    max-width: 40%;
+    margin: 0 auto;
+    flex-basis: 40%;
     }
 
     .stats {
-      display: flex;
-      gap: 20px;
-      width: 87%;
-      margin: 0 auto;
-      justify-items: center;
-      align-items: center;
-      flex-direction: column;
-    }
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    /* margin: 0 auto; */
+    justify-items: center;
+    align-items: center;
+}
 
     .stat-block {
       display: flex;
@@ -288,15 +288,20 @@ const AboutSection: React.FC = () => {
       font-size: 20px;
       color: #555;
       margin-left: 8px;
-      text-align:right
+      text-align:right;
       flex-basis: 50%;
     }
 
     @media (max-width: 485px) {
-          .label {
-      font-size: 15px;
-      text-align: right;
+    
+         .label {
+        font-size: 15px;
+        width: 100%;
+        flex-basis: 30%;
     }
+        label:first-child{
+          margin-left: 0px;
+        }
     }
 
     h1 {
@@ -322,9 +327,19 @@ const AboutSection: React.FC = () => {
     }
 
     @media (max-width: 768px) {
-        .paragraph {
-          text-align:justify
-        }
+     .about-section {
+        padding: 20px ;
+      }
+      .paragraph {
+        text-align:justify
+      }
+      h1 {
+        font-size: 26px;
+      }
+      .subheading {
+        font-size: 18px;
+        margin-top: 10px;
+      }
     }
 
     .caption {
@@ -333,9 +348,9 @@ const AboutSection: React.FC = () => {
       margin-top: 10px;
     }
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
       .content {
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
       }
 
@@ -345,16 +360,24 @@ const AboutSection: React.FC = () => {
       }
 
       .stats {
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
       }
 
       .stat-block {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
+    width: 100%;
+}
+
+      .text-section {
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+.image-section {
+    max-width: 100%;
+    flex-basis: 100%;
+}
     }
   `}</style>
     </section>
