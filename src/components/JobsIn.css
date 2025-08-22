@@ -1,0 +1,45 @@
+/*! know their exp */
+
+.circle-wrapper {
+  position: relative;
+  height: auto;
+}
+
+.circle-img {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Circle positions */
+.circle-1 {
+  top: -55px;
+  left: -20px;
+}
+.circle-2 {
+  top: -55px;
+  right: -20px;
+}
+.circle-3 {
+  top: 0;
+  left: 20%;
+}
+.circle-4 {
+  top: 0;
+  right: 20%;
+}
+
+/* Smaller sizes */
+@media (max-width: 480px) {
+  .circle-wrapper {
+    height: auto;
+  }
+  .circle-img {
+    width: 60px;
+    height: 60px;
+  }
+}

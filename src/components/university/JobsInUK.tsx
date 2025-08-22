@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+// import "../../App.css";
+import "../JobsIn.css";
 
 /* small hook for scroll-in animation */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
@@ -34,7 +36,10 @@ const GearIcon = (p: React.SVGProps<SVGSVGElement>) => (
 );
 const PaletteIcon = (p: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...p}>
-    <path strokeWidth="2" d="M12 3a9 9 0 1 0 0 18h3a3 3 0 0 0 0-6h-1a2 2 0 0 1-2-2V9a6 6 0 0 0-6 6" />
+    <path
+      strokeWidth="2"
+      d="M12 3a9 9 0 1 0 0 18h3a3 3 0 0 0 0-6h-1a2 2 0 0 1-2-2V9a6 6 0 0 0-6 6"
+    />
     <circle cx="7.5" cy="10.5" r="1.2" fill="currentColor" />
     <circle cx="10" cy="6.5" r="1.2" fill="currentColor" />
     <circle cx="14" cy="6.5" r="1.2" fill="currentColor" />
@@ -59,7 +64,12 @@ const columns: Column[] = [
     color: "#E38B00",
     icon: BriefcaseIcon,
     salary: "₹ 5,00,000/",
-    jobs: ["Financial Manager", "Sales Representative", "Accountant", "Business Analyst"],
+    jobs: [
+      "Financial Manager",
+      "Sales Representative",
+      "Accountant",
+      "Business Analyst",
+    ],
   },
   {
     key: "engineering",
@@ -67,7 +77,12 @@ const columns: Column[] = [
     color: "#2563EB",
     icon: GearIcon,
     salary: "₹ 7,00,000/",
-    jobs: ["Project Manager", "Mechanical Engineer", "Chemical Engineer", "Software Developer"],
+    jobs: [
+      "Project Manager",
+      "Mechanical Engineer",
+      "Chemical Engineer",
+      "Software Developer",
+    ],
   },
   {
     key: "arts",
@@ -75,7 +90,12 @@ const columns: Column[] = [
     color: "#22A065",
     icon: PaletteIcon,
     salary: "₹ 6,00,000/",
-    jobs: ["Content Writer", "Marketing Manager", "Fashion Designer", "Journalist"],
+    jobs: [
+      "Content Writer",
+      "Marketing Manager",
+      "Fashion Designer",
+      "Journalist",
+    ],
   },
 ];
 
@@ -109,27 +129,50 @@ export default function JobsInUKFlow() {
         </div>
 
         {/* Alumni strip (kept minimal) */}
-        <div className="mt-12 text-center">
-          <div className="text-lg md:text-xl font-extrabold" style={{ color: ACCENT }}>
-            KNOW THEIR EXPERIENCES
-          </div>
-          <div className="mt-1 text-xs md:text-sm text-neutral-700">
-            OUR ALUMNI FROM 10+ COUNTRIES
+        <div className="mt-12 text-center relative">
+          {/* Heading */}
+          <div className="relative z-10">
+            <div
+              className="text-lg md:text-xl font-extrabold"
+              style={{ color: "#E53935" }}
+            >
+              KNOW THEIR EXPERIENCES
+            </div>
+            <div className="mt-1 text-xs md:text-sm text-neutral-700">
+              OUR ALUMNI FROM 10+ COUNTRIES
+            </div>
           </div>
 
-          <div className="mt-5 flex flex-wrap justify-center gap-4">
+          {/* Desktop / Tablet normal layout */}
+          <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/80?img=11",
-              "https://i.pravatar.cc/80?img=32",
-              "https://i.pravatar.cc/80?img=5",
-              "https://i.pravatar.cc/80?img=67",
-              "https://i.pravatar.cc/80?img=21",
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
             ].map((src, idx) => (
               <img
                 key={idx}
                 src={src}
                 alt="Alumni"
-                className="h-20 w-20 md:h-20 md:w-20 rounded-full object-cover"
+                className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
+              />
+            ))}
+          </div>
+
+          {/* Mobile circle layout */}
+          <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
+            {[
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
+            ].map((src, idx) => (
+              <img
+                key={idx}
+                src={src}
+                alt="Alumni"
+                className={`circle-img circle-${idx + 1}`}
               />
             ))}
           </div>
@@ -164,23 +207,36 @@ function FlowColumn({ col, index }: { col: Column; index: number }) {
         {/* centered title + icon */}
         <div className="flex items-center justify-center gap-2 px-5 pt-4">
           <col.icon width={18} height={18} />
-          <span className="font-semibold text-base md:text-lg text-center">{col.title}</span>
+          <span className="font-semibold text-base md:text-lg text-center">
+            {col.title}
+          </span>
         </div>
 
-        <div className="mx-5 my-3 h-px opacity-30" style={{ backgroundColor: "#fff" }} />
+        <div
+          className="mx-5 my-3 h-px opacity-30"
+          style={{ backgroundColor: "#fff" }}
+        />
 
         {/* white salary badge */}
         <div className="px-5 pb-5 flex justify-center">
           <div className="bg-white text-black rounded-md px-3 py-1.5 text-center shadow-sm">
-            <div className="text-[11px] md:text-xs opacity-80">Average Salary</div>
-            <div className="text-sm md:text-base font-extrabold">{col.salary}</div>
+            <div className="text-[11px] md:text-xs opacity-80">
+              Average Salary
+            </div>
+            <div className="text-sm md:text-base font-extrabold">
+              {col.salary}
+            </div>
           </div>
         </div>
 
         {/* connector that comes OUT of the header and meets the column line (taller now) */}
         <span
           className="absolute left-1/2 -translate-x-1/2 -bottom-3 h-8"
-          style={{ width: "2px", backgroundColor: col.color, borderRadius: "9999px" }}
+          style={{
+            width: "2px",
+            backgroundColor: col.color,
+            borderRadius: "9999px",
+          }}
           aria-hidden
         />
       </div>
@@ -190,7 +246,11 @@ function FlowColumn({ col, index }: { col: Column; index: number }) {
         {/* full-height line behind */}
         <span
           className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 z-0"
-          style={{ width: "2px", backgroundColor: col.color, borderRadius: "9999px" }}
+          style={{
+            width: "2px",
+            backgroundColor: col.color,
+            borderRadius: "9999px",
+          }}
           aria-hidden
         />
 
