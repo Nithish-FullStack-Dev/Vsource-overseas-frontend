@@ -171,8 +171,8 @@ export default function CoursesSection() {
   const Card = ({ c }: { c: Course }) => {
     const bg = encodeURI(c.image);
     return (
-      <div className="px-3 box-border h-full">
-        <div className="relative rounded-[15px] overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
+      <div className="px-3 box-border h-full py-6">
+        <div className="relative rounded-[15px]  overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
           <div className="relative aspect-square">
             <div
               className="absolute inset-0 bg-cover bg-center"
