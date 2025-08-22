@@ -16,12 +16,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
 
-  const options = [
-    "Masters in abroad",
-    "B.Tech in Naac A, A+, A++ UNIVERSITIES",
-    "MBBS in abroad",
-    "Education Loan Guidance",
-  ];
+  const options = ["Masters in abroad", "Education Loan Guidance"];
 
   // Animate form entrance
   useEffect(() => {
@@ -124,7 +119,9 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
               {/* Header */}
               <div className="bg-red-500 text-white py-4 px-6 -mx-6 -mt-6 mb-6 text-center relative rounded-t-2xl">
                 <h2 className="text-xl font-bold mb-1">Save</h2>
-                <p className="text-xl font-semibold">big on your application fees!</p>
+                <p className="text-xl font-semibold">
+                  big on your application fees!
+                </p>
                 <button
                   onClick={animateToIconAndClose}
                   className="absolute top-3 right-3 text-white hover:text-gray-200 transition-colors"
@@ -221,7 +218,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full bg-red-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-md transition duration-150 shadow-md"
+                  className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-4 rounded-md transition duration-150 shadow-md"
                 >
                   Request Callback
                 </button>
