@@ -9,8 +9,9 @@ import StudentVisaUK from "../components/university/StudentVisaUK";
 import PopularCourses from "../components/university/PopularCourses";
 import JobsInUK from "../components/university/JobsInUK";
 import LogoMarquee from "../components/university/LogoMarquee";
-import VideoCarousel from "../components/university/VideoCarousel";
+// import VideoCarousel from "../components/university/VideoCarousel";
 
+import VideoCarousel from "../components/home/VideoCarousel";
 const StudyUKPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,7 +54,8 @@ const StudyUKPage = () => {
         <JobsInUK />
       </section>
 
-      <VideoCarousel />
+      
+      <VideoCarousel/>
 
       {/* Small helpers for smooth anchor spacing under fixed header */}
       <style>{`
