@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-/* Scroll-in animation hook */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
@@ -19,7 +18,7 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
   return { ref, inView };
 }
 
-const ACCENT = "#0A9CF9"; // theme red
+const ACCENT = "#0A9CF9";
 
 type Course = {
   title: string;
@@ -31,8 +30,8 @@ const courses: Course[] = [
   { title: "Engineering & Technology", Icon: CogIcon },
   { title: "Computer Science & IT", Icon: CodeIcon },
   { title: "Hospitality & Tourism", Icon: GlobeIcon },
-  { title: "Fashion & Design", Icon: HangerIcon }, // updated icon
-  { title: "Social Science & Public Health", Icon: UsersIcon }, // updated icon
+  { title: "Fashion & Design", Icon: HangerIcon },
+  { title: "Social Science & Public Health", Icon: UsersIcon },
   { title: "Art & Architecture", Icon: ColumnIcon },
   { title: "Health Sciences", Icon: MedIcon },
 ];
@@ -43,7 +42,7 @@ export default function PopularCourses() {
   return (
     <section
       className="py-12 md:py-16"
-      style={{ backgroundColor: "rgba(245,246,248,1)" }} // light grey
+      style={{ backgroundColor: "rgba(245,246,248,1)" }}
     >
       <div
         ref={ref}
@@ -58,14 +57,39 @@ export default function PopularCourses() {
         <h2 className="text-center text-2xl md:text-3xl font-extrabold text-black tracking-wide">
           TOP COURSES IN FRANCE
         </h2>
-
-        {/* Cards grid */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {courses.map((c, i) => (
             <CourseCard key={c.title} course={c} index={i} />
           ))}
         </div>
       </div>
+      <style>{`
+        .hi-icon-wrap {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .hi-icon-wrap::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 80px;
+          height: 80px;
+          border: 3px solid #fff;
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .group:hover .hi-icon-wrap::after {
+          border-style: dashed;
+          animation: spinAround 9s linear infinite;
+        }
+        @keyframes spinAround {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+      `}</style>
     </section>
   );
 }
@@ -86,17 +110,18 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
           `opacity 600ms ${delay}ms`,
       }}
     >
-      {/* Make the colored block fill the whole card to avoid any white strip */}
       <div
-        className="group flex h-full min-h-[164px] flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8 hover:-translate-y-0.5 transition-transform"
+        className="group flex h-full min-h-[164px] flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8  transition-transform"
         style={{ backgroundColor: ACCENT }}
       >
-        <course.Icon
-          width={46}
-          height={46}
-          aria-hidden
-          className="transition-transform duration-300 ease-out group-hover:scale-110 will-change-transform"
-        />
+        <div className="hi-icon-wrap">
+          <course.Icon
+            width={46}
+            height={46}
+            aria-hidden
+            className="transition-transform duration-300 ease-out  will-change-transform"
+          />
+        </div>
         <div className="mt-4 text-center text-base md:text-lg font-semibold">
           {course.title}
         </div>
@@ -104,8 +129,6 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
     </div>
   );
 }
-
-/* ----------------- Icons (simple inline SVGs) ----------------- */
 
 function BriefcaseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -132,7 +155,7 @@ function CogIcon(props: React.SVGProps<SVGSVGElement>) {
       <circle cx="12" cy="12" r="3" strokeWidth="2" />
       <path
         strokeWidth="2"
-        d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .34 1.7 1.7 0 0 0-.87.34l-.26.15a2 2 0 0 1-2 0l-.26-.15a1.7 1.7 0 0 0-.87-.34A1.7 1.7 0 0 0 8 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.34-1 1.7 1.7 0 0 0-.34-.87l-.15-.26a2 2 0 0 1 0-2l.15-.26c.18-.32.28-.61.34-.87A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-1.87-.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 5 4.6c.26-.06.55-.16.87-.34l.26-.15a2 2 0 0 1 2 0l.26.15c.32.18.61.28.87.34A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.34c.32-.18.61-.28.87-.34l.26-.15a2 2 0 0 1 2 0l.26.15c.32.18.61.28.87.34A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.06.26.16.55.34.87l.15.26a2 2 0 0 1 0 2l-.15.26c-.18.32-.28.61-.34.87z"
+        d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .34 1.7 1.7 0 0 0-.87.34l-.26.15a2 2 0 0 1-2 0l-.26-.15a1.7 1.7 0 0 0-.87-.34A1.7 1.7 0 0 0 8 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.34-1 1.7 1.7 0 0 0-.34-.87l-.15-.26a2 2 0 0 1 0-2l.15-.26c.18-.32.28-.61.34-.87A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-1.87-.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 5 4.6c.26-.06.55-.16.87-.34l.26-.15a2 2 0 0 1 2 0l.26.15c.32.18.61.28.87.34A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.34c.32-.18.61-.28.87-.34l.26-.15a2 2 0 0 1 2 0l.26.15c.32.18.61.28.87.34A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06-.06A1.7 1.7 0 0 0 19.4 9c.06.26.16.55.34.87l.15.26a2 2 0 0 1 0 2l-.15.26c-.18.32-.28.61-.34.87z"
       />
     </svg>
   );
@@ -148,7 +171,6 @@ function GlobeIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-/* New: Fashion & Design — hanger icon */
 function HangerIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
@@ -160,7 +182,6 @@ function HangerIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-/* New: Social Science & Public Health — users/community icon */
 function UsersIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>

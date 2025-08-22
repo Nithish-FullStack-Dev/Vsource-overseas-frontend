@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-/* Scroll-in animation hook */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
@@ -19,14 +18,13 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
   return { ref, inView };
 }
 
-const ACCENT = "#0A9CF9"; // theme accent
+const ACCENT = "#0A9CF9";
 
 type Course = {
   title: string;
   Icon: React.FC<React.SVGProps<SVGSVGElement>>;
 };
 
-/* Updated for CANADA top programs */
 const courses: Course[] = [
   { title: "MBA", Icon: BriefcaseIcon },
   { title: "Data Science & Analytics", Icon: ChartIcon },
@@ -44,7 +42,7 @@ export default function PopularCourses() {
   return (
     <section
       className="py-12 md:py-16"
-      style={{ backgroundColor: "rgba(245,246,248,1)" }} // light grey
+      style={{ backgroundColor: "rgba(245,246,248,1)" }}
     >
       <div
         ref={ref}
@@ -59,14 +57,39 @@ export default function PopularCourses() {
         <h2 className="text-center text-2xl md:text-3xl font-extrabold text-black tracking-wide">
           POPULAR COURSES (CANADA)
         </h2>
-
-        {/* Cards grid */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {courses.map((c, i) => (
             <CourseCard key={c.title} course={c} index={i} />
           ))}
         </div>
       </div>
+      <style>{`
+        .hi-icon-wrap {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .hi-icon-wrap::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 80px;
+          height: 80px;
+          border: 3px solid #fff;
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .group:hover .hi-icon-wrap::after {
+           border-style: dashed;
+          animation: spinAround 9s linear infinite;
+        }
+        @keyframes spinAround {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+      `}</style>
     </section>
   );
 }
@@ -82,9 +105,7 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
       style={{
         transform: inView ? "translateY(0)" : "translateY(16px)",
         opacity: inView ? 1 : 0,
-        transition:
-          `transform 600ms cubic-bezier(0.22,1,0.36,1) ${delay}ms, ` +
-          `opacity 600ms ${delay}ms`,
+        transition: `transform 600ms cubic-bezier(0.22,1,0.36,1) ${delay}ms, opacity 600ms ${delay}ms`,
       }}
     >
       <div
@@ -92,15 +113,17 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
         style={{ boxShadow: "0 1px 0 rgba(16,24,40,0.04)" }}
       >
         <div
-          className="group flex flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8 hover:-translate-y-0.5 transition-transform"
+          className="group flex flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8  transition-transform"
           style={{ backgroundColor: ACCENT }}
         >
-          <course.Icon
-            width={46}
-            height={46}
-            aria-hidden
-            className="transition-transform duration-300 ease-out group-hover:scale-110 will-change-transform"
-          />
+          <div className="hi-icon-wrap">
+            <course.Icon
+              width={46}
+              height={46}
+              aria-hidden
+              className="transition-transform duration-300 ease-out will-change-transform"
+            />
+          </div>
           <div className="mt-4 text-center text-base md:text-lg font-semibold">
             {course.title}
           </div>
@@ -109,8 +132,6 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
     </div>
   );
 }
-
-/* ----------------- Icons (simple inline SVGs) ----------------- */
 
 function BriefcaseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -135,8 +156,14 @@ function ChartIcon(props: React.SVGProps<SVGSVGElement>) {
 function BrainCircuitIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <path strokeWidth="2" d="M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3v2a3 3 0 0 0 2 3v1a3 3 0 0 0 3 3" />
-      <path strokeWidth="2" d="M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3v2a3 3 0 0 1-2 3v1a3 3 0 0 1-3 3" />
+      <path
+        strokeWidth="2"
+        d="M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3v2a3 3 0 0 0 2 3v1a3 3 0 0 0 3 3"
+      />
+      <path
+        strokeWidth="2"
+        d="M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3v2a3 3 0 0 1-2 3v1a3 3 0 0 1-3 3"
+      />
       <circle cx="12" cy="8" r="1.2" strokeWidth="2" />
       <circle cx="12" cy="12" r="1.2" strokeWidth="2" />
       <circle cx="12" cy="16" r="1.2" strokeWidth="2" />

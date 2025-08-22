@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-/* Scroll-in animation hook */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
@@ -19,7 +18,7 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
   return { ref, inView };
 }
 
-const ACCENT = "#0A9CF9"; // theme red
+const ACCENT = "#0A9CF9";
 
 type Course = {
   title: string;
@@ -42,7 +41,7 @@ export default function PopularCourses() {
   return (
     <section
       className="py-12 md:py-16"
-      style={{ backgroundColor: "rgba(245,246,248,1)" }} // light grey
+      style={{ backgroundColor: "rgba(245,246,248,1)" }}
     >
       <div
         ref={ref}
@@ -57,14 +56,60 @@ export default function PopularCourses() {
         <h2 className="text-center text-2xl md:text-3xl font-extrabold text-black tracking-wide">
           POPULAR COURSES
         </h2>
-
-        {/* Cards grid */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {courses.map((c, i) => (
             <CourseCard key={c.title} course={c} index={i} />
           ))}
         </div>
       </div>
+
+      <style>
+        {`
+          .hi-icon-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+          }
+
+          .hi-icon-wrap svg {
+            position: relative;
+            z-index: 2;
+          }
+
+          /* Circle border */
+          .hi-icon-wrap::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: all 0.3s ease;
+          }
+
+          /* Hover effect with spinAround */
+          .group:hover .hi-icon-wrap::after {
+            border-style: dashed;
+            animation: spinAround 9s linear infinite;
+          }
+
+          @keyframes spinAround {
+            from {
+              transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+              transform: translate(-50%, -50%) rotate(360deg);
+            }
+          }
+        `}
+      </style>
     </section>
   );
 }
@@ -87,19 +132,20 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
     >
       <div
         className="h-full rounded-2xl bg-white"
-        // add a light ring to match the reference’s soft card look
         style={{ boxShadow: "0 1px 0 rgba(16,24,40,0.04)" }}
       >
         <div
-          className="group flex flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8 hover:-translate-y-0.5 transition-transform"
+          className="group flex flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8 transition-transform"
           style={{ backgroundColor: ACCENT }}
         >
-          <course.Icon
-            width={46}
-            height={46}
-            aria-hidden
-            className="transition-transform duration-300 ease-out group-hover:scale-110 will-change-transform"
-          />
+          <div className="hi-icon-wrap">
+            <course.Icon
+              width={46}
+              height={46}
+              aria-hidden
+              className="transition-transform duration-500 ease-out will-change-transform"
+            />
+          </div>
           <div className="mt-4 text-center text-base md:text-lg font-semibold">
             {course.title}
           </div>
@@ -109,8 +155,7 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
   );
 }
 
-/* ----------------- Icons (simple inline SVGs) ----------------- */
-
+/* ICON COMPONENTS */
 function BriefcaseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
@@ -155,8 +200,14 @@ function DnaIcon(props: React.SVGProps<SVGSVGElement>) {
 function BrainIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <path strokeWidth="2" d="M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3v2a3 3 0 0 0 2 3v1a3 3 0 0 0 3 3" />
-      <path strokeWidth="2" d="M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3v2a3 3 0 0 1-2 3v1a3 3 0 0 1-3 3" />
+      <path
+        strokeWidth="2"
+        d="M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3v2a3 3 0 0 0 2 3v1a3 3 0 0 0 3 3"
+      />
+      <path
+        strokeWidth="2"
+        d="M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3v2a3 3 0 0 1-2 3v1a3 3 0 0 1-3 3"
+      />
       <path strokeWidth="2" d="M12 6v12" />
     </svg>
   );
