@@ -260,7 +260,6 @@
   100% {
     opacity: 1;
     transform: scale(1, 1) translateY(0);
-
   }
 }
 
@@ -275,14 +274,11 @@
     transform: scale(1, 1.06) translateY(-6px);
   }
 
- 
-
   100% {
     opacity: 0.8;
     transform: scale(0.8) translateY(0);
   }
 }
-
 
 /* Responsive tweaks */
 @media (max-width: 1024px) {
@@ -347,10 +343,6 @@
 
   .carousel {
     gap: 5px;
-  }
-
-  .videoCard {
-    --meta-h: 60px;
   }
 
   .nameTag {

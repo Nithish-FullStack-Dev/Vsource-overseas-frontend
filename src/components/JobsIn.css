@@ -3,6 +3,7 @@
 .circle-wrapper {
   position: relative;
   height: auto;
+  padding: 10px 0;
 }
 
 .circle-img {
@@ -18,11 +19,11 @@
 /* Circle positions */
 .circle-1 {
   top: -55px;
-  left: -20px;
+  left: 0px;
 }
 .circle-2 {
   top: -55px;
-  right: -20px;
+  right: 0px;
 }
 .circle-3 {
   top: 0;
