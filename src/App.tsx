@@ -46,7 +46,7 @@ const App = () => {
       const scrollTop = window.scrollY + window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
       if (
-        scrollTop / docHeight >= 0.8 &&
+        scrollTop / docHeight >= 0.2 &&
         !localStorage.getItem("vsource_form_submitted")
       ) {
         setShowForm(true);
