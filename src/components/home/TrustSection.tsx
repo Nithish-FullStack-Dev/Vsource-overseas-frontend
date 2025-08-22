@@ -35,7 +35,7 @@ const services: Service[] = [
   },
   {
     backgroundImage:
-      "/assets/images/Trusted-section/Pre_&_Post_Landing_Support.jpg",
+      "/assets/images/Trusted-section/Pre_&_Post_Landing_Support.jpeg",
     icon: <MapPin size={40} color="#ffffffff" />,
     title: "Pre & Post Landing Support",
     description:
