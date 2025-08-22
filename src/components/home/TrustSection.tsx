@@ -71,7 +71,7 @@ const OurServices: React.FC = () => {
               backgroundImage: ` url(${service.backgroundImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundPosition: index === services.length - 1 ? "center 15%" : "center",
             }}
           >
             <div className="absolute inset-0 bg-black/50 rounded-[16px]"></div>

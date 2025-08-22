@@ -7,8 +7,8 @@ const AboutSection: React.FC = () => {
   const stats = [
     {
       id: 1,
-      value: 100,
-      suffix: "k+",
+      value: 100000,
+      suffix: "+",
       label: "Students Empowered",
       icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
     },
