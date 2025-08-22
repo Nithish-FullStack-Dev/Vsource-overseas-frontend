@@ -1,13 +1,9 @@
-/* VideoCarousel.module.css */
-
+/* Base layout */
 .wrapper {
   background: #000c1f;
   color: #fff;
   text-align: center;
   padding: 40px 20px;
-  font-family: sans-serif;
-  /* max-height: 80dvh;
-  height: 80vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,10 +15,6 @@
   font-size: 30px;
   color: #e40000;
   margin-bottom: 20px;
-}
-
-.highlight {
-  color: yellow;
 }
 
 .carouselContainer {
@@ -53,23 +45,27 @@
   display: none;
 }
 
+/* Card + overlay dim only over video area */
 .videoCard {
+  /* reserve space below video for labels */
+  --meta-h: 90px;
+
   flex: 0 0 auto;
-  height: auto;
   aspect-ratio: 9 / 16;
   position: relative;
-  opacity: 0.4;
+  opacity: 0.8;
   transform: scale(0.8);
   border-radius: 10px;
   overflow: hidden;
   border: 3px solid transparent;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   scroll-snap-align: center;
   cursor: pointer;
+
   animation: activeantiBounceEffect 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
 }
 
 .videoCard::after {
@@ -78,7 +74,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 90px);
+  height: calc(100% - var(--meta-h));
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   pointer-events: none;
@@ -87,49 +83,25 @@
 
 .activeCard {
   opacity: 1;
-  transform: scale(1);
-  border: 3px solid transparent;
   z-index: 2;
-  animation: activeBounceEffect 0.35s cubic-bezier(0.2, 0.8, 0.5, 1) forwards;
+  animation: activeBounceEffect 0.45s cubic-bezier(0.2, 0.8, 0.5, 1) forwards;
 }
 
 .activeCard::after {
   opacity: 0;
 }
 
-@keyframes activeBounceEffect {
-  0% {
-    opacity: 0.4;
-    transform: scale(0.8) translateY(0px);
-  }
-  40% {
-    opacity: 1;
-    transform: scale(1) translateY(-40px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0px);
-  }
-}
-
-@keyframes activeantiBounceEffect {
-  0% {
-    opacity: 0.4;
-    transform: scale(0.8) translateY(0px);
-  }
-  40% {
-    opacity: 1;
-    transform: scale(1) translateY(15px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0px);
-  }
+.videoArea {
+  position: relative;
+  width: 100%;
+  height: calc(100% - var(--meta-h));
 }
 
 .video {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: calc(100% - 90px);
+  height: 100%;
   object-fit: cover;
   border: none;
   border-radius: 7px;
@@ -141,62 +113,39 @@
   transition: border-color 0.1s ease-out;
 }
 
-.playOverlay {
-  position: absolute;
-  top: calc((100% - 90px) / 2);
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
-  z-index: 3;
-}
-
-.playIcon {
-  color: #fff;
-  font-size: 50px;
-}
-
-.arrowButtonLeft,
-.arrowButtonRight {
+.playButton {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  background-color: red;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
   border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  color: #fff;
   cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 5;
   display: flex;
-  justify-content: center;
   align-items: center;
-  transition: background-color 0.3s ease;
+  justify-content: center;
 }
 
-.arrowButtonLeft {
-  left: -15px;
+.playButton svg {
+  width: 70px;
+  height: 70px;
+  transition: transform 0.2s ease;
 }
 
-.arrowButtonRight {
-  right: -15px;
+.playButton svg circle {
+  fill: rgba(0, 0, 0, 0.6);
 }
 
-.arrowButtonLeft:disabled,
-.arrowButtonRight:disabled {
-  background-color: #555;
-  cursor: not-allowed;
+.playButton svg polygon {
+  fill: #fff;
 }
 
+.playButton:hover svg {
+  transform: scale(1.08);
+}
+
+/* Labels shown only when active */
 .nameTag {
   position: relative;
   margin-top: 20px;
@@ -234,7 +183,7 @@
 .activeCard .nameTag,
 .activeCard .descriptionTag {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(1);
   pointer-events: auto;
 }
 
@@ -250,6 +199,7 @@
   border-radius: 5px;
   font-size: 14px;
   font-weight: bold;
+  z-index: 3;
 }
 
 .studentTestimonials {
@@ -261,47 +211,91 @@
   color: #fff;
 }
 
-@media (max-width: 1024px) {
-  .wrapper {
-    padding: 30px 15px;
-    max-height: 80vh;
+.arrowButtonLeft,
+.arrowButtonRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: red;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.arrowButtonLeft {
+  left: -15px;
+}
+
+.arrowButtonRight {
+  right: -15px;
+}
+
+.arrowButtonLeft:disabled,
+.arrowButtonRight:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* ---- WAVE / BOUNCE ANIMATIONS ---- */
+/* In: small -> overshoot -> rebound -> overshoot -> settle */
+@keyframes activeBounceEffect {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.8) translateY(0);
   }
+  50% {
+    transform: scale(1, 1.05) translateY(14px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+
+  }
+}
+
+/* Out: wave-like smooth exit */
+@keyframes activeantiBounceEffect {
+  0% {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+  }
+
+  50% {
+    transform: scale(1, 1.06) translateY(-6px);
+  }
+
+ 
+
+  100% {
+    opacity: 0.8;
+    transform: scale(0.8) translateY(0);
+  }
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
   .title {
     font-size: 28px;
   }
+
   .carousel {
     gap: 10px;
   }
 
-  .video {
-    height: calc(100% - 80px);
-  }
-  .playOverlay {
-    width: 60px;
-    height: 60px;
-    top: calc((100% - 80px) / 2);
-  }
-  .playIcon {
-    font-size: 40px;
-  }
-  .arrowButtonLeft,
-  .arrowButtonRight {
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
-  }
-  .nameTag {
-    font-size: 15px;
-    padding: 7px 18px;
-    bottom: 10px;
-  }
-  .descriptionTag {
-    font-size: 13px;
-    bottom: 25px;
-  }
-  .videoCardText {
-    font-size: 13px;
-    padding: 4px 8px;
+  .videoCard {
+    --meta-h: 80px;
   }
 }
 
@@ -315,33 +309,26 @@
     background-repeat: no-repeat;
     min-height: 65dvh;
   }
+
   .title {
     font-size: 24px;
   }
+
   .carousel {
     gap: 8px;
   }
- 
-  .video {
-    height: calc(100% - 70px);
+
+  .videoCard {
+    --meta-h: 70px;
   }
-  .playOverlay {
-    width: 50px;
-    height: 50px;
-    top: calc((100% - 70px) / 2);
+
+  .arrowButtonLeft,
+  .arrowButtonRight {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
   }
-  .playIcon {
-    font-size: 35px;
-  }
-  .nameTag {
-    font-size: 14px;
-    padding: 6px 15px;
-    bottom: 10px;
-  }
-  .descriptionTag {
-    font-size: 12px;
-    bottom: 25px;
-  }
+
   .videoCardText {
     font-size: 12px;
     padding: 3px 6px;
@@ -353,33 +340,24 @@
     padding: 15px 5px;
     height: auto;
   }
+
   .title {
     font-size: 30px;
   }
+
   .carousel {
     gap: 5px;
   }
 
-  .video {
-    height: calc(100% - 60px);
+  .videoCard {
+    --meta-h: 60px;
   }
-  .playOverlay {
-    width: 40px;
-    height: 40px;
-    top: calc((100% - 60px) / 2);
-  }
-  .playIcon {
-    font-size: 30px;
-  }
+
   .nameTag {
     font-size: 20px;
     padding: 5px 10px;
-    bottom: 5px;
   }
-  .descriptionTag {
-    font-size: 10px;
-    bottom: 20px;
-  }
+
   .videoCardText {
     font-size: 10px;
     padding: 2px 4px;

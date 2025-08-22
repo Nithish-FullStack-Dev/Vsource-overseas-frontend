@@ -172,23 +172,23 @@ const Hero = () => {
               transition={{ duration: 0.8 }}
               className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[280px] text-left shadow-sm"
             >
-              <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide">
+              <p className="text-red-600 text-[18px] font-bold leading-tight uppercase tracking-wide">
                 GLOBAL
                 <br />
                 TOP
                 <br />
                 UNIVERSITIES
               </p>
-              <p className="text-[10px] text-orange-400 font-semibold mt-2 animate-blink">
+              <p className="text-[12px] text-orange-400 font-semibold mt-2 animate-blink">
                 FALL-INTAKE 2025-2026
               </p>
               <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit mx-auto">
-                {["fr", "us", "ie", "ca", "gb"].map((flag, idx) => (
+                {["gb", "us", "ca", "ie", "fr"].map((flag, idx) => (
                   <img
                     key={idx}
                     src={`https://flagcdn.com/${flag}.svg`}
                     alt={flag.toUpperCase()}
-                    className="w-4 h-4 object-cover rounded-full"
+                    className="w-8 h-8 object-cover rounded-full"
                   />
                 ))}
               </div>
@@ -217,22 +217,23 @@ const Hero = () => {
                 <p className="text-[18px] sm:text-[20px] font-semibold text-white leading-snug">
                   Your Gateway to
                 </p>
-                <p className="text-[18px] sm:text-[20px] font-semibold text-white">
+                <p className="text-[18px] sm:text-[20px] font-semibold text-white mb-[20px]">
                   <span className="text-red-600 font-bold">Global</span>{" "}
                   Academic Excellence
                 </p>
-                <div className="mt-4 space-y-1">
-                  {animatedTexts[currentTextIndex].map((line, idx) => (
-                    <motion.p
-                      key={idx}
-                      initial={{ opacity: 0, x: -50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 + idx * 0.3 }}
-                      className="text-sm text-white font-medium"
-                    >
-                      {line}
-                    </motion.p>
-                  ))}
+                <Link to="/explore"
+                  className="bg-[#D93F36] text-white px-3 py-3 rounded-md font-semibold text-lg hover:bg-[#c2352d] transition-colors">
+                  Explore Universities
+                </Link>
+                <div className="mt-[20px] inline-block">
+                <Link to="/book-counseling"
+                  className="bg-white border border-white text-black px-3 py-3  rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center justify-center  space-x-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>Book Free Counseling</span>
+                </Link>
                 </div>
               </motion.div>
             </div>

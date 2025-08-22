@@ -7,24 +7,24 @@ const AboutSection: React.FC = () => {
   const stats = [
     {
       id: 1,
-      value: 100,
-      suffix: "k+",
+      value: 100000,
+      suffix: "+",
       label: "Students Empowered",
-      icon: "/assets/images/icons/student.svg",
+      icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
     },
     {
       id: 2,
       value: 20,
       suffix: "+",
       label: "Years of\nExperience",
-      icon: "/assets/images/icons/award-badge.svg",
+      icon: "https://cdn-icons-gif.flaticon.com/15370/15370761.gif",
     },
     {
       id: 3,
       value: 10,
       suffix: "+",
       label: "Study Destinations",
-      icon: "/assets/images/icons/location.svg",
+      icon: "https://cdn-icons-gif.flaticon.com/15747/15747340.gif",
     },
   ];
 

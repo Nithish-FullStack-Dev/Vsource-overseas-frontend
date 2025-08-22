@@ -2,14 +2,15 @@ import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 
 const services = [
-  {
-    title: "BTECH",
+    {
+    title: "EDU LOAN",
     description:
-      "Igniting Your Journey To Engineering Excellence\nIn CSE (AI/ML)",
-    imageSrc: "/assets/images/badges/btech.jpeg",
-    externalUrl: "https://vsourcevarsity.com/",
-    logoSrc: "/assets/images/logo varsity.png",
+      "100% EDUCATION LOAN\nFOR BTECH IN NAAC A, A+, A++\nFOR MASTER IN US | UK | IRELAND | CANADA | FRANCE",
+    imageSrc: "/assets/images/badges/edu.jpg",
+    externalUrl: "https://www.vsourcefintech.com/",
+    logoSrc: "/assets/images/logo fintech.png",
   },
+
   {
     title: "MBBS IN ABROAD",
     description:
@@ -19,12 +20,12 @@ const services = [
     logoSrc: "/assets/images/mini logo.png",
   },
   {
-    title: "EDU LOAN",
+    title: "BTECH",
     description:
-      "100% EDUCATION LOAN\nFOR BTECH IN NAAC A, A+, A++\nFOR MASTER IN US | UK | IRELAND | CANADA | FRANCE",
-    imageSrc: "/assets/images/badges/edu.jpg",
-    externalUrl: "https://www.vsourcefintech.com/",
-    logoSrc: "/assets/images/logo fintech.png",
+      "Igniting Your Journey To Engineering Excellence\nIn CSE (AI/ML)",
+    imageSrc: "/assets/images/badges/btech.jpeg",
+    externalUrl: "https://vsourcevarsity.com/",
+    logoSrc: "/assets/images/logo varsity.png",
   },
 ];
 

@@ -67,7 +67,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2 relative z-20">
           <img
             alt="Vsource Logo"
-            className="h-12 md:h-14 w-auto object-contain rounded-xl shadow-md"
+            className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
             src="/assets/images/red vs logo.PNG"
           />
           <div>
