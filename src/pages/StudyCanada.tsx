@@ -9,8 +9,8 @@ import StudentVisacanada from "../components/canada/StudentVisacanada";
 import PopularCourses from "../components/canada/PopularCourses";
 import JobsIncanada from "../components/canada/JobsIncanada";
 import LogoMarquee from "../components/canada/LogoMarquee";
-import VideoCarousel from "../components/canada/VideoCarousel";
-
+// import VideoCarousel from "../components/canada/VideoCarousel";
+import VideoCarousel from "../components/home/VideoCarousel";
 const StudyCanada = () => {
   useEffect(() => {
     window.scrollTo(0, 0);

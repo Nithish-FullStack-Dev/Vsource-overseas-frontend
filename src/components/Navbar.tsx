@@ -37,6 +37,7 @@ const Navbar = () => {
     { name: 'About Us', path: '/about-us' },
     // Study in Destination will be injected here
     { name: '360 View', path: 'https://vsourceoverseas.com/360View/', external: true },
+    { name: 'Gallery', path: '/gallery' },
     { name: 'Branches', path: '/contact' },
   ];
 

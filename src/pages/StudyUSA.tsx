@@ -9,7 +9,8 @@ import StudentVisaUSA from "../components/usa/StudentVisaUSA";
 import PopularCourses from "../components/usa/PopularCourses";
 import JobsInUSA from "../components/usa/JobsInUSA";
 import LogoMarquee from "../components/usa/LogoMarquee";
-import VideoCarousel from "../components/usa/VideoCarousel";
+// import VideoCarousel from "../components/usa/VideoCarousel";
+import VideoCarousel from "../components/home/VideoCarousel";
 
 const StudyUSA = () => {
   useEffect(() => {
