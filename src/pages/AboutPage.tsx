@@ -560,7 +560,7 @@ const AboutPage = () => {
         {/* Content */}
         <div className="relative w-full max-w-[1400px] mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">About Us</h1>
+            <h1 className="text-4xl md:text-5xl text-red-600 font-bold mb-6">About Us</h1>
             <p className="text-xl text-gray-300">
               Learn about our journey, our team, and our mission to provide exceptional
               educational consultancy for over 20 years.

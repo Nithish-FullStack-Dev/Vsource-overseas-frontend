@@ -9,7 +9,8 @@ import StudentVisaFrance from "../components/france/StudentVisaFrance";
 import PopularCourses from "../components/france/PopularCourses";
 import JobsInFrance from "../components/france/JobsInFrance";
 import LogoMarquee from "../components/france/LogoMarquee";
-import VideoCarousel from "../components/france/VideoCarousel";
+// import VideoCarousel from "../components/france/VideoCarousel";
+import VideoCarousel from "../components/home/VideoCarousel";
 
 
 const StudyFrance = () => {

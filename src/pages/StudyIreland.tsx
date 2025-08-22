@@ -9,8 +9,8 @@ import StudentVisaireland from "../components/ireland/StudentVisaireland";
 import PopularCourses from "../components/ireland/PopularCourses";
 import JobsInireland from "../components/ireland/JobsInireland";
 import LogoMarquee from "../components/ireland/LogoMarquee";
-import VideoCarousel from "../components/ireland/VideoCarousel";
-
+// import VideoCarousel from "../components/ireland/VideoCarousel";
+import VideoCarousel from "../components/home/VideoCarousel";
 const StudyIreland = () => {
   useEffect(() => {
     window.scrollTo(0, 0);

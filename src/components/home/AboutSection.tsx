@@ -199,10 +199,10 @@ const AboutSection: React.FC = () => {
         .left { min-width: 0; }
         .right { display: flex; flex-direction: column; align-items: center; }
         h2 { font-size: clamp(22px, 3.6vw, 32px); font-weight: 700; margin: 0; }
-        .desc { font-size: clamp(14px, 2.5vw, 18px); margin: 12px 0 0; line-height: 1.6; }
+        .desc { font-size: clamp(14px, 2.5vw, 15px); margin: 12px 0 0; line-height: 1.6; }
 
         .features { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
-        .features li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: clamp(13px, 2.3vw, 16px); }
+        .features li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: clamp(13px, 2.3vw, 15px); }
         .features li img { width: 22px; height: 22px; margin-top: 2px; }
 
         .founder-img { width: 100%; max-width: 380px; border-radius: 10px; border: 1px solid #e5e7eb; }
