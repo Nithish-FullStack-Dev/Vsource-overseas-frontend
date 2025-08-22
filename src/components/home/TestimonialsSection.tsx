@@ -1,326 +1,284 @@
-import React, { useState } from 'react';
+import SectionTitle from "../SectionTitle";
+import AnimateOnScroll from "../AnimateOnScroll";
+import { useEffect, useState, useRef } from "react";
+
+const imagePaths = {
+  "Dakannagari Rohith Reddy": "/assets/images/DAKANNAGARI ROHITH REDDY  (USA).jpeg",
+  "Aninash Yadav": "/assets/images/ANINASH YADAV  (UK).jpeg",
+  "Duddempudi Sahana": "/assets/images/DUDDEMPUDI SAHANA  (USA).jpeg",
+  "Asar Ali Mohammed": "/assets/images/ASAR ALI MOHAMMED  (UK).jpeg",
+  "Moghal Saheera Begum": "/assets/images/MOGHAL SAHEERA BEGUM  (UK).jpeg",
+  "Harsha Vardhan Reddy": "/assets/images/HARSHA VARDHAN REDDY (USA).jpeg",
+  "Ashritha Reddy Beerelly": "/assets/images/ASHRITHA REDDY BEERELLY (UK).jpeg",
+  "Kannikanti Geethika Chowdary": "/assets/images/KANNIKANTI GEETHIKA CHOWDARY (USA).jpeg",
+  "Bojja Glory": "/assets/images/BOJJA GLORY (UK).jpeg",
+  "Khyathi Raguru": "/assets/images/KHYATHI RAGURU (USA).jpeg",
+  "Deekshith Kumar Gudepu": "/assets/images/DEEKSHITH KUMAR GUDEPU (UK).jpeg",
+  "Nithya Sree Bussu": "/assets/images/NITHYA SREE BUSSU (USA).jpeg",
+  "Kathi Tulasi": "/assets/images/KATHI TULASI (UK).jpeg",
+  "Preethi Kalva": "/assets/images/PREETHI KALVA (USA).jpeg",
+  "Sravya Sree Bussu": "/assets/images/SRAVYA SREE BUSSU (USA).jpeg",
+  "Pakala Meghana Reddy": "/assets/images/PAKALA MEGHANA REDDY (UK).jpeg",
+  "Soumya Gopagoni": "/assets/images/SOUMYA GOPAGONI (UK).jpeg",
+  "Adavalli Tharun Kumar": "/assets/images/ADAVALLI THARUN KUMAR (UK).jpeg",
+  "Ummagani Sai Kumar": "/assets/images/UMMAGANI SAI KUMAR (UK).jpeg",
+  "Priyanka": "/assets/images/Priyanka.jpg",
+};
 
 const testimonialsData = [
   {
-    id: 1,
-    name: "Mameni Mani Shashank",
-    quote: "I feel really happy to continue my studies under control of you. And thank you so much for your responding towards my queries and you teach me well about course you gave me a good University to complete my course. lot of people waiting for studying in a good University's and Colleges for their better future I think Vsource is the best. Thank you for your guidance.",
-    image: "https://vsourceoverseas.com/assets/TESTIMONIALS/thungathurthi_new.jpeg",
+    name: "Dakannagari Rohith Reddy",
+    testimonial:
+      "I had an amazing experience with Vsource. From day one, the team was supportive, patient, and always available to answer my questions. Their attention to detail ensured my visa application was perfect. Highly recommended",
   },
   {
-    id: 2,
-    name: "Priya Sharma",
-    quote: "Joining this program was the best decision for my career. The mentors are incredibly supportive, and the course material is highly relevant. I've gained practical skills that I use daily. Highly recommended for anyone looking to upskill!",
-    image: "https://vsourceoverseas.com/assets/TESTIMONIALS/murari_new.jpeg",
+    name: "Aninash Yadav",
+    testimonial:
+      "Vsource Consultancy made my dream of studying abroad a reality. Their expertise and step-by-step guidance made the entire process smooth and stress-free. Special thanks to the counsellors for being so responsive and professional",
   },
   {
-    id: 3,
-    name: "Rahul Kumar",
-    quote: "The personalized guidance helped me choose the perfect university abroad. The application process seemed daunting, but their team made it seamless. I'm now pursuing my dream course, all thanks to their expert advice.",
-    image: "https://vsourceoverseas.com/assets/TESTIMONIALS/jayaprakash_new.jpeg",
+    name: "Duddempudi Sahana",
+    testimonial:
+      "I'm truly grateful to Vsource Consultancy for their dedicated support throughout my student visa journey. They were transparent, thorough, and genuinely cared about my success. Thank you for making it happen",
   },
   {
-    id: 4,
-    name: "Anjali Singh",
-    quote: "From initial consultation to visa application, the entire journey was smooth. They genuinely care about your future and provide transparent information. My parents are also very happy with the choice I made with their help.",
-    image: "https://via.placeholder.com/150/FF33A8/FFFFFF?text=AS", // Still a placeholder, replace this
+    name: "Asar Ali Mohammed",
+    testimonial:
+      "The service I received from Vsource Consultancy exceeded all my expectations. They guided me through every step of the process, and their insights into the visa requirements were incredibly helpful. Highly trustworthy",
   },
   {
-    id: 5,
-    name: "Sandeep Reddy",
-    quote: "Exceptional support and deep knowledge of various international institutions. They helped me find scholarships that significantly reduced my financial burden. Truly a life-changing experience!",
-    image: "https://via.placeholder.com/150/33A8FF/FFFFFF?text=SR", // Still a placeholder, replace this
+    name: "Moghal Saheera Begum",
+    testimonial:
+      "Vsource Consultancy is hands down the best in the business. Their knowledge, efficiency, and personalized service made a complex process seem simple. I couldn't have asked for better support.",
   },
+  {
+    name: "Harsha Vardhan Reddy",
+    testimonial:
+      "From choosing the right country to preparing my documents, Vsource Consultancy was there with me at every stage. The staff is well-informed and very approachable. They turned a stressful process into an enjoyable journey.",
+  },
+  {
+    name: "Ashritha Reddy Beerelly",
+    testimonial:
+      "A big thank you to Vsource Consultancy! Their team helped me secure my visa without any hiccups. They were always available to clarify doubts and ensured every document was in perfect order.",
+  },
+  {
+    name: "Kannikanti Geethika Chowdary",
+    testimonial:
+      "Exceptional service! Vsource Consultancy guided me with patience and professionalism. Their attention to every detail made all the difference. I highly recommend them to anyone looking to study or work abroad.",
+  },
+  {
+    name: "Bojja Glory",
+    testimonial:
+      "The staff at VsourceConsultancy are true professionals. They know exactly what they're doing and keep you informed throughout the process. I am so thankful for their support and guidance.",
+  },
+  {
+    name: "Khyathi Raguru",
+    testimonial:
+      "I can't thank Vsource Consultancy enough. Their well-structured process, continuous communication, and honest advice gave me great confidence. My visa was approved smoothly, all thanks to their excellent work.",
+  },
+  {
+    name: "Deekshith Kumar Gudepu",
+    testimonial:
+      "Superb service from start to finish! The team was incredibly knowledgeable and handled my application with care and precision. Thank you, Vsource Consultancy, for your outstanding support.",
+  },
+  {
+    name: "Nithya Sree Bussu",
+    testimonial:
+      "I was impressed by how organized and efficient Vsource Consultancy is. They guided me on every requirement, kept me updated, and ensured my application was flawless. 100% satisfied",
+  },
+  {
+    name: "Kathi Tulasi",
+    testimonial:
+      "I had a wonderful experience with Vsource Consultancy. Their expert advice and friendly attitude made me feel at ease throughout the process. Highly recommended for anyone planning to go abroad",
+  },
+  {
+    name: "Preethi Kalva",
+    testimonial:
+      "Professional, friendly, and reliable — that's how I'd describe Abroad Consultancy. They handled my entire visa application seamlessly. Their commitment is commendable",
+  },
+  {
+    name: "Sravya Sree Bussu",
+    testimonial:
+      "Vsource Consultancy offers a rare combination of professionalism and personal attention. They helped me with everything — from choosing universities to visa documentation. Thank you for making it so easy",
+  },
+  {
+    name: "Pakala Meghana Reddy",
+    testimonial:
+      "If you're confused about how to start your study abroad journey, look no further than Vsource Consultancy. They are incredibly supportive and efficient. I had a flawless experience",
+  },
+  {
+    name: "Soumya Gopagoni",
+    testimonial:
+      "I was nervous about the visa process, but Vsource Consultancy made it completely hassle-free. Their team is approachable, experienced, and always ready to help. A big thank you",
+  },
+  {
+    name: "Adavalli Tharun Kumar",
+    testimonial:
+      "Thanks to Vsource Consultancy, I'm now on my way to study in Canada! Their guidance was thorough, and they followed up consistently to make sure I didn't miss anything. Great team",
+  },
+  {
+    name: "Ummagani Sai Kumar",
+    testimonial:
+      "The best decision I made was choosing Vsource Consultancy for my student visa. They are reliable, knowledgeable, and genuinely interested in your success. I highly recommend their services.",
+  },
+  {
+    name: "Priyanka",
+    testimonial:
+      "Outstanding experience with Vsource Consultancy. Their team is well-trained, courteous, and fully committed to helping clients achieve their goals. Thank you for your constant support and encouragement",
+  },
+  // [ ...your existing testimonial data... ]
 ];
 
-const TestimonialSection: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function TestimonialsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
-  const currentTestimonial = testimonialsData[activeIndex];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) =>
+        prev === testimonialsData.length - 1 ? 0 : prev + 1
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.scrollTo({
+      left: currentIndex * sliderRef.current.clientWidth,
+      behavior: "smooth",
+    });
+  }, [currentIndex]);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? testimonialsData.length - 1 : prev - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) =>
+      prev === testimonialsData.length - 1 ? 0 : prev + 1
+    );
+  };
 
   return (
-    <section className="testimonial-section">
-      <h2 className="section-title">TESTIMONIALS</h2>
-      <div className="testimonial-content-area"> {/* New div to center the testimonial content */}
-        <div className="testimonial-image-wrapper">
-          <img
-            src={currentTestimonial.image}
-            alt={currentTestimonial.name}
-            className="testimonial-image"
-          />
+    <section className="py-12 md:py-16 bg-gray-50 relative overflow-hidden">
+      <style>
+        {`
+          @keyframes moveBackground {
+            0% { background-position: 0 0; }
+            100% { background-position: -100% 0; }
+          }
+          .animated-bg {
+            background-image: url('/assets/images/badges/bg test.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.25;
+          }
+          @media (max-width: 640px) {
+            .animated-bg {
+              background-size: 200% 100%;
+              background-repeat: repeat-x;
+              animation: moveBackground 40s linear infinite;
+            }
+          }
+        `}
+      </style>
+
+      {/* Background */}
+      <div className="animated-bg z-0"></div>
+
+      <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        <div className="max-w-3xl mx-auto text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-red-600 drop-shadow-lg">
+            Success Stories
+          </h2>
+          <p className="text-base md:text-lg text-black-900 mt-20 mt-35">
+            Hear from our students who have achieved their academic and career goals with our guidance.
+          </p>
         </div>
-        <p className="testimonial-quote">
-          <span className="quote-icon">“</span>{currentTestimonial.quote}
-        </p>
-        <p className="testimonial-author">
-          - {currentTestimonial.name}
-        </p>
+
+        {/* Desktop */}
+        <div className="hidden sm:block relative h-[400px] w-full">
+          <div className="flex items-center justify-center h-full">
+            <div className="bg-white bg-opacity-70 text-black p-5 rounded-xl max-w-4xl w-full mx-auto">
+              <div className="flex items-center gap-6">
+                <div className="flex-shrink-0">
+                  <img
+                    src={imagePaths[testimonialsData[currentIndex].name]}
+                    alt={testimonialsData[currentIndex].name}
+                    loading="lazy"
+                    className="rounded-full w-36 h-36 object-cover shadow-lg"
+                  />
+                </div>
+                <div className="flex-grow">
+                  <p className="text-lg md:text-xl mb-4 italic leading-relaxed">"{testimonialsData[currentIndex].testimonial}"</p>
+                  <h3 className="text-xl md:text-2xl font-semibold">{testimonialsData[currentIndex].name}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white border border-black rounded-full p-3 shadow-md z-20 hover:bg-gray-100 transition-colors"
+          >
+            ◀
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white border border-black rounded-full p-3 shadow-md z-20 hover:bg-gray-100 transition-colors"
+          >
+            ▶
+          </button>
+        </div>
+
+        {/* Mobile */}
+        <div className="sm:hidden relative py-4">
+          <div
+            ref={sliderRef}
+            className="flex overflow-x-hidden scroll-smooth snap-x snap-mandatory px-4"
+          >
+            {testimonialsData.map(({ name, testimonial }, i) => (
+              <div
+                key={i}
+                className="snap-center flex-shrink-0 w-full max-w-xs mx-auto bg-white bg-opacity-70 text-black p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition-all duration-300"
+              >
+                <div className="mb-4">
+                  <img
+                    src={imagePaths[name]}
+                    alt={name}
+                    loading="lazy"
+                    className="rounded-full w-24 h-24 object-cover mx-auto shadow-md"
+                  />
+                </div>
+                <p className="text-md italic mb-3">"{testimonial}"</p>
+                <h3 className="text-lg font-semibold">{name}</h3>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={handlePrev}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white border border-black rounded-full p-2 shadow-md z-10"
+          >
+            ◀
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white border border-black rounded-full p-2 shadow-md z-10"
+          >
+            ▶
+          </button>
+        </div>
       </div>
-      <div className="pagination-dots">
-        {testimonialsData.map((_, index) => (
-          <span
-            key={index}
-            className={`dot ${index === activeIndex ? 'active' : ''}`}
-            onClick={() => setActiveIndex(index)}
-          ></span>
-        ))}
-      </div>
-
-      {/* Contact icons moved outside the testimonial content area */}
-     
-
-      <style jsx>{`
-        .testimonial-section {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 50px 20px;
-          background-color: #f8f8f8;
-          position: relative;
-          overflow: hidden;
-          background-image: url('https://vsourceoverseas.com/assets/images/map.png');
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: cover;
-          min-height: 500px; /* Adjust min-height as needed for content and icons */
-        }
-
-        .section-title {
-          font-size: 2.5em;
-          font-weight: bold;
-          color: #333;
-          margin-bottom: 50px;
-          text-align: center;
-          text-transform: uppercase;
-        }
-
-        /* New container for centering testimonial text content */
-        .testimonial-content-area {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          max-width: 800px; /* Keeps the text width reasonable */
-          text-align: center;
-          position: relative; /* For image positioning */
-          margin-bottom: 30px;
-          min-height: 250px; /* Ensure consistent height for different quotes */
-          justify-content: center;
-          /* Removed background-color, padding, border-radius, box-shadow */
-        }
-
-        .testimonial-image-wrapper {
-          width: 120px;
-          height: 120px;
-          border-radius: 50%;
-          overflow: hidden;
-          border: 4px solid #f00; /* Red border for the image */
-          position: absolute; /* Relative to .testimonial-content-area */
-          top: -60px; /* Position image above the text content */
-          background-color: #fff; /* White background for the image border itself */
-          padding: 5px; /* Creates a small white border effect */
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-          z-index: 1; /* Ensure image is above other elements if overlaps */
-          margin:20px 0px;
-        }
-
-        .testimonial-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 50%;
-          
-        }
-
-        .testimonial-quote {
-          font-size: 1.2em;
-          line-height: 1.6;
-          color: #555; /* Adjusted color for better contrast on map background */
-          padding-top:30px;
-          margin-top: 60px; /* Space for the image */
-          margin-bottom: 20px;
-          position: relative;
-          font-style: italic;
-          transition: opacity 0.5s ease-in-out;
-        }
-
-        .quote-icon {
-          font-family: Georgia, serif;
-          font-size: 4em;
-          color: #f00;
-          position: absolute;
-          left: -40px;
-          top: -20px;
-          opacity: 0.7;
-          /* Ensure this icon is visible if it was behind the map previously */
-          z-index: 0; 
-        }
-
-        .testimonial-author {
-          font-size: 1.1em;
-          font-weight: bold;
-          color: #f00;
-          text-align: center;
-          margin-top: 15px;
-          transition: opacity 0.5s ease-in-out;
-        }
-
-        .pagination-dots {
-          display: flex;
-          gap: 10px;
-          margin-top: 20px;
-        }
-
-        .dot {
-          width: 10px;
-          height: 10px;
-          background-color: #ccc;
-          border-radius: 50%;
-          cursor: pointer;
-          transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .dot.active {
-          background-color: #f00;
-          transform: scale(1.2);
-        }
-
-        /* Contact icons - positioned globally within the section */
-        .contact-icons-left {
-          position: absolute;
-          bottom: 20px;
-          left: 20px;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-          z-index: 10; /* Ensure icons are above other content */
-        }
-
-        .contact-icons-right {
-          position: absolute;
-          bottom: 20px;
-          right: 20px;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-          z-index: 10; /* Ensure icons are above other content */
-        }
-
-        .phone-icon,
-        .whatsapp-icon {
-          font-size: 2em;
-          color: #fff;
-          background-color: #007bff; /* Phone icon color */
-          border-radius: 50%;
-          width: 50px;
-          height: 50px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-          transition: transform 0.2s ease;
-        }
-
-        .whatsapp-icon {
-          background-color: #25d366; /* WhatsApp green */
-        }
-
-        .phone-icon:hover,
-        .whatsapp-icon:hover {
-          transform: scale(1.1);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-          .testimonial-content-area {
-            padding: 30px 15px; /* Add some horizontal padding for text on smaller screens */
-            min-height: 200px;
-          }
-
-          .section-title {
-            font-size: 2em;
-          }
-
-          .testimonial-quote {
-            font-size: 1em;
-            margin-top: 50px;
-          }
-
-          .testimonial-image-wrapper {
-            width: 100px;
-            height: 100px;
-            top: -50px;
-          }
-
-          .quote-icon {
-            font-size: 3em;
-            left: -20px;
-            top: -10px;
-          }
-
-          .contact-icons-left,
-          .contact-icons-right {
-            bottom: 10px;
-            left: 10px; /* Adjust positioning for small screens */
-            right: 10px;
-            flex-direction: row; /* Make them horizontal on small screens if desired */
-            gap: 10px;
-          }
-          .contact-icons-right {
-              left: auto; /* Reset left for right icon */
-          }
-
-
-          .phone-icon,
-          .whatsapp-icon {
-            width: 40px;
-            height: 40px;
-            font-size: 1.5em;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .testimonial-section {
-            padding: 30px 15px;
-            min-height: 450px;
-          }
-
-          .section-title {
-            font-size: 1.8em;
-            margin-bottom: 40px;
-          }
-
-          .testimonial-content-area {
-            padding: 20px 10px;
-            min-height: 180px;
-          }
-
-          .testimonial-image-wrapper {
-            width: 80px;
-            height: 80px;
-            top: -40px;
-          }
-
-          .testimonial-quote {
-            margin-top: 40px;
-          }
-
-          .quote-icon {
-            font-size: 2.5em;
-            left: -15px;
-            top: -5px;
-          }
-
-          .contact-icons-left,
-          .contact-icons-right {
-            bottom: 5px; /* Further reduce spacing */
-            left: 5px;
-            right: 5px;
-          }
-        }
-      `}</style>
     </section>
   );
-};
-
-export default TestimonialSection;
+}
