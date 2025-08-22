@@ -32,7 +32,8 @@ const queryClient = new QueryClient();
 const App = () => {
   const faqRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(true);
+  const [showFormIcon, setShowFormIcon] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -71,11 +72,25 @@ const App = () => {
           </main>
           <ContactBar />
           <Footer />
-          {showForm && (
-            <DelayedPopup onClose={() => setShowForm(false)} />
-          )}
+
           {/* <WhatsAppButton /> */}
-          <ScrollToTopButton />
+          <ScrollToTopButton
+            showFormIcon={showFormIcon}
+            onFormIconClick={() => {
+              setShowForm(true);
+              setShowFormIcon(false);
+            }}
+          />
+            {showForm && (
+        <DelayedPopup
+          // When the user closes the form, it animates into the icon position,
+          // then we hide the form and show the icon.
+          onMinimize={() => {
+            setShowForm(false);
+            setShowFormIcon(true);
+          }}
+        />
+      )}
         </div>
       </TooltipProvider>
     </QueryClientProvider>
