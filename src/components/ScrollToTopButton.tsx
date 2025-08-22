@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { ChevronUp, MessageSquareMore, FileText } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Props {
-  showFormIcon: boolean;             // controls when the icon should show
-  onFormIconClick: () => void;       // reopen the form
+  showFormIcon: boolean; // controls when the icon should show
+  onFormIconClick: () => void; // reopen the form
 }
 
-const ScrollToTopButton: React.FC<Props> = ({ showFormIcon, onFormIconClick }) => {
+const ScrollToTopButton: React.FC<Props> = ({
+  showFormIcon,
+  onFormIconClick,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -27,13 +35,18 @@ const ScrollToTopButton: React.FC<Props> = ({ showFormIcon, onFormIconClick }) =
         <>
           {/* Form Icon (only appears AFTER user closed the form) */}
           {showFormIcon && (
-            <button
-              onClick={onFormIconClick}
-              className="fixed bottom-44 right-6 z-40 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-colors md:bottom-32"
-              aria-label="Open Form"
-            >
-              <FileText className="h-6 w-6" />
-            </button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={onFormIconClick}
+                  className="fixed bottom-44 right-6 z-40 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-colors md:bottom-32 mb-3"
+                  aria-label="Open Form"
+                >
+                  <FileText className="h-6 w-6" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>Request form</TooltipContent>
+            </Tooltip>
           )}
 
           {/* Live Chat Button */}
