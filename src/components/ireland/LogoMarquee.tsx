@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 
@@ -75,64 +75,37 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ logos, reverse = false }) => {
 };
 
 const LogoMarquee = () => {
-  const usLogos = [
-    '/assets/images/logos/Manhattan_College.png',
-    '/assets/images/logos/northeastern.png',
-    '/assets/images/logos/st.png',
-    '/assets/images/logos/Stevens.png',
-    '/assets/images/logos/texas.png',
-    '/assets/images/logos/ucm.png',
-    '/assets/images/logos/UMass_Boston.png',
-    '/assets/images/logos/umassd.png',
-    '/assets/images/logos/University_Y.png',
-    '/assets/images/logos/WRIGHTSTATE.png',
-    '/assets/images/logos/virginia.png',
+  const irelandLogos1 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/Atlantic.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ATU.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dublin.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dublin.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/university-of-limerick.png",
   ];
 
-  const ukLogos = [
-    '/assets/images/countries/ARU-logo.jpg',
-    '/assets/images/countries/aston.png',
-    '/assets/images/countries/bcu.jpg',
-    '/assets/images/countries/Black-Logo.png',
-    '/assets/images/countries/cardiff-university.png',
-    '/assets/images/countries/sussex.png',
-    '/assets/images/countries/coventry-university.jpg',
-    '/assets/images/countries/TU.png',
-    '/assets/images/countries/UON-Logo.png',
-    '/assets/images/countries/university-of-warwick-warw7046.jpg',
+  const irelandLogos2 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dundaik.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/griffith.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ibat.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/limerick.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/tus.jpg",
   ];
 
-  const btechLogos = [
-    '/assets/images/CANADA/61Fa-pNEFXL._AC_UF894,1000_QL80_.jpg',
-    '/assets/images/CANADA/algoma_logo_rgb_colour.jpg',
-    '/assets/images/CANADA/download (1).png',
-    '/assets/images/CANADA/download.jpg',
-    '/assets/images/CANADA/Graphic-Standards-Guide_FDU-Logo-Plain-2C-Update23.jpg',
-    '/assets/images/CANADA/ibu-logo.jpg',
-
-    '/assets/images/CANADA/images (1).png',
-    '/assets/images/CANADA/images (2).png',
-    '/assets/images/CANADA/images.png',
-    '/assets/images/CANADA/Logo_York_University.svg.png',
-    '/assets/images/CANADA/NYIT logo(1).png',
-    '/assets/images/CANADA/sfu-logo@2x-1.png',
-    '/assets/images/CANADA/toronto2.png',
+  const irelandLogos3 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/maynooth.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/mtu.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/nci.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ollscil.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/tusmidland.jpg",
   ];
 
-  const mbbsLogos = [
-    '/assets/images/IRELAND/Atlantic-Technological-University-removebg-preview.png',
-    '/assets/images/IRELAND/ATU Logo.png',
-    '/assets/images/IRELAND/dublin-city-university-dcu-vector-logo.png',
-    '/assets/images/IRELAND/images (1).jpg',
-    '/assets/images/IRELAND/images (2).jpg',
-    '/assets/images/IRELAND/images (3).png',
-
-    '/assets/images/IRELAND/images (4).png',
-    '/assets/images/IRELAND/images.jpg',
-    '/assets/images/IRELAND/images.png',
-    '/assets/images/IRELAND/Logo-UGalway-2-removebg-preview.png',
-    '/assets/images/IRELAND/MTU_Logo_Colour_RGB_300dpi.jpg',
-    '/assets/images/IRELAND/NCI_Logo_colour.png',
+  const irelandLogos4 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ollsgol.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/SETU.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/tollscoil.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/trinity.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/university-college-dublin.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/University_College_Cork.png",
   ];
 
   return (
@@ -148,10 +121,10 @@ const LogoMarquee = () => {
 
           <AnimateOnScroll>
             <div className="mt-6 md:mt-10 relative overflow-hidden px-2 md:px-4 space-y-4">
-              <MarqueeRow logos={usLogos} />
-              <MarqueeRow logos={ukLogos} reverse />
-              <MarqueeRow logos={btechLogos} />
-              <MarqueeRow logos={mbbsLogos} reverse />
+              <MarqueeRow logos={irelandLogos1} />
+              <MarqueeRow logos={irelandLogos2} reverse />
+              <MarqueeRow logos={irelandLogos3} />
+              <MarqueeRow logos={irelandLogos4} reverse />
             </div>
           </AnimateOnScroll>
 

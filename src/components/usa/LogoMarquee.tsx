@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 
@@ -75,64 +75,58 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ logos, reverse = false }) => {
 };
 
 const LogoMarquee = () => {
-  const usLogos = [
-    '/assets/images/logos/Manhattan_College.png',
-    '/assets/images/logos/northeastern.png',
-    '/assets/images/logos/st.png',
-    '/assets/images/logos/Stevens.png',
-    '/assets/images/logos/texas.png',
-    '/assets/images/logos/ucm.png',
-    '/assets/images/logos/UMass_Boston.png',
-    '/assets/images/logos/umassd.png',
-    '/assets/images/logos/University_Y.png',
-    '/assets/images/logos/WRIGHTSTATE.png',
-    '/assets/images/logos/virginia.png',
+  const usLogos1 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/02_WRIGHTSTATE_BIPLANE_N_FULL.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/05_WRIGHTSTATE_BIPLANE.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/academy-of-art-university.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/arizona-state-university.webp",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/arizona-state-university.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/auburn-university.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/auburn-at-montgomery.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/A-State_Stack_2C_Light.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/attend-western.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/belltower.png",
   ];
 
-  const ukLogos = [
-    '/assets/images/countries/ARU-logo.jpg',
-    '/assets/images/countries/aston.png',
-    '/assets/images/countries/bcu.jpg',
-    '/assets/images/countries/Black-Logo.png',
-    '/assets/images/countries/cardiff-university.png',
-    '/assets/images/countries/sussex.png',
-    '/assets/images/countries/coventry-university.jpg',
-    '/assets/images/countries/TU.png',
-    '/assets/images/countries/UON-Logo.png',
-    '/assets/images/countries/university-of-warwick-warw7046.jpg',
+  const usLogos2 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/buffalo.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/california.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/California_State_University_Northridge.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/california-state-university-long-beach2264.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/central_logo.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/centralmichiganuniv.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/charlotte.webp",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Charlotte-Master.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Cleveland_State_University_Gallery_building.webp",
   ];
 
-  const btechLogos = [
-    '/assets/images/CANADA/61Fa-pNEFXL._AC_UF894,1000_QL80_.jpg',
-    '/assets/images/CANADA/algoma_logo_rgb_colour.jpg',
-    '/assets/images/CANADA/download (1).png',
-    '/assets/images/CANADA/download.jpg',
-    '/assets/images/CANADA/Graphic-Standards-Guide_FDU-Logo-Plain-2C-Update23.jpg',
-    '/assets/images/CANADA/ibu-logo.jpg',
-
-    '/assets/images/CANADA/images (1).png',
-    '/assets/images/CANADA/images (2).png',
-    '/assets/images/CANADA/images.png',
-    '/assets/images/CANADA/Logo_York_University.svg.png',
-    '/assets/images/CANADA/NYIT logo(1).png',
-    '/assets/images/CANADA/sfu-logo@2x-1.png',
-    '/assets/images/CANADA/toronto2.png',
+  const usLogos3 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/CMU-Logo.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/concordia.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Concordia-University-Chicago-Logo-550.webp",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/CSU-FullyStacked-1.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/CSUSign.webp",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/djs_ocu_01.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/download (1).png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/download.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Duke-University-Logo-history.png",
   ];
 
-  const mbbsLogos = [
-    '/assets/images/IRELAND/Atlantic-Technological-University-removebg-preview.png',
-    '/assets/images/IRELAND/ATU Logo.png',
-    '/assets/images/IRELAND/dublin-city-university-dcu-vector-logo.png',
-    '/assets/images/IRELAND/images (1).jpg',
-    '/assets/images/IRELAND/images (2).jpg',
-    '/assets/images/IRELAND/images (3).png',
+  const usLogos4 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Emef119Y_400x400.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/FSUSig_Horizontal_Color.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/florida-atlantic-logo-wordmark.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/George_Mason.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/George_Mason_University_logo.svg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/George_Mason_University_logo.svg-removebg-preview.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/golden-gate.jpeg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/GGU_ID_120821_Center_Color-300x139.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/GGU_ID_120821_Center_Color-300x139-removebg-preview.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/harvard-university-logo-1.png",
+  ];
 
-    '/assets/images/IRELAND/images (4).png',
-    '/assets/images/IRELAND/images.jpg',
-    '/assets/images/IRELAND/images.png',
-    '/assets/images/IRELAND/Logo-UGalway-2-removebg-preview.png',
-    '/assets/images/IRELAND/MTU_Logo_Colour_RGB_300dpi.jpg',
-    '/assets/images/IRELAND/NCI_Logo_colour.png',
+  const usLogos5 = [
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/image-asset.png",
   ];
 
   return (
@@ -148,10 +142,10 @@ const LogoMarquee = () => {
 
           <AnimateOnScroll>
             <div className="mt-6 md:mt-10 relative overflow-hidden px-2 md:px-4 space-y-4">
-              <MarqueeRow logos={usLogos} />
-              <MarqueeRow logos={ukLogos} reverse />
-              <MarqueeRow logos={btechLogos} />
-              <MarqueeRow logos={mbbsLogos} reverse />
+              <MarqueeRow logos={usLogos1} />
+              <MarqueeRow logos={usLogos2} reverse />
+              <MarqueeRow logos={usLogos3} />
+              <MarqueeRow logos={usLogos4} reverse />
             </div>
           </AnimateOnScroll>
 
