@@ -20,58 +20,78 @@ import DelayedPopup from "./components/DelayedPopup";
 // import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import ContactBar from "./components/ContactBar";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import FaqSection from "./components/home/FaqSection";
 import { useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
 const queryClient = new QueryClient();
 
 
 const App = () => {
   const faqRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const [showForm, setShowForm] = useState(true);
+  const [showFormIcon, setShowFormIcon] = useState(false);
 
-    useEffect(() => {
-      AOS.init({
-        once: false,
-        mirror: true,
-      });
-    }, []);
+  useEffect(() => {
+    AOS.init({
+      once: false,
+      mirror: true,
+    });
+  }, []);
 
-    useEffect(() => {
-      AOS.refresh();
-    }, [location.pathname]);
+  useEffect(() => {
+    AOS.refresh();
+  }, [location.pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-     
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<HomePage faqRef={faqRef} />} />
-                <Route path="/about-us" element={<AboutPage />} />
-                <Route path="/study-in-uk" element={<StudyUKPage />} />
-                <Route path="/study-in-usa" element={<StudyUSA />} />
-                <Route path="/study-in-canada" element={<StudyCanada />} />
-                <Route path="/study-in-ireland" element={<StudyIreland />} />
-                <Route path="/study-in-france" element={<StudyFrance />} />
-                <Route path="/gallery" element={<GalleryPage />} />
-                <Route path="/join-us" element={<JoinUsPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <ContactBar />
-            <Footer />
-            <DelayedPopup />
-            {/* <WhatsAppButton /> */}
-            <ScrollToTopButton />
-          </div>
+
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<HomePage faqRef={faqRef} />} />
+              <Route path="/about-us" element={<AboutPage />} />
+              <Route path="/study-in-uk" element={<StudyUKPage />} />
+              <Route path="/study-in-usa" element={<StudyUSA />} />
+              <Route path="/study-in-canada" element={<StudyCanada />} />
+              <Route path="/study-in-ireland" element={<StudyIreland />} />
+              <Route path="/study-in-france" element={<StudyFrance />} />
+              <Route path="/gallery" element={<GalleryPage />} />
+              <Route path="/join-us" element={<JoinUsPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/university-find" element={<UniversityHomePage />} />
+            </Routes>
+          </main>
+          <ContactBar />
+          <Footer />
+
+          {/* <WhatsAppButton /> */}
+          <ScrollToTopButton
+            showFormIcon={showFormIcon}
+            onFormIconClick={() => {
+              setShowForm(true);
+              setShowFormIcon(false);
+            }}
+          />
+            {showForm && (
+        <DelayedPopup
+          // When the user closes the form, it animates into the icon position,
+          // then we hide the form and show the icon.
+          onMinimize={() => {
+            setShowForm(false);
+            setShowFormIcon(true);
+          }}
+        />
+      )}
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );
