@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -17,41 +17,51 @@ import JoinUsPage from "./pages/JoinUsPage";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import DelayedPopup from "./components/DelayedPopup";
-// import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import ContactBar from "./components/ContactBar";
 import { useEffect, useRef, useState } from "react";
 import FaqSection from "./components/home/FaqSection";
-import { useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
-const queryClient = new QueryClient();
 
+const queryClient = new QueryClient();
 
 const App = () => {
   const faqRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
   const [showFormIcon, setShowFormIcon] = useState(false);
 
   useEffect(() => {
-    AOS.init({
-      once: false,
-      mirror: true,
-    });
+    AOS.init({ once: false, mirror: true });
   }, []);
 
   useEffect(() => {
     AOS.refresh();
   }, [location.pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY + window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      if (
+        scrollTop / docHeight >= 0.8 &&
+        !localStorage.getItem("vsource_form_submitted")
+      ) {
+        setShowForm(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-grow">
@@ -72,8 +82,6 @@ const App = () => {
           </main>
           <ContactBar />
           <Footer />
-
-          {/* <WhatsAppButton /> */}
           <ScrollToTopButton
             showFormIcon={showFormIcon}
             onFormIconClick={() => {
@@ -81,16 +89,14 @@ const App = () => {
               setShowFormIcon(false);
             }}
           />
-            {showForm && (
-        <DelayedPopup
-          // When the user closes the form, it animates into the icon position,
-          // then we hide the form and show the icon.
-          onMinimize={() => {
-            setShowForm(false);
-            setShowFormIcon(true);
-          }}
-        />
-      )}
+          {showForm && (
+            <DelayedPopup
+              onMinimize={() => {
+                setShowForm(false);
+                setShowFormIcon(true);
+              }}
+            />
+          )}
         </div>
       </TooltipProvider>
     </QueryClientProvider>
