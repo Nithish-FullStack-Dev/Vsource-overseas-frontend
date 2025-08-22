@@ -172,7 +172,7 @@ export default function CoursesSection() {
     const bg = encodeURI(c.image);
     return (
       <div className="px-3 box-border h-full">
-        <div className="relative rounded-[5px] overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
+        <div className="relative rounded-[15px] overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
           <div className="relative aspect-square">
             <div
               className="absolute inset-0 bg-cover bg-center"
@@ -189,7 +189,7 @@ export default function CoursesSection() {
             />
             <div className="absolute inset-0 grid grid-cols-12 pt-6 pr-4 pb-4 pl-4 md:pt-10 md:pr-5 md:pb-5 md:pl-5 lg:pt-12 lg:pr-6 lg:pb-6 lg:pl-6 overflow-hidden">
               <div className="col-span-6 md:col-span-5" aria-hidden />
-              <div className="col-span-6 md:col-span-7 flex flex-col md:mt-0 md:pl-3 lg:pl-4 md:pt-10 sm:pt-0 sm:mt-0 overflow-hidden">
+              <div className="col-span-6 md:col-span-7 flex flex-col md:mt-0 md:pl-3 lg:pl-4 md:pt-10 sm:pt-0 sm:mt-0 overflow-hidden mt-6">
                 <div className="text-[#2563EB] text-xs md:text-sm font-semibold uppercase tracking-wide">
                   {c.tag}
                 </div>
@@ -205,7 +205,7 @@ export default function CoursesSection() {
                       key={i}
                       className={`flex items-start gap-2 text-[13px] md:text-[15px] lg:text-base text-[#334155] ${
                         i > 1 ? "hidden sm:flex" : ""
-                      }`}
+                      } sm:text-left`}
                     >
                       <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
                       <span className="leading-snug">{line}</span>
@@ -238,7 +238,7 @@ export default function CoursesSection() {
       <motion.div
         ref={ref}
         style={{ scale: scaleProgress, opacity: opacityProgress }}
-        className="mx-auto px-10"
+        className="mx-auto sm:px-10 px-5"
       >
         <SectionTitle
           title="🎓 Know about popular study destinations!"
