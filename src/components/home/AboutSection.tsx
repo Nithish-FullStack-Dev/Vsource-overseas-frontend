@@ -69,13 +69,14 @@ const AboutSection: React.FC = () => {
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
               data-aos-delay="0"
+              className="text-[#1e73be]"
             >
               About Vsource Overseas
             </h2>
 
             {/* Paragraph */}
             <p
-              className="desc"
+              className="desc pb-3"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
@@ -86,10 +87,11 @@ const AboutSection: React.FC = () => {
               With a legacy spanning over 20 years, we proudly stand as South
               India’s premier consultancy for master’s admissions abroad.
             </p>
-
+            <hr />
             {/* Features List */}
-            <ul className="features">
+            <ul className="features space-y-4">
               <li
+               
                 data-aos="fade-right"
                 data-aos-delay="400"
                 data-aos-duration="800"
@@ -98,11 +100,16 @@ const AboutSection: React.FC = () => {
                 <img
                   src="https://cdn-icons-png.flaticon.com/128/10490/10490249.png"
                   alt="check"
+                  className="w-6 h-6"
                 />
-                Guided thousands of students to top-ranked universities
+                <span>
+                  Guided thousands of students to {" "}
+                  <span className="font-bold">Top - Ranked Universities</span>
+                </span>
               </li>
 
               <li
+               
                 data-aos="fade-right"
                 data-aos-delay="600"
                 data-aos-duration="800"
@@ -111,9 +118,12 @@ const AboutSection: React.FC = () => {
                 <img
                   src="https://cdn-icons-png.flaticon.com/128/3176/3176293.png"
                   alt="globe"
+                  className="w-6 h-6"
                 />
-                Expertise in destinations like the USA, UK, Canada, Ireland, and
-                more
+                <span>
+                  Expertise in destinations like the{" "}
+                  <span className="font-bold">UK, USA, Canada, Ireland, and more</span>
+                </span>
               </li>
 
               <li
@@ -125,10 +135,15 @@ const AboutSection: React.FC = () => {
                 <img
                   src="https://cdn-icons-png.flaticon.com/128/7339/7339281.png"
                   alt="university"
+                  className="w-6 h-6"
                 />
-                Direct partnerships with globally accredited universities
+                <span>
+                  Direct partnerships with{" "}
+                  <span className="font-bold">Globally Accredited Universities</span>
+                </span>
               </li>
             </ul>
+
           </div>
 
           <div
@@ -162,7 +177,7 @@ const AboutSection: React.FC = () => {
                 data-aos-anchor-placement="center-bottom"
               >
                 <img src={stat.icon} alt="" className="icon" />
-                <div className="count">
+                <div className="count text-[#1e73be]">
                   {count.toLocaleString("en-IN")}
                   {stat.suffix}
                 </div>
@@ -250,7 +265,7 @@ const AboutSection: React.FC = () => {
         .count {
           font-size: clamp(20px, 4.5vw, 30px);
           font-weight: 800;
-          color: #000;
+          // color: #000;
           margin: 0 12px;
           white-space: nowrap;
         }
