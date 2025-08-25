@@ -34,8 +34,7 @@ const services: Service[] = [
       "We guide you through the edu-carm loan process with our trusted financial partners for a hassle-free experience",
   },
   {
-    backgroundImage:
-      "/assets/images/Trusted-section/Pre_&_Post_Landing_Support.jpeg",
+    backgroundImage: "/assets/images/Trusted-section/Pre_&_Post_Landing_Support.jpg",
     icon: <MapPin size={40} color="#ffffffff" />,
     title: "Pre & Post Landing Support",
     description:
