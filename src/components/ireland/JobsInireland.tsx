@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-
+import "../JobsIn.css";
 /* ---- small hook for scroll-in animation ---- */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
@@ -323,32 +323,50 @@ export default function CareersInIrelandFlow() {
         {/* Student/community strip */}
         <div className="mt-12 text-center">
           <div className="text-lg md:text-xl font-extrabold" style={{ color: ACCENT }}>
-            DIVERSE STUDENT COMMUNITY
+            KNOW THEIR EXPERIENCES
           </div>
           <div className="mt-1 text-xs md:text-sm text-neutral-700">
-            Students from <b>160 countries</b> study in Ireland
+            OUR ALUMNI FROM 10+ COUNTRIES
           </div>
 
-          <div className="mt-5 flex flex-wrap justify-center gap-4">
+
+           {/* Desktop / Tablet normal layout */}
+          <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/80?img=11",
-              "https://i.pravatar.cc/80?img=32",
-              "https://i.pravatar.cc/80?img=5",
-              "https://i.pravatar.cc/80?img=67",
-              "https://i.pravatar.cc/80?img=21",
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
             ].map((src, idx) => (
               <img
                 key={idx}
                 src={src}
-                alt="Student"
-                className="h-20 w-20 md:h-20 md:w-20 rounded-full object-cover"
+                alt="Alumni"
+                className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
               />
             ))}
           </div>
 
-          <div className="mt-4 text-xs md:text-sm text-neutral-700">
+          {/* Mobile circle layout */}
+          <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
+            {[
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
+            ].map((src, idx) => (
+              <img
+                key={idx}
+                src={src}
+                alt="Alumni"
+                className={`circle-img circle-${idx + 1}`}
+              />
+            ))}
+          </div> 
+
+          {/* <div className="mt-4 text-xs md:text-sm text-neutral-700 ">
             Work rights: <b>20 hrs/week</b> during semester · <b>40 hrs/week</b> during vacations. Stay-back via the <b>Third Level Graduate Programme</b>.
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
