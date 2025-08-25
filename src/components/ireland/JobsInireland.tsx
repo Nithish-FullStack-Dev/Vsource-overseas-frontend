@@ -333,10 +333,10 @@ export default function CareersInIrelandFlow() {
            {/* Desktop / Tablet normal layout */}
           <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+              "/assets/images/students/11.jpeg",
+              "/assets/images/students/9.jpeg",
+              "/assets/images/students/31.jpeg",
+              "/assets/images/students/IMG-20240611-WA0030.jpg",
             ].map((src, idx) => (
               <img
                 key={idx}
@@ -350,10 +350,10 @@ export default function CareersInIrelandFlow() {
           {/* Mobile circle layout */}
           <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+          "/assets/images/students/11.jpeg",
+              "/assets/images/students/9.jpeg",
+              "/assets/images/students/31.jpeg",
+              "/assets/images/students/IMG-20240611-WA0030.jpg",
             ].map((src, idx) => (
               <img
                 key={idx}
