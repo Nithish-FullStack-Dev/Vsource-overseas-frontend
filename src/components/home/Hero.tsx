@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const animatedTexts = [
-  ["STUDY MASTER'S", "IN USA, UK, IRELAND, CANADA, FRANCE"],
+  ["STUDY MASTER'S", "IN UK, USA, CANADA, IRELAND, FRANCE"],
 ];
 
 const Hero = () => {
