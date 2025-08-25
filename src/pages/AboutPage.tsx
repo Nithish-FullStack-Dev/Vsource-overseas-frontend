@@ -549,7 +549,7 @@ const AboutPage = () => {
     <>
       {/* Hero Section */}
       <section
-        className="pt-36 pb-20 bg-cover bg-center bg-no-repeat relative text-white"
+        className="pt-40 pb-36 bg-cover bg-center bg-no-repeat relative text-white"
         style={{
           backgroundImage: `url(/assets/images/about-banner.jpg)`,
         }}

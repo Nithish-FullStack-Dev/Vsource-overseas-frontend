@@ -5,7 +5,7 @@ const services = [
     {
     title: "EDU LOAN",
     description:
-      "100% EDUCATION LOAN\nFOR BTECH IN NAAC A, A+, A++\nFOR MASTER IN US | UK | IRELAND | CANADA | FRANCE",
+      "100% EDUCATION LOAN\nFOR BTECH IN NAAC A, A+, A++\nFOR MASTER IN UK | US | CANADA | IRELAND | FRANCE",
     imageSrc: "/assets/images/badges/edu.jpg",
     externalUrl: "https://vsourcefintech.com/",
     logoSrc: "/assets/images/logo fintech.png",
