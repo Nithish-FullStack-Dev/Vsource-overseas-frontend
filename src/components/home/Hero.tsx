@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const animatedTexts = [
-  ["STUDY MASTER'S", "IN USA, UK, IRELAND, CANADA, FRANCE"],
+  ["STUDY MASTER'S", "IN UK, USA, CANADA, IRELAND, FRANCE"],
 ];
 
 const Hero = () => {
@@ -117,7 +117,7 @@ const Hero = () => {
               className="flex flex-wrap gap-4 pt-4"
             >
               <Link
-                to="/explore"
+                to="/explore-universities"
                 className="bg-[#D93F36] text-white px-6 py-3 rounded-md font-semibold text-lg hover:bg-[#c2352d] transition-colors"
               >
                 Explore Universities
@@ -179,7 +179,7 @@ const Hero = () => {
                 <br />
                 UNIVERSITIES
               </p>
-              <p className="text-[12px] text-orange-400 font-semibold mt-2 animate-blink">
+              <p className="text-[10px] text-orange-400 font-semibold mt-2 animate-blink">
                 FALL-INTAKE 2025-2026
               </p>
               <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit mx-auto">
@@ -188,7 +188,7 @@ const Hero = () => {
                     key={idx}
                     src={`https://flagcdn.com/${flag}.svg`}
                     alt={flag.toUpperCase()}
-                    className="w-6 h-6 object-cover rounded-full"
+                    className="w-5 h-5 object-cover rounded-full"
                   />
                 ))}
               </div>
@@ -221,19 +221,19 @@ const Hero = () => {
                   <span className="text-red-600 font-bold">Global</span>{" "}
                   Academic Excellence
                 </p>
-                <Link to="/explore"
+                <Link to="/explore-universities"
                   className="bg-[#D93F36] text-white px-3 py-3 rounded-md font-semibold text-lg hover:bg-[#c2352d] transition-colors">
                   Explore Universities
                 </Link>
                 <div className="mt-[20px] inline-block">
-                <Link to="/book-counseling"
-                  className="bg-white border border-white text-black px-3 py-3  rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center justify-center  space-x-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span>Book Free Counseling</span>
-                </Link>
+                  <Link to="/book-counseling"
+                    className="bg-white border border-white text-black px-3 py-3  rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center justify-center  space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Book Free Counseling</span>
+                  </Link>
                 </div>
               </motion.div>
             </div>

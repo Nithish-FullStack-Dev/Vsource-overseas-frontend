@@ -174,7 +174,7 @@ const AboutSection: React.FC = () => {
           {/* RIGHT IMAGE SECTION */}
           <div
             className="image-section"
-            data-aos="fade-left"
+            data-aos="fade-right"
             data-aos-anchor-placement="center-bottom"
             data-aos-duration="1200"
             data-aos-delay="400"
@@ -182,7 +182,7 @@ const AboutSection: React.FC = () => {
             <img
               src="https://vsourcevarsity.com/assets/images/founder.webp"
               alt="Founder"
-              data-aos="fade-left"
+              data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1200"
               data-aos-delay="500"

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 
 type Course = {
   country: string;
@@ -20,7 +21,7 @@ const courseCategories: Course[] = [
       "Wide Range of Scholarships & Financial Assistance",
     ],
     image: "assets/images/countries/uk.png",
-    url: "https://vsourcevarsity.com/",
+    url: "/study-in-uk",
   },
   {
     country: "USA",
@@ -30,7 +31,7 @@ const courseCategories: Course[] = [
       "Extensive Scholarships & Financial Support  ",
     ],
     image: "assets/images/countries/usa.png",
-    url: "https://vsourcevarsity.com/",
+    url: "/study-in-usa",
   },
   {
     country: "CANADA",
@@ -41,7 +42,7 @@ const courseCategories: Course[] = [
       "Scholarships and Financial Aid for International Students",
     ],
     image: "assets/images/countries/canada.png",
-    url: "https://vsourcevarsity.com/",
+    url: "/study-in-canada",
   },
   {
     country: "IRELAND",
@@ -52,7 +53,7 @@ const courseCategories: Course[] = [
       "Scholarships & Financial Support Available",
     ],
     image: "assets/images/countries/ireland.png",
-    url: "https://vsourcevarsity.com/",
+    url: "/study-in-ireland",
   },
   {
     country: "FRANCE",
@@ -63,7 +64,7 @@ const courseCategories: Course[] = [
       "Scholarships & Financial Assistance for International Students",
     ],
     image: "assets/images/countries/france.png",
-    url: "https://vsourcevarsity.com/",
+    url: "/study-in-france",
   },
 ];
 
@@ -216,14 +217,14 @@ export default function CoursesSection() {
             </div>
           </div>
           <div className="px-4 md:px-5 lg:px-6 pb-4">
-            <a
-              href={c.url}
-              target="_blank"
+            <Link
+              to={c.url}
+              target="_self"
               rel="noopener noreferrer"
               className="mt-3 inline-flex w-full items-center justify-center rounded-md bg-[#e40000] px-4 py-3 text-white text-sm font-semibold hover:bg-[#9c0201] transition"
             >
               Enquire Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>
