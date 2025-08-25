@@ -77,15 +77,13 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ logos, reverse = false }) => {
 const LogoMarquee = () => {
   const usLogos1 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/02_WRIGHTSTATE_BIPLANE_N_FULL.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/05_WRIGHTSTATE_BIPLANE.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/academy-of-art-university.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/arizona-state-university.webp",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/arizona-state-university.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/auburn-university.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/auburn-at-montgomery.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/A-State_Stack_2C_Light.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/attend-western.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/belltower.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/University_of_the_Pacific_logo.png.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Seal_of_the_University_of_Michigan.svg.png",
   ];
 
   const usLogos2 = [
@@ -93,40 +91,33 @@ const LogoMarquee = () => {
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/california.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/California_State_University_Northridge.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/california-state-university-long-beach2264.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/central_logo.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/centralmichiganuniv.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/charlotte.webp",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Charlotte-Master.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Cleveland_State_University_Gallery_building.webp",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/belltower.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/University-of-Missouri-Logo.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/University-of-Maryland-Logo.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/University_of_Massachusetts_Dartmouth_seal.svg.png",
   ];
 
   const usLogos3 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/CMU-Logo.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/concordia.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Concordia-University-Chicago-Logo-550.webp",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/CSU-FullyStacked-1.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/CSUSign.webp",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/djs_ocu_01.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/download (1).png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/download.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Duke-University-Logo-history.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/University-of-Washington-Logo.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/university-of-toledo9856.jpg",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/University-of-Oklahoma-Symbol-removebg-preview.png",
   ];
 
   const usLogos4 = [
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Emef119Y_400x400.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/FSUSig_Horizontal_Color.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/florida-atlantic-logo-wordmark.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/George_Mason.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/George_Mason_University_logo.svg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/George_Mason_University_logo.svg-removebg-preview.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/golden-gate.jpeg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/GGU_ID_120821_Center_Color-300x139.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/GGU_ID_120821_Center_Color-300x139-removebg-preview.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/harvard-university-logo-1.png",
-  ];
-
-  const usLogos5 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/image-asset.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/vust.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/VerticalLogoBlue-resized.png",
   ];
 
   return (

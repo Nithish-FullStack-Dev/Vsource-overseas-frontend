@@ -77,14 +77,12 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ logos, reverse = false }) => {
 const LogoMarquee = () => {
   const irelandLogos1 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/Atlantic.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ATU.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dublin.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dublin.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/university-of-limerick.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dundaik.png",
   ];
 
   const irelandLogos2 = [
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dundaik.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/griffith.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ibat.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/limerick.png",
@@ -100,7 +98,6 @@ const LogoMarquee = () => {
   ];
 
   const irelandLogos4 = [
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ollsgol.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/SETU.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/tollscoil.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/trinity.jpg",

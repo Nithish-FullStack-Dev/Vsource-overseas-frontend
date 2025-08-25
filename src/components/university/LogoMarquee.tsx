@@ -78,14 +78,12 @@ const LogoMarquee = () => {
   const ukLogos1 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/980_university_liverpool_logo-removebg-preview2.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/187302.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/1551096064_brandmark_rgb_colourway-1.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/ARU-logo-1440x1080-1-1-1024x768.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/ARU-logo-1440x1080-1-1.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/AU_Birmingham_logo_Purple_RGB.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/bcu-birmingham-city-university5078.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/Black-Logo.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/cardiff-university.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/coventry-university-logo-scaled.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/coventry-university-logo-scaled.jpg",
   ];
 
   const ukLogos2 = [
@@ -93,8 +91,7 @@ const LogoMarquee = () => {
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/download (1).png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/download (2).png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/download (8).png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/Heriot-Watt_University_logo.svg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/Heriot-Watt_University_logo.svg-removebg-preview.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/Heriot-Watt_University_logo.svg.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/images (1).jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/images (1).png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/images (2).jpg",
@@ -110,17 +107,15 @@ const LogoMarquee = () => {
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/logo_big.gif",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/logo-bpp-university.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/Media_703659_smxx.webp",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/Northumbria_University_Logo.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/nottingham-trent-university-logo-square.png",
   ];
 
   const ukLogos4 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/the-university-of-south-wales-logo-6642E297DF-seeklogo.com.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/TU.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/University_of_Leicester_logo_pillars (1).jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/University_of_Leicester_logo_pillars.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/University_of_Roehampton_logo.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/University-of-Edinburgh-Logo.wine.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/University_of_Edinburgh-Logo.wine.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/University_of_Essex_logo-removebg-preview.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/university-bpp.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/university-of-chester.png",

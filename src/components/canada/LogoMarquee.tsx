@@ -78,7 +78,6 @@ const LogoMarquee = () => {
   const canadaLogos1 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/alberta.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/algoma.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/Algoma_University_wordmark.svg.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/brunswick.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/vancouver.png",
   ];
