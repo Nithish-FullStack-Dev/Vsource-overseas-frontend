@@ -216,8 +216,8 @@ const LogoMarquee = () => {
 
           <AnimateOnScroll>
             <div className="mt-6 md:mt-10 relative overflow-hidden px-2 md:px-4">
-              <MarqueeRow logos={usLogos} title="USA Universities" />
-              <MarqueeRow logos={ukLogos} reverse title="UK Universities" />
+              <MarqueeRow logos={ukLogos} title="UK Universities" />
+              <MarqueeRow logos={usLogos} reverse title="USA Universities" />
               <MarqueeRow logos={canadaLogos} title="Canada Universities" />
               <MarqueeRow
                 logos={irelandLogos}

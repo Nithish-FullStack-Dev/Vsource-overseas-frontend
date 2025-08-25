@@ -80,6 +80,11 @@ const LogoMarquee = () => {
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/algoma.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/brunswick.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/vancouver.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/lakehead.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/laurentian.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/niagara.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/NYIT.png",
+    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/windsor.jpg",
   ];
 
   const canadaLogos2 = [
@@ -88,17 +93,6 @@ const LogoMarquee = () => {
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/fairleigh.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/ibu.jpg",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/Waterloo.png",
-  ];
-
-  const canadaLogos3 = [
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/lakehead.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/laurentian.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/niagara.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/NYIT.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/windsor.jpg",
-  ];
-
-  const canadaLogos4 = [
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/regina.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/sfu.png",
     "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Canada Universities Logos/toronto2.png",
@@ -121,8 +115,6 @@ const LogoMarquee = () => {
             <div className="mt-6 md:mt-10 relative overflow-hidden px-2 md:px-4 space-y-4">
               <MarqueeRow logos={canadaLogos1} />
               <MarqueeRow logos={canadaLogos2} reverse />
-              <MarqueeRow logos={canadaLogos3} />
-              <MarqueeRow logos={canadaLogos4} reverse />
             </div>
           </AnimateOnScroll>
 
