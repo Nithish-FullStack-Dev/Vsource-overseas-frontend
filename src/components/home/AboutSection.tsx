@@ -91,7 +91,6 @@ const AboutSection: React.FC = () => {
             {/* Features List */}
             <ul className="features space-y-4">
               <li
-               
                 data-aos="fade-right"
                 data-aos-delay="400"
                 data-aos-duration="800"
@@ -103,13 +102,12 @@ const AboutSection: React.FC = () => {
                   className="w-6 h-6"
                 />
                 <span>
-                  Guided thousands of students to {" "}
+                  Guided thousands of students to{" "}
                   <span className="font-bold">Top - Ranked Universities</span>
                 </span>
               </li>
 
               <li
-               
                 data-aos="fade-right"
                 data-aos-delay="600"
                 data-aos-duration="800"
@@ -122,7 +120,9 @@ const AboutSection: React.FC = () => {
                 />
                 <span>
                   Expertise in destinations like the{" "}
-                  <span className="font-bold">UK, USA, Canada, Ireland, and more</span>
+                  <span className="font-bold">
+                    UK, USA, Canada, Ireland, and more
+                  </span>
                 </span>
               </li>
 
@@ -139,11 +139,12 @@ const AboutSection: React.FC = () => {
                 />
                 <span>
                   Direct partnerships with{" "}
-                  <span className="font-bold">Globally Accredited Universities</span>
+                  <span className="font-bold">
+                    Globally Accredited Universities
+                  </span>
                 </span>
               </li>
             </ul>
-
           </div>
 
           <div
@@ -176,10 +177,12 @@ const AboutSection: React.FC = () => {
                 data-aos-duration="1000"
                 data-aos-anchor-placement="center-bottom"
               >
-                <img src={stat.icon} alt="" className="icon" />
-                <div className="count text-[#1e73be]">
-                  {count.toLocaleString("en-IN")}
-                  {stat.suffix}
+                <div className="left-box">
+                  <img src={stat.icon} alt="" className="icon" />
+                  <div className="count text-[#1e73be]">
+                    {count.toLocaleString("en-IN")}
+                    {stat.suffix}
+                  </div>
                 </div>
                 <div className="label">{stat.label}</div>
               </div>
@@ -197,7 +200,7 @@ const AboutSection: React.FC = () => {
         }
         .container { max-width: 1200px; margin: 0 auto; }
 
-      .top-section {
+        .top-section {
           display: grid;
           grid-template-columns: 1fr;   
           gap: 24px;
@@ -224,13 +227,13 @@ const AboutSection: React.FC = () => {
         .quote { font-style: italic; margin-top: 10px; text-align: center; font-size: 15px; }
 
         /* Stats grid */
-       .bottom-section {
+        .bottom-section {
           margin-top: clamp(28px, 6vw, 50px);
           display: grid;
           grid-template-columns: 1fr; /* mobile */
           gap: 20px;
           width: 80%;
-    margin: clamp(28px, 6vw, 50px) auto 0;
+          margin: clamp(28px, 6vw, 50px) auto 0;
         }
         @media (min-width: 640px) {
           .bottom-section {
@@ -255,6 +258,12 @@ const AboutSection: React.FC = () => {
           box-sizing: border-box;
         }
 
+        .left-box {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
         .icon {
           width: 40px;
           height: 40px;
@@ -265,8 +274,7 @@ const AboutSection: React.FC = () => {
         .count {
           font-size: clamp(20px, 4.5vw, 30px);
           font-weight: 800;
-          // color: #000;
-          margin: 0 12px;
+          margin: 0;
           white-space: nowrap;
         }
 
@@ -276,14 +284,22 @@ const AboutSection: React.FC = () => {
           color: #111;
           line-height: 1.3;
           text-align: right;
+          margin-left: 10px;
               width: 34%;
         }
 
         /* Ultra-small phones */
         @media (max-width: 380px) {
-          .stat-box { gap: 10px; padding: 12px; }
+          .stat-box { gap: 8px; padding: 10px; }
           .count { font-size: 18px; }
+          .label { font-size: 12px; }
         }
+             @media (max-width: 540px) {
+             .left-box {
+                  width: 50%;
+                  justify-content: space-between;
+              }
+             }
 
         /* Accessibility: disable motion */
         @media (prefers-reduced-motion: reduce) {
