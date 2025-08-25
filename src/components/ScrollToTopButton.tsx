@@ -5,10 +5,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import ChatBot from "@/services/ChatBot";
 
 interface Props {
-  showFormIcon: boolean; // controls when the icon should show
-  onFormIconClick: () => void; // reopen the form
+  showFormIcon: boolean;
+  onFormIconClick: () => void;
 }
 
 const ScrollToTopButton: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const ScrollToTopButton: React.FC<Props> = ({
   onFormIconClick,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false); // ✅ chatbot toggle
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -27,13 +29,11 @@ const ScrollToTopButton: React.FC<Props> = ({
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-  const openLiveChat = () => alert("Live chat started..."); // replace with real chat
 
   return (
     <>
       {isVisible && (
         <>
-          {/* Form Icon (only appears AFTER user closed the form) */}
           {showFormIcon && (
             <Tooltip>
               <TooltipTrigger asChild>
@@ -51,12 +51,19 @@ const ScrollToTopButton: React.FC<Props> = ({
 
           {/* Live Chat Button */}
           <button
-            onClick={openLiveChat}
+            onClick={() => setChatOpen((prev) => !prev)}
             className="fixed bottom-32 right-6 z-40 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors md:bottom-20"
             aria-label="Live Chat"
           >
             <MessageSquareMore className="h-6 w-6" />
           </button>
+
+          {/* ChatBot Widget */}
+          {chatOpen && (
+            <div id="chatbot-container">
+              <ChatBot />
+            </div>
+          )}
 
           {/* Scroll to Top Button */}
           <button
