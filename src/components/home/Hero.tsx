@@ -117,7 +117,7 @@ const Hero = () => {
               className="flex flex-wrap gap-4 pt-4"
             >
               <Link
-                to="/explore"
+                to="/explore-universities"
                 className="bg-[#D93F36] text-white px-6 py-3 rounded-md font-semibold text-lg hover:bg-[#c2352d] transition-colors"
               >
                 Explore Universities
@@ -221,7 +221,7 @@ const Hero = () => {
                   <span className="text-red-600 font-bold">Global</span>{" "}
                   Academic Excellence
                 </p>
-                <Link to="/explore"
+                <Link to="/explore-universities"
                   className="bg-[#D93F36] text-white px-3 py-3 rounded-md font-semibold text-lg hover:bg-[#c2352d] transition-colors">
                   Explore Universities
                 </Link>
