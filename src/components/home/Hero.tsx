@@ -188,7 +188,7 @@ const Hero = () => {
                     key={idx}
                     src={`https://flagcdn.com/${flag}.svg`}
                     alt={flag.toUpperCase()}
-                    className="w-8 h-8 object-cover rounded-full"
+                    className="w-6 h-6 object-cover rounded-full"
                   />
                 ))}
               </div>

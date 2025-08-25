@@ -551,11 +551,11 @@ const AboutPage = () => {
       <section
         className="pt-36 pb-20 bg-cover bg-center bg-no-repeat relative text-white"
         style={{
-          backgroundImage: `url('https://vsourceoverseas.com/uploads/gallery/RETYU.jpg')`, // replace with your image path
+          backgroundImage: `url(/assets/images/about-banner.jpg)`, // replace with your image path
         }}
       >
         {/* Dark overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-darkblue/90 to-gray-900/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-darkblue/50 to-gray-900/90"></div>
 
         {/* Content */}
         <div className="relative w-full max-w-[1400px] mx-auto px-4">

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-
+import "../JobsIn.css";
 /* ---- small hook for scroll-in animation ---- */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
@@ -328,19 +328,36 @@ export default function JobsInUSAFlow() {
             OUR ALUMNI FROM 10+ COUNTRIES
           </div>
 
-        <div className="mt-5 flex flex-wrap justify-center gap-4">
+          {/* Desktop / Tablet normal layout */}
+          <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/80?img=11",
-              "https://i.pravatar.cc/80?img=32",
-              "https://i.pravatar.cc/80?img=5",
-              "https://i.pravatar.cc/80?img=67",
-              "https://i.pravatar.cc/80?img=21",
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
             ].map((src, idx) => (
               <img
                 key={idx}
                 src={src}
                 alt="Alumni"
-                className="h-20 w-20 md:h-20 md:w-20 rounded-full object-cover"
+                className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
+              />
+            ))}
+          </div>
+
+          {/* Mobile circle layout */}
+          <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
+            {[
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
+            ].map((src, idx) => (
+              <img
+                key={idx}
+                src={src}
+                alt="Alumni"
+                className={`circle-img circle-${idx + 1}`}
               />
             ))}
           </div>

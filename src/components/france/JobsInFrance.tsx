@@ -1,142 +1,6 @@
-// import React, { useEffect, useRef, useState } from "react";
-
-// /* small hook for scroll-in animation */
-// function useInView<T extends HTMLElement>(threshold = 0.2) {
-//   const ref = useRef<T | null>(null);
-//   const [inView, setInView] = useState(false);
-//   useEffect(() => {
-//     const el = ref.current;
-//     if (!el) return;
-//     const obs = new IntersectionObserver(
-//       (entries) => entries.forEach((e) => setInView(e.isIntersecting)),
-//       { threshold }
-//     );
-//     obs.observe(el);
-//     return () => obs.disconnect();
-//   }, [threshold]);
-//   return { ref, inView };
-// }
-
-// const ACCENT = "#e40000"; // keep theme accent (red)
-
-// /* salary list data (EUR per year) */
-// type Job = { title: string; salary: number };
-// const JOBS: Job[] = [
-//   { title: "Doctor or Physician", salary: 57254 },
-//   { title: "Lawyer", salary: 75000 },
-//   { title: "Bank Manager", salary: 47957 },
-//   { title: "Professor", salary: 54006 },
-//   { title: "Engineer", salary: 46903 },
-// ];
-
-// function formatEUR(n: number) {
-//   return n.toLocaleString("en-IE", {
-//     style: "currency",
-//     currency: "EUR",
-//     maximumFractionDigits: 0,
-//   });
-// }
-
-// export default function JobsInFranceSalaries() {
-//   const { ref, inView } = useInView<HTMLDivElement>(0.2);
-//   const max = Math.max(...JOBS.map((j) => j.salary));
-
-//   return (
-//     <section className="py-12 md:py-16 bg-white">
-//       <div
-//         ref={ref}
-//         className="container mx-auto max-w-5xl px-4 md:px-6"
-//         style={{
-//           transform: inView ? "translateY(0)" : "translateY(10px)",
-//           opacity: inView ? 1 : 0,
-//           transition:
-//             "transform 600ms cubic-bezier(0.22,1,0.36,1), opacity 600ms",
-//         }}
-//       >
-//         {/* Heading */}
-//         <h2 className="text-2xl md:text-3xl font-extrabold text-black tracking-tight text-center">
-//           Future Prospects — Jobs in France
-//         </h2>
-
-//         {/* Intro copy from your content */}
-//         <p className="mt-4 text-sm md:text-base leading-relaxed text-neutral-800 text-center">
-//           Studying in France is an exhilarating experience for any international student. The country is renowned for its prestigious universities, high-quality education, and vibrant student life. The rigorous academic programs provide students with a solid foundation of theoretical knowledge and practical skills to boost their career opportunities.
-//         </p>
-//         <p className="mt-2 text-sm md:text-base leading-relaxed text-neutral-800 text-center">
-//           The job market in France is constantly evolving, but some of the most promising sectors for the future include <span className="font-semibold">renewable energy</span>, <span className="font-semibold">digital technology</span>, and <span className="font-semibold">healthcare</span>.
-//         </p>
-
-//         {/* Salary list */}
-//         <div className="mt-8 rounded-xl bg-[#F6F8FB] p-4 md:p-6 shadow-[0_1px_0_rgba(16,24,40,0.06)]">
-//           <ul className="divide-y divide-gray-200">
-//             {JOBS.map((job, idx) => {
-//               const pct = Math.max(0.06, job.salary / max); // ensure tiny bar still visible
-//               return (
-//                 <li key={job.title} className="py-4 md:py-5">
-//                   <div className="flex items-center gap-4 md:gap-6">
-//                     {/* Title */}
-//                     <div className="flex-1 text-sm md:text-base text-neutral-900">
-//                       {job.title}
-//                     </div>
-
-//                     {/* Salary */}
-//                     <div className="whitespace-nowrap text-sm md:text-base text-neutral-900 font-medium">
-//                       {formatEUR(job.salary)}/yr
-//                     </div>
-
-//                     {/* Bar */}
-//                     <div className="w-40 md:w-56">
-//                       <div className="relative h-2 rounded-full bg-gray-200 overflow-hidden">
-//                         <div
-//                           className="absolute inset-y-0 left-0 rounded-full"
-//                           style={{
-//                             backgroundColor: ACCENT,
-//                             width: inView ? `${pct * 100}%` : "0%",
-//                             transition: `width 700ms cubic-bezier(0.22,1,0.36,1) ${idx *
-//                               80}ms`,
-//                           }}
-//                           aria-hidden
-//                         />
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </li>
-//               );
-//             })}
-//           </ul>
-//         </div>
-//         <div className="mt-12 text-center">
-//           <div className="text-lg md:text-xl font-extrabold" style={{ color: ACCENT }}>
-//             KNOW THEIR EXPERIENCES
-//           </div>
-//           <div className="mt-1 text-xs md:text-sm text-neutral-700">
-//             OUR ALUMNI FROM 10+ COUNTRIES
-//           </div>
-
-//           <div className="mt-5 flex flex-wrap justify-center gap-4">
-//             {[
-//               "https://i.pravatar.cc/80?img=11",
-//               "https://i.pravatar.cc/80?img=32",
-//               "https://i.pravatar.cc/80?img=5",
-//               "https://i.pravatar.cc/80?img=67",
-//               "https://i.pravatar.cc/80?img=21",
-//             ].map((src, idx) => (
-//               <img
-//                 key={idx}
-//                 src={src}
-//                 alt="Alumni"
-//                 className="h-20 w-20 md:h-20 md:w-20 rounded-full object-cover"
-//               />
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-
+import "../JobsIn.css";
 /* ---- small hook for scroll-in animation ---- */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
@@ -465,19 +329,36 @@ export default function JobsInFranceFlow() {
             OUR ALUMNI FROM 10+ COUNTRIES
           </div>
 
-        <div className="mt-5 flex flex-wrap justify-center gap-4">
+           {/* Desktop / Tablet normal layout */}
+          <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/80?img=11",
-              "https://i.pravatar.cc/80?img=32",
-              "https://i.pravatar.cc/80?img=5",
-              "https://i.pravatar.cc/80?img=67",
-              "https://i.pravatar.cc/80?img=21",
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
             ].map((src, idx) => (
               <img
                 key={idx}
                 src={src}
                 alt="Alumni"
-                className="h-20 w-20 md:h-20 md:w-20 rounded-full object-cover"
+                className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
+              />
+            ))}
+          </div>
+
+          {/* Mobile circle layout */}
+          <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
+            {[
+              "https://i.pravatar.cc/100?img=11",
+              "https://i.pravatar.cc/100?img=32",
+              "https://i.pravatar.cc/100?img=5",
+              "https://i.pravatar.cc/100?img=67",
+            ].map((src, idx) => (
+              <img
+                key={idx}
+                src={src}
+                alt="Alumni"
+                className={`circle-img circle-${idx + 1}`}
               />
             ))}
           </div>
