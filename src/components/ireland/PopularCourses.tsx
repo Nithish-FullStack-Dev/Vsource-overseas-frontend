@@ -78,6 +78,13 @@ export default function PopularCourses() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.1);
+          color: #fff;
+          overflow: hidden;
+          transition: background 0.3s, color 0.3s, box-shadow 0.3s;
         }
         .hi-icon-wrap::after {
           content: "";
@@ -89,6 +96,21 @@ export default function PopularCourses() {
           border: 3px solid #fff;
           border-radius: 50%;
           transform: translate(-50%, -50%);
+          transition: all 0.3s ease;
+          z-index: 1;
+        }
+        .hi-icon-wrap svg {
+          position: relative;
+          z-index: 2;
+          transition: transform 0.3s ease;
+        }
+        .group:hover .hi-icon-wrap {
+          background: #fff;
+          color: ${ACCENT};
+          box-shadow: 0 0 0 8px rgba(255,255,255,0.3);
+        }
+        .group:hover .hi-icon-wrap svg {
+          transform: scale(0.9);
         }
         .group:hover .hi-icon-wrap::after {
           border-style: dashed;

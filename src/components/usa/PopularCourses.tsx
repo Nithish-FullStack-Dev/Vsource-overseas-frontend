@@ -66,16 +66,16 @@ export default function PopularCourses() {
       <style>{`
         .hi-icon-wrap {
           position: relative;
-          display: inline-flex;
+          display: flex;
           align-items: center;
           justify-content: center;
-          width: 100px;
-          height: 100px;
-        }
-        .hi-icon-wrap svg {
-          position: relative;
-          z-index: 2;
-          font-size: 46px;
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.1);
+          color: #fff;
+          overflow: hidden;
+          transition: background 0.3s, color 0.3s, box-shadow 0.3s;
         }
         .hi-icon-wrap::after {
           content: "";
@@ -84,22 +84,48 @@ export default function PopularCourses() {
           left: 50%;
           width: 100%;
           height: 100%;
-          border: 3px solid #fff;
           border-radius: 50%;
+          border: 3px solid rgba(255,255,255,1);
           transform: translate(-50%, -50%);
-          z-index: 1;
           transition: all 0.3s ease;
+          z-index: 1;
         }
-        .group:hover .hi-icon-wrap::after {
-          border-style: dashed;
-          animation: spinAround 9s linear infinite;
+        .hi-icon-wrap svg {
+          position: relative;
+          z-index: 2;
         }
-        @keyframes spinAround {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg);
+        .hi-icon-wrap:hover {
+          background: #fff;
+          color: ${ACCENT};
+          box-shadow: 0 0 0 8px rgba(255,255,255,0.3);
+        }
+        .hi-icon-wrap:hover svg {
+          transform: scale(0.9);
+          transition: transform 0.3s ease;
+        }
+        .hi-icon-wrap:hover::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          height: 100%;
+          background: transparent;
+          border-radius: 50%;
+          z-index: 0;
+          animation: toRightFromLeft 0.3s forwards;
+        }
+        @keyframes toRightFromLeft {
+          49% {
+            transform: translateX(100%);
           }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg);
+          50% {
+            opacity: 0;
+            transform: translateX(-100%);
+          }
+          51% {
+            opacity: 1;
+            transform: translateX(0);
           }
         }
       `}</style>
@@ -128,16 +154,11 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
         style={{ boxShadow: "0 1px 0 rgba(16,24,40,0.04)" }}
       >
         <div
-          className="group flex flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8  transition-transform"
+          className="group flex flex-col items-center justify-center text-white rounded-2xl p-7 md:p-8 transition-transform"
           style={{ backgroundColor: ACCENT }}
         >
           <div className="hi-icon-wrap">
-            <course.Icon
-              width={46}
-              height={46}
-              aria-hidden
-              className="transition-transform duration-300 ease-out group-hover:scale-110 will-change-transform"
-            />
+            <course.Icon width={46} height={46} aria-hidden />
           </div>
           <div className="mt-4 text-center text-base md:text-lg font-semibold">
             {course.title}

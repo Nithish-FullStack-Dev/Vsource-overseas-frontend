@@ -65,50 +65,72 @@ export default function PopularCourses() {
 
       <style>
         {`
-          .hi-icon-wrap {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100px;
-            height: 100px;
-          }
+    .hi-icon-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
 
-          .hi-icon-wrap svg {
-            position: relative;
-            z-index: 2;
-          }
+    .hi-icon-wrap svg {
+      position: relative;
+      z-index: 2;
+      transition: transform 0.25s ease;
+    }
 
-          /* Circle border */
-          .hi-icon-wrap::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            border: 3px solid #fff;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            transition: all 0.3s ease;
-          }
+    /* sonar circle */
+    .hi-icon-wrap::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      height: 90%;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      z-index: 1;
+      opacity: 0;
+    }
 
-          /* Hover effect with spinAround */
-          .group:hover .hi-icon-wrap::after {
-            border-style: dashed;
-            animation: spinAround 9s linear infinite;
-          }
+    /* hover on icon wrapper */
+    .hi-icon-wrap:hover {
+      transform: scale(0.93); /* ✅ scale down effect */
+    }
 
-          @keyframes spinAround {
-            from {
-              transform: translate(-50%, -50%) rotate(0deg);
-            }
-            to {
-              transform: translate(-50%, -50%) rotate(360deg);
-            }
-          }
-        `}
+    .hi-icon-wrap:hover svg {
+      transform: scale(0.9);
+    }
+
+    .hi-icon-wrap:hover::after {
+      animation: sonarEffect 1.3s ease-out forwards;
+    }
+
+    @keyframes sonarEffect {
+      0% {
+        opacity: 0.3;
+      }
+      40% {
+        opacity: 0.6;
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.2),
+                    0 0 10px 10px ${ACCENT},
+                    0 0 0 10px rgba(255,255,255,0.4);
+      }
+      100% {
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.2),
+                    0 0 10px 10px ${ACCENT},
+                    0 0 0 10px rgba(255,255,255,0.4);
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+      }
+    }
+  `}
       </style>
     </section>
   );
@@ -155,7 +177,6 @@ function CourseCard({ course, index }: { course: Course; index: number }) {
   );
 }
 
-/* ICON COMPONENTS */
 function BriefcaseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
