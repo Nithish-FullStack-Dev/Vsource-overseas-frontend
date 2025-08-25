@@ -146,7 +146,6 @@ const FinancialAssistance: React.FC = () => {
   <a 
     href="https://vsourcefintech.com/" 
     target="_blank" 
-    rel="noopener noreferrer"
   >
     <button
       className="btn primary"
@@ -160,9 +159,8 @@ const FinancialAssistance: React.FC = () => {
   </a>
 
   <a 
-    href="https://vsourcefintech.com/" 
+    href="https://vsourcefintech.com/contact" 
     target="_blank" 
-    rel="noopener noreferrer"
   >
     <button
       className="btn secondary"

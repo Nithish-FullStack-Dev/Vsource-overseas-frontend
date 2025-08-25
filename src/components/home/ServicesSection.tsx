@@ -7,7 +7,7 @@ const services = [
     description:
       "100% EDUCATION LOAN\nFOR BTECH IN NAAC A, A+, A++\nFOR MASTER IN US | UK | IRELAND | CANADA | FRANCE",
     imageSrc: "/assets/images/badges/edu.jpg",
-    externalUrl: "https://www.vsourcefintech.com/",
+    externalUrl: "https://vsourcefintech.com/",
     logoSrc: "/assets/images/logo fintech.png",
   },
 
