@@ -73,11 +73,11 @@ const App = () => {
               <Route path="/study-in-canada" element={<StudyCanada />} />
               <Route path="/study-in-ireland" element={<StudyIreland />} />
               <Route path="/study-in-france" element={<StudyFrance />} />
+              <Route path="/explore-universities" element={<UniversityHomePage />} />
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/join-us" element={<JoinUsPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/university-find" element={<UniversityHomePage />} />
             </Routes>
           </main>
           <ContactBar />

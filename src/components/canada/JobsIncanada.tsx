@@ -331,10 +331,10 @@ export default function JobsIncanadaFlow() {
          {/* Desktop / Tablet normal layout */}
           <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+              "/assets/images/students/WhatsApp Image 2024-08-31 at 14.33.20_e81bc358.jpg",
+              "/assets/images/students/WhatsApp Image 2024-07-25 at 10.29.55_cfec3de5.jpg",
+              "/assets/images/students/71.jpg",
+              "/assets/images/students/42.png",
             ].map((src, idx) => (
               <img
                 key={idx}
@@ -348,10 +348,10 @@ export default function JobsIncanadaFlow() {
           {/* Mobile circle layout */}
           <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+               "/assets/images/students/WhatsApp Image 2024-08-31 at 14.33.20_e81bc358.jpg",
+              "/assets/images/students/WhatsApp Image 2024-07-25 at 10.29.55_cfec3de5.jpg",
+              "/assets/images/students/71.jpg",
+              "/assets/images/students/42.png",
             ].map((src, idx) => (
               <img
                 key={idx}

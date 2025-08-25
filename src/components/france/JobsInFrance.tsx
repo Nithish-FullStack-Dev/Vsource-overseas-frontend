@@ -332,10 +332,10 @@ export default function JobsInFranceFlow() {
            {/* Desktop / Tablet normal layout */}
           <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+              "/assets/images/students/GUNTUR VAILANKAN KUMAR.jpeg",
+              "/assets/images/students/IMG-20230427-WA0024.jpg",
+              "/assets/images/students/NITHYA SREE BUSSU (USA).jpeg",
+              "/assets/images/students/PAKALA MEGHANA REDDY (UK).jpeg",
             ].map((src, idx) => (
               <img
                 key={idx}
@@ -349,10 +349,10 @@ export default function JobsInFranceFlow() {
           {/* Mobile circle layout */}
           <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+                "/assets/images/students/GUNTUR VAILANKAN KUMAR.jpeg",
+              "/assets/images/students/IMG-20230427-WA0024.jpg",
+              "/assets/images/students/NITHYA SREE BUSSU (USA).jpeg",
+              "/assets/images/students/PAKALA MEGHANA REDDY (UK).jpeg",
             ].map((src, idx) => (
               <img
                 key={idx}

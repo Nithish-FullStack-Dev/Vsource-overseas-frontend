@@ -146,10 +146,10 @@ export default function JobsInUKFlow() {
           {/* Desktop / Tablet normal layout */}
           <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+              "/assets/images/students/1.jpg",
+              "/assets/images/students/IMG_1749.png",
+              "/assets/images/students/SIRISHA GODUGU (UK).jpeg",
+              "/assets/images/students/PRADEEP SRIKONDA (UK).jpeg",
             ].map((src, idx) => (
               <img
                 key={idx}
@@ -163,10 +163,10 @@ export default function JobsInUKFlow() {
           {/* Mobile circle layout */}
           <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
             {[
-              "https://i.pravatar.cc/100?img=11",
-              "https://i.pravatar.cc/100?img=32",
-              "https://i.pravatar.cc/100?img=5",
-              "https://i.pravatar.cc/100?img=67",
+                "/assets/images/students/1.jpg",
+              "/assets/images/students/IMG_1749.png",
+              "/assets/images/students/SIRISHA GODUGU (UK).jpeg",
+              "/assets/images/students/PRADEEP SRIKONDA (UK).jpeg",
             ].map((src, idx) => (
               <img
                 key={idx}

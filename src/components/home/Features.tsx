@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./FinancialAssistance.css";
+import { Link } from "react-router-dom";
 
 interface Feature {
   icon: string;
@@ -141,26 +142,38 @@ const FinancialAssistance: React.FC = () => {
 </div>
 
 
-   <div className="button-group" data-aos="fade-up" data-aos-duration="700">
-  <button
-    className="btn primary"
-    data-aos="zoom-in-right"
-    data-aos-delay="200"
-    data-aos-duration="700"
-    data-aos-anchor-placement="center-bottom" 
+<div className="button-group" data-aos="fade-up" data-aos-duration="700">
+  <a 
+    href="https://vsourcefintech.com/" 
+    target="_blank" 
   >
-    CHECK ELIGIBILITY
-  </button>
-  <button
-    className="btn secondary"
-    data-aos="zoom-in-left"
-    data-aos-delay="400"
-    data-aos-duration="700"
-    data-aos-anchor-placement="center-bottom" 
+    <button
+      className="btn primary"
+      data-aos="zoom-in-right"
+      data-aos-delay="200"
+      data-aos-duration="700"
+      data-aos-anchor-placement="center-bottom" 
+    >
+      CHECK ELIGIBILITY
+    </button>
+  </a>
+
+  <a 
+    href="https://vsourcefintech.com/contact" 
+    target="_blank" 
   >
-    FOR MORE INFORMATION
-  </button>
+    <button
+      className="btn secondary"
+      data-aos="zoom-in-left"
+      data-aos-delay="400"
+      data-aos-duration="700"
+      data-aos-anchor-placement="center-bottom" 
+    >
+      FOR MORE INFORMATION
+    </button>
+  </a>
 </div>
+
 
   </div>
 </div>
