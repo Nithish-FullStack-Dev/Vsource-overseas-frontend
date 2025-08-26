@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Phone, UserPlus, Video } from "lucide-react";
 import { openGreenPopup, resetPopupPreferences } from "../lib/Popups";
 import { FaWhatsapp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface ContactBarProps {
   visible?: boolean;
@@ -11,6 +12,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
   const whatsappNumber = "919912611119";
   const phoneNumber = "+919912611119";
   const [showMobileBar, setShowMobileBar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +33,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
   };
 
   const handleGoVirtual = () => {
-    alert("Starting virtual meeting..."); // Replace with actual action
+    navigate("/meeting");
   };
 
   if (!visible) return null;

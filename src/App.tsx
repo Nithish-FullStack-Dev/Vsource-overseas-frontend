@@ -25,6 +25,9 @@ import FaqSection from "./components/home/FaqSection";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
+import GoVirtual from "./services/GoVirtual";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -59,13 +62,15 @@ const App = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isGoVirtualPage = location.pathname === "/meeting";
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <div className="flex flex-col min-h-screen">
-          <Navbar />
+          {!isGoVirtualPage && <Navbar />}
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<HomePage faqRef={faqRef} />} />
@@ -76,18 +81,27 @@ const App = () => {
               <Route path="/study-in-ireland" element={<StudyIreland />} />
               <Route path="/study-in-france" element={<StudyFrance />} />
 
-           
+              <Route
+                path="/explore-universities"
+                element={<UniversityHomePage />}
+              />
 
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/join-us" element={<JoinUsPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/meeting" element={<GoVirtual />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
 
+
           {/* Bottom fixed components */}
           <ContactBar />
           <Footer />
+
+          {!isGoVirtualPage && <ContactBar />}
+          {!isGoVirtualPage && <Footer />}
+
           <ScrollToTopButton
             showFormIcon={showFormIcon}
             onFormIconClick={() => {
