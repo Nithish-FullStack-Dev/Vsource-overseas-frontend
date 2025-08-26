@@ -25,11 +25,6 @@ import FaqSection from "./components/home/FaqSection";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-// University pages
-import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
-import UniversityCountryPage from "./pages/university-pages/UniversityCountryPage";
-import UniversityDetails from "./pages/university-pages/UniversityDetails";
-
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -81,14 +76,7 @@ const App = () => {
               <Route path="/study-in-ireland" element={<StudyIreland />} />
               <Route path="/study-in-france" element={<StudyFrance />} />
 
-              {/* University pages */}
-           <Route path="/explore-universities" element={<UniversityHomePage />} />
-<Route path="/explore-universities/:country" element={<UniversityHomePage />} />
-
-              <Route
-                path="/explore-universities/:country/:slug"
-                element={<UniversityDetails />}
-              />
+           
 
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/join-us" element={<JoinUsPage />} />
