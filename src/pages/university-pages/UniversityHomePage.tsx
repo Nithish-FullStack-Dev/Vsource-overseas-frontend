@@ -1,166 +1,140 @@
-import React, { useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
+import {
+  UNIVERSITIES,
+  COUNTRIES,
+  Country,
+  University,
+} from "@/lib/Universities";
+import UniversityList from "@/components/UniversityList";
+import { useNavigate, useParams } from "react-router-dom";
 
-interface University {
-  id: number;
-  name: string;
-  country: string;
-  description: string;
-  website: string;
-}
+const UniversityHomePage: React.FC = () => {
+  const navigate = useNavigate();
+  const { country } = useParams<{ country?: string }>();
 
-const universities: University[] = [
-  {
-    id: 1,
-    name: "University of Connecticut",
-    country: "USA",
-    description: "Storrs, Connecticut (Public Research University)",
-    website: "https://uconn.edu",
-  },
-  {
-    id: 2,
-    name: "University of Bristol",
-    country: "UK",
-    description: "Bristol, England (Top-ranked UK University)",
-    website: "https://bristol.ac.uk",
-  },
-  {
-    id: 3,
-    name: "Trinity College Dublin",
-    country: "Ireland",
-    description: "Dublin, Ireland (Historic Research University)",
-    website: "https://tcd.ie",
-  },
-  {
-    id: 4,
-    name: "University of Melbourne",
-    country: "Australia",
-    description: "Melbourne, Australia (Leading Global University)",
-    website: "https://unimelb.edu.au",
-  },
-  {
-    id: 5,
-    name: "University of Toronto",
-    country: "Canada",
-    description: "Toronto, Ontario (World’s Top Public Research University)",
-    website: "https://utoronto.ca",
-  },
-  {
-    id: 6,
-    name: "University of Auckland",
-    country: "New Zealand",
-    description: "Auckland, New Zealand (Top University in NZ)",
-    website: "https://auckland.ac.nz",
-  },
-];
+  const [selectedCountry, setSelectedCountry] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-const countries = ["All", "UK", "USA", "Canada", "Ireland", "France"];
+  // Sync dropdown with URL param on mount/param change
+  useEffect(() => {
+    if (country) {
+      setSelectedCountry(country);
+    } else {
+      setSelectedCountry("All");
+    }
+  }, [country]);
 
-const UniversityHomePage = () => {
-  const [selectedCountry, setSelectedCountry] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
+  const handleCountryChange = (value: string) => {
+    setSelectedCountry(value);
+    if (value === "All") {
+      navigate("/explore-universities");
+    } else {
+      navigate(`/explore-universities/${value}`);
+    }
+  };
 
-  const filteredUniversities = universities.filter((uni) => {
-    const matchesCountry =
-      selectedCountry === "All" || uni.country === selectedCountry;
-    const matchesSearch = uni.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    return matchesCountry && matchesSearch;
-  });
+  const filteredUniversities = useMemo(() => {
+    return UNIVERSITIES.filter((uni: University) => {
+      const matchesCountry =
+        selectedCountry === "All" || uni.country === selectedCountry;
+      const matchesQuery =
+        searchQuery === "" ||
+        uni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        uni.campus.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCountry && matchesQuery;
+    });
+  }, [selectedCountry, searchQuery]);
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
-
+    <main>
+      {/* Banner */}
       <div
-        className="text-center mb-8 bg-cover bg-center shadow-md p-[200px] relative"
+        className="relative bg-cover bg-center bg-no-repeat pt-36 pb-20 overflow-hidden"
         style={{
-          backgroundImage: "url(/assets/images/universitiess/universityHomeBg.jpg)",
+          backgroundImage: `url(/assets/images/universitiess/universityHomeBg.jpg)`,
         }}
       >
-        {/* Overlay (below content) */}
-        <div className="bg-black/50 absolute inset-0  z-0"></div>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/70"></div>
 
-        {/* Content (on top) */}
-        <div className="relative z-1">
-          <h1 className="text-3xl font-bold text-white drop-shadow-lg">
-            List of Top Universities To Study Abroad
-          </h1>
-          <p className="text-gray-100 mt-2 max-w-2xl mx-auto drop-shadow-md">
-            Choose a university that fuels your passion & purpose and that quenches
-            your academic & career pursuits.
-          </p>
-          <button className="mt-4 bg-orange-500 text-white px-6 py-2 rounded-lg shadow hover:bg-orange-600 transition">
-            Talk to an Expert
-          </button>
-        </div>
-      </div>
-
-
-      <div className="w-full max-w-[1400px] mx-auto px-4">
-        {/* Filters */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
-          {/* Country Dropdown */}
-          <select
-            value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
-            className="border rounded-lg px-4 py-2 shadow-sm w-64"
-          >
-            {countries.map((country, idx) => (
-              <option key={idx} value={country}>
-                {country}
-              </option>
-            ))}
-          </select>
-
-          {/* Search Box */}
-          <input
-            type="text"
-            placeholder="Search Universities"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="border rounded-lg px-4 py-2 shadow-sm w-64"
-          />
-        </div>
-
-        {/* University Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredUniversities.length > 0 ? (
-            filteredUniversities.map((uni) => (
-              <div
-                key={uni.id}
-                className="bg-white p-5 rounded-xl shadow hover:shadow-lg transition"
-              >
-                {/* Uni Logo Placeholder - replace with your images */}
-                <div className="h-16 w-16 bg-gray-200 rounded mb-4 flex items-center justify-center text-gray-500">
-                  Logo
-                </div>
-                <h2 className="text-xl font-semibold text-gray-800">
-                  {uni.name}
-                </h2>
-                <p className="text-gray-500 text-sm mt-1">{uni.description}</p>
-                <div className="flex gap-2 mt-4">
-                  <a
-                    href={uni.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-200 px-3 py-1 rounded text-sm hover:bg-gray-300"
-                  >
-                    Know More
-                  </a>
-                  <button className="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600">
-                    Apply Now
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-600">
-              No universities found.
+        {/* Content */}
+        <div className="relative z-10 mb-6 container mx-auto max-w-6xl p-4">
+          <div className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow">
+            <h2 className="text-4xl font-bold text-red-600">Explore Top Universities</h2>
+            <p className="mt-2 text-sm sm:text-base opacity-90">
+              Filter by country and search to find the right match.
             </p>
-          )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Dropdown filter */}
+      < div className="w-full max-w-[1400px] mx-auto px-4" >
+        <div className="relative z-10 -mt-16 flex justify-center px-4">
+          <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3">
+            <label
+              htmlFor="countrySelect"
+              className="text-black-700 font-semibold text-2xl  text-center">
+              Select Country
+            </label>
+            <select
+              id="countrySelect"
+              value={selectedCountry}
+              onChange={(e) => handleCountryChange(e.target.value)}
+              className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition appearance-none"
+              style={{
+                backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 10L12 15L17 10' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 0.75rem center",
+                backgroundSize: "1.25rem",
+              }}
+            >
+              <option value="All">All Countries</option>
+              {COUNTRIES.map((c: Country) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+
+
+
+
+        {/* Count + Search */}
+        <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4 max-w-6xl mx-auto px-4 mt-3">
+          {/* Count */}
+          <div className="text-gray-700 font-medium text-sm sm:text-base md:text-lg">
+            Showing{" "}
+            <span className="font-semibold text-red-600">{filteredUniversities.length}</span>{" "}
+            universities
+            {selectedCountry !== "All" && (
+              <span className="ml-2">
+                in <span className="font-semibold text-red-600">{selectedCountry}</span>
+              </span>
+            )}
+          </div>
+
+          {/* Search */}
+          <div className="w-full md:w-64">
+            <input
+              type="search"
+              placeholder="Search universities..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition"
+            />
+          </div>
+        </div>
+
+        {/* University List */}
+        <UniversityList universities={filteredUniversities} />
+
+        <div className="h-8" />
+      </div >
+    </main >
   );
 };
 

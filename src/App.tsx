@@ -1,3 +1,4 @@
+// src/App.tsx
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,6 +24,7 @@ import { useEffect, useRef, useState } from "react";
 import FaqSection from "./components/home/FaqSection";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
 import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
 import GoVirtual from "./services/GoVirtual";
 
@@ -34,6 +36,7 @@ const App = () => {
   const [showForm, setShowForm] = useState(false);
   const [showFormIcon, setShowFormIcon] = useState(false);
 
+  // Init AOS
   useEffect(() => {
     AOS.init({ once: false, mirror: true });
   }, []);
@@ -42,6 +45,7 @@ const App = () => {
     AOS.refresh();
   }, [location.pathname]);
 
+  // Show form after scroll
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY + window.innerHeight;
@@ -76,10 +80,12 @@ const App = () => {
               <Route path="/study-in-canada" element={<StudyCanada />} />
               <Route path="/study-in-ireland" element={<StudyIreland />} />
               <Route path="/study-in-france" element={<StudyFrance />} />
+
               <Route
                 path="/explore-universities"
                 element={<UniversityHomePage />}
               />
+
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/join-us" element={<JoinUsPage />} />
               <Route path="/contact" element={<ContactPage />} />
@@ -87,8 +93,15 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+
+
+          {/* Bottom fixed components */}
+          <ContactBar />
+          <Footer />
+
           {!isGoVirtualPage && <ContactBar />}
           {!isGoVirtualPage && <Footer />}
+
           <ScrollToTopButton
             showFormIcon={showFormIcon}
             onFormIconClick={() => {
