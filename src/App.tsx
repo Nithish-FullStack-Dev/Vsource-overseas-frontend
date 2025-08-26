@@ -1,3 +1,4 @@
+// src/App.tsx
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,7 +24,11 @@ import { useEffect, useRef, useState } from "react";
 import FaqSection from "./components/home/FaqSection";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+// University pages
 import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
+import UniversityCountryPage from "./pages/university-pages/UniversityCountryPage";
+import UniversityDetails from "./pages/university-pages/UniversityDetails";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +38,7 @@ const App = () => {
   const [showForm, setShowForm] = useState(false);
   const [showFormIcon, setShowFormIcon] = useState(false);
 
+  // Init AOS
   useEffect(() => {
     AOS.init({ once: false, mirror: true });
   }, []);
@@ -41,6 +47,7 @@ const App = () => {
     AOS.refresh();
   }, [location.pathname]);
 
+  // Show form after scroll
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY + window.innerHeight;
@@ -73,13 +80,24 @@ const App = () => {
               <Route path="/study-in-canada" element={<StudyCanada />} />
               <Route path="/study-in-ireland" element={<StudyIreland />} />
               <Route path="/study-in-france" element={<StudyFrance />} />
-              <Route path="/explore-universities" element={<UniversityHomePage />} />
+
+              {/* University pages */}
+           <Route path="/explore-universities" element={<UniversityHomePage />} />
+<Route path="/explore-universities/:country" element={<UniversityHomePage />} />
+
+              <Route
+                path="/explore-universities/:country/:slug"
+                element={<UniversityDetails />}
+              />
+
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/join-us" element={<JoinUsPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+
+          {/* Bottom fixed components */}
           <ContactBar />
           <Footer />
           <ScrollToTopButton
