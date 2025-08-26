@@ -168,6 +168,31 @@ const AboutSection: React.FC = () => {
             </ul>
           </div>
 
+          <div className="flex flex-col gap-5 sm:hidden ">
+            {stats.map((stat, i) => {
+              const count = useCounter(stat.value);
+              return (
+                <div
+                  key={stat.id}
+                  className="stat-box"
+                  data-aos="fade-up"
+                  data-aos-delay={i * 200}
+                  data-aos-duration="1000"
+                  data-aos-anchor-placement="center-bottom"
+                >
+                  <div className="left-box">
+                    <img src={stat.icon} alt="" className="icon" />
+                    <div className="count text-[#1e73be]">
+                      {count.toLocaleString("en-US")}
+                      {stat.suffix}
+                    </div>
+                  </div>
+                  <div className="label">{stat.label}</div>
+                </div>
+              );
+            })}
+          </div>
+
           <div
             className="right"
             data-aos="flip-left"
@@ -201,7 +226,7 @@ const AboutSection: React.FC = () => {
                 <div className="left-box">
                   <img src={stat.icon} alt="" className="icon" />
                   <div className="count text-[#1e73be]">
-                    {count.toLocaleString("en-IN")}
+                    {count.toLocaleString("en-US")}
                     {stat.suffix}
                   </div>
                 </div>
@@ -312,7 +337,7 @@ const AboutSection: React.FC = () => {
           line-height: 1.3;
           text-align: right;
           margin-left: 10px;
-              width: 34%;
+          width: 34%;
         }
 
         /* Ultra-small phones */
@@ -321,12 +346,23 @@ const AboutSection: React.FC = () => {
           .count { font-size: 18px; }
           .label { font-size: 12px; }
         }
-             @media (max-width: 540px) {
-             .left-box {
-                  width: 50%;
-                  justify-content: space-between;
-              }
-             }
+        @media (max-width: 540px) {
+          .left-box {
+              width: 50%;
+              justify-content: space-between;
+            }
+          .stat-box:first-child .left-box {
+              width: 60%;
+              justify-content: space-between;
+            }
+          }
+            
+        @media (max-width: 640px) {
+          .bottom-section{
+            display:none;
+          }
+        }
+
 
         /* Accessibility: disable motion */
         @media (prefers-reduced-motion: reduce) {
