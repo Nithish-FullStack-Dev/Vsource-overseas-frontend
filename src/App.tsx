@@ -105,10 +105,6 @@ const App = () => {
             </Routes>
           </main>
 
-          {/* Bottom fixed components */}
-          <ContactBar />
-          <Footer />
-
           {!isGoVirtualPage && <ContactBar />}
           {!isGoVirtualPage && <Footer />}
 
@@ -119,6 +115,7 @@ const App = () => {
               setShowFormIcon(false);
             }}
           />
+
           {showForm && (
             <DelayedPopup
               onMinimize={() => {
