@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronUp, MessageSquareMore, FileText } from "lucide-react";
+import { ChevronUp, MessageSquareMore, FileText, Plus } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -39,10 +39,10 @@ const ScrollToTopButton: React.FC<Props> = ({
               <TooltipTrigger asChild>
                 <button
                   onClick={onFormIconClick}
-                  className="fixed bottom-44 right-6 z-40 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-colors md:bottom-32 mb-3"
+                  className="fixed bottom-44 right-6 z-40 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-colors md:bottom-32 mb-3 flex items-center justify-center"
                   aria-label="Open Form"
                 >
-                  <FileText className="h-6 w-6" />
+                  <FileText className="h-6 w-6 pulse" />
                 </button>
               </TooltipTrigger>
               <TooltipContent>Request form</TooltipContent>
@@ -75,6 +75,15 @@ const ScrollToTopButton: React.FC<Props> = ({
           </button>
         </>
       )}
+      <style>{`
+          @keyframes pulse {
+             0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.1); opacity: 0.8; }
+          }
+          .pulse {
+           animation: pulse 1.5s infinite;
+           }
+    `}</style>
     </>
   );
 };
