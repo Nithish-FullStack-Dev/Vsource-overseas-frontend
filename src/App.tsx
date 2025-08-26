@@ -27,6 +27,7 @@ import "aos/dist/aos.css";
 
 import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
 import GoVirtual from "./services/GoVirtual";
+import UniversityDetails from "./pages/university-pages/UniversityDetails";
 
 const queryClient = new QueryClient();
 
@@ -81,9 +82,19 @@ const App = () => {
               <Route path="/study-in-ireland" element={<StudyIreland />} />
               <Route path="/study-in-france" element={<StudyFrance />} />
 
+              {/* University pages */}
               <Route
                 path="/explore-universities"
                 element={<UniversityHomePage />}
+              />
+              <Route
+                path="/explore-universities/:country"
+                element={<UniversityHomePage />}
+              />
+
+              <Route
+                path="/explore-universities/:country/:slug"
+                element={<UniversityDetails />}
               />
 
               <Route path="/gallery" element={<GalleryPage />} />
@@ -93,7 +104,6 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
-
 
           {/* Bottom fixed components */}
           <ContactBar />
