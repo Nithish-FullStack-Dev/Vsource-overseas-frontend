@@ -76,20 +76,41 @@ const AboutSection: React.FC = () => {
 
             {/* Paragraph */}
             <p
-              className="desc pb-3"
+              className="desc pb-3 sm:pb-0"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
               data-aos-duration="1000"
               data-aos-delay="200"
             >
-              At Vsource Overseas, we specialize in transforming{" "}
-              <strong>academic ambition into international achievement</strong>.
-              With a legacy spanning over 20 years, we proudly stand as South
-              India’s premier consultancy for master’s admissions abroad.
+              <strong className="font-bold">
+                South India's Leading Educational Group for Higher Education .
+              </strong>
             </p>
+            <p
+              className="para"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              Proudly sending the highest number of students every year.
+            </p>
+            <p
+              className="para pb-3"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              <strong className="font-bold">
+                100% Educational Loan Guidance{" "}
+              </strong>
+              provided to support your academic journey..
+            </p>
+
             <hr />
             {/* Features List */}
-            <ul className="features space-y-4">
+            <ul className="features space-y-2">
               <li
                 data-aos="fade-right"
                 data-aos-delay="400"
@@ -216,14 +237,15 @@ const AboutSection: React.FC = () => {
 
         .left { min-width: 0; }
         .right { display: flex; flex-direction: column; align-items: center; }
-        h2 { font-size: clamp(22px, 3.6vw, 32px); font-weight: 700; margin: 0; }
-        .desc { font-size: clamp(14px, 2.5vw, 15px); margin: 12px 0 0; line-height: 1.6; }
+        h2 { font-size: clamp(30px, 3.6vw, 32px); font-weight: 700; margin: 0; }
+        .desc { font-size: clamp(20px, 2.5vw, 25px); margin: 8px 0 0; line-height: 1.6; }
+        .para { font-size: clamp(15px, 2.3vw, 15px); margin: 8px 0 0; }
 
         .features { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
-        .features li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: clamp(13px, 2.3vw, 15px); }
+        .features li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: clamp(15px, 2.3vw, 15px); }
         .features li img { width: 22px; height: 22px; margin-top: 2px; }
 
-        .founder-img { width: 100%; max-width: 380px; border-radius: 10px; border: 1px solid #e5e7eb; }
+        .founder-img { width: 100%; max-width: 450px; border-radius: 10px; border: 1px solid #e5e7eb; }
         .quote { font-style: italic; margin-top: 10px; text-align: center; font-size: 15px; }
 
         /* Stats grid */
@@ -269,6 +291,11 @@ const AboutSection: React.FC = () => {
           height: 40px;
           flex-shrink: 0;
           object-fit: contain;
+        }
+
+        .bottom-section .stat-box:first-child .icon {
+          width: 52px;
+          height: 52px;
         }
 
         .count {
