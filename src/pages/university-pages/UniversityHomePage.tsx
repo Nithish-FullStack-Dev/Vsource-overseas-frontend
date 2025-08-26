@@ -48,29 +48,46 @@ const UniversityHomePage: React.FC = () => {
   return (
     <main>
       {/* Banner */}
-      <div className="bg-cover bg-center bg-no-repeat pt-36 pb-20 relative z-0 " style={{
-        backgroundImage: `url(/assets/images/universitiess/universityHomeBg.jpg)`,
-      }}>
-        <div className="bg-black/70 absolute inset-0 z-0"></div>
-        <div className="mb-6 relative z-2 container mx-auto max-w-6xl p-4 ">
+      <div
+        className="relative bg-cover bg-center bg-no-repeat pt-36 pb-20 overflow-hidden"
+        style={{
+          backgroundImage: `url(/assets/images/universitiess/universityHomeBg.jpg)`,
+        }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/70"></div>
+
+        {/* Content */}
+        <div className="relative z-10 mb-6 container mx-auto max-w-6xl p-4">
           <div className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow">
             <h2 className="text-4xl font-bold text-red-600">Explore Top Universities</h2>
-            <p className="mt-2 text-sm opacity-90">
+            <p className="mt-2 text-sm sm:text-base opacity-90">
               Filter by country and search to find the right match.
             </p>
           </div>
         </div>
-
       </div>
-      {/* Dropdown filter */}
-      <div className="w-full max-w-[1400px] mx-auto px-4">
 
+      {/* Dropdown filter */}
+      < div className="w-full max-w-[1400px] mx-auto px-4" >
         <div className="relative z-10 -mt-16 flex justify-center px-4">
-          <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-10 flex justify-center">
+          <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3">
+            <label
+              htmlFor="countrySelect"
+              className="text-black-700 font-semibold text-2xl  text-center">
+              Select Country
+            </label>
             <select
+              id="countrySelect"
               value={selectedCountry}
               onChange={(e) => handleCountryChange(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition"
+              className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition appearance-none"
+              style={{
+                backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 10L12 15L17 10' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 0.75rem center",
+                backgroundSize: "1.25rem",
+              }}
             >
               <option value="All">All Countries</option>
               {COUNTRIES.map((c: Country) => (
@@ -82,16 +99,20 @@ const UniversityHomePage: React.FC = () => {
           </div>
         </div>
 
+
+
+
+
         {/* Count + Search */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4 max-w-6xl mx-auto px-4 mt-3">
           {/* Count */}
           <div className="text-gray-700 font-medium text-sm sm:text-base md:text-lg">
             Showing{" "}
-            <span className="font-semibold text-indigo-600">{filteredUniversities.length}</span>{" "}
+            <span className="font-semibold text-red-600">{filteredUniversities.length}</span>{" "}
             universities
             {selectedCountry !== "All" && (
               <span className="ml-2">
-                in <span className="font-semibold text-indigo-600">{selectedCountry}</span>
+                in <span className="font-semibold text-red-600">{selectedCountry}</span>
               </span>
             )}
           </div>
@@ -112,8 +133,8 @@ const UniversityHomePage: React.FC = () => {
         <UniversityList universities={filteredUniversities} />
 
         <div className="h-8" />
-      </div>
-    </main>
+      </div >
+    </main >
   );
 };
 
