@@ -24,7 +24,7 @@ const UniversityDetails: React.FC = () => {
   const courses = university?.courses || [];
   const coursesPerPage = 4;
   const [currentSlide, setCurrentSlide] = useState(0);
-
+  const [activeTab, setActiveTab] = useState(TABS[0].id);
   const totalSlides = Math.ceil(courses.length / coursesPerPage);
 
   const startIdx = currentSlide * coursesPerPage;
@@ -59,11 +59,13 @@ const UniversityDetails: React.FC = () => {
   }
 
   const handleScrollTo = (id: string) => {
+    setActiveTab(id);
     const ref = sectionRefs[id];
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
 
   return (
     <main className="w-full bg-gray-50">
@@ -95,43 +97,50 @@ const UniversityDetails: React.FC = () => {
         </div>
       </div>
 
-      {/* Breadcrumb */}
-      <nav className="container mx-auto max-w-7xl px-4 md:px-6 py-4 text-sm text-gray-600">
-        <ol className="flex flex-wrap gap-2">
-          <li>
-            <Link to="/" className="hover:text-orange-500">
-              Home
-            </Link>
-          </li>
-          <li>/</li>
-          <li>
-            <Link to="/explore-universities" className="hover:text-orange-500">
-              Universities
-            </Link>
-          </li>
-          <li>/</li>
-          <li className="text-gray-900 font-medium">{university.country}</li>
-
-          <li>/</li>
-          <li className="text-gray-900 font-medium">{university.name}</li>
-        </ol>
-      </nav>
-
-      {/* Sticky Tabs */}
-      <div className="sticky top-0 z-50 bg-white shadow-sm border-b">
-        <div className="container mx-auto max-w-7xl flex overflow-x-auto">
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => handleScrollTo(tab.id)}
-              className="px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-orange-500 whitespace-nowrap"
-            >
-              {tab.label}
-            </button>
-          ))}
+      <div
+        className="sticky top-[15%] z-50 bg-white shadow-lg"
+        style={{ borderTop: "0.5px solid #D3D3D3" }}
+      >
+        <nav className="container mx-auto max-w-7xl px-4 md:px-6 py-4 text-sm text-gray-600">
+          <ol className="flex flex-wrap gap-2">
+            <li>
+              <Link to="/" className="hover:text-orange-500">
+                Home
+              </Link>
+            </li>
+            <li>/</li>
+            <li>
+              <Link
+                to="/explore-universities"
+                className="hover:text-orange-500"
+              >
+                Universities
+              </Link>
+            </li>
+            <li>/</li>
+            <li className="text-gray-900 font-medium">{university.country}</li>
+            <li>/</li>
+            <li className="text-gray-900 font-medium">{university.name}</li>
+          </ol>
+        </nav>
+       <div className=" bg-white shadow-sm border-b ">
+          <div className=" mx-auto max-w-7xl flex overflow-x-auto sm:overflow-hidden">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleScrollTo(tab.id)}
+                className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? "text-red-500 border-b-2 border-red-500"
+                    : ""
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-
       {/* Content + Form */}
       <div className="container mx-auto max-w-7xl px-4 md:px-6 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Content */}
@@ -265,56 +274,77 @@ const UniversityDetails: React.FC = () => {
           {/* Top Courses */}
           <div ref={sectionRefs["courses"]}>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="bg-orange-100 text-orange-600 p-2 rounded">📚</span>
+              <span className="bg-orange-100 text-orange-600 p-2 rounded">
+                📚
+              </span>
               Top Courses at {university.name}
             </h2>
-
-            <p className="text-gray-700 mb-6 leading-relaxed">
-              {university.name} is well-known for offering many courses at undergraduate and postgraduate levels...
+            <p className="text-gray-700 mb-6">
+              {university.courses?.[0]?.text?.map((text, idx) => (
+                <span key={idx} className="block mb-2">
+                  {text}
+                </span>
+              )) ??
+                "The university offers multiple intakes throughout the year, with the main intakes in September, January, and May."}
             </p>
 
-            {/* Course Tabs */}
             <div className="mb-6">
               <div className="flex gap-4 mb-8">
-                <button className="px-6 py-2 bg-gray-900 text-white rounded-full">Masters</button>
-                <button className="px-6 py-2 border border-gray-300 rounded-full">Bachelors</button>
+                <button className="px-6 py-2 bg-gray-900 text-white rounded-full">
+                  Masters
+                </button>
+                <button className="px-6 py-2 border border-gray-300 rounded-full">
+                  Bachelors
+                </button>
               </div>
             </div>
-            <div className="w-full max-w-4xl mx-auto">
-              {/* Course List */}
-              {/* Course List Container with Fixed Height for 4 Cards */}
-              <div className="grid grid-rows-4 gap-4 min-h-[700px] transition-all duration-500 ease-in-out">
-                {visibleCourses.map((course, index) => (
+            <div className="w-full max-w-4xl mx-auto overflow-hidden">
+              <div
+                className="flex transition-transform duration-1000 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {Array.from({ length: totalSlides }).map((_, slideIndex) => (
                   <div
-                    key={index}
-                    className="bg-white rounded-lg shadow p-4 border border-gray-200 flex flex-col justify-between"
+                    key={slideIndex}
+                    className="min-w-full grid grid-cols-1 md:grid-cols-1  grid-rows-4 gap-4 p-4"
                   >
-                    <h3 className="font-semibold text-lg mb-2">{course}</h3>
-                    <hr className="border-gray-200 mb-3" />
-                    <div className="flex justify-between items-center text-sm text-gray-700">
-                      <div>
-                        <div className="font-medium text-black">£18,600</div>
-                        <div className="text-xs">Annual Fee</div>
-                      </div>
-                      <div>
-                        <div className="font-medium text-black">12 Months</div>
-                        <div className="text-xs">Duration</div>
-                      </div>
-                      <button className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-4 py-2 rounded-md text-sm font-medium">
-                        Apply Now
-                      </button>
-                    </div>
+
+                    {courses
+                      .slice(
+                        slideIndex * coursesPerPage,
+                        (slideIndex + 1) * coursesPerPage
+                      )
+                      .map((course, index) => (
+                        <div
+                          key={index}
+                          className="bg-white rounded-lg shadow p-4 border border-gray-200 flex flex-col justify-between"
+                        >
+                          <h3 className="font-semibold text-lg mb-2">
+                            {course.study}
+                          </h3>
+                          <hr className="border-gray-200 mb-3" />
+                          <div className="flex justify-between items-center text-sm text-gray-700">
+                            <div>
+                              <div className="font-medium text-black">
+                                {course.cost}
+                              </div>
+                              <div className="text-xs">Annual Fee</div>
+                            </div>
+                            <div>
+                              <div className="font-medium text-black">
+                                12 Months
+                              </div>
+                              <div className="text-xs">Duration</div>
+                            </div>
+                            <button className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-4 py-2 rounded-md text-sm font-medium">
+                              Apply Now
+                            </button>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 ))}
-
-                {/* Empty Rows for Layout Padding Only */}
-                {Array.from({ length: coursesPerPage - visibleCourses.length }).map((_, idx) => (
-                  <div key={`empty-${idx}`} className="invisible" />
-                ))}
               </div>
-
-
-              {/* Navigation Arrows */}
               <div className="flex justify-center items-center gap-4 mt-6">
                 <button
                   onClick={handlePrev}
@@ -342,16 +372,52 @@ const UniversityDetails: React.FC = () => {
 
           {/* Cost to Study */}
           <div ref={sectionRefs["cost"]}>
-            <h2 className="text-2xl font-bold mb-4">Cost to Study</h2>
-            <p className="text-gray-700">
-              The average tuition fees range between $15,000 - $25,000 per year
-              depending on the program.
-            </p>
+            <h2 className="text-2xl font-bold mb-4">Cost to Study {university.name}, {university.country}</h2>
+            <div className="text-gray-700 space-y-4">
+              {university.cost?.[0]?.text ? (
+                university.cost[0].text.map((text, idx) => (
+                  <p key={idx} className="leading-relaxed">
+                    {text}
+                  </p>
+                ))
+              ) : (
+                <p>
+                  The average annual tuition fee for international students is approximately £18,600.
+                </p>
+              )}
+            </div>
+            <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+              <table className="min-w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-blue-100">
+                    <th className="px-6 py-3 text-base font-semibold text-gray-800 whitespace-nowrap border border-gray-200">
+                      Types of Expenses
+                    </th>
+                    <th className="px-6 py-3 text-base font-semibold text-white bg-blue-600 whitespace-nowrap border border-gray-200">
+                      Annual Expenses in INR
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-800 bg-white">
+                  {university.cost?.[1]?.tableData?.map((row, index) => (
+                    <tr key={index}>
+                      <td className="px-6 py-4 font-medium whitespace-nowrap border border-gray-200">
+                        {row.type}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap border border-gray-200">
+                        {row.cost}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
           </div>
 
           {/* Scholarships */}
           <div ref={sectionRefs["scholarships"]}>
-            <h2 className="text-2xl font-bold mb-4">Scholarships</h2>
+            <h2 className="text-2xl font-bold mb-4">Scholarships Available</h2>
             <p className="text-gray-700">
               Multiple merit and need-based scholarships are available for
               international students.
@@ -409,7 +475,7 @@ const UniversityDetails: React.FC = () => {
 
         {/* Right Form */}
         <div className="lg:col-span-1">
-          <div className="sticky top-20 bg-white shadow-md rounded-lg p-6">
+          <div className="sticky top-[32%] bg-white shadow-md rounded-lg p-6">
             <h3 className="text-lg font-bold mb-4 text-center">
               Want to Study in {university.country}?
             </h3>
