@@ -23,7 +23,16 @@ export interface University {
     month?: string;
     dropText?: string;
   }[];
-  courses: string[];
+  courses: Array<{
+    text?: string[];
+    study?: string;
+    cost?: string;
+  }>;
+  cost: {  text?: string[];
+    tableData?: Array<{
+      type: string;
+      cost: string;
+    }>; }[];
   gallery: string[];
 }
 
@@ -37,47 +46,74 @@ export const UNIVERSITIES: University[] = [
     campus: "Coventry Campus, London Campus",
     website: "https://www.coventry.ac.uk",
 
-    overview:[
+    overview: [
       "Known as the ‘UK City of Culture,’ Coventry is home to one of the fastest-growing universities in United Kingdom. Established in 1843, Coventry University has a rich history of excellence in teaching and research. Its main campus is located in Coventry, with additional campuses in London, Scarborough, and even internationally in Wroclaw, Poland and Kazakhstan.",
 
-    "Coventry University welcomes over 13,000 international students, with an impressive 50% being female, showcasing its commitment to diversity and equality. Its motto, Arte et Industria (By Art and Industry), highlights a forward-thinking blend of creativity and practical expertise. With over 11 research centers, the university is actively contributing to advancements in various fields.",
+      "Coventry University welcomes over 13,000 international students, with an impressive 50% being female, showcasing its commitment to diversity and equality. Its motto, Arte et Industria (By Art and Industry), highlights a forward-thinking blend of creativity and practical expertise. With over 11 research centers, the university is actively contributing to advancements in various fields.",
 
-    "Ranked among the top universities in UK, Coventry University is affiliated with prestigious organizations like the Association of Commonwealth Universities, Universities UK, and the European University Association. Plus, Coventry University acceptance rate exceeds 70% making it an accessible option for many aspiring learners worldwide.",
+      "Ranked among the top universities in UK, Coventry University is affiliated with prestigious organizations like the Association of Commonwealth Universities, Universities UK, and the European University Association. Plus, Coventry University acceptance rate exceeds 70% making it an accessible option for many aspiring learners worldwide.",
     ],
     stats: {
-    acceptanceRate: "79%",
-    intlStudents: "4244+",
-    ratio: "18:1",
-    placement: "94%",
-  },
+      acceptanceRate: "79%",
+      intlStudents: "4244+",
+      ratio: "18:1",
+      placement: "94%",
+    },
 
-  rankings: [
-    { rank: "#651–700", source: "QS World University Rankings" },
-    { rank: "#601–800", source: "Times Higher Education" },
-    { rank: "#50", source: "Guardian University Guide (UK)" },
-  ],
+    rankings: [
+      { rank: "#651–700", source: "QS World University Rankings" },
+      { rank: "#601–800", source: "Times Higher Education" },
+      { rank: "#50", source: "Guardian University Guide (UK)" },
+    ],
 
-  intakes: [
-    {text: ["Coventry University offers unmatched flexibility with its multiple intake periods, making it convenient for students to start their courses. Coventry University intake has over seven intakes throughout the year. However, the three primary intakes are the most popular, as they host the majority of master’s and bachelor’s programs.",
-    "For other intake periods, the university provides options like short-term courses, diplomas, and other specific programs. As Coventry University intakes for some programs are exclusively available during that specific time, it is essential to verify the intake period for the preferred course in advance."]},
-    { month: "September", dropText: "Over 85 postgraduate and few undergraduate programs are available in this winter intake." },
-    { month: "January", dropText: "A selection of postgraduate and undergraduate courses is offered during this spring intake." },
-    { month: "May", dropText: "This fall intake is the major one in which all of the undergraduate and postgraduate courses are offered." },
-  ],
+    intakes: [
+      {
+        text: ["Coventry University offers unmatched flexibility with its multiple intake periods, making it convenient for students to start their courses. Coventry University intake has over seven intakes throughout the year. However, the three primary intakes are the most popular, as they host the majority of master’s and bachelor’s programs.",
+          "For other intake periods, the university provides options like short-term courses, diplomas, and other specific programs. As Coventry University intakes for some programs are exclusively available during that specific time, it is essential to verify the intake period for the preferred course in advance."]
+      },
+      { month: "September", dropText: "Over 85 postgraduate and few undergraduate programs are available in this winter intake." },
+      { month: "January", dropText: "A selection of postgraduate and undergraduate courses is offered during this spring intake." },
+      { month: "May", dropText: "This fall intake is the major one in which all of the undergraduate and postgraduate courses are offered." },
+    ],
 
-  courses: [
-    "Computer Science",
-    "Mechanical Engineering",
-    "Business & Management",
-    "International Relations",
-    "Nursing",
-  ],
+    courses: [
+    
+      {study:"MBA Global Business", cost:"£20,350.00"},
+      {study:"MBA Master of Business Administration", cost:"£20,350.00"},
+      {study:"MSc Business Analytics", cost:"£20,050.00"},
+      {study:"MSc International Business Management", cost:"£20,050.00"},
+      {study:"MSc Computer Science", cost:"£20,050.00"},
+      {study:"MSc Data Science", cost:"£20,050.00"},
+      {study:"MSc Data Science and Computational Intelligence", cost:"£20,050.00"},
+      {study:"MSc Artificial Intelligence and Human Factors", cost:"£18,600.00"},
+      {study:"MSc Cyber Security", cost:"£20,050.00"},
+      {study:"MSc Advanced Mechanical Engineering", cost:"£20,050.00"},
+        {text:[
+        "Coventry University is well-known for offering many courses at undergraduate and postgraduate levels to students from all over the world. Among these, the Coventry University postgraduate courses are very popular. There are more than 230+ undergraduate and post-graduate courses that help students gain advanced knowledge in areas like Business & Management, Engineering & Technology, Health & Life Sciences, and Arts & Humanities.",
+        "The university teaches students through four main schools: the College of Arts and Society, the College of Engineering, Environment, and Science, the School of Health and Care, and the College of Business and Law. Coventry is also one of the largest universities in Europe for business-related courses.",
+        "Some postgraduate courses, such as MSc programs, also offer the chance to do Extended Professional Practice. This gives students real-world experience while they study. Besides this, Coventry University courses also include short programs in over 20 languages. The university is ranked 1st for Skills Development in the Postgraduate Taught Experience Survey (PTES) 2024, showing its strong focus on preparing students for success.",
+      ]  },
+    ],
+    cost: [
+      {
+        text: ["When it comes to Coventry University tuition fees for international students, affordability is a key factor to consider. Coventry City itself has been ranked as one of the top five student-friendly cities in the UK for affordability, as per the QS Best Student Cities Index 2024. This means students can expect reasonable living expenses while enjoying a vibrant student life.",
+          "In addition, Coventry University fees for both undergraduate and postgraduate programs are among the most competitive in the UK. Specifically, Coventry University fees for Indian students are designed to be manageable, with the university offering flexible payment installment plans for self-funded students.",
 
-  gallery: [
-    "/assets/images/university-gallery/coventry/1.jpg",
-    "/assets/images/university-gallery/coventry/2.jpg",
-    "/assets/images/university-gallery/coventry/3.jpg",
-  ],
+        ]
+      },
+      {
+        tableData: [
+          { type: "Annual PG Tuition fee", cost: "20–22 Lakhs" },
+          { type: "Annual UG Tuition fee", cost: "18–22 Lakhs" },
+          { type: "Annual Accommodation & food expenses", cost: "12–15 Lakhs" },
+        ],
+      },
+    ],
+    gallery: [
+      "/assets/images/university-gallery/coventry/1.jpg",
+      "/assets/images/university-gallery/coventry/2.jpg",
+      "/assets/images/university-gallery/coventry/3.jpg",
+    ],
   },
   // {
   //   id: "University of East London",
