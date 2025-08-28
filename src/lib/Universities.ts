@@ -55,6 +55,18 @@ export interface University {
     }>;
   };
   gallery: string[];
+  faq: Array<{
+    question: string;
+    answer: string;
+  }>;
+  placements?: {
+    description: string[];
+    TopRecruitersImg: string[];
+    jobs: Array<{
+      JobProfiles: string;
+      AverageSalary: string;
+    }>;
+  };
 }
 export interface Tab {
   id?: string;
@@ -63,12 +75,11 @@ export interface Tab {
 }
 export const UNIVERSITIES: University[] = [
   {
-
     key: "coventry-university",
     name: "Coventry University",
-   logo: "/assets/images/university-banners/uk-banner/Coventry-University-logo.webp",
+    logo: "/assets/images/university-banners/uk-banner/Coventry_University/Coventry-University-logo.webp",
     banner:
-      "/assets/images/university-banners/uk-banner/Coventry_University.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/Coventry_University.webp",
     country: "UK",
     campus: "Coventry Campus, London Campus",
     website: "https://www.coventry.ac.uk",
@@ -95,18 +106,32 @@ export const UNIVERSITIES: University[] = [
       items: [
         { rank: "#651–700", source: "QS World University Rankings" },
         { rank: "#601–800", source: "Times Higher Education" },
-        { rank: "#50", source: "Guardian University Guide (UK)" }
-      ]
+        { rank: "#50", source: "Guardian University Guide (UK)" },
+      ],
     },
 
     intakes: [
       {
-        text: ["Coventry University offers unmatched flexibility with its multiple intake periods, making it convenient for students to start their courses. Coventry University intake has over seven intakes throughout the year. However, the three primary intakes are the most popular, as they host the majority of master’s and bachelor’s programs.",
-          "For other intake periods, the university provides options like short-term courses, diplomas, and other specific programs. As Coventry University intakes for some programs are exclusively available during that specific time, it is essential to verify the intake period for the preferred course in advance."]
+        text: [
+          "Coventry University offers unmatched flexibility with its multiple intake periods, making it convenient for students to start their courses. Coventry University intake has over seven intakes throughout the year. However, the three primary intakes are the most popular, as they host the majority of master’s and bachelor’s programs.",
+          "For other intake periods, the university provides options like short-term courses, diplomas, and other specific programs. As Coventry University intakes for some programs are exclusively available during that specific time, it is essential to verify the intake period for the preferred course in advance.",
+        ],
       },
-      { month: "September", dropText: "Over 85 postgraduate and few undergraduate programs are available in this winter intake." },
-      { month: "January", dropText: "A selection of postgraduate and undergraduate courses is offered during this spring intake." },
-      { month: "May", dropText: "This fall intake is the major one in which all of the undergraduate and postgraduate courses are offered." },
+      {
+        month: "September",
+        dropText:
+          "Over 85 postgraduate and few undergraduate programs are available in this winter intake.",
+      },
+      {
+        month: "January",
+        dropText:
+          "A selection of postgraduate and undergraduate courses is offered during this spring intake.",
+      },
+      {
+        month: "May",
+        dropText:
+          "This fall intake is the major one in which all of the undergraduate and postgraduate courses are offered.",
+      },
     ],
 
     courses: {
@@ -122,19 +147,24 @@ export const UNIVERSITIES: University[] = [
         { study: "MSc International Business Management", cost: "£20,050.00" },
         { study: "MSc Computer Science", cost: "£20,050.00" },
         { study: "MSc Data Science", cost: "£20,050.00" },
-        { study: "MSc Data Science and Computational Intelligence", cost: "£20,050.00" },
-        { study: "MSc Artificial Intelligence and Human Factors", cost: "£18,600.00" },
+        {
+          study: "MSc Data Science and Computational Intelligence",
+          cost: "£20,050.00",
+        },
+        {
+          study: "MSc Artificial Intelligence and Human Factors",
+          cost: "£18,600.00",
+        },
         { study: "MSc Cyber Security", cost: "£20,050.00" },
         { study: "MSc Advanced Mechanical Engineering", cost: "£20,050.00" },
-
       ],
     },
     cost: [
       {
-        text: ["When it comes to Coventry University tuition fees for international students, affordability is a key factor to consider. Coventry City itself has been ranked as one of the top five student-friendly cities in the UK for affordability, as per the QS Best Student Cities Index 2024. This means students can expect reasonable living expenses while enjoying a vibrant student life.",
+        text: [
+          "When it comes to Coventry University tuition fees for international students, affordability is a key factor to consider. Coventry City itself has been ranked as one of the top five student-friendly cities in the UK for affordability, as per the QS Best Student Cities Index 2024. This means students can expect reasonable living expenses while enjoying a vibrant student life.",
           "In addition, Coventry University fees for both undergraduate and postgraduate programs are among the most competitive in the UK. Specifically, Coventry University fees for Indian students are designed to be manageable, with the university offering flexible payment installment plans for self-funded students.",
-
-        ]
+        ],
       },
       {
         tableData: [
@@ -145,48 +175,101 @@ export const UNIVERSITIES: University[] = [
       },
     ],
 
-  Scholarships: {
-     description: [
+    Scholarships: {
+      description: [
         "There are several Coventry University scholarships for international students. The university has also expanded its range of international scholarships and discounts for the January and May 2025 intakes. Unlike many other universities, there is no separate application process for Coventry University scholarships. Eligible students who meet the criteria will automatically receive the award after successfully completing the enrolment process as stated in their offer letter.",
         "However, it is important to note that Coventry University scholarships for undergraduate students are not currently available.",
       ],
-       items: [
+      items: [
         {
           name: "Vice-Chancellor's International Scholarship",
           amount: "£3,000",
           type: "Merit-based",
           level: "Postgraduate",
-          eligibility: "Available to high-achieving international students enrolling in postgraduate taught courses."
+          eligibility:
+            "Available to high-achieving international students enrolling in postgraduate taught courses.",
         },
         {
           name: "Excellence Scholarship",
           amount: "£2,000",
           type: "Merit-based",
           level: "Postgraduate",
-          eligibility: "Awarded to international students with outstanding academic records enrolling in postgraduate taught courses."
+          eligibility:
+            "Awarded to international students with outstanding academic records enrolling in postgraduate taught courses.",
         },
         {
           name: " Ambassador Scholarship",
           amount: "£1,500",
           type: "Merit-based",
           level: "Postgraduate",
-          eligibility: "Given to international students who demonstrate leadership qualities and contribute to the university community."
+          eligibility:
+            "Given to international students who demonstrate leadership qualities and contribute to the university community.",
         },
         {
           name: "Alumni Discount",
           amount: "10% tuition fee reduction",
           type: "Alumni-based",
           level: "Postgraduate",
-          eligibility: "Available to former Coventry University students enrolling in postgraduate taught courses."
+          eligibility:
+            "Available to former Coventry University students enrolling in postgraduate taught courses.",
         },
       ],
     },
-      gallery: [
-        "/assets/images/university-gallery/coventry/1.jpg",
-        "/assets/images/university-gallery/coventry/2.jpg",
-        "/assets/images/university-gallery/coventry/3.jpg",
+    gallery: [
+      "/assets/images/university-gallery/coventry/1.jpg",
+      "/assets/images/university-gallery/coventry/2.jpg",
+      "/assets/images/university-gallery/coventry/3.jpg",
+    ],
+    faq: [
+      {
+        question: " What is the application process?",
+        answer:
+          "There is no application fee, and students can apply directly through the university's website. For undergraduate courses, applications can also be submitted via UCAS. Once an application is received, the Admissions team typically processes it within five working days. If any required documents are missing, the university will contact the applicant for further submission.",
+      },
+      {
+        question: "Can students apply for multiple courses?",
+        answer:
+          "Yes, it is possible to apply for more than one course at Coventry University. However, a separate personal statement may be required for each application. While multiple offers can be received, students can only enroll in one program at a time, so making a final decision before the acceptance deadline is essential.",
+      },
+      {
+        question: "What accommodation options are available?",
+        answer:
+          "Students at Coventry University have access to a range of accommodation options, both on-campus and off-campus. The university provides housing to suit different preferences and budgets, from student halls close to the campus to private housing around the city.",
+      },
+    ],
+    placements: {
+      description: [
+        "Based on recent data, the Coventry University placement rate is reported to be 95%, highlighting the university's strong focus on employability. Recognized for its efforts, Coventry University has received the prestigious Queen’s Award for Enterprise, celebrating its dedication to building global relationships with institutions and companies.",
+        "The Coventry University placement team actively supports students in securing internships and co-op opportunities during their studies, ensuring hands-on experience and industry exposure that enhance career prospects.",
+      ],
+      jobs: [
+        {
+          JobProfiles: "Financial Planning Analyst",
+          AverageSalary: "30K - 44K",
+        },
+        { JobProfiles: "HR Manager", AverageSalary: "38K - 57K" },
+        { JobProfiles: "Software Programmer", AverageSalary: "38K - 60K" },
+        { JobProfiles: "Performance analyst", AverageSalary: "29K - 43K" },
+        {
+          JobProfiles: "Human Rights Investigator",
+          AverageSalary: "27K - 46K",
+        },
+        { JobProfiles: "BIM Manager", AverageSalary: "42K - 60K" },
+        { JobProfiles: "Civil Engineer", AverageSalary: "30K - 42K" },
+        { JobProfiles: "Electrical Engineer", AverageSalary: "30K - 43K" },
+      ],
+
+      TopRecruitersImg: [
+        "/assets/images/university-banners/uk-banner/Coventry_University/Heat-rec.webp",
+        "/assets/images/university-banners/uk-banner/Coventry_University/Smith-rec.webp",
+        "/assets/images/university-banners/uk-banner/Coventry_University/NG_Bank.webp",
+        "/assets/images/university-banners/uk-banner/Coventry_University/ford.webp",
+        "/assets/images/university-banners/uk-banner/Coventry_University/Herbert.webp",
+        "/assets/images/university-banners/uk-banner/Coventry_University/Claire.webp",
       ],
     },
+  },
+
   // {
   //   id: "University of East London",
   //   name: "University of East London",

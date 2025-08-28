@@ -3,7 +3,20 @@ import { useParams, Link } from "react-router-dom";
 import { Tab, UNIVERSITIES, University } from "@/lib/Universities";
 import React, { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { ArrowDown, BarChart3, BookOpen, Briefcase, CalendarDays, FileText, Gift, Image, LayoutDashboard, Wallet } from "lucide-react";
+import {
+  ArrowDown,
+  BarChart3,
+  BookOpen,
+  Briefcase,
+  CalendarDays,
+  FileText,
+  Gift,
+  Image,
+  LayoutDashboard,
+  Wallet,
+} from "lucide-react";
+import FaqAccordion from "./FaqAccordion";
+import UniversityPlacement from "./UniversityPlacement";
 
 // Update your TABS array
 export const TABS: Tab[] = [
@@ -27,10 +40,15 @@ const UniversityDetails: React.FC = () => {
   const coursesPerPage = 4;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTab, setActiveTab] = useState<string>("overview");
-  const totalSlides = Math.ceil(university?.courses?.items?.length / coursesPerPage);
+  const totalSlides = Math.ceil(
+    university?.courses?.items?.length / coursesPerPage
+  );
 
   const startIdx = currentSlide * coursesPerPage;
-  const visibleCourses = university?.courses?.items?.slice(startIdx, startIdx + coursesPerPage);
+  const visibleCourses = university?.courses?.items?.slice(
+    startIdx,
+    startIdx + coursesPerPage
+  );
 
   // Pad with nulls if less than 4
   const paddedCourses = [...(visibleCourses || [])];
@@ -47,7 +65,7 @@ const UniversityDetails: React.FC = () => {
   };
   // Add handleToggle function
   const handleToggle = (index: number) => {
-    setActiveIndex(prev => prev === index ? null : index);
+    setActiveIndex((prev) => (prev === index ? null : index));
   };
   const [currentScholarshipSlide, setCurrentScholarshipSlide] = useState(0);
   const totalScholarships = university?.Scholarships?.items?.length || 0;
@@ -70,7 +88,6 @@ const UniversityDetails: React.FC = () => {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-
 
   return (
     <main className="w-full bg-gray-50">
@@ -142,12 +159,13 @@ const UniversityDetails: React.FC = () => {
         <div className=" mx-auto max-w-7xl flex overflow-x-auto sm:overflow-hidden">
           {TABS.map((tab) => (
             <button
-              key={tab.id}
-              onClick={() => handleScrollTo(tab.id)}
-              className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${activeTab === tab.id
-                ? "text-red-500 border-b-2 border-red-500"
-                : ""
-                }`}
+              key={tab.key}
+              onClick={() => handleScrollTo(tab.key)}
+              className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${
+                activeTab === tab.id
+                  ? "text-red-500 border-b-2 border-red-500"
+                  : ""
+              }`}
             >
               {tab.label}
             </button>
@@ -173,25 +191,35 @@ const UniversityDetails: React.FC = () => {
                 ))
               ) : (
                 <p>
-                  {university.name} is a modern university globally recognized for high-quality education, applied research, and international collaborations.
+                  {university.name} is a modern university globally recognized
+                  for high-quality education, applied research, and
+                  international collaborations.
                 </p>
               )}
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
               <div className="p-4 bg-red-50 rounded-lg text-center">
-                <p className="text-xl font-bold text-red-600">{university.stats.acceptanceRate}</p>
+                <p className="text-xl font-bold text-red-600">
+                  {university.stats.acceptanceRate}
+                </p>
                 <p className="text-sm">Acceptance Rate</p>
               </div>
               <div className="p-4 bg-blue-50 rounded-lg text-center">
-                <p className="text-xl font-bold text-blue-600">{university.stats.intlStudents}</p>
+                <p className="text-xl font-bold text-blue-600">
+                  {university.stats.intlStudents}
+                </p>
                 <p className="text-sm">Total International Students</p>
               </div>
               <div className="p-4 bg-yellow-50 rounded-lg text-center">
-                <p className="text-xl font-bold text-yellow-600">{university.stats.ratio}</p>
+                <p className="text-xl font-bold text-yellow-600">
+                  {university.stats.ratio}
+                </p>
                 <p className="text-sm">Student to Faculty Ratio</p>
               </div>
               <div className="p-4 bg-green-50 rounded-lg text-center">
-                <p className="text-xl font-bold text-green-600">{university.stats.placement}</p>
+                <p className="text-xl font-bold text-green-600">
+                  {university.stats.placement}
+                </p>
                 <p className="text-sm">Placement Rate</p>
               </div>
             </div>
@@ -215,7 +243,6 @@ const UniversityDetails: React.FC = () => {
               ))}
             </div>
 
-
             {/* Ranking Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {university.rankings.items.map((ranking, idx) => (
@@ -230,7 +257,9 @@ const UniversityDetails: React.FC = () => {
 
                   {/* Text */}
                   <div>
-                    <p className="text-xl font-bold text-gray-900">{ranking.rank}</p>
+                    <p className="text-xl font-bold text-gray-900">
+                      {ranking.rank}
+                    </p>
                     <p className="text-gray-600">{ranking.source}</p>
                   </div>
                 </div>
@@ -238,10 +267,9 @@ const UniversityDetails: React.FC = () => {
             </div>
           </div>
 
-
           {/* Intakes */}
           <div ref={sectionRefs["intakes"]}>
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
               <CalendarDays color="red" />
               Intakes
             </h2>
@@ -270,8 +298,9 @@ const UniversityDetails: React.FC = () => {
                   >
                     <span>{intake.month} Intake</span>
                     <span
-                      className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-180" : "rotate-0"
-                        }`}
+                      className={`transform transition-transform duration-300 ${
+                        activeIndex === index ? "rotate-180" : "rotate-0"
+                      }`}
                     >
                       <ArrowDown color="red" />
                     </span>
@@ -279,8 +308,9 @@ const UniversityDetails: React.FC = () => {
 
                   {/* Content */}
                   <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out px-4 ${activeIndex === index ? "max-h-40 py-2" : "max-h-0 py-0"
-                      }`}
+                    className={`overflow-hidden transition-all duration-300 ease-in-out px-4 ${
+                      activeIndex === index ? "max-h-40 py-2" : "max-h-0 py-0"
+                    }`}
                   >
                     <p className="text-gray-600">{intake.dropText}</p>
                   </div>
@@ -289,7 +319,7 @@ const UniversityDetails: React.FC = () => {
             </div>
           </div>
           {/* Top Courses */}
-          <div ref={sectionRefs["courses"]}>  
+          <div ref={sectionRefs["courses"]}>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <BookOpen color="red" />
               Top Courses at {university.name}
@@ -298,7 +328,9 @@ const UniversityDetails: React.FC = () => {
             {/* Course Description */}
             <div className="text-gray-700 mb-6 space-y-2">
               {university.courses.description.map((text, idx) => (
-                <p key={idx} className="leading-relaxed text-justify">{text}</p>
+                <p key={idx} className="leading-relaxed text-justify">
+                  {text}
+                </p>
               ))}
             </div>
 
@@ -334,15 +366,21 @@ const UniversityDetails: React.FC = () => {
                           key={index}
                           className="bg-white rounded-lg shadow p-4 border border-gray-200 flex flex-col justify-between"
                         >
-                          <h3 className="font-semibold text-lg mb-2">{course.study}</h3>
+                          <h3 className="font-semibold text-lg mb-2">
+                            {course.study}
+                          </h3>
                           <hr className="border-gray-200 mb-3" />
                           <div className="flex justify-between items-center text-sm text-gray-700">
                             <div>
-                              <div className="font-medium text-black">{course.cost}</div>
+                              <div className="font-medium text-black">
+                                {course.cost}
+                              </div>
                               <div className="text-xs">Annual Fee</div>
                             </div>
                             <div>
-                              <div className="font-medium text-black">12 Months</div>
+                              <div className="font-medium text-black">
+                                12 Months
+                              </div>
                               <div className="text-xs">Duration</div>
                             </div>
                             <button className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-4 py-2 rounded-md text-sm font-medium">
@@ -360,31 +398,32 @@ const UniversityDetails: React.FC = () => {
                 <button
                   onClick={handlePrev}
                   disabled={currentSlide === 0}
-                  className={`p-2 rounded-full border transition ${currentSlide === 0
-                    ? "text-gray-400 border-gray-300 cursor-not-allowed"
-                    : "text-black border-gray-400 hover:bg-gray-100"
-                    }`}
+                  className={`p-2 rounded-full border transition ${
+                    currentSlide === 0
+                      ? "text-gray-400 border-gray-300 cursor-not-allowed"
+                      : "text-black border-gray-400 hover:bg-gray-100"
+                  }`}
                 >
                   <FaChevronLeft size={16} />
                 </button>
                 <button
                   onClick={handleNext}
                   disabled={currentSlide >= totalSlides - 1}
-                  className={`p-2 rounded-full border transition ${currentSlide >= totalSlides - 1
-                    ? "text-gray-400 border-gray-300 cursor-not-allowed"
-                    : "text-black border-gray-400 hover:bg-gray-100"
-                    }`}
+                  className={`p-2 rounded-full border transition ${
+                    currentSlide >= totalSlides - 1
+                      ? "text-gray-400 border-gray-300 cursor-not-allowed"
+                      : "text-black border-gray-400 hover:bg-gray-100"
+                  }`}
                 >
                   <FaChevronRight size={16} />
                 </button>
               </div>
             </div>
-
           </div>
 
           {/* Cost to Study */}
           <div ref={sectionRefs["cost"]} className="px-4 sm:px-6 lg:px-0">
-           <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-4">
               <Wallet color="red" />
               <h2 className="text-2xl font-bold ">
                 Cost to Study {university.name}, {university.country}
@@ -401,7 +440,8 @@ const UniversityDetails: React.FC = () => {
                 ))
               ) : (
                 <p>
-                  The average annual tuition fee for international students is approximately £18,600.
+                  The average annual tuition fee for international students is
+                  approximately £18,600.
                 </p>
               )}
             </div>
@@ -423,8 +463,6 @@ const UniversityDetails: React.FC = () => {
                     <span className="font-semibold text-gray-900">Cost: </span>
                     {row.cost}
                   </p>
-
-
                 </div>
               ))}
             </div>
@@ -478,7 +516,9 @@ const UniversityDetails: React.FC = () => {
             <div className="relative w-full max-w-6xl mx-auto overflow-hidden">
               <div
                 className="flex transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentScholarshipSlide * 100}%)` }}
+                style={{
+                  transform: `translateX(-${currentScholarshipSlide * 100}%)`,
+                }}
               >
                 {university.Scholarships?.items?.map((scholarship, index) => (
                   <div
@@ -491,15 +531,21 @@ const UniversityDetails: React.FC = () => {
                           {scholarship.name || "Scholarship Name"}
                         </h3>
                         <p className="text-gray-500 font-medium mb-2">
-                          <span className="font-medium text-gray-800">Amount: </span>
+                          <span className="font-medium text-gray-800">
+                            Amount:{" "}
+                          </span>
                           {scholarship.amount || "Varies"}
                         </p>
                         <p className="text-gray-500 font-medium mb-2">
-                          <span className="font-medium text-gray-800">Type: </span>
+                          <span className="font-medium text-gray-800">
+                            Type:{" "}
+                          </span>
                           {scholarship.type || "type of study"}
                         </p>
                         <p className="text-gray-500 font-medium mb-2">
-                          <span className="font-medium text-gray-800">Level: </span>
+                          <span className="font-medium text-gray-800">
+                            Level:{" "}
+                          </span>
                           {scholarship.level || "degree"}
                         </p>
                         {/* <p className="text-gray-500 text-sm"><span className="font-medium text-gray-800">Type: </span>
@@ -522,10 +568,11 @@ const UniversityDetails: React.FC = () => {
                     setCurrentScholarshipSlide((prev) => Math.max(prev - 1, 0))
                   }
                   disabled={currentScholarshipSlide === 0}
-                  className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide === 0
-                    ? "text-gray-400  cursor-not-allowed"
-                    : "text-black  hover:bg-gray-100"
-                    }`}
+                  className={`p-2 rounded-full shadow-md transition ${
+                    currentScholarshipSlide === 0
+                      ? "text-gray-400  cursor-not-allowed"
+                      : "text-black  hover:bg-gray-100"
+                  }`}
                 >
                   <FaChevronLeft size={16} />
                 </button>
@@ -536,10 +583,11 @@ const UniversityDetails: React.FC = () => {
                     )
                   }
                   disabled={currentScholarshipSlide >= totalScholarships - 1}
-                  className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide >= totalScholarships - 1
-                    ? "text-gray-400  cursor-not-allowed"
-                    : "text-black  hover:bg-gray-100"
-                    }`}
+                  className={`p-2 rounded-full shadow-md transition ${
+                    currentScholarshipSlide >= totalScholarships - 1
+                      ? "text-gray-400  cursor-not-allowed"
+                      : "text-black  hover:bg-gray-100"
+                  }`}
                 >
                   <FaChevronRight size={16} />
                 </button>
@@ -547,11 +595,9 @@ const UniversityDetails: React.FC = () => {
             </div>
           </div>
 
-
-
           {/* Admissions */}
           <div ref={sectionRefs["admissions"]}>
-           <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-4">
               <FileText color="red" />
               <h2 className="text-2xl font-bold">Admissions</h2>
             </div>
@@ -565,17 +611,16 @@ const UniversityDetails: React.FC = () => {
           <div ref={sectionRefs["placements"]}>
             <div className="flex items-center gap-2 mb-4">
               <Briefcase color="red" />
-              <h2 className="text-2xl font-bold">Placements</h2>
+              <h2 className="text-2xl font-bold">
+                {university.name}, {university.country} Placements
+              </h2>
             </div>
-            <p className="text-gray-700">
-              Strong industry connections help graduates secure employment
-              globally.
-            </p>
+            <UniversityPlacement items={university.placements} />
           </div>
 
           {/* Gallery */}
           <div ref={sectionRefs["gallery"]}>
-           <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-4">
               <Image color="red" />
               <h2 className="text-2xl font-bold">Gallery</h2>
             </div>
@@ -604,9 +649,9 @@ const UniversityDetails: React.FC = () => {
               <Wallet color="red" />
               <h2 className="text-2xl font-bold">FAQs</h2>
             </div>
-            <p className="text-gray-700">
-              Frequently asked questions about studying at {university.name}.
-            </p>
+            <div className="w-full">
+              <FaqAccordion items={university.faq} />
+            </div>
           </div>
         </div>
 
