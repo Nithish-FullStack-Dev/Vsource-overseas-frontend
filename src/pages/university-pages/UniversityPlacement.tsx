@@ -92,14 +92,14 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
       </div>
 
       {/* Jobs Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300">
+      <div className="overflow-x-auto rounded-lg">
+        <table className="w-full border-collapse border border-gray-300rounded-lg ">
           <thead>
             <tr className="bg-blue-100">
-              <th className="border border-gray-300 px-4 py-2 text-left">
+              <th className="border border-gray-300 bg-red-200 text-black px-4 py-2 text-left">
                 Job Profiles
               </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
+              <th className="border border-gray-300 bg-red-600 text-white px-4 py-2 text-left">
                 Average Salary in £
               </th>
             </tr>
