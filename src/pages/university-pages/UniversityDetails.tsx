@@ -1,7 +1,7 @@
 // import React, { useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Tab, UNIVERSITIES, University } from "@/lib/Universities";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import {
@@ -103,6 +103,31 @@ const UniversityDetails: React.FC = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            if (sectionId) {
+              setActiveTab(sectionId);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.4, // section is "active" when ~40% visible
+        rootMargin: "-100px 0px -40% 0px", // so it switches a bit earlier
+      }
+    );
+
+    Object.values(sectionRefs).forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="w-full bg-gray-50">
       {/* Hero Section */}
@@ -172,6 +197,7 @@ const UniversityDetails: React.FC = () => {
           <li className="text-gray-900 font-medium">{university.name}</li>
         </ol>
       </nav>
+
       <div
         className="sticky top-[15%] z-50 bg-white shadow-md border-b "
         style={{ borderTop: "0.5px solid #D3D3D3" }}
@@ -182,7 +208,7 @@ const UniversityDetails: React.FC = () => {
               key={tab.key}
               onClick={() => handleScrollTo(tab.key)}
               className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${
-                activeTab === tab.id
+                activeTab === tab.key
                   ? "text-red-500 border-b-2 border-red-500"
                   : ""
               }`}
@@ -192,12 +218,13 @@ const UniversityDetails: React.FC = () => {
           ))}
         </div>
       </div>
+
       {/* Content + Form */}
       <div className="container mx-auto max-w-7xl px-4 md:px-6 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Content */}
         <div className="lg:col-span-2 space-y-12">
           {/* Overview */}
-          <div ref={sectionRefs["overview"]}>
+          <div id="overview" ref={sectionRefs["overview"]}>
             <div className="flex gap-2 items-center mb-4">
               <LayoutDashboard className="text-red-600" />
               <h2 className="text-2xl font-bold">Overview</h2>
@@ -246,7 +273,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Rankings */}
-          <div ref={sectionRefs["rankings"]} className="mb-12">
+          <div id="rankings" ref={sectionRefs["rankings"]} className="mb-12">
             <div className="flex items-center gap-2 mb-6">
               <div className="bg-orange-100 p-2 rounded-lg">
                 <BarChart3 color="red" />
@@ -288,7 +315,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Intakes */}
-          <div ref={sectionRefs["intakes"]}>
+          <div id="intakes" ref={sectionRefs["intakes"]}>
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
               <CalendarDays color="red" />
               Intakes
@@ -340,7 +367,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Top Courses */}
-          <div ref={sectionRefs["courses"]}>
+          <div id="courses" ref={sectionRefs["courses"]}>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <BookOpen color="red" />
               Top Courses at {university.name}
@@ -357,7 +384,7 @@ const UniversityDetails: React.FC = () => {
 
             <div className="mb-6">
               <div className="flex gap-4 mb-8">
-                <button className="px-6 py-2 bg-gray-900 text-white rounded-full">
+                <button className="px-6 py-2 bg-red-600 text-white border-red-600 rounded-full">
                   Masters
                 </button>
                 <button className="px-6 py-2 border border-gray-300 rounded-full">
@@ -404,7 +431,7 @@ const UniversityDetails: React.FC = () => {
                               </div>
                               <div className="text-xs">Duration</div>
                             </div>
-                            <button className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-4 py-2 rounded-md text-sm font-medium">
+                            <button className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded-md text-sm font-medium">
                               Apply Now
                             </button>
                           </div>
@@ -443,7 +470,11 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Cost to Study */}
-          <div ref={sectionRefs["cost"]} className="px-4 sm:px-6 lg:px-0">
+          <div
+            id="cost"
+            ref={sectionRefs["cost"]}
+            className="px-4 sm:px-6 lg:px-0"
+          >
             <div className="flex items-center gap-2 mb-4">
               <Wallet color="red" />
               <h2 className="text-2xl font-bold ">
@@ -518,7 +549,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Scholarships */}
-          <div ref={sectionRefs["scholarships"]}>
+          <div id="scholarships" ref={sectionRefs["scholarships"]}>
             <div className="flex items-center gap-2 mb-4">
               <Gift color="red" />
               <h2 className="text-2xl font-bold">Scholarships Available</h2>
@@ -574,7 +605,7 @@ const UniversityDetails: React.FC = () => {
                             "Eligibility criteria details go here."}
                         </p> */}
                       </div>
-                      <button className="mt-6 border border-orange-500 text-orange-500 hover:bg-orange-50 px-5 py-2 rounded-lg text-sm font-medium transition-colors">
+                      <button className="mt-6 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors">
                         View & Apply
                       </button>
                     </div>
@@ -617,7 +648,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Admissions */}
-          <div ref={sectionRefs["admissions"]}>
+          <div id="admissions" ref={sectionRefs["admissions"]}>
             <div className="flex items-center gap-2 mb-4">
               <FileText color="red" />
               <h2 className="text-2xl font-bold">Admission Requirements</h2>
@@ -643,7 +674,7 @@ const UniversityDetails: React.FC = () => {
                   onClick={() => setSelectedTab(tab as "masters" | "bachelors")}
                   className={`px-6 py-2 rounded-lg font-medium border transition-colors ${
                     selectedTab === tab
-                      ? "bg-gray-900 text-white border-gray-900"
+                      ? "bg-red-600 text-white border-red-600"
                       : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
                   }`}
                 >
@@ -721,7 +752,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Placements */}
-          <div ref={sectionRefs["placements"]}>
+          <div id="placements" ref={sectionRefs["placements"]}>
             <div className="flex items-center gap-2 mb-4">
               <Briefcase color="red" />
               <h2 className="text-2xl font-bold">
@@ -732,7 +763,11 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Gallery */}
-          <div ref={sectionRefs["gallery"]} className="px-4 sm:px-6 lg:px-0">
+          <div
+            id="gallery"
+            ref={sectionRefs["gallery"]}
+            className="px-4 sm:px-6 lg:px-0"
+          >
             <div ref={sectionRefs["gallery"]}>
               <div className="flex items-center gap-2 mb-4">
                 <Image color="red" />
@@ -744,7 +779,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* FAQs */}
-          <div ref={sectionRefs["faq"]}>
+          <div id="faq" ref={sectionRefs["faq"]}>
             <div className="flex items-center gap-2 mb-4">
               <Wallet color="red" />
               <h2 className="text-2xl font-bold">FAQs</h2>
