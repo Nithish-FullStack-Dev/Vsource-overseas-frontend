@@ -11,6 +11,7 @@ import {
   Briefcase,
   CalendarDays,
   Check,
+  ChevronRight,
   FileText,
   Gift,
   Image,
@@ -21,6 +22,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import UniversityGallery from "./UniversityGallery";
 import FaqAccordion from "./FaqAccordion";
 import UniversityPlacement from "./UniversityPlacement";
+import WantTOStudyForm from "./WantTOStudyForm";
 
 // Update your TABS array
 export const TABS: Tab[] = [
@@ -152,15 +154,21 @@ const UniversityDetails: React.FC = () => {
               Home
             </Link>
           </li>
-          <li>/</li>
+          <li>
+            <ChevronRight className="w-4 h-full" />
+          </li>
           <li>
             <Link to="/explore-universities" className="hover:text-orange-500">
               Universities
             </Link>
           </li>
-          <li>/</li>
+          <li>
+            <ChevronRight className="w-4 h-full" />
+          </li>
           <li className="text-gray-900 font-medium">{university.country}</li>
-          <li>/</li>
+          <li>
+            <ChevronRight className="w-4 h-full" />
+          </li>
           <li className="text-gray-900 font-medium">{university.name}</li>
         </ol>
       </nav>
@@ -609,9 +617,6 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Admissions */}
-
-          {/* Title */}
-
           <div ref={sectionRefs["admissions"]}>
             <div className="flex items-center gap-2 mb-4">
               <FileText color="red" />
@@ -727,7 +732,6 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Gallery */}
-
           <div ref={sectionRefs["gallery"]} className="px-4 sm:px-6 lg:px-0">
             <div ref={sectionRefs["gallery"]}>
               <div className="flex items-center gap-2 mb-4">
@@ -737,64 +741,27 @@ const UniversityDetails: React.FC = () => {
 
               <UniversityGallery items={university.gallery} />
             </div>
+          </div>
 
-            {/* FAQs */}
-            <div ref={sectionRefs["faq"]}>
-              <div className="flex items-center gap-2 mb-4">
-                <Wallet color="red" />
-                <h2 className="text-2xl font-bold">FAQs</h2>
-              </div>
-              <div className="w-full">
-                <FaqAccordion items={university.faq} />
-              </div>
+          {/* FAQs */}
+          <div ref={sectionRefs["faq"]}>
+            <div className="flex items-center gap-2 mb-4">
+              <Wallet color="red" />
+              <h2 className="text-2xl font-bold">FAQs</h2>
+            </div>
+            <div className="w-full">
+              <FaqAccordion items={university.faq} />
             </div>
           </div>
         </div>
+
         {/* Right Form */}
         <div className="lg:col-span-1">
           <div className="sticky top-[32%] bg-white shadow-md rounded-lg p-6">
             <h3 className="text-lg font-bold mb-4 text-center">
               Want to Study in {university.country}?
             </h3>
-            <form className="space-y-4">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="w-full border rounded-lg px-3 py-2"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full border rounded-lg px-3 py-2"
-                required
-              />
-              <input
-                type="tel"
-                placeholder="Mobile"
-                className="w-full border rounded-lg px-3 py-2"
-                required
-              />
-              <input
-                type="text"
-                placeholder="City"
-                className="w-full border rounded-lg px-3 py-2"
-                required
-              />
-              <select className="w-full border rounded-lg px-3 py-2" required>
-                <option value="">Preferred Destination</option>
-                <option value="usa">USA</option>
-                <option value="uk">UK</option>
-                <option value="canada">Canada</option>
-                <option value="australia">Australia</option>
-              </select>
-              <button
-                type="submit"
-                className="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600"
-              >
-                Submit
-              </button>
-            </form>
+            <WantTOStudyForm />
           </div>
         </div>
       </div>

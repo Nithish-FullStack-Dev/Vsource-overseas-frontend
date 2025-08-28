@@ -296,12 +296,11 @@ export const UNIVERSITIES: University[] = [
     },
 
     gallery: [
-      "/assets/images/university-banners/uk-banner/Coventry_University/1.webp",
-      "/assets/images/university-banners/uk-banner/Coventry_University/2.webp",
-      "/assets/images/university-banners/uk-banner/Coventry_University/3.webp",
       "/assets/images/university-banners/uk-banner/Coventry_University/4.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/3.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/2.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/1.webp",
       "/assets/images/university-banners/uk-banner/Coventry_University/5.webp",
-      "/assets/images/university-banners/uk-banner/Coventry_University/6.webp",
     ],
   },
 
