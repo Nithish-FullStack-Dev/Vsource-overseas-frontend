@@ -36,7 +36,7 @@ const WantTOStudyForm = () => {
       </select>
       <button
         type="submit"
-        className="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600"
+        className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700"
       >
         Submit
       </button>
