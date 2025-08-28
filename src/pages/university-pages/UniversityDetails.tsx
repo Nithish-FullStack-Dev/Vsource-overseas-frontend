@@ -4,25 +4,23 @@ import { Tab, UNIVERSITIES, University } from "@/lib/Universities";
 import React, { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-import { ArrowDown, BarChart3, BookOpen, Briefcase, CalendarDays, Check, FileText, Gift, Image, LayoutDashboard, Wallet } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import UniversityGallery from "./UniversityGallery";
-
 import {
   ArrowDown,
   BarChart3,
   BookOpen,
   Briefcase,
   CalendarDays,
+  Check,
   FileText,
   Gift,
   Image,
   LayoutDashboard,
   Wallet,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import UniversityGallery from "./UniversityGallery";
 import FaqAccordion from "./FaqAccordion";
 import UniversityPlacement from "./UniversityPlacement";
-
 
 // Update your TABS array
 export const TABS: Tab[] = [
@@ -94,7 +92,9 @@ const UniversityDetails: React.FC = () => {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  const [selectedTab, setSelectedTab] = useState<"masters" | "bachelors">("masters");
+  const [selectedTab, setSelectedTab] = useState<"masters" | "bachelors">(
+    "masters"
+  );
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleAccordion = (index: number) => {
@@ -330,6 +330,7 @@ const UniversityDetails: React.FC = () => {
               ))}
             </div>
           </div>
+
           {/* Top Courses */}
           <div ref={sectionRefs["courses"]}>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -609,11 +610,9 @@ const UniversityDetails: React.FC = () => {
 
           {/* Admissions */}
 
-          <div ref={sectionRefs["admissions"]} className="px-4 sm:px-6 lg:px-0">
-            {/* Title */}
+          {/* Title */}
 
           <div ref={sectionRefs["admissions"]}>
-
             <div className="flex items-center gap-2 mb-4">
               <FileText color="red" />
               <h2 className="text-2xl font-bold">Admission Requirements</h2>
@@ -622,7 +621,10 @@ const UniversityDetails: React.FC = () => {
             {/* Description */}
             <div className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base">
               {university.Admissions.description.map((text, idx) => (
-                <p key={idx} className="leading-relaxed text-justify tracking-tight">
+                <p
+                  key={idx}
+                  className="leading-relaxed text-justify tracking-tight"
+                >
                   {text}
                 </p>
               ))}
@@ -634,10 +636,11 @@ const UniversityDetails: React.FC = () => {
                 <button
                   key={tab}
                   onClick={() => setSelectedTab(tab as "masters" | "bachelors")}
-                  className={`px-6 py-2 rounded-lg font-medium border transition-colors ${selectedTab === tab
-                    ? "bg-gray-900 text-white border-gray-900"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-                    }`}
+                  className={`px-6 py-2 rounded-lg font-medium border transition-colors ${
+                    selectedTab === tab
+                      ? "bg-gray-900 text-white border-gray-900"
+                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                  }`}
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </button>
@@ -665,11 +668,13 @@ const UniversityDetails: React.FC = () => {
                       className="overflow-hidden"
                     >
                       <div className="px-6 pb-4 space-y-2 text-sm text-gray-700">
-                        {university.Admissions.items[0].academicRequirements.map((req, idx) => (
-                          <p key={idx} className="flex items-center gap-2">
-                            <Check className="w-5 h-5 text-red-600" />  {req}
-                          </p>
-                        ))}
+                        {university.Admissions.items[0].academicRequirements.map(
+                          (req, idx) => (
+                            <p key={idx} className="flex items-center gap-2">
+                              <Check className="w-5 h-5 text-red-600" /> {req}
+                            </p>
+                          )
+                        )}
                       </div>
                     </motion.div>
                   )}
@@ -695,11 +700,13 @@ const UniversityDetails: React.FC = () => {
                       className="overflow-hidden"
                     >
                       <div className="px-6 pb-4 space-y-2 text-sm text-gray-700">
-                        {university.Admissions.items[0].englishRequirements.map((req, idx) => (
-                          <p key={idx} className="flex items-center gap-2">
-                            <Check className="w-5 h-5 text-red-600" /> {req}
-                          </p>
-                        ))}
+                        {university.Admissions.items[0].englishRequirements.map(
+                          (req, idx) => (
+                            <p key={idx} className="flex items-center gap-2">
+                              <Check className="w-5 h-5 text-red-600" /> {req}
+                            </p>
+                          )
+                        )}
                       </div>
                     </motion.div>
                   )}
@@ -722,33 +729,27 @@ const UniversityDetails: React.FC = () => {
           {/* Gallery */}
 
           <div ref={sectionRefs["gallery"]} className="px-4 sm:px-6 lg:px-0">
+            <div ref={sectionRefs["gallery"]}>
+              <div className="flex items-center gap-2 mb-4">
+                <Image color="red" />
+                <h2 className="text-2xl font-bold">Gallery</h2>
+              </div>
 
-          <div ref={sectionRefs["gallery"]}>
-
-            <div className="flex items-center gap-2 mb-4">
-              <Image color="red" />
-              <h2 className="text-2xl font-bold">Gallery</h2>
+              <UniversityGallery items={university.gallery} />
             </div>
 
-
-           <UniversityGallery items={university.gallery}/>
-
-          </div>
-
-
-
-          {/* FAQs */}
-          <div ref={sectionRefs["faq"]}>
-            <div className="flex items-center gap-2 mb-4">
-              <Wallet color="red" />
-              <h2 className="text-2xl font-bold">FAQs</h2>
-            </div>
-            <div className="w-full">
-              <FaqAccordion items={university.faq} />
+            {/* FAQs */}
+            <div ref={sectionRefs["faq"]}>
+              <div className="flex items-center gap-2 mb-4">
+                <Wallet color="red" />
+                <h2 className="text-2xl font-bold">FAQs</h2>
+              </div>
+              <div className="w-full">
+                <FaqAccordion items={university.faq} />
+              </div>
             </div>
           </div>
         </div>
-
         {/* Right Form */}
         <div className="lg:col-span-1">
           <div className="sticky top-[32%] bg-white shadow-md rounded-lg p-6">
