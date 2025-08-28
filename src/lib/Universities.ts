@@ -2,7 +2,8 @@ export const COUNTRIES = ["USA", "UK", "Canada", "Ireland", "France"] as const;
 export type Country = (typeof COUNTRIES)[number];
 
 export interface University {
-  id: string;
+  id?: string;
+  key: string;
   name: string;
   logo: string;
   banner: string;
@@ -17,31 +18,57 @@ export interface University {
     ratio: string;
     placement: string;
   };
-  rankings: { text?: string[]; rank: string; source: string }[];
+  rankings: {
+    description: string[];
+    items: Array<{
+      rank: string;
+      source: string;
+    }>;
+  };
   intakes: {
     text?: string[];
     month?: string;
     dropText?: string;
   }[];
-  courses: Array<{
+  courses: {
+    description: string[];
+    items: Array<{
+      study: string;
+      cost: string;
+    }>;
+  };
+  cost: {
     text?: string[];
-    study?: string;
-    cost?: string;
-  }>;
-  cost: {  text?: string[];
     tableData?: Array<{
       type: string;
       cost: string;
-    }>; }[];
+    }>;
+  }[];
+  Scholarships: {
+    description: string[];
+    items: Array<{
+      name: string;
+      amount: string;
+      type: string;
+      level: string;
+      eligibility: string;
+    }>;
+  };
   gallery: string[];
 }
-
+export interface Tab {
+  id?: string;
+  key: string;
+  label: string;
+}
 export const UNIVERSITIES: University[] = [
   {
-    id: "coventry-university",
+
+    key: "coventry-university",
     name: "Coventry University",
-    logo: "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/coventry-university-logo-scaled.jpg",
-    banner: "/assets/images/university-banners/coventry.jpg",
+   logo: "/assets/images/university-banners/uk-banner/Coventry-University-logo.webp",
+    banner:
+      "/assets/images/university-banners/uk-banner/Coventry_University.webp",
     country: "UK",
     campus: "Coventry Campus, London Campus",
     website: "https://www.coventry.ac.uk",
@@ -60,11 +87,17 @@ export const UNIVERSITIES: University[] = [
       placement: "94%",
     },
 
-    rankings: [
-      { rank: "#651–700", source: "QS World University Rankings" },
-      { rank: "#601–800", source: "Times Higher Education" },
-      { rank: "#50", source: "Guardian University Guide (UK)" },
-    ],
+    rankings: {
+      description: [
+        "With over 2,000 expert teaching staff and state-of-the-art facilities, Coventry University is committed to putting students first.This dedication has earned it a strong reputation and rising rankings worldwide.Notably, Coventry University has achieved its highest - ever placement by moving up in global rankings.",
+        "The university’s commitment to teaching quality is further highlighted by its awards in various ranking frameworks, recognizing exceptional student experiences and outcomes. This growth is due to continual investment in facilities and a supportive environment designed to help students reach their potential.",
+      ],
+      items: [
+        { rank: "#651–700", source: "QS World University Rankings" },
+        { rank: "#601–800", source: "Times Higher Education" },
+        { rank: "#50", source: "Guardian University Guide (UK)" }
+      ]
+    },
 
     intakes: [
       {
@@ -76,24 +109,26 @@ export const UNIVERSITIES: University[] = [
       { month: "May", dropText: "This fall intake is the major one in which all of the undergraduate and postgraduate courses are offered." },
     ],
 
-    courses: [
-    
-      {study:"MBA Global Business", cost:"£20,350.00"},
-      {study:"MBA Master of Business Administration", cost:"£20,350.00"},
-      {study:"MSc Business Analytics", cost:"£20,050.00"},
-      {study:"MSc International Business Management", cost:"£20,050.00"},
-      {study:"MSc Computer Science", cost:"£20,050.00"},
-      {study:"MSc Data Science", cost:"£20,050.00"},
-      {study:"MSc Data Science and Computational Intelligence", cost:"£20,050.00"},
-      {study:"MSc Artificial Intelligence and Human Factors", cost:"£18,600.00"},
-      {study:"MSc Cyber Security", cost:"£20,050.00"},
-      {study:"MSc Advanced Mechanical Engineering", cost:"£20,050.00"},
-        {text:[
+    courses: {
+      description: [
         "Coventry University is well-known for offering many courses at undergraduate and postgraduate levels to students from all over the world. Among these, the Coventry University postgraduate courses are very popular. There are more than 230+ undergraduate and post-graduate courses that help students gain advanced knowledge in areas like Business & Management, Engineering & Technology, Health & Life Sciences, and Arts & Humanities.",
         "The university teaches students through four main schools: the College of Arts and Society, the College of Engineering, Environment, and Science, the School of Health and Care, and the College of Business and Law. Coventry is also one of the largest universities in Europe for business-related courses.",
         "Some postgraduate courses, such as MSc programs, also offer the chance to do Extended Professional Practice. This gives students real-world experience while they study. Besides this, Coventry University courses also include short programs in over 20 languages. The university is ranked 1st for Skills Development in the Postgraduate Taught Experience Survey (PTES) 2024, showing its strong focus on preparing students for success.",
-      ]  },
-    ],
+      ],
+      items: [
+        { study: "MBA Global Business", cost: "£20,350.00" },
+        { study: "MBA Master of Business Administration", cost: "£20,350.00" },
+        { study: "MSc Business Analytics", cost: "£20,050.00" },
+        { study: "MSc International Business Management", cost: "£20,050.00" },
+        { study: "MSc Computer Science", cost: "£20,050.00" },
+        { study: "MSc Data Science", cost: "£20,050.00" },
+        { study: "MSc Data Science and Computational Intelligence", cost: "£20,050.00" },
+        { study: "MSc Artificial Intelligence and Human Factors", cost: "£18,600.00" },
+        { study: "MSc Cyber Security", cost: "£20,050.00" },
+        { study: "MSc Advanced Mechanical Engineering", cost: "£20,050.00" },
+
+      ],
+    },
     cost: [
       {
         text: ["When it comes to Coventry University tuition fees for international students, affordability is a key factor to consider. Coventry City itself has been ranked as one of the top five student-friendly cities in the UK for affordability, as per the QS Best Student Cities Index 2024. This means students can expect reasonable living expenses while enjoying a vibrant student life.",
@@ -109,12 +144,49 @@ export const UNIVERSITIES: University[] = [
         ],
       },
     ],
-    gallery: [
-      "/assets/images/university-gallery/coventry/1.jpg",
-      "/assets/images/university-gallery/coventry/2.jpg",
-      "/assets/images/university-gallery/coventry/3.jpg",
-    ],
-  },
+
+  Scholarships: {
+     description: [
+        "There are several Coventry University scholarships for international students. The university has also expanded its range of international scholarships and discounts for the January and May 2025 intakes. Unlike many other universities, there is no separate application process for Coventry University scholarships. Eligible students who meet the criteria will automatically receive the award after successfully completing the enrolment process as stated in their offer letter.",
+        "However, it is important to note that Coventry University scholarships for undergraduate students are not currently available.",
+      ],
+       items: [
+        {
+          name: "Vice-Chancellor's International Scholarship",
+          amount: "£3,000",
+          type: "Merit-based",
+          level: "Postgraduate",
+          eligibility: "Available to high-achieving international students enrolling in postgraduate taught courses."
+        },
+        {
+          name: "Excellence Scholarship",
+          amount: "£2,000",
+          type: "Merit-based",
+          level: "Postgraduate",
+          eligibility: "Awarded to international students with outstanding academic records enrolling in postgraduate taught courses."
+        },
+        {
+          name: " Ambassador Scholarship",
+          amount: "£1,500",
+          type: "Merit-based",
+          level: "Postgraduate",
+          eligibility: "Given to international students who demonstrate leadership qualities and contribute to the university community."
+        },
+        {
+          name: "Alumni Discount",
+          amount: "10% tuition fee reduction",
+          type: "Alumni-based",
+          level: "Postgraduate",
+          eligibility: "Available to former Coventry University students enrolling in postgraduate taught courses."
+        },
+      ],
+    },
+      gallery: [
+        "/assets/images/university-gallery/coventry/1.jpg",
+        "/assets/images/university-gallery/coventry/2.jpg",
+        "/assets/images/university-gallery/coventry/3.jpg",
+      ],
+    },
   // {
   //   id: "University of East London",
   //   name: "University of East London",

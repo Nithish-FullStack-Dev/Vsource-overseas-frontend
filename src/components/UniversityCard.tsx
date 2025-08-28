@@ -26,7 +26,7 @@ const UniversityCard: React.FC<Props> = ({ university }) => {
       </p>
       <div className="flex justify-between gap-2">
         <Link
-          to={`/explore-universities/${university.country}/${university.id}`}
+          to={`/explore-universities/${university.country}/${university.key}`}
           className="flex-1 text-center mt-3 px-3 py-2 text-sm border border-red-600 text-red-600 rounded hover:bg-red-600 hover:text-white transition"
         >
           Know More

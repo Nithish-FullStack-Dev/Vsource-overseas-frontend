@@ -1,37 +1,39 @@
 // import React, { useRef } from "react";
 import { useParams, Link } from "react-router-dom";
-import { UNIVERSITIES, University } from "@/lib/Universities";
+import { Tab, UNIVERSITIES, University } from "@/lib/Universities";
 import React, { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { ArrowDown, BarChart3, BookOpen, Briefcase, CalendarDays, FileText, Gift, Image, LayoutDashboard, Wallet } from "lucide-react";
 
-const TABS = [
-  { id: "overview", label: "Overview" },
-  { id: "rankings", label: "Rankings" },
-  { id: "intakes", label: "Intakes" },
-  { id: "courses", label: "Top Courses" },
-  { id: "cost", label: "Cost to Study" },
-  { id: "scholarships", label: "Scholarships" },
-  { id: "admissions", label: "Admissions" },
-  { id: "placements", label: "Placements" },
-  { id: "gallery", label: "Gallery" },
-  { id: "faq", label: "FAQs" },
+// Update your TABS array
+export const TABS: Tab[] = [
+  { key: "overview", label: "Overview" },
+  { key: "rankings", label: "Rankings" },
+  { key: "intakes", label: "Intakes" },
+  { key: "courses", label: "Top Courses" },
+  { key: "cost", label: "Cost to Study" },
+  { key: "scholarships", label: "Scholarships" },
+  { key: "admissions", label: "Admissions" },
+  { key: "placements", label: "Placements" },
+  { key: "gallery", label: "Gallery" },
+  { key: "faq", label: "FAQs" },
 ];
 
 const UniversityDetails: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const university = UNIVERSITIES.find((u: University) => u.id === slug);
+  const university = UNIVERSITIES.find((u: University) => u.key === slug);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const courses = university?.courses || [];
   const coursesPerPage = 4;
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeTab, setActiveTab] = useState(TABS[0].id);
-  const totalSlides = Math.ceil(courses.length / coursesPerPage);
+  const [activeTab, setActiveTab] = useState<string>("overview");
+  const totalSlides = Math.ceil(university?.courses?.items?.length / coursesPerPage);
 
   const startIdx = currentSlide * coursesPerPage;
-  const visibleCourses = courses.slice(startIdx, startIdx + coursesPerPage);
+  const visibleCourses = university?.courses?.items?.slice(startIdx, startIdx + coursesPerPage);
 
   // Pad with nulls if less than 4
-  const paddedCourses = [...visibleCourses];
+  const paddedCourses = [...(visibleCourses || [])];
   while (paddedCourses.length < coursesPerPage) {
     paddedCourses.push(null);
   }
@@ -47,9 +49,12 @@ const UniversityDetails: React.FC = () => {
   const handleToggle = (index: number) => {
     setActiveIndex(prev => prev === index ? null : index);
   };
+  const [currentScholarshipSlide, setCurrentScholarshipSlide] = useState(0);
+  const totalScholarships = university?.Scholarships?.items?.length || 0;
+
   const sectionRefs: Record<string, React.RefObject<HTMLDivElement>> = {};
   TABS.forEach((tab) => {
-    sectionRefs[tab.id] = useRef<HTMLDivElement>(null);
+    sectionRefs[tab.key] = useRef<HTMLDivElement>(null);
   });
 
   if (!university) {
@@ -70,75 +75,83 @@ const UniversityDetails: React.FC = () => {
   return (
     <main className="w-full bg-gray-50">
       {/* Hero Section */}
-      <div className="relative bg-gray-800 text-white">
-        <img
-          src={university.banner || "/assets/images/university-default.jpg"}
-          alt={university.name}
-          className="w-full h-64 md:h-96 object-cover opacity-60"
-        />
-        <div className="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-20">
-          <img
-            src={university.logo}
-            alt={university.name}
-            className="w-28 h-28 object-contain bg-white rounded-lg p-2 shadow mb-4"
-          />
-          <h1 className="text-3xl md:text-4xl font-bold">{university.name}</h1>
-          <p className="text-lg">
-            {university.campus} • {university.country}
-          </p>
-          <a
-            href={university.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 bg-orange-500 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-orange-600"
-          >
-            Apply with VSource
-          </a>
+      <div className="curved-before overflow-hidden relative w-full text-white before:content-[''] before:absolute before:top-0 before:left-0 before:bg-[#313145] before:right-0 before:0 before:w-full before:h-[80%]">
+        <div className="absolute bottom-0 left-0 right-0 flex flex-col-reverse md:flex-row  px-[20px] container rounded-mds">
+          <div className="w-full md:basis-[40%] flex flex-col bg-white p-[10px]  shadow">
+            <div className="w-full h-full p-3">
+              <img
+                src={university.logo}
+                alt={university.name}
+                className="w-full h-full object-contain mb-4"
+              />
+            </div>
+
+            {/* Details */}
+            <div className="flex flex-col gap-3 px-[15px] py-[10px]">
+              <h1 className="text-2xl md:text-4xl font-bold text-black">
+                {university.name}
+              </h1>
+              <p className="text-base md:text-lg text-black">
+                {university.campus} • {university.country}
+              </p>
+              <a
+                href={university.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:bg-red-600 w-full  text-center"
+              >
+                Apply with VSource
+              </a>
+            </div>
+          </div>
+
+          {/* Right Section (Banner Image) */}
+          <div className="w-full md:basis-[60%] h-[200px] md:h-auto  overflow-hidden">
+            <img
+              src={university.banner}
+              alt={`${university.name} banner`}
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </div>
 
+      <nav className="container mx-auto max-w-7xl px-4 md:px-6 py-4 text-sm text-gray-600">
+        <ol className="flex flex-wrap gap-2">
+          <li>
+            <Link to="/" className="hover:text-orange-500">
+              Home
+            </Link>
+          </li>
+          <li>/</li>
+          <li>
+            <Link to="/explore-universities" className="hover:text-orange-500">
+              Universities
+            </Link>
+          </li>
+          <li>/</li>
+          <li className="text-gray-900 font-medium">{university.country}</li>
+          <li>/</li>
+          <li className="text-gray-900 font-medium">{university.name}</li>
+        </ol>
+      </nav>
       <div
-        className="sticky top-[15%] z-50 bg-white shadow-lg"
+        className="sticky top-[15%] z-50 bg-white shadow-md border-b "
         style={{ borderTop: "0.5px solid #D3D3D3" }}
       >
-        <nav className="container mx-auto max-w-7xl px-4 md:px-6 py-4 text-sm text-gray-600">
-          <ol className="flex flex-wrap gap-2">
-            <li>
-              <Link to="/" className="hover:text-orange-500">
-                Home
-              </Link>
-            </li>
-            <li>/</li>
-            <li>
-              <Link
-                to="/explore-universities"
-                className="hover:text-orange-500"
-              >
-                Universities
-              </Link>
-            </li>
-            <li>/</li>
-            <li className="text-gray-900 font-medium">{university.country}</li>
-            <li>/</li>
-            <li className="text-gray-900 font-medium">{university.name}</li>
-          </ol>
-        </nav>
-       <div className=" bg-white shadow-sm border-b ">
-          <div className=" mx-auto max-w-7xl flex overflow-x-auto sm:overflow-hidden">
-            {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => handleScrollTo(tab.id)}
-                className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? "text-red-500 border-b-2 border-red-500"
-                    : ""
+        <div className=" mx-auto max-w-7xl flex overflow-x-auto sm:overflow-hidden">
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => handleScrollTo(tab.id)}
+              className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${activeTab === tab.id
+                ? "text-red-500 border-b-2 border-red-500"
+                : ""
                 }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
       {/* Content + Form */}
@@ -147,11 +160,14 @@ const UniversityDetails: React.FC = () => {
         <div className="lg:col-span-2 space-y-12">
           {/* Overview */}
           <div ref={sectionRefs["overview"]}>
-            <h2 className="text-2xl font-bold mb-4">Overview</h2>
+            <div className="flex gap-2 items-center mb-4">
+              <LayoutDashboard className="text-red-600" />
+              <h2 className="text-2xl font-bold">Overview</h2>
+            </div>
             <div className="text-gray-700 leading-relaxed space-y-4">
               {Array.isArray(university.overview) ? (
                 university.overview.map((paragraph, index) => (
-                  <p key={index} className="mb-4">
+                  <p key={index} className="mb-4 text-justify">
                     {paragraph}
                   </p>
                 ))
@@ -185,28 +201,24 @@ const UniversityDetails: React.FC = () => {
           <div ref={sectionRefs["rankings"]} className="mb-12">
             <div className="flex items-center gap-2 mb-6">
               <div className="bg-orange-100 p-2 rounded-lg">
-                <span className="text-orange-500 text-2xl">⭐</span>
+                <BarChart3 color="red" />
               </div>
               <h2 className="text-2xl md:text-3xl font-bold">Rankings</h2>
             </div>
 
             {/* Description */}
-            <p className="text-gray-700 mb-4 leading-relaxed">
-              With over 2,000 expert teaching staff and state-of-the-art facilities, {university.name}
-              is committed to putting students first. This dedication has earned it a strong reputation
-              and rising rankings worldwide. Notably, {university.name} has achieved its highest-ever
-              placement by moving up in global rankings.
-            </p>
-            <p className="text-gray-700 mb-8 leading-relaxed">
-              The university’s commitment to teaching quality is further highlighted by its awards in
-              various ranking frameworks, recognizing exceptional student experiences and outcomes.
-              This growth is due to continual investment in facilities and a supportive environment
-              designed to help students reach their potential.
-            </p>
+            <div className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base">
+              {university.rankings.description.map((text, idx) => (
+                <p key={idx} className="leading-relaxed text-justify">
+                  {text}
+                </p>
+              ))}
+            </div>
+
 
             {/* Ranking Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {university.rankings.map((ranking, idx) => (
+              {university.rankings.items.map((ranking, idx) => (
                 <div
                   key={idx}
                   className="flex items-center gap-4 bg-white shadow-md p-6 rounded-xl hover:shadow-lg transition"
@@ -229,13 +241,13 @@ const UniversityDetails: React.FC = () => {
 
           {/* Intakes */}
           <div ref={sectionRefs["intakes"]}>
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <span className="bg-orange-100 text-orange-600 p-2 rounded">📄</span>
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <CalendarDays color="red" />
               Intakes
             </h2>
 
             {/* Intro Text */}
-            <p className="text-gray-700 mb-6">
+            <p className="text-gray-700 mb-6 text-justify">
               {university.intakes?.[0]?.text?.map((text, idx) => (
                 <span key={idx} className="block mb-2">
                   {text}
@@ -257,7 +269,12 @@ const UniversityDetails: React.FC = () => {
                     className="w-full text-left p-4 font-semibold text-lg text-gray-800 flex justify-between items-center"
                   >
                     <span>{intake.month} Intake</span>
-                    <span>{activeIndex === index ? "▲" : "▼"}</span>
+                    <span
+                      className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-180" : "rotate-0"
+                        }`}
+                    >
+                      <ArrowDown color="red" />
+                    </span>
                   </button>
 
                   {/* Content */}
@@ -272,21 +289,18 @@ const UniversityDetails: React.FC = () => {
             </div>
           </div>
           {/* Top Courses */}
-          <div ref={sectionRefs["courses"]}>
+          <div ref={sectionRefs["courses"]}>  
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="bg-orange-100 text-orange-600 p-2 rounded">
-                📚
-              </span>
+              <BookOpen color="red" />
               Top Courses at {university.name}
             </h2>
-            <p className="text-gray-700 mb-6">
-              {university.courses?.[0]?.text?.map((text, idx) => (
-                <span key={idx} className="block mb-2">
-                  {text}
-                </span>
-              )) ??
-                "The university offers multiple intakes throughout the year, with the main intakes in September, January, and May."}
-            </p>
+
+            {/* Course Description */}
+            <div className="text-gray-700 mb-6 space-y-2">
+              {university.courses.description.map((text, idx) => (
+                <p key={idx} className="leading-relaxed text-justify">{text}</p>
+              ))}
+            </div>
 
             <div className="mb-6">
               <div className="flex gap-4 mb-8">
@@ -298,6 +312,8 @@ const UniversityDetails: React.FC = () => {
                 </button>
               </div>
             </div>
+
+            {/* Course Cards */}
             <div className="w-full max-w-4xl mx-auto overflow-hidden">
               <div
                 className="flex transition-transform duration-1000 ease-in-out"
@@ -306,10 +322,9 @@ const UniversityDetails: React.FC = () => {
                 {Array.from({ length: totalSlides }).map((_, slideIndex) => (
                   <div
                     key={slideIndex}
-                    className="min-w-full grid grid-cols-1 md:grid-cols-1  grid-rows-4 gap-4 p-4"
+                    className="min-w-full grid grid-cols-1 md:grid-cols-1 grid-rows-4 gap-4 p-4"
                   >
-
-                    {courses
+                    {university.courses.items
                       .slice(
                         slideIndex * coursesPerPage,
                         (slideIndex + 1) * coursesPerPage
@@ -319,21 +334,15 @@ const UniversityDetails: React.FC = () => {
                           key={index}
                           className="bg-white rounded-lg shadow p-4 border border-gray-200 flex flex-col justify-between"
                         >
-                          <h3 className="font-semibold text-lg mb-2">
-                            {course.study}
-                          </h3>
+                          <h3 className="font-semibold text-lg mb-2">{course.study}</h3>
                           <hr className="border-gray-200 mb-3" />
                           <div className="flex justify-between items-center text-sm text-gray-700">
                             <div>
-                              <div className="font-medium text-black">
-                                {course.cost}
-                              </div>
+                              <div className="font-medium text-black">{course.cost}</div>
                               <div className="text-xs">Annual Fee</div>
                             </div>
                             <div>
-                              <div className="font-medium text-black">
-                                12 Months
-                              </div>
+                              <div className="font-medium text-black">12 Months</div>
                               <div className="text-xs">Duration</div>
                             </div>
                             <button className="border border-orange-500 text-orange-500 hover:bg-orange-50 px-4 py-2 rounded-md text-sm font-medium">
@@ -345,6 +354,8 @@ const UniversityDetails: React.FC = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Navigation Arrows */}
               <div className="flex justify-center items-center gap-4 mt-6">
                 <button
                   onClick={handlePrev}
@@ -368,15 +379,23 @@ const UniversityDetails: React.FC = () => {
                 </button>
               </div>
             </div>
+
           </div>
 
           {/* Cost to Study */}
-          <div ref={sectionRefs["cost"]}>
-            <h2 className="text-2xl font-bold mb-4">Cost to Study {university.name}, {university.country}</h2>
-            <div className="text-gray-700 space-y-4">
+          <div ref={sectionRefs["cost"]} className="px-4 sm:px-6 lg:px-0">
+           <div className="flex items-center gap-2 mb-4">
+              <Wallet color="red" />
+              <h2 className="text-2xl font-bold ">
+                Cost to Study {university.name}, {university.country}
+              </h2>
+            </div>
+
+            {/* Description */}
+            <div className="text-gray-700 space-y-3 sm:space-y-4 text-sm sm:text-base">
               {university.cost?.[0]?.text ? (
                 university.cost[0].text.map((text, idx) => (
-                  <p key={idx} className="leading-relaxed">
+                  <p key={idx} className="leading-relaxed text-justify">
                     {text}
                   </p>
                 ))
@@ -386,14 +405,39 @@ const UniversityDetails: React.FC = () => {
                 </p>
               )}
             </div>
-            <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200">
-              <table className="min-w-full text-left border-collapse">
+
+            {/* Mobile version → Single Card */}
+            <div className="mt-6 sm:hidden">
+              {university.cost?.[1]?.tableData?.map((row, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-lg p-5 mb-5 border border-gray-100"
+                >
+                  {/* Card Title */}
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {row.type}
+                  </h3>
+
+                  {/* Expense Value */}
+                  <p className="text-sm text-gray-600 mb-4">
+                    <span className="font-semibold text-gray-900">Cost: </span>
+                    {row.cost}
+                  </p>
+
+
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop version → Table */}
+            <div className="hidden sm:block mt-6 overflow-x-auto rounded-xl border border-gray-200">
+              <table className="min-w-full text-left border-collapse text-sm sm:text-base">
                 <thead>
                   <tr className="bg-blue-100">
-                    <th className="px-6 py-3 text-base font-semibold text-gray-800 whitespace-nowrap border border-gray-200">
+                    <th className="px-6 py-3 font-semibold text-gray-800 whitespace-nowrap border border-gray-200">
                       Types of Expenses
                     </th>
-                    <th className="px-6 py-3 text-base font-semibold text-white bg-blue-600 whitespace-nowrap border border-gray-200">
+                    <th className="px-6 py-3 font-semibold text-white bg-blue-600 whitespace-nowrap border border-gray-200">
                       Annual Expenses in INR
                     </th>
                   </tr>
@@ -412,21 +456,105 @@ const UniversityDetails: React.FC = () => {
                 </tbody>
               </table>
             </div>
-
           </div>
 
           {/* Scholarships */}
           <div ref={sectionRefs["scholarships"]}>
-            <h2 className="text-2xl font-bold mb-4">Scholarships Available</h2>
-            <p className="text-gray-700">
-              Multiple merit and need-based scholarships are available for
-              international students.
-            </p>
+            <div className="flex items-center gap-2 mb-4">
+              <Gift color="red" />
+              <h2 className="text-2xl font-bold">Scholarships Available</h2>
+            </div>
+
+            {/* Scholarship Description */}
+            <div className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base">
+              {university.Scholarships?.description.map((text, idx) => (
+                <p key={idx} className="leading-relaxed text-justify">
+                  {text}
+                </p>
+              ))}
+            </div>
+
+            {/* Slider */}
+            <div className="relative w-full max-w-6xl mx-auto overflow-hidden">
+              <div
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentScholarshipSlide * 100}%)` }}
+              >
+                {university.Scholarships?.items?.map((scholarship, index) => (
+                  <div
+                    key={index}
+                    className="min-w-full sm:min-w-[50%] md:min-w-[33.333%] p-4"
+                  >
+                    <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition flex flex-col justify-between h-full">
+                      <div>
+                        <h3 className="text-lg font-semibold mb-3 text-gray-900">
+                          {scholarship.name || "Scholarship Name"}
+                        </h3>
+                        <p className="text-gray-500 font-medium mb-2">
+                          <span className="font-medium text-gray-800">Amount: </span>
+                          {scholarship.amount || "Varies"}
+                        </p>
+                        <p className="text-gray-500 font-medium mb-2">
+                          <span className="font-medium text-gray-800">Type: </span>
+                          {scholarship.type || "type of study"}
+                        </p>
+                        <p className="text-gray-500 font-medium mb-2">
+                          <span className="font-medium text-gray-800">Level: </span>
+                          {scholarship.level || "degree"}
+                        </p>
+                        {/* <p className="text-gray-500 text-sm"><span className="font-medium text-gray-800">Type: </span>
+                          {scholarship.eligibility ||
+                            "Eligibility criteria details go here."}
+                        </p> */}
+                      </div>
+                      <button className="mt-6 border border-orange-500 text-orange-500 hover:bg-orange-50 px-5 py-2 rounded-lg text-sm font-medium transition-colors">
+                        View & Apply
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Navigation Arrows */}
+              <div className="flex justify-center items-center gap-4 mt-5 pb-2">
+                <button
+                  onClick={() =>
+                    setCurrentScholarshipSlide((prev) => Math.max(prev - 1, 0))
+                  }
+                  disabled={currentScholarshipSlide === 0}
+                  className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide === 0
+                    ? "text-gray-400  cursor-not-allowed"
+                    : "text-black  hover:bg-gray-100"
+                    }`}
+                >
+                  <FaChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={() =>
+                    setCurrentScholarshipSlide((prev) =>
+                      Math.min(prev + 1, totalScholarships - 1)
+                    )
+                  }
+                  disabled={currentScholarshipSlide >= totalScholarships - 1}
+                  className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide >= totalScholarships - 1
+                    ? "text-gray-400  cursor-not-allowed"
+                    : "text-black  hover:bg-gray-100"
+                    }`}
+                >
+                  <FaChevronRight size={16} />
+                </button>
+              </div>
+            </div>
           </div>
+
+
 
           {/* Admissions */}
           <div ref={sectionRefs["admissions"]}>
-            <h2 className="text-2xl font-bold mb-4">Admissions</h2>
+           <div className="flex items-center gap-2 mb-4">
+              <FileText color="red" />
+              <h2 className="text-2xl font-bold">Admissions</h2>
+            </div>
             <p className="text-gray-700">
               Students must apply online with academic transcripts, English
               proficiency, and other required documents.
@@ -435,7 +563,10 @@ const UniversityDetails: React.FC = () => {
 
           {/* Placements */}
           <div ref={sectionRefs["placements"]}>
-            <h2 className="text-2xl font-bold mb-4">Placements</h2>
+            <div className="flex items-center gap-2 mb-4">
+              <Briefcase color="red" />
+              <h2 className="text-2xl font-bold">Placements</h2>
+            </div>
             <p className="text-gray-700">
               Strong industry connections help graduates secure employment
               globally.
@@ -444,7 +575,10 @@ const UniversityDetails: React.FC = () => {
 
           {/* Gallery */}
           <div ref={sectionRefs["gallery"]}>
-            <h2 className="text-2xl font-bold mb-4">Gallery</h2>
+           <div className="flex items-center gap-2 mb-4">
+              <Image color="red" />
+              <h2 className="text-2xl font-bold">Gallery</h2>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <img
                 src="/assets/images/university1.jpg"
@@ -466,7 +600,10 @@ const UniversityDetails: React.FC = () => {
 
           {/* FAQs */}
           <div ref={sectionRefs["faq"]}>
-            <h2 className="text-2xl font-bold mb-4">FAQs</h2>
+            <div className="flex items-center gap-2 mb-4">
+              <Wallet color="red" />
+              <h2 className="text-2xl font-bold">FAQs</h2>
+            </div>
             <p className="text-gray-700">
               Frequently asked questions about studying at {university.name}.
             </p>
@@ -521,6 +658,22 @@ const UniversityDetails: React.FC = () => {
           </div>
         </div>
       </div>
+      <style>{`
+
+        .curved-before{
+          height:80vh;
+        }
+        .curved-before::before {
+        border-radius: 0 0 50% 50% / 0 0 100% 100%;
+            transform: scaleX(2.1);
+        }
+        @media(max-width:768px){
+            .curved-before{
+          height:100vh;
+        }
+        }
+
+      `}</style>
     </main>
   );
 };
