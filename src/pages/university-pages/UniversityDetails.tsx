@@ -3,6 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import { Tab, UNIVERSITIES, University } from "@/lib/Universities";
 import React, { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+import { ArrowDown, BarChart3, BookOpen, Briefcase, CalendarDays, Check, FileText, Gift, Image, LayoutDashboard, Wallet } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import UniversityGallery from "./UniversityGallery";
+
 import {
   ArrowDown,
   BarChart3,
@@ -17,6 +22,7 @@ import {
 } from "lucide-react";
 import FaqAccordion from "./FaqAccordion";
 import UniversityPlacement from "./UniversityPlacement";
+
 
 // Update your TABS array
 export const TABS: Tab[] = [
@@ -87,6 +93,12 @@ const UniversityDetails: React.FC = () => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  };
+  const [selectedTab, setSelectedTab] = useState<"masters" | "bachelors">("masters");
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggleAccordion = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
@@ -596,15 +608,104 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Admissions */}
+
+          <div ref={sectionRefs["admissions"]} className="px-4 sm:px-6 lg:px-0">
+            {/* Title */}
+
           <div ref={sectionRefs["admissions"]}>
+
             <div className="flex items-center gap-2 mb-4">
               <FileText color="red" />
-              <h2 className="text-2xl font-bold">Admissions</h2>
+              <h2 className="text-2xl font-bold">Admission Requirements</h2>
             </div>
-            <p className="text-gray-700">
-              Students must apply online with academic transcripts, English
-              proficiency, and other required documents.
-            </p>
+
+            {/* Description */}
+            <div className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base">
+              {university.Admissions.description.map((text, idx) => (
+                <p key={idx} className="leading-relaxed text-justify tracking-tight">
+                  {text}
+                </p>
+              ))}
+            </div>
+
+            {/* Tabs */}
+            <div className="flex gap-4 mb-6">
+              {["masters", "bachelors"].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setSelectedTab(tab as "masters" | "bachelors")}
+                  className={`px-6 py-2 rounded-lg font-medium border transition-colors ${selectedTab === tab
+                    ? "bg-gray-900 text-white border-gray-900"
+                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                    }`}
+                >
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                </button>
+              ))}
+            </div>
+
+            {/* Accordion */}
+            <div className="space-y-3">
+              {/* Academic Requirements */}
+              <div className="rounded-xl bg-blue-50 border border-blue-200">
+                <button
+                  onClick={() => toggleAccordion(0)}
+                  className="w-full flex justify-between items-center p-4 font-semibold text-gray-800"
+                >
+                  <span>Academic Requirements</span>
+                  <span>{openIndex === 0 ? "−" : "+"}</span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {openIndex === 0 && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-4 space-y-2 text-sm text-gray-700">
+                        {university.Admissions.items[0].academicRequirements.map((req, idx) => (
+                          <p key={idx} className="flex items-center gap-2">
+                            <Check className="w-5 h-5 text-red-600" />  {req}
+                          </p>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* English Language Requirements */}
+              <div className="rounded-xl bg-blue-50 border border-blue-200">
+                <button
+                  onClick={() => toggleAccordion(1)}
+                  className="w-full flex justify-between items-center p-4 font-semibold text-gray-800"
+                >
+                  <span>English Language Requirements</span>
+                  <span>{openIndex === 1 ? "−" : "+"}</span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {openIndex === 1 && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-4 space-y-2 text-sm text-gray-700">
+                        {university.Admissions.items[0].englishRequirements.map((req, idx) => (
+                          <p key={idx} className="flex items-center gap-2">
+                            <Check className="w-5 h-5 text-red-600" /> {req}
+                          </p>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
 
           {/* Placements */}
@@ -619,29 +720,22 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Gallery */}
+
+          <div ref={sectionRefs["gallery"]} className="px-4 sm:px-6 lg:px-0">
+
           <div ref={sectionRefs["gallery"]}>
+
             <div className="flex items-center gap-2 mb-4">
               <Image color="red" />
               <h2 className="text-2xl font-bold">Gallery</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <img
-                src="/assets/images/university1.jpg"
-                alt="gallery"
-                className="rounded-lg shadow"
-              />
-              <img
-                src="/assets/images/university2.jpg"
-                alt="gallery"
-                className="rounded-lg shadow"
-              />
-              <img
-                src="/assets/images/university3.jpg"
-                alt="gallery"
-                className="rounded-lg shadow"
-              />
-            </div>
+
+
+           <UniversityGallery items={university.gallery}/>
+
           </div>
+
+
 
           {/* FAQs */}
           <div ref={sectionRefs["faq"]}>
