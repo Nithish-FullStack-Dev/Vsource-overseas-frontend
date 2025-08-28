@@ -54,6 +54,13 @@ export interface University {
       eligibility: string;
     }>;
   };
+  Admissions: {
+    description: string[];
+    items: Array<{
+      academicRequirements: string[];
+      englishRequirements: string[];
+    }>;
+  };
   gallery: string[];
 }
 export interface Tab {
@@ -66,9 +73,9 @@ export const UNIVERSITIES: University[] = [
 
     key: "coventry-university",
     name: "Coventry University",
-   logo: "/assets/images/university-banners/uk-banner/Coventry-University-logo.webp",
+    logo: "/assets/images/university-banners/uk-banner/Coventry_University/Coventry-University-logo.webp",
     banner:
-      "/assets/images/university-banners/uk-banner/Coventry_University.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/Coventry_University.webp",
     country: "UK",
     campus: "Coventry Campus, London Campus",
     website: "https://www.coventry.ac.uk",
@@ -145,12 +152,12 @@ export const UNIVERSITIES: University[] = [
       },
     ],
 
-  Scholarships: {
-     description: [
+    Scholarships: {
+      description: [
         "There are several Coventry University scholarships for international students. The university has also expanded its range of international scholarships and discounts for the January and May 2025 intakes. Unlike many other universities, there is no separate application process for Coventry University scholarships. Eligible students who meet the criteria will automatically receive the award after successfully completing the enrolment process as stated in their offer letter.",
         "However, it is important to note that Coventry University scholarships for undergraduate students are not currently available.",
       ],
-       items: [
+      items: [
         {
           name: "Vice-Chancellor's International Scholarship",
           amount: "£3,000",
@@ -181,12 +188,34 @@ export const UNIVERSITIES: University[] = [
         },
       ],
     },
-      gallery: [
-        "/assets/images/university-gallery/coventry/1.jpg",
-        "/assets/images/university-gallery/coventry/2.jpg",
-        "/assets/images/university-gallery/coventry/3.jpg",
+    Admissions: {
+      description: [
+      " Understanding the Coventry University admissions criteria is essential before starting the application. One needs to gather all the necessary documents to meet the requirements. Once done with this, students can easily receive a Coventry University admissions letter for their chosen master’s or bachelor’s program. After fulfilling all the conditions stated in the offer letter, the university will issue a Confirmation of Acceptance for Studies (CAS), which is a crucial document for the visa application. Coventry University aims to provide an initial decision on applications within one week.",
+     " Before applying for a student visa, students need to apply for Coventry University admission letter. This will give them enough time to manage the visa process and settle in the UK before the course begins.",
       ],
+      items: [
+        {
+          academicRequirements: [
+            "A minimum of 60% in a three-year undergraduate degree.",
+            " A minimum of 55% in a four-year undergraduate degree (requirements may vary by program)."
+          ],
+          englishRequirements: [
+            "IELTS:  Overall 6.5, with no band lower than 5.5.",
+            "TOEFL iBT: Overall 88, with a minimum component score of 19.",
+            "PTE Academic:Overall 71, with a minimum component score of 59."
+          ]
+        }
+      ]
     },
+    gallery: [
+      "/assets/images/university-banners/uk-banner/Coventry_University/1.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/2.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/3.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/4.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/5.webp",
+      "/assets/images/university-banners/uk-banner/Coventry_University/6.webp",
+    ],
+  },
   // {
   //   id: "University of East London",
   //   name: "University of East London",
