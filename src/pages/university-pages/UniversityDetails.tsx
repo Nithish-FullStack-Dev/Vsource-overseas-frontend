@@ -87,14 +87,18 @@ const UniversityDetails: React.FC = () => {
     );
   }
 
-  const handleScrollTo = (id: string) => {
-    setActiveTab(id);
-    const ref = sectionRefs[id];
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-  const [selectedTab, setSelectedTab] = useState<"masters" | "bachelors">(
+ const handleScrollTo = (id: string) => {
+  setActiveTab(id);
+  const ref = sectionRefs[id];
+  if (ref?.current) {
+    const yOffset = -170; 
+    const y =
+      ref.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+};
+
+  const [selectedTab, setSelectedTab] = useState<"masters" >(
     "masters"
   );
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -391,9 +395,7 @@ const UniversityDetails: React.FC = () => {
                 <button className="px-6 py-2 bg-red-600 text-white border-red-600 rounded-full">
                   Masters
                 </button>
-                <button className="px-6 py-2 border border-red-600 text-red-600 rounded-full">
-                  Bachelors
-                </button>
+                
               </div>
             </div>
 
@@ -668,10 +670,10 @@ const UniversityDetails: React.FC = () => {
 
             {/* Tabs */}
             <div className="flex gap-4 mb-6">
-              {["masters", "bachelors"].map((tab) => (
+              {["masters"].map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setSelectedTab(tab as "masters" | "bachelors")}
+                  onClick={() => setSelectedTab(tab as "masters")}
                   className={`px-6 py-2 rounded-lg font-medium border transition-colors ${selectedTab === tab
                     ? "bg-red-600 text-white border-red-600"
                     : "bg-white text-red-600 border-red-600 "
