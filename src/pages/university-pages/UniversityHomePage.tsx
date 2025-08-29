@@ -60,11 +60,11 @@ const UniversityHomePage: React.FC = () => {
 
         {/* Content */}
         <div className="relative z-10 mb-6 container mx-auto max-w-6xl p-4">
-          <div className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow">
-            <h2 className="text-4xl font-bold text-red-600">
+          <div className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow " data-aos="fade-down-right">
+            <h2 className="text-4xl font-bold text-red-600" data-aso-delay="200">
               Explore Top Universities
             </h2>
-            <p className="mt-2 text-sm sm:text-base opacity-90">
+            <p className="mt-2 text-sm sm:text-base opacity-90" data-aso-delay="300">
               Filter by country and search to find the right match.
             </p>
           </div>
@@ -74,11 +74,11 @@ const UniversityHomePage: React.FC = () => {
       {/* Dropdown filter */}
       <div className="w-full max-w-[1400px] mx-auto px-4">
         <div className="relative z-10 -mt-16 flex justify-center px-4">
-          <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3">
+          <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3"  data-aos="zoom-in-up" data-aso-delay="100">
             <label
               htmlFor="countrySelect"
               className="text-black-700 font-semibold text-2xl  text-center"
-            >
+           >
               Select Country
             </label>
             <select
