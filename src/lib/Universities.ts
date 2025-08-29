@@ -525,7 +525,7 @@ export const UNIVERSITIES: University[] = [
     name: "Aston University",
     logo: "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/AU_Birmingham_logo_Purple_RGB.png",
     banner:
-      "/assets/images/university-banners/uk-banner/University of Hertfordshire/Aston_University-banner.webp",
+      "/assets/images/university-banners/uk-banner/Aston-university/Aston_University-banner.webp",
     country: "UK",
     campus: "London Campus, Birmingham Campus",
     website: "coventryacuk.co",
