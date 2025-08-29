@@ -54,12 +54,12 @@ const WantTOStudyForm = () => {
       </div>
 
 
-      {/* City */}
+      {/* Courses */}
       <div className="space-y-1">
         <Label>
-          Your City <span className="text-red-500">*</span>
+          Perfered Courses <span className="text-red-500">*</span>
         </Label>
-        <Input type="text" placeholder="Enter your city" required />
+        <Input type="text" placeholder="Enter your courses" required className="outline-none focus:ring-0 focus:outline-none  focus:border-none"/>
       </div>
 
       {/* Preferred Destination */}
