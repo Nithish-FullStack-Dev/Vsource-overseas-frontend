@@ -21,13 +21,13 @@ import DelayedPopup from "./components/DelayedPopup";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import ContactBar from "./components/ContactBar";
 import { useEffect, useRef, useState } from "react";
-import FaqSection from "./components/home/FaqSection";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
 import GoVirtual from "./services/GoVirtual";
 import UniversityDetails from "./pages/university-pages/UniversityDetails";
+import ScrollToTop from "./ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +70,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <ScrollToTop />
         <div className="flex flex-col min-h-screen">
           {!isGoVirtualPage && <Navbar />}
           <main className="flex-grow">

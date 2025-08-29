@@ -7,6 +7,7 @@ import {
 } from "@/lib/Universities";
 import UniversityList from "@/components/UniversityList";
 import { useNavigate, useParams } from "react-router-dom";
+import { Search } from "lucide-react";
 
 const UniversityHomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -60,7 +61,9 @@ const UniversityHomePage: React.FC = () => {
         {/* Content */}
         <div className="relative z-10 mb-6 container mx-auto max-w-6xl p-4">
           <div className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow">
-            <h2 className="text-4xl font-bold text-red-600">Explore Top Universities</h2>
+            <h2 className="text-4xl font-bold text-red-600">
+              Explore Top Universities
+            </h2>
             <p className="mt-2 text-sm sm:text-base opacity-90">
               Filter by country and search to find the right match.
             </p>
@@ -69,12 +72,13 @@ const UniversityHomePage: React.FC = () => {
       </div>
 
       {/* Dropdown filter */}
-      < div className="w-full max-w-[1400px] mx-auto px-4" >
+      <div className="w-full max-w-[1400px] mx-auto px-4">
         <div className="relative z-10 -mt-16 flex justify-center px-4">
           <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3">
             <label
               htmlFor="countrySelect"
-              className="text-black-700 font-semibold text-2xl  text-center">
+              className="text-black-700 font-semibold text-2xl  text-center"
+            >
               Select Country
             </label>
             <select
@@ -99,33 +103,37 @@ const UniversityHomePage: React.FC = () => {
           </div>
         </div>
 
-
-
-
-
         {/* Count + Search */}
-        <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4 max-w-6xl mx-auto px-4 mt-3">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between mb-6 gap-4  mx-auto px-4 mt-3">
           {/* Count */}
           <div className="text-gray-700 font-medium text-sm sm:text-base md:text-lg">
             Showing{" "}
-            <span className="font-semibold text-red-600">{filteredUniversities.length}</span>{" "}
+            <span className="font-semibold text-red-600">
+              {filteredUniversities.length}
+            </span>{" "}
             universities
             {selectedCountry !== "All" && (
               <span className="ml-2">
-                in <span className="font-semibold text-red-600">{selectedCountry}</span>
+                in{" "}
+                <span className="font-semibold text-red-600">
+                  {selectedCountry}
+                </span>
               </span>
             )}
           </div>
 
           {/* Search */}
-          <div className="w-full md:w-64">
+          <div className="w-full md:w-80 flex items-center bg-white border border-gray-300 rounded-md shadow-sm hover:shadow-md transition-all duration-300">
             <input
               type="search"
               placeholder="Search universities..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition"
+              className="w-full px-4 py-3 text-sm sm:text-base text-gray-700 placeholder-gray-400 rounded-2xl focus:outline-none"
             />
+            <button className="p-3 text-gray-500 hover:text-blue-500 transition">
+              <Search size={20} />
+            </button>
           </div>
         </div>
 
@@ -133,8 +141,8 @@ const UniversityHomePage: React.FC = () => {
         <UniversityList universities={filteredUniversities} />
 
         <div className="h-8" />
-      </div >
-    </main >
+      </div>
+    </main>
   );
 };
 

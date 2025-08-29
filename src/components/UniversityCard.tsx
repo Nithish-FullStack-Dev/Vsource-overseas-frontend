@@ -8,32 +8,40 @@ interface Props {
 
 const UniversityCard: React.FC<Props> = ({ university }) => {
   return (
-     <div className="bg-white border rounded-lg p-4 shadow hover:shadow-md transition">
-      <img
-        src={university.logo}
-        alt={university.name}
-        className="w-full h-28 object-contain mb-3"
-      />
-      <hr className="my-3" />
-      <h3 className="font-semibold text-gray-900 text-lg">
-        {university.name}
-      </h3>
-      <p className="text-sm text-gray-500 mt-1">
-        {university.campus} • {university.country}
-      </p>
-      <p className="text-sm text-black mb-3">
-        {university.website}
-      </p>
-      <div className="flex justify-between gap-2">
+    <div className="bg-white border border-gray-300 rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
+      <div className="w-[90%] mx-auto p-6 flex justify-center items-center h-40 border-b border-gray-300">
+        <img
+          src={university.logo}
+          alt={`${university.name} logo`}
+          className="max-w-full max-h-full object-contain"
+        />
+      </div>
+      <div className="p-6 flex flex-col items-center text-center">
+        <h3 className="font-bold text-xl text-gray-900 mb-1">
+          {university.name}
+        </h3>
+        <p className="text-sm text-gray-500 mb-2">
+          {university.campus}, {university.country}
+        </p>
+        <a
+          href={university.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-blue-600 hover:text-blue-800 transition-colors duration-200 truncate max-w-full"
+        >
+          {university.website}
+        </a>
+      </div>
+      <div className="flex border-t border-gray-200">
         <Link
           to={`/explore-universities/${university.country}/${university.key}`}
-          className="flex-1 text-center mt-3 px-3 py-2 text-sm border border-red-600 text-red-600 rounded hover:bg-red-600 hover:text-white transition"
+          className="flex-1 px-4 py-3 text-center text-sm font-medium text-red-600 "
         >
           Know More
         </Link>
         <Link
           to="/"
-          className="flex-1 text-center mt-3 px-3 py-2 text-sm bg-gradient-to-r from-orange-500 to-red-500 text-white rounded hover:opacity-90 transition"
+          className="flex-1 px-4 py-3 text-center text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200"
         >
           Apply Now
         </Link>
