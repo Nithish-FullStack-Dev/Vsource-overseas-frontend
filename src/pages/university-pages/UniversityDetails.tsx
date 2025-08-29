@@ -132,7 +132,7 @@ const UniversityDetails: React.FC = () => {
     <main className="w-full bg-gray-50">
       {/* Hero Section */}
       <div className="curved-before overflow-hidden relative w-full text-white before:content-[''] before:absolute before:top-0 before:left-0 before:bg-[#313145] before:right-0 before:0 before:w-full before:h-[80%]">
-        <div className="absolute bottom-0 left-0 right-0 flex flex-col-reverse md:flex-row  px-[20px] container rounded-mds">
+        <div className="absolute bottom-0 left-0 right-0 flex flex-col-reverse md:flex-row w-full max-w-[1400px] mx-auto px-4 rounded-mds">
           <div className="w-full md:basis-[40%] flex flex-col bg-white p-[10px]  shadow">
             <div className="w-full h-full p-3">
               <img
@@ -172,10 +172,10 @@ const UniversityDetails: React.FC = () => {
         </div>
       </div>
 
-      <nav className="container mx-auto max-w-7xl px-4 md:px-6 py-4 text-sm text-gray-600">
-        <ol className="flex flex-wrap gap-2">
+      <nav className="w-full max-w-[1400px] mx-auto px-4 md:px-6 py-4 text-sm text-gray-600">
+        <ol className="flex flex-wrap">
           <li>
-            <Link to="/" className="hover:text-orange-500">
+            <Link to="/" className="hover:text-red-500 cursor-pointer">
               Home
             </Link>
           </li>
@@ -183,23 +183,27 @@ const UniversityDetails: React.FC = () => {
             <ChevronRight className="w-4 h-full" />
           </li>
           <li>
-            <Link to="/explore-universities" className="hover:text-orange-500">
+            <Link to="/explore-universities" className="hover:text-red-500 cursor-pointer">
               Universities
             </Link>
           </li>
           <li>
             <ChevronRight className="w-4 h-full" />
           </li>
-          <li className="text-gray-900 font-medium">{university.country}</li>
+          <li >
+            <Link to={`/explore-universities?country=${university.country}`} className="text-gray-900 font-medium cursor-pointer hover:text-red-500">
+              {university.country}
+            </Link>
+          </li>
           <li>
             <ChevronRight className="w-4 h-full" />
           </li>
-          <li className="text-gray-900 font-medium">{university.name}</li>
+          <li className=" font-medium text-red-600">{university.name}</li>
         </ol>
       </nav>
 
       <div
-        className="sticky top-[15%] z-50 bg-white shadow-md border-b "
+        className="sticky top-[15%] z-10 bg-white shadow-md border-b "
         style={{ borderTop: "0.5px solid #D3D3D3" }}
       >
         <div className=" mx-auto max-w-7xl flex overflow-x-auto sm:overflow-hidden">
@@ -207,11 +211,10 @@ const UniversityDetails: React.FC = () => {
             <button
               key={tab.key}
               onClick={() => handleScrollTo(tab.key)}
-              className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${
-                activeTab === tab.key
-                  ? "text-red-500 border-b-2 border-red-500"
-                  : ""
-              }`}
+              className={`px-4 md:px-6 py-3 text-gray-700 font-medium hover:text-red-500 whitespace-nowrap ${activeTab === tab.key
+                ? "text-red-500 border-b-2 border-red-500"
+                : ""
+                }`}
             >
               {tab.label}
             </button>
@@ -220,14 +223,14 @@ const UniversityDetails: React.FC = () => {
       </div>
 
       {/* Content + Form */}
-      <div className="container mx-auto max-w-7xl px-4 md:px-6 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="w-full max-w-[1400px] mx-auto px-4  md:px-6 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Content */}
         <div className="lg:col-span-2 space-y-12">
           {/* Overview */}
           <div id="overview" ref={sectionRefs["overview"]}>
-            <div className="flex gap-2 items-center mb-4">
-              <LayoutDashboard className="text-red-600" />
-              <h2 className="text-2xl font-bold">Overview</h2>
+            <div className="flex gap-2 items-start mb-4">
+              <LayoutDashboard className="w-6 h-6 text-red-500 shrink-0" />
+              <h2 className="text-2xl font-bold ">Overview</h2>
             </div>
             <div className="text-gray-700 leading-relaxed space-y-4">
               {Array.isArray(university.overview) ? (
@@ -274,9 +277,9 @@ const UniversityDetails: React.FC = () => {
 
           {/* Rankings */}
           <div id="rankings" ref={sectionRefs["rankings"]} className="mb-12">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="bg-orange-100 p-2 rounded-lg">
-                <BarChart3 color="red" />
+            <div className="flex items-center gap-2 mb-4">
+              <div className="">
+                <BarChart3 color="red" className="w-6 h-6 text-red-500 shrink-0" />
               </div>
               <h2 className="text-2xl md:text-3xl font-bold">Rankings</h2>
             </div>
@@ -298,8 +301,8 @@ const UniversityDetails: React.FC = () => {
                   className="flex items-center gap-4 bg-white shadow-md p-6 rounded-xl hover:shadow-lg transition"
                 >
                   {/* Icon */}
-                  <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-orange-100 rounded-full shadow">
-                    <span className="text-orange-500 text-xl">⭐</span>
+                  <div className="flex-shrink-0 flex items-center justify-center w-20 h-20">
+                    <img src="/assets/images/star.gif" alt="" className="object-none" />
                   </div>
 
                   {/* Text */}
@@ -316,10 +319,10 @@ const UniversityDetails: React.FC = () => {
 
           {/* Intakes */}
           <div id="intakes" ref={sectionRefs["intakes"]}>
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <CalendarDays color="red" />
-              Intakes
-            </h2>
+            <div className="flex items-center gap-2 mb-4">
+              <CalendarDays color="red" className="w-6 h-6 text-red-500 shrink-0" />
+              <h2 className="text-2xl font-bold">Intakes</h2>
+            </div>
 
             {/* Intro Text */}
             <p className="text-gray-700 mb-6 text-justify">
@@ -345,9 +348,8 @@ const UniversityDetails: React.FC = () => {
                   >
                     <span>{intake.month} Intake</span>
                     <span
-                      className={`transform transition-transform duration-300 ${
-                        activeIndex === index ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-180" : "rotate-0"
+                        }`}
                     >
                       <ArrowDown color="red" />
                     </span>
@@ -355,9 +357,8 @@ const UniversityDetails: React.FC = () => {
 
                   {/* Content */}
                   <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out px-4 ${
-                      activeIndex === index ? "max-h-40 py-2" : "max-h-0 py-0"
-                    }`}
+                    className={`overflow-hidden transition-all duration-300 ease-in-out px-4 ${activeIndex === index ? "max-h-40 py-2" : "max-h-0 py-0"
+                      }`}
                   >
                     <p className="text-gray-600">{intake.dropText}</p>
                   </div>
@@ -368,10 +369,13 @@ const UniversityDetails: React.FC = () => {
 
           {/* Top Courses */}
           <div id="courses" ref={sectionRefs["courses"]}>
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <BookOpen color="red" />
-              Top Courses at {university.name}
-            </h2>
+            <div className="flex items-center gap-2 mb-4">
+              <BookOpen className="w-6 h-6  text-red-500 shrink-0" />
+              <h2 className="text-2xl font-bold">
+                <span>Top Courses at {university.name}</span>
+              </h2>
+            </div>
+
 
             {/* Course Description */}
             <div className="text-gray-700 mb-6 space-y-2">
@@ -387,7 +391,7 @@ const UniversityDetails: React.FC = () => {
                 <button className="px-6 py-2 bg-red-600 text-white border-red-600 rounded-full">
                   Masters
                 </button>
-                <button className="px-6 py-2 border border-gray-300 rounded-full">
+                <button className="px-6 py-2 border border-red-600 text-red-600 rounded-full">
                   Bachelors
                 </button>
               </div>
@@ -446,22 +450,20 @@ const UniversityDetails: React.FC = () => {
                 <button
                   onClick={handlePrev}
                   disabled={currentSlide === 0}
-                  className={`p-2 rounded-full border transition ${
-                    currentSlide === 0
-                      ? "text-gray-400 border-gray-300 cursor-not-allowed"
-                      : "text-black border-gray-400 hover:bg-gray-100"
-                  }`}
+                  className={`p-2 rounded-full border transition ${currentSlide === 0
+                    ? "text-gray-400 border-gray-300 cursor-not-allowed"
+                    : "text-black border-gray-400 hover:bg-gray-100"
+                    }`}
                 >
                   <FaChevronLeft size={16} />
                 </button>
                 <button
                   onClick={handleNext}
                   disabled={currentSlide >= totalSlides - 1}
-                  className={`p-2 rounded-full border transition ${
-                    currentSlide >= totalSlides - 1
-                      ? "text-gray-400 border-gray-300 cursor-not-allowed"
-                      : "text-black border-gray-400 hover:bg-gray-100"
-                  }`}
+                  className={`p-2 rounded-full border transition ${currentSlide >= totalSlides - 1
+                    ? "text-gray-400 border-gray-300 cursor-not-allowed"
+                    : "text-black border-gray-400 hover:bg-gray-100"
+                    }`}
                 >
                   <FaChevronRight size={16} />
                 </button>
@@ -475,8 +477,8 @@ const UniversityDetails: React.FC = () => {
             ref={sectionRefs["cost"]}
             className="px-4 sm:px-6 lg:px-0"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <Wallet color="red" />
+            <div className="flex items-start gap-2 mb-4">
+              <Wallet color="red" className="w-6 h-6  text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold ">
                 Cost to Study {university.name}, {university.country}
               </h2>
@@ -524,10 +526,10 @@ const UniversityDetails: React.FC = () => {
               <table className="min-w-full text-left border-collapse text-sm sm:text-base">
                 <thead>
                   <tr className="bg-blue-100">
-                    <th className="px-6 py-3 font-semibold text-gray-800 whitespace-nowrap border border-gray-200">
+                    <th className="border border-gray-300  bg-red-200 text-black px-4 py-2 text-left font-semibold">
                       Types of Expenses
                     </th>
-                    <th className="px-6 py-3 font-semibold text-white bg-blue-600 whitespace-nowrap border border-gray-200">
+                    <th className="border border-gray-300 bg-red-200 text-black px-4 py-2 text-left font-semibold">
                       Annual Expenses in INR
                     </th>
                   </tr>
@@ -551,7 +553,7 @@ const UniversityDetails: React.FC = () => {
           {/* Scholarships */}
           <div id="scholarships" ref={sectionRefs["scholarships"]}>
             <div className="flex items-center gap-2 mb-4">
-              <Gift color="red" />
+              <Gift color="red" className="w-6 h-6  text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Scholarships Available</h2>
             </div>
 
@@ -620,11 +622,10 @@ const UniversityDetails: React.FC = () => {
                     setCurrentScholarshipSlide((prev) => Math.max(prev - 1, 0))
                   }
                   disabled={currentScholarshipSlide === 0}
-                  className={`p-2 rounded-full shadow-md transition ${
-                    currentScholarshipSlide === 0
-                      ? "text-gray-400  cursor-not-allowed"
-                      : "text-black  hover:bg-gray-100"
-                  }`}
+                  className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide === 0
+                    ? "text-gray-400  cursor-not-allowed"
+                    : "text-black  hover:bg-gray-100"
+                    }`}
                 >
                   <FaChevronLeft size={16} />
                 </button>
@@ -635,11 +636,10 @@ const UniversityDetails: React.FC = () => {
                     )
                   }
                   disabled={currentScholarshipSlide >= totalScholarships - 1}
-                  className={`p-2 rounded-full shadow-md transition ${
-                    currentScholarshipSlide >= totalScholarships - 1
-                      ? "text-gray-400  cursor-not-allowed"
-                      : "text-black  hover:bg-gray-100"
-                  }`}
+                  className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide >= totalScholarships - 1
+                    ? "text-gray-400  cursor-not-allowed"
+                    : "text-black  hover:bg-gray-100"
+                    }`}
                 >
                   <FaChevronRight size={16} />
                 </button>
@@ -650,7 +650,7 @@ const UniversityDetails: React.FC = () => {
           {/* Admissions */}
           <div id="admissions" ref={sectionRefs["admissions"]}>
             <div className="flex items-center gap-2 mb-4">
-              <FileText color="red" />
+              <FileText color="red" className="w-6 h-6  text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Admission Requirements</h2>
             </div>
 
@@ -672,11 +672,10 @@ const UniversityDetails: React.FC = () => {
                 <button
                   key={tab}
                   onClick={() => setSelectedTab(tab as "masters" | "bachelors")}
-                  className={`px-6 py-2 rounded-lg font-medium border transition-colors ${
-                    selectedTab === tab
-                      ? "bg-red-600 text-white border-red-600"
-                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-                  }`}
+                  className={`px-6 py-2 rounded-lg font-medium border transition-colors ${selectedTab === tab
+                    ? "bg-red-600 text-white border-red-600"
+                    : "bg-white text-red-600 border-red-600 "
+                    }`}
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </button>
@@ -692,7 +691,7 @@ const UniversityDetails: React.FC = () => {
                   className="w-full flex justify-between items-center p-4 font-semibold text-gray-800"
                 >
                   <span>Academic Requirements</span>
-                  <span>{openIndex === 0 ? "−" : "+"}</span>
+                  <span className="text-red-600">{openIndex === 0 ? "−" : "+"}</span>
                 </button>
                 <AnimatePresence initial={false}>
                   {openIndex === 0 && (
@@ -707,7 +706,7 @@ const UniversityDetails: React.FC = () => {
                         {university.Admissions.items[0].academicRequirements.map(
                           (req, idx) => (
                             <p key={idx} className="flex items-center gap-2">
-                              <Check className="w-5 h-5 text-red-600" /> {req}
+                              <Check className="w-5 h-5 text-red-600 shrink-0" /> {req}
                             </p>
                           )
                         )}
@@ -724,7 +723,7 @@ const UniversityDetails: React.FC = () => {
                   className="w-full flex justify-between items-center p-4 font-semibold text-gray-800"
                 >
                   <span>English Language Requirements</span>
-                  <span>{openIndex === 1 ? "−" : "+"}</span>
+                  <span className="text-red-600">{openIndex === 1 ? "−" : "+"}</span>
                 </button>
                 <AnimatePresence initial={false}>
                   {openIndex === 1 && (
@@ -739,7 +738,7 @@ const UniversityDetails: React.FC = () => {
                         {university.Admissions.items[0].englishRequirements.map(
                           (req, idx) => (
                             <p key={idx} className="flex items-center gap-2">
-                              <Check className="w-5 h-5 text-red-600" /> {req}
+                              <Check className="w-5 h-5 text-red-600 shrink-0" /> {req}
                             </p>
                           )
                         )}
@@ -754,7 +753,7 @@ const UniversityDetails: React.FC = () => {
           {/* Placements */}
           <div id="placements" ref={sectionRefs["placements"]}>
             <div className="flex items-center gap-2 mb-4">
-              <Briefcase color="red" />
+              <Briefcase color="red" className="w-6 h-6  text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">
                 {university.name}, {university.country} Placements
               </h2>
@@ -770,7 +769,7 @@ const UniversityDetails: React.FC = () => {
           >
             <div ref={sectionRefs["gallery"]}>
               <div className="flex items-center gap-2 mb-4">
-                <Image color="red" />
+                <Image color="red" className="w-6 h-6  text-red-500 shrink-0" />
                 <h2 className="text-2xl font-bold">Gallery</h2>
               </div>
 
@@ -781,7 +780,7 @@ const UniversityDetails: React.FC = () => {
           {/* FAQs */}
           <div id="faq" ref={sectionRefs["faq"]}>
             <div className="flex items-center gap-2 mb-4">
-              <Wallet color="red" />
+              <Wallet color="red" className="w-6 h-6  text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">FAQs</h2>
             </div>
             <div className="w-full">
@@ -792,10 +791,15 @@ const UniversityDetails: React.FC = () => {
 
         {/* Right Form */}
         <div className="lg:col-span-1">
-          <div className="sticky top-[32%] bg-white shadow-md rounded-lg p-6">
-            <h3 className="text-lg font-bold mb-4 text-center">
-              Want to Study in {university.country}?
-            </h3>
+          <div className="sticky top-[22%] bg-white shadow-md rounded-lg ">
+            <div className="bg-blue-600 text-center text-white py-4 px-3">
+              <h2 className="text-xl md:text-2xl font-bold">
+                Want to Study in {university.country} ?
+              </h2>
+              <p className="text-sm md:text-base">
+                Fill in your details and we'll call you back
+              </p>
+            </div>
             <WantTOStudyForm />
           </div>
         </div>

@@ -1,45 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const WantTOStudyForm = () => {
+  const [phone, setPhone] = useState("");
+
   return (
-    <form className="space-y-4">
-      <input
-        type="text"
-        placeholder="Full Name"
-        className="w-full border rounded-lg px-3 py-2"
-        required
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        className="w-full border rounded-lg px-3 py-2"
-        required
-      />
-      <input
-        type="tel"
-        placeholder="Mobile"
-        className="w-full border rounded-lg px-3 py-2"
-        required
-      />
-      <input
-        type="text"
-        placeholder="City"
-        className="w-full border rounded-lg px-3 py-2"
-        required
-      />
-      <select className="w-full border rounded-lg px-3 py-2" required>
-        <option value="">Preferred Destination</option>
-        <option value="usa">USA</option>
-        <option value="uk">UK</option>
-        <option value="canada">Canada</option>
-        <option value="australia">Australia</option>
-      </select>
-      <button
+    <form className="p-7 space-y-2">
+      {/* Name */}
+      <div className="space-y-1">
+        <Label>
+          Name <span className="text-red-500">*</span>
+        </Label>
+        <Input type="text" placeholder="Enter your full name" required />
+      </div>
+
+      {/* Email */}
+      <div className="space-y-1">
+        <Label>
+          Email <span className="text-red-500">*</span>
+        </Label>
+        <Input type="email" placeholder="Enter your email" required />
+      </div>
+
+      {/* Mobile with Country Selector */}
+      <div className="space-y-1">
+        <Label>
+          Mobile <span className="text-red-500">*</span>
+        </Label>
+        <PhoneInput
+          country={"in"}
+          value={phone}
+          onChange={setPhone}
+          countryCodeEditable={false}
+          disableCountryCode={false}
+          inputProps={{
+            required: true,
+            name: "phone",
+            className:
+              "w-full rounded-md py-2 px-3 pl-12 focus:ring-2 focus:ring-blue-400 outline-none border",
+          }}
+        />
+      </div>
+
+
+      {/* City */}
+      <div className="space-y-1">
+        <Label>
+          Your City <span className="text-red-500">*</span>
+        </Label>
+        <Input type="text" placeholder="Enter your city" required />
+      </div>
+
+      {/* Preferred Destination */}
+      <div className="space-y-1">
+        <Label>
+          Preferred Destination <span className="text-red-500">*</span>
+        </Label>
+        <Select required>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select Destination" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="usa">USA</SelectItem>
+            <SelectItem value="uk">UK</SelectItem>
+            <SelectItem value="canada">Canada</SelectItem>
+            <SelectItem value="ireland">Ireland</SelectItem>
+            <SelectItem value="france">France</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Submit */}
+      <Button
         type="submit"
-        className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700"
+        className="w-full py-2 rounded-lg font-semibold text-white shadow-md bg-gradient-to-r from-orange-400 to-red-500 hover:opacity-90"
       >
         Submit
-      </button>
+      </Button>
     </form>
   );
 };
