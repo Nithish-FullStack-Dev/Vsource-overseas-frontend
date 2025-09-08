@@ -1,22 +1,66 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
-const animatedTexts = [
-  ["STUDY MASTER'S", "IN UK, USA, CANADA, IRELAND, FRANCE"],
-];
+const fetchHero = async () => {
+  const { data } = await axios.get(
+    `${
+      import.meta.env.VITE_CMS_URL
+    }/api/landing-pages?populate[Badge][fields][0]=name&populate[Badge][fields][1]=url&populate[Badge][fields][2]=alternativeText&populate[Background_image][fields][0]=name&populate[Background_image][fields][1]=url&populate[Background_image][fields][2]=alternativeText&populate[girl_image][fields][0]=name&populate[girl_image][fields][1]=url&populate[girl_image][fields][2]=alternativeText&populate[Mobile_background_image][fields][0]=name&populate[Mobile_background_image][fields][1]=url&populate[Mobile_background_image][fields][2]=alternativeText`
+  );
+  return data.data[0];
+};
+
+function HighlightedText({ text }) {
+  // Replace **...** with a span
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+
+  return (
+    <motion.h1
+      className="text-[42px] md:text-[52px] leading-tight font-bold text-black max-w-2xl"
+      initial={{ opacity: 0, x: -80 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.7 }}
+      style={{ fontFamily: "Poppins, sans-serif" }}
+    >
+      {parts.map((part, i) =>
+        part.startsWith("**") && part.endsWith("**") ? (
+          <span key={i} className="text-red-600 font-bold">
+            {part.replace(/\*\*/g, "")}
+          </span>
+        ) : (
+          part
+        )
+      )}
+    </motion.h1>
+  );
+}
 
 const Hero = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTextIndex(
-        (prevIndex) => (prevIndex + 1) % animatedTexts.length
-      );
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const {
+    data: heroData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["heroData"],
+    queryFn: fetchHero,
+  });
+
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+  }
+
+  if (isLoading || !heroData) {
+    return <div>Loading....</div>;
+  }
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 md:pt-0">
@@ -29,7 +73,11 @@ const Hero = () => {
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{ backgroundImage: "url('/assets/images/vsource 1.png')" }}
+          style={{
+            backgroundImage: `url(${import.meta.env.VITE_CMS_URL}${
+              heroData?.Background_image?.url
+            })`,
+          }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
       </motion.div>
@@ -41,14 +89,16 @@ const Hero = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: "url('/assets/images/SLIDER nn-01.png')",
+          backgroundImage: `url(${import.meta.env.VITE_CMS_URL}${
+            heroData?.Mobile_background_image?.url
+          })`,
         }}
       />
 
       {/* Right-side Girl Image (Hidden on Mobile) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
-          src="/assets/images/vsource.png"
+          src={`${import.meta.env.VITE_CMS_URL}${heroData?.girl_image?.url}`}
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
@@ -69,29 +119,12 @@ const Hero = () => {
           {/* Desktop Left Content */}
           <div className="hidden md:block space-y-6 pt-28">
             <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 shadow-md max-w-3xl space-y-4">
-              <motion.h1
-                initial={{ opacity: 0, x: -80 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7 }}
-                className="text-[42px] md:text-[52px] leading-tight font-bold text-black max-w-2xl"
-                style={{ fontFamily: "Poppins, sans-serif" }}
-              >
-                Your <span className="text-red-600">Global</span> Pathway <br />
-                to Academic <span className="text-red-600">Excellence</span>
-              </motion.h1>
+              <HighlightedText text={heroData?.Title} />
 
               <div className="space-y-1">
-                {animatedTexts[currentTextIndex].map((line, idx) => (
-                  <motion.p
-                    key={idx}
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 * idx, duration: 0.5 }}
-                    className="text-lg text-black font-medium"
-                  >
-                    {line}
-                  </motion.p>
-                ))}
+                <p className="text-lg text-black font-medium">
+                  {heroData?.Study_in}
+                </p>
               </div>
             </div>
 
@@ -103,7 +136,7 @@ const Hero = () => {
               className="flex justify-start pt-6"
             >
               <img
-                src="/assets/images/20 years logo.png"
+                src={`${import.meta.env.VITE_CMS_URL}${heroData?.Badge?.url}`}
                 alt="20 Years Logo"
                 className="w-36 h-auto"
               />
@@ -153,13 +186,13 @@ const Hero = () => {
             >
               <div className="flex items-center space-x-1">
                 <span className="text-yellow-400 text-lg">★★★★★</span>
-                <span className="text-sm text-black">4.9/5 Rating</span>
+                <span className="text-sm text-black">{heroData?.ratings}</span>
               </div>
               <div className="text-sm font-semibold text-black">
-                100,000+ Students Guided
+                {heroData?.Students_Guided}
               </div>
               <div className="text-sm font-semibold text-black">
-                250+ Global University Partners
+                {heroData?.University_Partners}
               </div>
             </motion.div>
           </div>
@@ -183,14 +216,15 @@ const Hero = () => {
                 FALL-INTAKE 2025-2026
               </p>
               <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit mx-auto">
-                {["gb", "us", "ca", "ie", "fr"].map((flag, idx) => (
-                  <img
-                    key={idx}
-                    src={`https://flagcdn.com/${flag}.svg`}
-                    alt={flag.toUpperCase()}
-                    className="w-5 h-5 object-cover rounded-full"
-                  />
-                ))}
+                {heroData?.country_names &&
+                  heroData?.country_names.map((flag, idx) => (
+                    <img
+                      key={idx}
+                      src={`https://flagcdn.com/${flag}.svg`}
+                      alt={flag.toUpperCase()}
+                      className="w-5 h-5 object-cover rounded-full"
+                    />
+                  ))}
               </div>
               <motion.button
                 initial={{ opacity: 0, x: -40 }}
