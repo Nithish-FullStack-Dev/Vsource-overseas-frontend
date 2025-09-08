@@ -90,11 +90,15 @@ const UniversityDetails: React.FC = () => {
   const handleScrollTo = (id: string) => {
     setActiveTab(id);
     const ref = sectionRefs[id];
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (ref?.current) {
+      const yOffset = -170;
+      const y =
+        ref.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
-  const [selectedTab, setSelectedTab] = useState<"masters" | "bachelors">(
+
+  const [selectedTab, setSelectedTab] = useState<"masters">(
     "masters"
   );
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -131,7 +135,7 @@ const UniversityDetails: React.FC = () => {
   return (
     <main className="w-full bg-gray-50">
       {/* Hero Section */}
-      <div className="curved-before overflow-hidden relative w-full text-white before:content-[''] before:absolute before:top-0 before:left-0 before:bg-[#313145] before:right-0 before:0 before:w-full before:h-[80%]">
+      <div className="curved-before overflow-hidden relative w-full text-white before:content-[''] before:absolute before:top-0 before:left-0 before:bg-[#2563eb] before:right-0 before:0 before:w-full before:h-[80%]">
         <div className="absolute bottom-0 left-0 right-0 flex flex-col-reverse md:flex-row w-full max-w-[1400px] mx-auto px-4 rounded-mds">
           <div className="w-full md:basis-[40%] flex flex-col bg-white p-[10px]  shadow">
             <div className="w-full h-full p-3">
@@ -143,7 +147,7 @@ const UniversityDetails: React.FC = () => {
             </div>
 
             {/* Details */}
-            <div className="flex flex-col gap-3 px-[15px] py-[10px]">
+            <div className="flex flex-col gap-3 px-[15px] py-[10px]" data-aos="flip-left" data-aos-anchor-placement="top-bottom" data-aos-delay="400">
               <h1 className="text-2xl md:text-4xl font-bold text-black">
                 {university.name}
               </h1>
@@ -162,7 +166,7 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Right Section (Banner Image) */}
-          <div className="w-full md:basis-[60%] h-[200px] md:h-auto  overflow-hidden">
+          <div className="w-full md:basis-[60%] h-[200px] md:h-auto  overflow-hidden" data-aos="flip-right" data-aos-anchor-placement="top-bottom" data-aos-delay="400">
             <img
               src={university.banner}
               alt={`${university.name} banner`}
@@ -203,11 +207,12 @@ const UniversityDetails: React.FC = () => {
       </nav>
 
       <div
-        className="sticky top-[15%] z-10 bg-white shadow-md border-b "
+        className="sticky top-28 z-40 bg-white shadow-md border-b"
         style={{ borderTop: "0.5px solid #D3D3D3" }}
+        
       >
-        <div className=" mx-auto max-w-7xl flex overflow-x-auto sm:overflow-hidden">
-          {TABS.map((tab) => (
+        <div className="mx-auto max-w-7xl flex overflow-x-auto sm:overflow-hidden">
+          {TABS.map((tab, idx) => (
             <button
               key={tab.key}
               onClick={() => handleScrollTo(tab.key)}
@@ -215,6 +220,7 @@ const UniversityDetails: React.FC = () => {
                 ? "text-red-500 border-b-2 border-red-500"
                 : ""
                 }`}
+             
             >
               {tab.label}
             </button>
@@ -222,51 +228,97 @@ const UniversityDetails: React.FC = () => {
         </div>
       </div>
 
+
       {/* Content + Form */}
       <div className="w-full max-w-[1400px] mx-auto px-4  md:px-6 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Content */}
         <div className="lg:col-span-2 space-y-12">
           {/* Overview */}
-          <div id="overview" ref={sectionRefs["overview"]}>
-            <div className="flex gap-2 items-start mb-4">
+          <div
+            id="overview"
+            ref={sectionRefs["overview"]}
+            data-aos="fade-up"
+            data-aos-anchor-placement="top-bottom"
+            data-aos-delay="100"
+          >
+            {/* Header */}
+            <div
+              className="flex gap-2 items-start mb-4"
+              data-aos="fade-right"
+              data-aos-delay="200"
+            >
               <LayoutDashboard className="w-6 h-6 text-red-500 shrink-0" />
-              <h2 className="text-2xl font-bold ">Overview</h2>
+              <h2 className="text-2xl font-bold">Overview</h2>
             </div>
-            <div className="text-gray-700 leading-relaxed space-y-4">
+
+            {/* Overview text */}
+            <div className="text-gray-700 space-y-4 text-sm sm:text-base">
               {Array.isArray(university.overview) ? (
                 university.overview.map((paragraph, index) => (
-                  <p key={index} className="mb-4 text-justify">
+                  <p
+                    key={index}
+                    data-aos="fade-up"
+                    className="leading-relaxed mb-4 text-justify"
+                    data-aos-anchor-placement="top-bottom"
+                    data-aos-delay={`${300 + index * 150}`} // stagger text
+                  >
                     {paragraph}
                   </p>
                 ))
               ) : (
-                <p>
+                <p
+                  data-aos="fade-up"
+                  data-aos-delay="300"
+                  data-aos-anchor-placement="top-bottom"
+                >
                   {university.name} is a modern university globally recognized
                   for high-quality education, applied research, and
                   international collaborations.
                 </p>
               )}
             </div>
+
+            {/* Stats grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-              <div className="p-4 bg-red-50 rounded-lg text-center">
+              <div
+                className="p-4 bg-red-50 rounded-lg text-center"
+                data-aos="zoom-in"
+                data-aos-delay="500"
+                data-aos-anchor-placement="top-bottom"
+              >
                 <p className="text-xl font-bold text-red-600">
                   {university.stats.acceptanceRate}
                 </p>
                 <p className="text-sm">Acceptance Rate</p>
               </div>
-              <div className="p-4 bg-blue-50 rounded-lg text-center">
+              <div
+                className="p-4 bg-blue-50 rounded-lg text-center"
+                data-aos="zoom-in"
+                data-aos-delay="650"
+                data-aos-anchor-placement="top-bottom"
+              >
                 <p className="text-xl font-bold text-blue-600">
                   {university.stats.intlStudents}
                 </p>
                 <p className="text-sm">Total International Students</p>
               </div>
-              <div className="p-4 bg-yellow-50 rounded-lg text-center">
+              <div
+                className="p-4 bg-yellow-50 rounded-lg text-center"
+                data-aos="zoom-in"
+                data-aos-delay="800"
+                data-aos-anchor-placement="top-bottom"
+              >
                 <p className="text-xl font-bold text-yellow-600">
                   {university.stats.ratio}
                 </p>
                 <p className="text-sm">Student to Faculty Ratio</p>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg text-center">
+              <div
+                className="p-4 bg-green-50 rounded-lg text-center"
+                data-aos="zoom-in"
+                data-aos-delay="950"
+                data-aos-anchor-placement="top-bottom"
+              >
                 <p className="text-xl font-bold text-green-600">
                   {university.stats.placement}
                 </p>
@@ -275,11 +327,24 @@ const UniversityDetails: React.FC = () => {
             </div>
           </div>
 
+
           {/* Rankings */}
-          <div id="rankings" ref={sectionRefs["rankings"]} className="mb-12">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="">
-                <BarChart3 color="red" className="w-6 h-6 text-red-500 shrink-0" />
+          <div
+            id="rankings"
+            ref={sectionRefs["rankings"]}
+            className="mb-12"
+            data-aos="fade-up"
+            data-aos-anchor-placement="top-bottom"
+            data-aos-delay="100"
+          >
+            <div
+              className="flex items-center gap-2 mb-4"
+              data-aos="fade-right"
+              data-aos-anchor-placement="top-bottom"
+              data-aos-delay="200"
+            >
+              <div>
+                <BarChart3 className="w-6 h-6 text-red-500 shrink-0" />
               </div>
               <h2 className="text-2xl md:text-3xl font-bold">Rankings</h2>
             </div>
@@ -287,7 +352,13 @@ const UniversityDetails: React.FC = () => {
             {/* Description */}
             <div className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base">
               {university.rankings.description.map((text, idx) => (
-                <p key={idx} className="leading-relaxed text-justify">
+                <p
+                  key={idx}
+                  className="leading-relaxed text-justify"
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="top-bottom"
+                  data-aos-delay={`${300 + idx * 150}`} // stagger each paragraph
+                >
                   {text}
                 </p>
               ))}
@@ -299,17 +370,22 @@ const UniversityDetails: React.FC = () => {
                 <div
                   key={idx}
                   className="flex items-center gap-4 bg-white shadow-md p-6 rounded-xl hover:shadow-lg transition"
+                  data-aos="zoom-in"
+                  data-aos-anchor-placement="top-bottom"
+                  data-aos-delay={`${500 + idx * 200}`} // stagger cards
                 >
                   {/* Icon */}
                   <div className="flex-shrink-0 flex items-center justify-center w-20 h-20">
-                    <img src="/assets/images/star.gif" alt="" className="object-none" />
+                    <img
+                      src="/assets/images/star.gif"
+                      alt=""
+                      className="object-none"
+                    />
                   </div>
 
                   {/* Text */}
                   <div>
-                    <p className="text-xl font-bold text-gray-900">
-                      {ranking.rank}
-                    </p>
+                    <p className="text-xl font-bold text-gray-900">{ranking.rank}</p>
                     <p className="text-gray-600">{ranking.source}</p>
                   </div>
                 </div>
@@ -318,20 +394,44 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Intakes */}
-          <div id="intakes" ref={sectionRefs["intakes"]}>
-            <div className="flex items-center gap-2 mb-4">
-              <CalendarDays color="red" className="w-6 h-6 text-red-500 shrink-0" />
+          <div
+            id="intakes"
+            ref={sectionRefs["intakes"]}
+            data-aos="fade-up"
+            data-aos-anchor-placement="top-bottom"
+            data-aos-delay="100"
+          >
+            {/* Header */}
+            <div
+              className="flex items-center gap-2 mb-4"
+              data-aos="fade-right"
+              data-aos-anchor-placement="top-bottom"
+              data-aos-delay="200"
+            >
+              <CalendarDays className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Intakes</h2>
             </div>
 
             {/* Intro Text */}
-            <p className="text-gray-700 mb-6 text-justify">
+            <p
+              className="text-gray-700 mb-6 text-justify text-sm sm:text-base"
+              data-aos="fade-up"
+              data-aos-anchor-placement="top-bottom"
+              data-aos-delay="300"
+            >
               {university.intakes?.[0]?.text?.map((text, idx) => (
-                <span key={idx} className="block mb-2">
+                <span
+                  key={idx}
+                  className="block mb-2 leading-relaxed "
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="top-bottom"
+                  data-aos-delay={`${350 + idx * 100}`} // stagger each span
+                >
                   {text}
                 </span>
               )) ??
-                "The university offers multiple intakes throughout the year, with the main intakes in September, January, and May."}
+                "The university offers multiple intakes throughout the year, with the main intakes in September, January, and May."
+              }
             </p>
 
             {/* Accordion */}
@@ -340,6 +440,9 @@ const UniversityDetails: React.FC = () => {
                 <div
                   key={index}
                   className="bg-gray-100 rounded-md transition-all duration-300"
+                  data-aos="zoom-in"
+                  data-aos-anchor-placement="top-bottom"
+                  data-aos-delay={`${500 + index * 200}`} // stagger each accordion card
                 >
                   {/* Summary / Toggle */}
                   <button
@@ -368,37 +471,58 @@ const UniversityDetails: React.FC = () => {
           </div>
 
           {/* Top Courses */}
-          <div id="courses" ref={sectionRefs["courses"]}>
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-6 h-6  text-red-500 shrink-0" />
+          <div
+            id="courses"
+            ref={sectionRefs["courses"]}
+            data-aos="fade-up"
+            data-aos-anchor-placement="top-bottom"
+            data-aos-delay="100"
+          >
+            {/* Header */}
+            <div
+              className="flex items-center gap-2 mb-4"
+              data-aos="fade-right"
+              data-aos-delay="200"
+            >
+              <BookOpen className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">
                 <span>Top Courses at {university.name}</span>
               </h2>
             </div>
 
-
             {/* Course Description */}
             <div className="text-gray-700 mb-6 space-y-2">
               {university.courses.description.map((text, idx) => (
-                <p key={idx} className="leading-relaxed text-justify">
+                <p
+                  key={idx}
+                  className="leading-relaxed text-justify"
+                  data-aos="fade-up"
+                  data-aos-delay={`${250 + idx * 100}`} // stagger paragraphs
+                >
                   {text}
                 </p>
               ))}
             </div>
 
+            {/* Tab Buttons */}
             <div className="mb-6">
-              <div className="flex gap-4 mb-8">
+              <div
+                className="flex gap-4 mb-8"
+                data-aos="zoom-in"
+                data-aos-delay="400"
+              >
                 <button className="px-6 py-2 bg-red-600 text-white border-red-600 rounded-full">
                   Masters
-                </button>
-                <button className="px-6 py-2 border border-red-600 text-red-600 rounded-full">
-                  Bachelors
                 </button>
               </div>
             </div>
 
-            {/* Course Cards */}
-            <div className="w-full max-w-4xl mx-auto overflow-hidden">
+            {/* Course Cards Carousel */}
+            <div
+              className="w-full max-w-4xl mx-auto overflow-hidden"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
               <div
                 className="flex transition-transform duration-1000 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -417,22 +541,18 @@ const UniversityDetails: React.FC = () => {
                         <div
                           key={index}
                           className="bg-white rounded-lg shadow p-4 border border-gray-200 flex flex-col justify-between"
+                          data-aos="zoom-in"
+                          data-aos-delay={`${550 + index * 150}`} // stagger course cards
                         >
-                          <h3 className="font-semibold text-lg mb-2">
-                            {course.study}
-                          </h3>
+                          <h3 className="font-semibold text-lg mb-2">{course.study}</h3>
                           <hr className="border-gray-200 mb-3" />
                           <div className="flex justify-between items-center text-sm text-gray-700">
                             <div>
-                              <div className="font-medium text-black">
-                                {course.cost}
-                              </div>
+                              <div className="font-medium text-black">{course.cost}</div>
                               <div className="text-xs">Annual Fee</div>
                             </div>
                             <div>
-                              <div className="font-medium text-black">
-                                12 Months
-                              </div>
+                              <div className="font-medium text-black">12 Months</div>
                               <div className="text-xs">Duration</div>
                             </div>
                             <button className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded-md text-sm font-medium">
@@ -446,7 +566,11 @@ const UniversityDetails: React.FC = () => {
               </div>
 
               {/* Navigation Arrows */}
-              <div className="flex justify-center items-center gap-4 mt-6">
+              <div
+                className="flex justify-center items-center gap-4 mt-6"
+                data-aos="fade-up"
+                data-aos-delay="800"
+              >
                 <button
                   onClick={handlePrev}
                   disabled={currentSlide === 0}
@@ -476,15 +600,16 @@ const UniversityDetails: React.FC = () => {
             id="cost"
             ref={sectionRefs["cost"]}
             className="px-4 sm:px-6 lg:px-0"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-anchor-placement="top-bottom"
           >
             <div className="flex items-start gap-2 mb-4">
-              <Wallet color="red" className="w-6 h-6  text-red-500 shrink-0" />
-              <h2 className="text-2xl font-bold ">
+              <Wallet color="red" className="w-6 h-6 text-red-500 shrink-0" />
+              <h2 className="text-2xl font-bold">
                 Cost to Study {university.name}, {university.country}
               </h2>
             </div>
-
-            {/* Description */}
             <div className="text-gray-700 space-y-3 sm:space-y-4 text-sm sm:text-base">
               {university.cost?.[0]?.text ? (
                 university.cost[0].text.map((text, idx) => (
@@ -499,20 +624,20 @@ const UniversityDetails: React.FC = () => {
                 </p>
               )}
             </div>
-
-            {/* Mobile version → Single Card */}
-            <div className="mt-6 sm:hidden">
+            <div
+              className="mt-6 sm:hidden"
+              data-aos="fade-right"
+              data-aos-delay="200"
+              data-aos-anchor-placement="top-bottom"
+            >
               {university.cost?.[1]?.tableData?.map((row, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-2xl shadow-lg p-5 mb-5 border border-gray-100"
                 >
-                  {/* Card Title */}
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {row.type}
                   </h3>
-
-                  {/* Expense Value */}
                   <p className="text-sm text-gray-600 mb-4">
                     <span className="font-semibold text-gray-900">Cost: </span>
                     {row.cost}
@@ -522,11 +647,15 @@ const UniversityDetails: React.FC = () => {
             </div>
 
             {/* Desktop version → Table */}
-            <div className="hidden sm:block mt-6 overflow-x-auto rounded-xl border border-gray-200">
+            <div
+              className="hidden sm:block mt-6 overflow-x-auto rounded-xl border border-gray-200"
+              data-aos="fade-left"
+              data-aos-delay="300"
+            >
               <table className="min-w-full text-left border-collapse text-sm sm:text-base">
                 <thead>
                   <tr className="bg-blue-100">
-                    <th className="border border-gray-300  bg-red-200 text-black px-4 py-2 text-left font-semibold">
+                    <th className="border border-gray-300 bg-red-200 text-black px-4 py-2 text-left font-semibold">
                       Types of Expenses
                     </th>
                     <th className="border border-gray-300 bg-red-200 text-black px-4 py-2 text-left font-semibold">
@@ -549,16 +678,27 @@ const UniversityDetails: React.FC = () => {
               </table>
             </div>
           </div>
-
           {/* Scholarships */}
           <div id="scholarships" ref={sectionRefs["scholarships"]}>
-            <div className="flex items-center gap-2 mb-4">
-              <Gift color="red" className="w-6 h-6  text-red-500 shrink-0" />
+            {/* Heading */}
+            <div
+              className="flex items-center gap-2 mb-4"
+              data-aos="fade-right"
+              data-aos-duration="900"
+              data-aos-anchor-placement="top-bottom"
+            >
+              <Gift color="red" className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Scholarships Available</h2>
             </div>
 
             {/* Scholarship Description */}
-            <div className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base">
+            <div
+              className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+              data-aos-anchor-placement="top-bottom"
+            >
               {university.Scholarships?.description.map((text, idx) => (
                 <p key={idx} className="leading-relaxed text-justify">
                   {text}
@@ -567,7 +707,13 @@ const UniversityDetails: React.FC = () => {
             </div>
 
             {/* Slider */}
-            <div className="relative w-full max-w-6xl mx-auto overflow-hidden">
+            <div
+              className="relative w-full max-w-6xl mx-auto overflow-hidden"
+              data-aos="zoom-in-up"
+              data-aos-duration="1000"
+              data-aos-delay="300"
+              data-aos-anchor-placement="top-bottom"
+            >
               <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{
@@ -578,6 +724,10 @@ const UniversityDetails: React.FC = () => {
                   <div
                     key={index}
                     className="min-w-full sm:min-w-[50%] md:min-w-[33.333%] p-4"
+                    data-aos="fade-up"
+                    data-aos-delay={index * 150}  // stagger effect
+                    data-aos-duration="900"
+                    data-aos-anchor-placement="top-bottom"
                   >
                     <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-200 hover:shadow-lg transition flex flex-col justify-between h-full">
                       <div>
@@ -585,27 +735,17 @@ const UniversityDetails: React.FC = () => {
                           {scholarship.name || "Scholarship Name"}
                         </h3>
                         <p className="text-gray-500 font-medium mb-2">
-                          <span className="font-medium text-gray-800">
-                            Amount:{" "}
-                          </span>
+                          <span className="font-medium text-gray-800">Amount: </span>
                           {scholarship.amount || "Varies"}
                         </p>
                         <p className="text-gray-500 font-medium mb-2">
-                          <span className="font-medium text-gray-800">
-                            Type:{" "}
-                          </span>
+                          <span className="font-medium text-gray-800">Type: </span>
                           {scholarship.type || "type of study"}
                         </p>
                         <p className="text-gray-500 font-medium mb-2">
-                          <span className="font-medium text-gray-800">
-                            Level:{" "}
-                          </span>
+                          <span className="font-medium text-gray-800">Level: </span>
                           {scholarship.level || "degree"}
                         </p>
-                        {/* <p className="text-gray-500 text-sm"><span className="font-medium text-gray-800">Type: </span>
-                          {scholarship.eligibility ||
-                            "Eligibility criteria details go here."}
-                        </p> */}
                       </div>
                       <button className="mt-6 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors">
                         View & Apply
@@ -616,15 +756,21 @@ const UniversityDetails: React.FC = () => {
               </div>
 
               {/* Navigation Arrows */}
-              <div className="flex justify-center items-center gap-4 mt-5 pb-2">
+              <div
+                className="flex justify-center items-center gap-4 mt-5 pb-2"
+                data-aos="fade-up"
+                data-aos-delay="200"
+                data-aos-duration="800"
+                data-aos-anchor-placement="top-bottom"
+              >
                 <button
                   onClick={() =>
                     setCurrentScholarshipSlide((prev) => Math.max(prev - 1, 0))
                   }
                   disabled={currentScholarshipSlide === 0}
                   className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide === 0
-                    ? "text-gray-400  cursor-not-allowed"
-                    : "text-black  hover:bg-gray-100"
+                    ? "text-gray-400 cursor-not-allowed"
+                    : "text-black hover:bg-gray-100"
                     }`}
                 >
                   <FaChevronLeft size={16} />
@@ -637,8 +783,8 @@ const UniversityDetails: React.FC = () => {
                   }
                   disabled={currentScholarshipSlide >= totalScholarships - 1}
                   className={`p-2 rounded-full shadow-md transition ${currentScholarshipSlide >= totalScholarships - 1
-                    ? "text-gray-400  cursor-not-allowed"
-                    : "text-black  hover:bg-gray-100"
+                    ? "text-gray-400 cursor-not-allowed"
+                    : "text-black hover:bg-gray-100"
                     }`}
                 >
                   <FaChevronRight size={16} />
@@ -647,15 +793,33 @@ const UniversityDetails: React.FC = () => {
             </div>
           </div>
 
+
           {/* Admissions */}
-          <div id="admissions" ref={sectionRefs["admissions"]}>
-            <div className="flex items-center gap-2 mb-4">
-              <FileText color="red" className="w-6 h-6  text-red-500 shrink-0" />
+          <div
+            id="admissions"
+            ref={sectionRefs["admissions"]}
+            data-aos="fade-up"
+            data-aos-anchor-placement="top-bottom"
+            data-aos-delay="100"
+          >
+            {/* Heading */}
+            <div
+              className="flex items-center gap-2 mb-4"
+              data-aos="fade-right"
+              data-aos-anchor-placement="top-bottom"
+              data-aos-delay="150"
+            >
+              <FileText color="red" className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Admission Requirements</h2>
             </div>
 
             {/* Description */}
-            <div className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base">
+            <div
+              className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base"
+              data-aos="fade-up"
+              data-aos-anchor-placement="top-bottom"
+              data-aos-delay="200"
+            >
               {university.Admissions.description.map((text, idx) => (
                 <p
                   key={idx}
@@ -667,14 +831,19 @@ const UniversityDetails: React.FC = () => {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-4 mb-6">
-              {["masters", "bachelors"].map((tab) => (
+            <div
+              className="flex gap-4 mb-6"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="top-bottom"
+              data-aos-delay="250"
+            >
+              {["masters"].map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setSelectedTab(tab as "masters" | "bachelors")}
+                  onClick={() => setSelectedTab(tab as "masters")}
                   className={`px-6 py-2 rounded-lg font-medium border transition-colors ${selectedTab === tab
-                    ? "bg-red-600 text-white border-red-600"
-                    : "bg-white text-red-600 border-red-600 "
+                      ? "bg-red-600 text-white border-red-600"
+                      : "bg-white text-red-600 border-red-600"
                     }`}
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -685,7 +854,12 @@ const UniversityDetails: React.FC = () => {
             {/* Accordion */}
             <div className="space-y-3">
               {/* Academic Requirements */}
-              <div className="rounded-xl bg-blue-50 border border-blue-200">
+              <div
+                className="rounded-xl bg-blue-50 border border-blue-200"
+                data-aos="fade-up"
+                data-aos-anchor-placement="top-bottom"
+                data-aos-delay="300"
+              >
                 <button
                   onClick={() => toggleAccordion(0)}
                   className="w-full flex justify-between items-center p-4 font-semibold text-gray-800"
@@ -717,7 +891,12 @@ const UniversityDetails: React.FC = () => {
               </div>
 
               {/* English Language Requirements */}
-              <div className="rounded-xl bg-blue-50 border border-blue-200">
+              <div
+                className="rounded-xl bg-blue-50 border border-blue-200"
+                data-aos="fade-up"
+                data-aos-anchor-placement="top-bottom"
+                data-aos-delay="400"
+              >
                 <button
                   onClick={() => toggleAccordion(1)}
                   className="w-full flex justify-between items-center p-4 font-semibold text-gray-800"
@@ -749,6 +928,7 @@ const UniversityDetails: React.FC = () => {
               </div>
             </div>
           </div>
+
 
           {/* Placements */}
           <div id="placements" ref={sectionRefs["placements"]}>
