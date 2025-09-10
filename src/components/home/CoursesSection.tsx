@@ -3,6 +3,10 @@ import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { Courses, StudyCards } from "@/types/LandingPage";
 
 type Course = {
   country: string;
@@ -12,70 +16,52 @@ type Course = {
   url: string;
 };
 
-const courseCategories: Course[] = [
-  {
-    country: "UNITED KINGDOM",
-    tag: "Study in",
-    description: [
-      "Home to Top World-Ranking Universities",
-      "Wide Range of Scholarships & Financial Assistance",
-    ],
-    image: "assets/images/countries/uk.png",
-    url: "/study-in-uk",
-  },
-  {
-    country: "USA",
-    tag: "Study in",
-    description: [
-      "#1 Destination for Top-Ranked Institutions",
-      "Extensive Scholarships & Financial Support  ",
-    ],
-    image: "assets/images/countries/usa.png",
-    url: "/study-in-usa",
-  },
-  {
-    country: "CANADA",
-    tag: "Study in",
-    description: [
-      "World-Class Education with Affordable Tuition",
-      "Work Opportunities & Post-Study Work Permits",
-      "Scholarships and Financial Aid for International Students",
-    ],
-    image: "assets/images/countries/canada.png",
-    url: "/study-in-canada",
-  },
-  {
-    country: "IRELAND",
-    tag: "Study in",
-    description: [
-      "Globally Recognized Universities & Research Excellence",
-      "Gateway to Europe with Post-Study Work Options",
-      "Scholarships & Financial Support Available",
-    ],
-    image: "assets/images/countries/ireland.png",
-    url: "/study-in-ireland",
-  },
-  {
-    country: "FRANCE",
-    tag: "Study in",
-    description: [
-      "Prestigious Universities",
-      "Affordable Education with Rich Cultural Experience",
-      "Scholarships & Financial Assistance for International Students",
-    ],
-    image: "assets/images/countries/france.png",
-    url: "/study-in-france",
-  },
-];
+const fetchCourseSection = async () => {
+  const { data } = await axios.get(
+    `${
+      import.meta.env.VITE_CMS_GLOBALURL
+    }/api/landing-pages?populate[Sections][on][blocks.study-destination][populate][study_cards][populate][image][fields][0]=url&populate[Sections][on][blocks.study-destination][populate][study_cards][populate][image][fields][1]=alternativeText&populate[Sections][on][blocks.study-destination][populate][study_cards][populate][descriptions]=true`
+  );
+  return data.data[0].Sections[0];
+};
 
 export default function CoursesSection() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["0 1", "0.8 1"],
+  const {
+    data: courses,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Courses>({
+    queryKey: ["courses"],
+    queryFn: fetchCourseSection,
   });
-  const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
-  const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
+
+  const [processedCourses, setProcessedCourses] = useState<Courses | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (courses) {
+      const updatedCards = courses.study_cards.map((card) => {
+        let url = "";
+        const countryName = card.country.toLowerCase().trim();
+        if (countryName === "united kingdom") {
+          url = "/study-in-uk";
+        } else if (countryName === "usa") {
+          url = "/study-in-usa";
+        } else if (countryName === "canada") {
+          url = "/study-in-canada";
+        } else if (countryName === "ireland") {
+          url = "/study-in-ireland";
+        } else if (countryName === "france") {
+          url = "/study-in-france";
+        }
+        return { ...card, url };
+      });
+
+      setProcessedCourses({ ...courses, study_cards: updatedCards });
+    }
+  }, [courses]);
 
   const computeVisible = () => {
     const w = typeof window !== "undefined" ? window.innerWidth : 0;
@@ -91,12 +77,13 @@ export default function CoursesSection() {
   }, []);
 
   const slides = useMemo(() => {
-    const head = courseCategories.slice(0, visible);
-    const tail = courseCategories.slice(-visible);
-    return [...tail, ...courseCategories, ...head];
-  }, [visible]);
+    if (!processedCourses) return [];
+    const head = processedCourses?.study_cards?.slice(0, visible);
+    const tail = processedCourses?.study_cards?.slice(-visible);
+    return [...tail, ...processedCourses?.study_cards, ...head];
+  }, [visible, processedCourses]);
 
-  const N = courseCategories.length;
+  const N = processedCourses?.study_cards?.length;
   const [index, setIndex] = useState<number>(visible);
   const [isAnimating, setIsAnimating] = useState<boolean>(true);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -169,8 +156,17 @@ export default function CoursesSection() {
     isHoveringRef.current = false;
   };
 
-  const Card = ({ c }: { c: Course }) => {
-    const bg = encodeURI(c.image);
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const Card = ({ c }: { c: StudyCards }) => {
+    const bg = encodeURI(c?.image?.url);
     return (
       <div className="px-3 box-border h-full py-6">
         <div className="relative rounded-[15px]  overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
@@ -201,17 +197,21 @@ export default function CoursesSection() {
                   Why Study in {shortLabel(c.country)}
                 </div>
                 <ul className="mt-2 space-y-1.5 md:space-y-2 max-h-28 sm:max-h-none overflow-hidden sm:overflow-visible">
-                  {c.description.map((line, i) => (
-                    <li
-                      key={i}
-                      className={`flex items-start gap-2 text-[13px] md:text-[15px] lg:text-base text-[#334155] ${
-                        i > 1 ? "hidden sm:flex" : ""
-                      } sm:text-left`}
-                    >
-                      <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
-                      <span className="leading-snug">{line}</span>
-                    </li>
-                  ))}
+                  {c &&
+                    c.descriptions &&
+                    c.descriptions.map((line, i) => (
+                      <li
+                        key={line?.id || i}
+                        className={`flex items-start gap-2 text-[13px] md:text-[15px] lg:text-base text-[#334155] ${
+                          i > 1 ? "hidden sm:flex" : ""
+                        } sm:text-left`}
+                      >
+                        <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
+                        <span className="leading-snug">
+                          {line?.description}
+                        </span>
+                      </li>
+                    ))}
                 </ul>
               </div>
             </div>
@@ -236,14 +236,16 @@ export default function CoursesSection() {
 
   return (
     <section className="py-8 bg-white">
-      <motion.div
-        ref={ref}
-        style={{ scale: scaleProgress, opacity: opacityProgress }}
-        className="mx-auto sm:px-10 px-5"
-      >
+      <div className="mx-auto sm:px-10 px-5">
         <SectionTitle
-          title="🎓 Know about popular study destinations!"
-          subtitle="Discover globally ranked universities and career-ready opportunities across the world."
+          title={
+            processedCourses?.title ||
+            "🎓 Know about popular study destinations!"
+          }
+          subtitle={
+            processedCourses?.description ||
+            "Discover globally ranked universities and career-ready opportunities across the world."
+          }
         />
         <AnimateOnScroll>
           <div
@@ -347,7 +349,7 @@ export default function CoursesSection() {
             </button>
           </div>
         </AnimateOnScroll>
-      </motion.div>
+      </div>
     </section>
   );
 }

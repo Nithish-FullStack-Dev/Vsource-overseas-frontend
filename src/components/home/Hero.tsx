@@ -9,19 +9,19 @@ import { toast } from "sonner";
 const fetchHero = async () => {
   const { data } = await axios.get(
     `${
-      import.meta.env.VITE_CMS_URL
+      import.meta.env.VITE_CMS_GLOBALURL
     }/api/landing-pages?populate[Badge][fields][0]=name&populate[Badge][fields][1]=url&populate[Badge][fields][2]=alternativeText&populate[Background_image][fields][0]=name&populate[Background_image][fields][1]=url&populate[Background_image][fields][2]=alternativeText&populate[girl_image][fields][0]=name&populate[girl_image][fields][1]=url&populate[girl_image][fields][2]=alternativeText&populate[Mobile_background_image][fields][0]=name&populate[Mobile_background_image][fields][1]=url&populate[Mobile_background_image][fields][2]=alternativeText`
   );
   return data.data[0];
 };
 
-function HighlightedText({ text }) {
+function HighlightedText({ text, size, mobileSize }) {
   // Replace **...** with a span
   const parts = text.split(/(\*\*.*?\*\*)/g);
 
   return (
     <motion.h1
-      className="text-[42px] md:text-[52px] leading-tight font-bold text-black max-w-2xl"
+      className={`text-[${mobileSize}] md:text-[${size}] leading-tight font-bold text-black max-w-2xl`}
       initial={{ opacity: 0, x: -80 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.7 }}
@@ -41,8 +41,6 @@ function HighlightedText({ text }) {
 }
 
 const Hero = () => {
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-
   const {
     data: heroData,
     isLoading,
@@ -74,9 +72,7 @@ const Hero = () => {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: `url(${import.meta.env.VITE_CMS_URL}${
-              heroData?.Background_image?.url
-            })`,
+            backgroundImage: `url(${heroData?.Background_image?.url})`,
           }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
@@ -89,16 +85,14 @@ const Hero = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: `url(${import.meta.env.VITE_CMS_URL}${
-            heroData?.Mobile_background_image?.url
-          })`,
+          backgroundImage: `url(${heroData?.Mobile_background_image?.url})`,
         }}
       />
 
       {/* Right-side Girl Image (Hidden on Mobile) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
-          src={`${import.meta.env.VITE_CMS_URL}${heroData?.girl_image?.url}`}
+          src={`${heroData?.girl_image?.url}`}
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
@@ -119,7 +113,11 @@ const Hero = () => {
           {/* Desktop Left Content */}
           <div className="hidden md:block space-y-6 pt-28">
             <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 shadow-md max-w-3xl space-y-4">
-              <HighlightedText text={heroData?.Title} />
+              <HighlightedText
+                text={heroData?.Title}
+                size={"52px"}
+                mobileSize={"42px"}
+              />
 
               <div className="space-y-1">
                 <p className="text-lg text-black font-medium">
@@ -136,7 +134,7 @@ const Hero = () => {
               className="flex justify-start pt-6"
             >
               <img
-                src={`${import.meta.env.VITE_CMS_URL}${heroData?.Badge?.url}`}
+                src={`${heroData?.Badge?.url}`}
                 alt="20 Years Logo"
                 className="w-36 h-auto"
               />
@@ -203,17 +201,13 @@ const Hero = () => {
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[280px] text-left shadow-sm"
+              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[200px] text-left shadow-sm "
             >
               <p className="text-red-600 text-[18px] font-bold leading-tight uppercase tracking-wide">
-                GLOBAL
-                <br />
-                TOP
-                <br />
-                UNIVERSITIES
+                {heroData?.mobile_title}
               </p>
               <p className="text-[10px] text-orange-400 font-semibold mt-2 animate-blink">
-                FALL-INTAKE 2025-2026
+                {heroData?.intakes}
               </p>
               <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit mx-auto">
                 {heroData?.country_names &&
@@ -235,7 +229,7 @@ const Hero = () => {
                 APPLY NOW
               </motion.button>
               <img
-                src="/assets/images/20 years logo.png"
+                src={`${heroData?.Badge?.url}`}
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 mx-auto"
               />
@@ -248,13 +242,11 @@ const Hero = () => {
                 transition={{ delay: 0.3 }}
                 className="bg-white/20 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[95%] mx-auto shadow-sm"
               >
-                <p className="text-[18px] sm:text-[20px] font-semibold text-white leading-snug">
-                  Your Gateway to
-                </p>
-                <p className="text-[18px] sm:text-[20px] font-semibold text-white mb-[20px]">
-                  <span className="text-red-600 font-bold">Global</span>{" "}
-                  Academic Excellence
-                </p>
+                <HighlightedText
+                  text={heroData?.gateway}
+                  size={"20px"}
+                  mobileSize={"18px"}
+                />
                 <Link
                   to="/explore-universities"
                   className="bg-[#D93F36] text-white px-5 py-3 rounded-md font-semibold text-lg hover:bg-[#c2352d] transition-colors"
