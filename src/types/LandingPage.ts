@@ -1,3 +1,9 @@
+export interface Basic {
+  id: number;
+  title: string;
+  description: string;
+}
+
 export interface AboutUs {
   id: number;
   title: string;
@@ -21,6 +27,13 @@ export interface AboutUsCount {
   About_text: string;
   count: string;
   image_or_gif: Image;
+}
+
+export interface AboutUsCounts {
+  id: number;
+  count: string;
+  image: Image;
+  text: string;
 }
 
 export interface Image {
@@ -69,4 +82,49 @@ export interface ComprehensiveCard {
   external_url: string;
   image: Image;
   logo: Image;
+}
+
+//! Company Video
+
+export interface Company {
+  title: string;
+  description: string;
+  thumbnail: Image;
+  video: Image;
+}
+
+//*ABOUT US
+
+//! BANNER
+
+export interface AboutUsBanner {
+  basic: Basic;
+  banner: Image;
+}
+
+export interface InnerAboutUs {
+  basic: Basic;
+  subheadings: Description[];
+  about_cards: AboutUsCounts[];
+  chairman: Image;
+}
+
+export interface AboutSectionProps {
+  aboutData: InnerAboutUs;
+  isLoading: boolean;
+  isError: boolean;
+  error: any;
+}
+
+export interface Members {
+  basic: Basic;
+  members: Member[];
+}
+
+export interface Member {
+  id: number;
+  name: string;
+  position: string;
+  bio: string;
+  image: Image;
 }

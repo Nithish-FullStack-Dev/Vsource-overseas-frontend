@@ -7,14 +7,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Courses, StudyCards } from "@/types/LandingPage";
-
-type Course = {
-  country: string;
-  tag: string;
-  description: string[];
-  image: string;
-  url: string;
-};
+import CoursesSectionSkeleton from "@/Loaders/LandingPages/CoursesSectionSkeleton";
 
 const fetchCourseSection = async () => {
   const { data } = await axios.get(
@@ -55,6 +48,8 @@ export default function CoursesSection() {
           url = "/study-in-ireland";
         } else if (countryName === "france") {
           url = "/study-in-france";
+        } else {
+          url = "/";
         }
         return { ...card, url };
       });
@@ -162,7 +157,7 @@ export default function CoursesSection() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CoursesSectionSkeleton />;
   }
 
   const Card = ({ c }: { c: StudyCards }) => {

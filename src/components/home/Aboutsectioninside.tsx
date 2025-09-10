@@ -1,32 +1,19 @@
+import { AboutSectionSkeleton } from "@/Loaders/LandingPages/AboutSectionSkeleton";
+import { AboutSectionProps, AboutUsBanner } from "@/types/LandingPage";
+import { BoldText } from "@/utils/BoldText";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
+import { toast } from "sonner";
 
-const AboutSection: React.FC = () => {
+const AboutSection: React.FC<AboutSectionProps> = ({
+  aboutData,
+  isLoading,
+  isError,
+  error,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  const stats = [
-    {
-      id: 1,
-      value: 100000,
-      suffix: "+",
-      label: "Students Empowered",
-      icon: "https://cdn-icons-gif.flaticon.com/6454/6454106.gif",
-    },
-    {
-      id: 2,
-      value: 20,
-      suffix: "+",
-      label: "Years of Experience",
-      icon: "https://cdn-icons-gif.flaticon.com/15370/15370761.gif",
-    },
-    {
-      id: 3,
-      value: 10,
-      suffix: "+",
-      label: "Study Destinations",
-      icon: "https://cdn-icons-gif.flaticon.com/15747/15747340.gif",
-    },
-  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,6 +57,15 @@ const AboutSection: React.FC = () => {
     return count;
   };
 
+  if (isError) {
+    toast.error("failed to load");
+    console.log("failed to load", error);
+  }
+
+  if (isLoading || !aboutData) {
+    return <AboutSectionSkeleton />;
+  }
+
   return (
     <section className="about-section" ref={sectionRef}>
       <div className="w-full max-w-[1400px] mx-auto">
@@ -86,7 +82,7 @@ const AboutSection: React.FC = () => {
               data-aos-delay="200"
               data-aos-anchor-placement="center-bottom"
             >
-              About Vsource Overseas
+              {aboutData?.basic?.title || "About Vsource Overseas"}
             </h1>
 
             <p
@@ -96,48 +92,17 @@ const AboutSection: React.FC = () => {
               data-aos-delay="400"
               data-aos-anchor-placement="center-bottom"
             >
-              <strong>Your Gateway to Global Academic Excellence</strong>
+              <strong>
+                {aboutData?.basic?.description ||
+                  "Your Gateway to Global Academic Excellence"}
+              </strong>
             </p>
 
-            <p
-              className="paragraph"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="600"
-            >
-              At VSource Overseas, we specialize in transforming academic
-              ambition into international achievement. With a legacy of over 20
-              years, we are proud to be South India’s premier consultancy for
-              Master’s admissions abroad, guiding thousands of students to
-              top-ranked universities across the{" "}
-              <strong>USA, UK, Canada, Ireland, France</strong>
-              and other leading destinations.
-            </p>
-
-            <p
-              className="paragraph"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="800"
-            >
-              We partner with globally accredited universities known for{" "}
-              <strong>academic excellence, innovation, </strong>
-              and <strong>industry relevance,</strong> ensuring our students
-              receive not only a quality education but also a launchpad for
-              global careers.
-            </p>
-
-            <p
-              className="paragraph"
-              data-aos="fade-right"
-              data-aos-anchor-placement="center-bottom"
-              data-aos-duration="1000"
-              data-aos-delay="1000"
-            >
-              <strong>Our Legacy in Numbers</strong>
-            </p>
+            {aboutData &&
+              aboutData?.subheadings &&
+              aboutData?.subheadings?.map((text, i) => (
+                <BoldText key={text?.id || i} text={text?.description} />
+              ))}
 
             {/* STATS SECTION */}
             <div
@@ -146,28 +111,33 @@ const AboutSection: React.FC = () => {
               data-aos-duration="1000"
               data-aos-delay="700"
             >
-              {stats.map((stat, index) => {
-                const count = useCounter(stat.value);
-                return (
-                  <div
-                    key={stat.id}
-                    className="stat-block"
-                    data-aos="fade-up"
-                    data-aos-anchor-placement="center-bottom"
-                    data-aos-duration="1000"
-                    data-aos-delay={800 + index * 200}
-                  >
-                    <img src={stat.icon} alt={stat.label} className="icon" />
-                    <div className="stat-info">
-                      <div className="count">
-                        {count}
-                        {stat.suffix}
+              {aboutData &&
+                aboutData?.about_cards &&
+                aboutData?.about_cards?.map((stat, index) => {
+                  const count = useCounter(Number(stat?.count));
+                  return (
+                    <div
+                      key={stat.id}
+                      className="stat-block"
+                      data-aos="fade-up"
+                      data-aos-anchor-placement="center-bottom"
+                      data-aos-duration="1000"
+                      data-aos-delay={800 + index * 200}
+                    >
+                      <img
+                        src={stat?.image?.url}
+                        alt={stat?.image?.alternativeText || "Icon"}
+                        className="icon"
+                      />
+                      <div className="stat-info">
+                        <div className="count">
+                          {count.toLocaleString("en-US")}+
+                        </div>
                       </div>
+                      <div className="label">{stat?.text}</div>
                     </div>
-                    <div className="label">{stat.label}</div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
 
@@ -180,7 +150,10 @@ const AboutSection: React.FC = () => {
             data-aos-delay="400"
           >
             <img
-              src="https://vsourcevarsity.com/assets/images/founder.webp"
+              src={
+                aboutData?.chairman?.url ||
+                "https://vsourcevarsity.com/assets/images/founder.webp"
+              }
               alt="Founder"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
@@ -291,6 +264,12 @@ const AboutSection: React.FC = () => {
       text-align:right;
       flex-basis: 50%;
     }
+    @media (max-width: 1060px) {
+          .content {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
 
     @media (max-width: 485px) {
     
@@ -349,10 +328,6 @@ const AboutSection: React.FC = () => {
     }
 
     @media (max-width: 768px) {
-      .content {
-        flex-direction: column;
-        align-items: center;
-      }
 
       .stat-info {
         flex-direction: row !important;

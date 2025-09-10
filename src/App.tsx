@@ -16,6 +16,7 @@ import JoinUsPage from "./pages/JoinUsPage";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import { useRef } from "react";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import "aos/dist/aos.css";
 

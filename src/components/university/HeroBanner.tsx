@@ -8,8 +8,8 @@ type Props = {
   ctaHref?: string;
   bgImage?: string; // e.g. /assets/images/uk.jpeg
   // Optional fine-tuning for where the subject sits in the photo
-  mobileObjectPosition?: string;   // e.g. "center 30%"
-  desktopObjectPosition?: string;  // e.g. "center"
+  mobileObjectPosition?: string; // e.g. "center 30%"
+  desktopObjectPosition?: string; // e.g. "center"
 };
 
 export default function HeroBanner({
@@ -56,22 +56,20 @@ export default function HeroBanner({
       <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
 
       {/* Content */}
-<div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6 text-center">
-  <h1 className="text-white text-4xl md:text-6xl font-semibold tracking-tight">
-    {title}
-  </h1>
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6 text-center">
+        <h1 className="text-white text-4xl md:text-6xl font-semibold tracking-tight">
+          {title}
+        </h1>
 
-  <div className="mt-6">
-    <Link
-      to={ctaHref}
-      className="inline-block rounded-md bg-[#F59E0B] px-6 py-3 text-white font-medium text-base md:text-lg shadow hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition"
-    >
-      {ctaText}
-    </Link>
-  </div>
-</div>
-
-
+        <div className="mt-6">
+          <Link
+            to={ctaHref}
+            className="inline-block rounded-md bg-[#F59E0B] px-6 py-3 text-white font-medium text-base md:text-lg shadow hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition"
+          >
+            {ctaText}
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }

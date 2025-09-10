@@ -3,6 +3,39 @@ import SectionTitle from "@/components/SectionTitle";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import AboutSection from "../components/home/Aboutsectioninside";
 import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import { AboutUsBanner, InnerAboutUs, Members } from "@/types/LandingPage";
+import { toast } from "sonner";
+import axios from "axios";
+import TeamSkeleton from "@/Loaders/about-us/TeamSkeleton";
+import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+
+const fetchAboutBanner = async () => {
+  const { data } = await axios.get(
+    `${
+      import.meta.env.VITE_CMS_GLOBALURL
+    }/api/about-us?populate[about][on][about-us.hero][populate][banner][fields][0]=url&populate[about][on][about-us.hero][populate][banner][fields][1]=alternativeText`
+  );
+  return data.data.about[0];
+};
+
+const fetchAboutUs = async () => {
+  const { data } = await axios.get(
+    `${
+      import.meta.env.VITE_CMS_GLOBALURL
+    }/api/about-us?populate[about][on][about-us.about][populate][subheadings]=true&populate[about][on][about-us.about][populate][about_cards][populate][image][fields][0]=url&populate[about][on][about-us.about][populate][about_cards][populate][image][fields][1]=alternativeText`
+  );
+  return data.data.about[0];
+};
+
+const fetchMembers = async () => {
+  const { data } = await axios.get(
+    `${
+      import.meta.env.VITE_CMS_GLOBALURL
+    }/api/about-us?populate[about][on][about-us.management-team][populate][members][populate][image][fields][0]=url&populate[about][on][about-us.management-team][populate][members][populate][image][fields][1]=alternativeText`
+  );
+  return data.data.about[0];
+};
 
 const StyledTeamWrapper = styled.div`
   .main {
@@ -139,7 +172,38 @@ const StyledTeamWrapper = styled.div`
     }
   }
 `;
+
 const AboutPage = () => {
+  const {
+    data: aboutData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<AboutUsBanner>({
+    queryKey: ["bannerAbout"],
+    queryFn: fetchAboutBanner,
+  });
+
+  const {
+    data: aboutUsData,
+    isLoading: aboutLoading,
+    isError: aboutError,
+    error: aboutErr,
+  } = useQuery<InnerAboutUs>({
+    queryKey: ["aboutUs"],
+    queryFn: fetchAboutUs,
+  });
+
+  const {
+    data: members,
+    isLoading: memberLoading,
+    isError: memberError,
+    error: memberErr,
+  } = useQuery<Members>({
+    queryKey: ["members"],
+    queryFn: fetchMembers,
+  });
+
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -559,13 +623,33 @@ const AboutPage = () => {
     },
   ];
 
+  if (isError) {
+    toast.error("failed to load banner");
+    console.log("failed to load banner", error);
+  }
+
+  if (memberError) {
+    toast.error("failed to load Members");
+    console.log("failed to load Members", memberErr);
+  }
+
+  if (isLoading || !aboutData) {
+    return <BannerSkeleton />;
+  }
+
+  if (memberLoading || !members) {
+    return <TeamSkeleton />;
+  }
+
   return (
     <>
       {/* Hero Section */}
       <section
         className="pt-40 pb-36 bg-cover bg-center bg-no-repeat relative text-white"
         style={{
-          backgroundImage: `url(/assets/images/about-banner.jpg)`,
+          backgroundImage: `url(${
+            aboutData?.banner?.url || "/assets/images/about-banner.jpg"
+          })`,
         }}
       >
         {/* Dark overlay gradient */}
@@ -575,11 +659,11 @@ const AboutPage = () => {
         <div className="relative w-full max-w-[1400px] mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl text-red-600 font-bold mb-6">
-              About Us
+              {aboutData?.basic?.title || "About Us"}
             </h1>
             <p className="text-xl text-gray-300">
-              Learn about our journey, our team, and our mission to provide
-              exceptional educational consultancy for over 20 years.
+              {aboutData?.basic?.description ||
+                "Learn about our journey, our team, and our mission to provide exceptional educational consultancy for over 20 years."}
             </p>
           </div>
         </div>
@@ -596,7 +680,12 @@ const AboutPage = () => {
 
       <section className="py-16 md:py-24 bg-white">
         <div className="w-full max-w-[1400px] mx-auto px-4">
-          <AboutSection />
+          <AboutSection
+            aboutData={aboutUsData}
+            error={aboutErr}
+            isError={aboutError}
+            isLoading={aboutLoading}
+          />
         </div>
       </section>
 
@@ -606,50 +695,57 @@ const AboutPage = () => {
         <section className="py-16 md:py-24">
           <div className="w-full max-w-[1400px] mx-auto px-4">
             <SectionTitle
-              title="Our Management Team"
-              subtitle="Meet the experts who make Vsource Company a trusted name in educational consultancy"
+              title={members?.basic?.title || "Our Management Team"}
+              subtitle={
+                members?.basic?.description ||
+                "Meet the experts who make Vsource Company a trusted name in educational consultancy"
+              }
             />
             <StyledTeamWrapper>
               <div className="main">
-                {teamMembers.map((member, index) => {
-                  const delay = 50 + index * 100; // 100ms base + 100ms per index
-                  return (
-                    <div
-                      className="profile-card"
-                      key={index}
-                      data-aos="fade-up"
-                      data-aos-anchor-placement="center-bottom"
-                      data-aos-delay={delay}
-                    >
-                      <div className="img">
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          data-aos="flip-left"
-                          data-aos-anchor-placement="center-bottom"
-                          data-aos-delay={delay}
-                        />
+                {members &&
+                  members?.members &&
+                  members?.members?.map((member, index) => {
+                    const delay = 50 + index * 100; // 100ms base + 100ms per index
+                    return (
+                      <div
+                        className="profile-card"
+                        key={index}
+                        data-aos="fade-up"
+                        data-aos-anchor-placement="center-bottom"
+                        data-aos-delay={delay}
+                      >
+                        <div className="img">
+                          <img
+                            src={member?.image?.url}
+                            alt={member.name}
+                            data-aos="flip-left"
+                            data-aos-anchor-placement="center-bottom"
+                            data-aos-delay={delay}
+                          />
+                        </div>
+                        <div className="caption">
+                          <h3
+                            data-aos="fade-right"
+                            data-aos-anchor-placement="center-bottom"
+                            data-aos-delay={delay}
+                          >
+                            {member?.name || "failed to load"}
+                          </h3>
+                          <p
+                            data-aos="fade-right"
+                            data-aos-anchor-placement="center-bottom"
+                            data-aos-delay={delay}
+                          >
+                            {member?.position || "failed to load"}
+                          </p>
+                        </div>
+                        <div className="extra-info">
+                          {member?.bio || "failed to load"}
+                        </div>
                       </div>
-                      <div className="caption">
-                        <h3
-                          data-aos="fade-right"
-                          data-aos-anchor-placement="center-bottom"
-                          data-aos-delay={delay}
-                        >
-                          {member.name}
-                        </h3>
-                        <p
-                          data-aos="fade-right"
-                          data-aos-anchor-placement="center-bottom"
-                          data-aos-delay={delay}
-                        >
-                          {member.position}
-                        </p>
-                      </div>
-                      <div className="extra-info">{member.bio}</div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </div>
             </StyledTeamWrapper>
           </div>

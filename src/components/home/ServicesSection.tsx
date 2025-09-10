@@ -53,9 +53,9 @@ const ServicesSection = () => {
     queryFn: fetchComprehensive,
   });
 
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
+  if (isError || !comprehensive) {
+    toast.error("failed to load comprehensive");
+    console.log("failed to load comprehensive", error);
   }
 
   if (isLoading) {

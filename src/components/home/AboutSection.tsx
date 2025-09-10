@@ -1,3 +1,4 @@
+import { AboutSectionSkeleton } from "@/Loaders/LandingPages/AboutSectionSkeleton";
 import { AboutUs } from "@/types/LandingPage";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -13,22 +14,31 @@ const fetchAboutus = async () => {
   return data.data[0].Sections[0];
 };
 
-const useCounter = (end, start = 0, duration = 2000, isVisible) => {
-  const [count, setCount] = useState(start);
+const Counter = ({ end, isVisible }: { end: number; isVisible: boolean }) => {
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
     if (!isVisible) return;
-    let startTime = null;
-    const step = (t) => {
-      if (startTime === null) startTime = t;
-      const p = Math.min((t - startTime) / duration, 1);
-      setCount(Math.floor(p * (end - start) + start));
-      if (p < 1) {
-        requestAnimationFrame(step);
+
+    let startTime: number | null = null;
+    const duration = 2000;
+    const start = 0;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setCount(Math.floor(progress * (end - start) + start));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
       }
     };
-    requestAnimationFrame(step);
-  }, [end, start, duration, isVisible]);
-  return count;
+
+    window.requestAnimationFrame(step);
+  }, [end, isVisible]);
+
+  return (
+    <div className="count text-[#1e73be]">{count.toLocaleString("en-US")}+</div>
+  );
 };
 
 const AboutSection: React.FC = () => {
@@ -63,13 +73,9 @@ const AboutSection: React.FC = () => {
     console.log("failed to load", error);
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isLoading || !aboutData) {
+    return <AboutSectionSkeleton />;
   }
-
-  const counters = aboutData?.About_us_count.map((stat) =>
-    useCounter(Number(stat?.count), 0, 2000, isVisible)
-  );
 
   return (
     <section className="about-section" ref={sectionRef}>
@@ -114,33 +120,30 @@ const AboutSection: React.FC = () => {
             </p>
             <hr />
             <ul className="features space-y-2">
-              {aboutData &&
-                aboutData?.about_list &&
-                aboutData.about_list?.map((list) => (
-                  <li
-                    data-aos="fade-right"
-                    data-aos-delay="400"
-                    data-aos-duration="800"
-                    data-aos-anchor-placement="center-bottom"
-                    key={list.id}
-                  >
-                    <img
-                      src={list?.Image_or_gif?.url}
-                      alt="check"
-                      className="w-6 h-6"
-                    />
-                    <span>
-                      {list?.about_text}{" "}
-                      <span className="font-bold">{list?.bold_text}</span>
-                    </span>
-                  </li>
-                ))}
+              {aboutData?.about_list?.map((list) => (
+                <li
+                  data-aos="fade-right"
+                  data-aos-delay="400"
+                  data-aos-duration="800"
+                  data-aos-anchor-placement="center-bottom"
+                  key={list.id}
+                >
+                  <img
+                    src={list?.Image_or_gif?.url}
+                    alt="check"
+                    className="w-6 h-6"
+                  />
+                  <span>
+                    {list?.about_text}{" "}
+                    <span className="font-bold">{list?.bold_text}</span>
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="flex flex-col gap-5 sm:hidden ">
-            {aboutData &&
-              aboutData?.About_us_count &&
-              aboutData?.About_us_count.map((stat, i) => (
+            {aboutData?.About_us_count?.map((stat, i) => {
+              return (
                 <div
                   key={stat.id}
                   className="stat-box"
@@ -155,13 +158,12 @@ const AboutSection: React.FC = () => {
                       alt=""
                       className="icon"
                     />
-                    <div className="count text-[#1e73be]">
-                      {counters[i]?.toLocaleString("en-US")}+
-                    </div>
+                    <Counter end={Number(stat.count)} isVisible={isVisible} />
                   </div>
                   <div className="label">{stat?.About_text}</div>
                 </div>
-              ))}
+              );
+            })}
           </div>
           <div
             className="right"
@@ -184,9 +186,8 @@ const AboutSection: React.FC = () => {
           </div>
         </div>
         <div className="bottom-section">
-          {aboutData &&
-            aboutData?.About_us_count &&
-            aboutData?.About_us_count.map((stat, i) => (
+          {aboutData?.About_us_count?.map((stat, i) => {
+            return (
               <div
                 key={stat.id}
                 className="stat-box"
@@ -197,13 +198,12 @@ const AboutSection: React.FC = () => {
               >
                 <div className="left-box">
                   <img src={stat?.image_or_gif?.url} alt="" className="icon" />
-                  <div className="count text-[#1e73be]">
-                    {counters[i]?.toLocaleString("en-US")}+
-                  </div>
+                  <Counter end={Number(stat.count)} isVisible={isVisible} />
                 </div>
                 <div className="label">{stat?.About_text}</div>
               </div>
-            ))}
+            );
+          })}
         </div>
       </div>
       <style>{`

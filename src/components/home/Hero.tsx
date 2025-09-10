@@ -5,6 +5,8 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
+import { HighlightedText } from "@/utils/HighlightedText";
 
 const fetchHero = async () => {
   const { data } = await axios.get(
@@ -14,31 +16,6 @@ const fetchHero = async () => {
   );
   return data.data[0];
 };
-
-function HighlightedText({ text, size, mobileSize }) {
-  // Replace **...** with a span
-  const parts = text.split(/(\*\*.*?\*\*)/g);
-
-  return (
-    <motion.h1
-      className={`text-[${mobileSize}] md:text-[${size}] leading-tight font-bold text-black max-w-2xl`}
-      initial={{ opacity: 0, x: -80 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7 }}
-      style={{ fontFamily: "Poppins, sans-serif" }}
-    >
-      {parts.map((part, i) =>
-        part.startsWith("**") && part.endsWith("**") ? (
-          <span key={i} className="text-red-600 font-bold">
-            {part.replace(/\*\*/g, "")}
-          </span>
-        ) : (
-          part
-        )
-      )}
-    </motion.h1>
-  );
-}
 
 const Hero = () => {
   const {
@@ -57,7 +34,7 @@ const Hero = () => {
   }
 
   if (isLoading || !heroData) {
-    return <div>Loading....</div>;
+    return <HeroSkeleton />;
   }
 
   return (
@@ -117,6 +94,7 @@ const Hero = () => {
                 text={heroData?.Title}
                 size={"52px"}
                 mobileSize={"42px"}
+                color={"red"}
               />
 
               <div className="space-y-1">
@@ -246,6 +224,7 @@ const Hero = () => {
                   text={heroData?.gateway}
                   size={"20px"}
                   mobileSize={"18px"}
+                  color={"red"}
                 />
                 <Link
                   to="/explore-universities"
