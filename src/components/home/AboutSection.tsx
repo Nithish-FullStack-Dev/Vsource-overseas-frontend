@@ -14,33 +14,6 @@ const fetchAboutus = async () => {
   return data.data[0].Sections[0];
 };
 
-const Counter = ({ end, isVisible }: { end: number; isVisible: boolean }) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let startTime: number | null = null;
-    const duration = 2000;
-    const start = 0;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      setCount(Math.floor(progress * (end - start) + start));
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-
-    window.requestAnimationFrame(step);
-  }, [end, isVisible]);
-
-  return (
-    <div className="count text-[#1e73be]">{count.toLocaleString("en-US")}+</div>
-  );
-};
-
 const AboutSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -158,7 +131,9 @@ const AboutSection: React.FC = () => {
                       alt=""
                       className="icon"
                     />
-                    <Counter end={Number(stat.count)} isVisible={isVisible} />
+                    <div className="count text-[#1e73be]">
+                      {Number(stat?.count).toLocaleString("en-US")}+
+                    </div>
                   </div>
                   <div className="label">{stat?.About_text}</div>
                 </div>
@@ -198,7 +173,9 @@ const AboutSection: React.FC = () => {
               >
                 <div className="left-box">
                   <img src={stat?.image_or_gif?.url} alt="" className="icon" />
-                  <Counter end={Number(stat.count)} isVisible={isVisible} />
+                  <div className="count text-[#1e73be]">
+                    {Number(stat?.count).toLocaleString("en-US")}+
+                  </div>
                 </div>
                 <div className="label">{stat?.About_text}</div>
               </div>
