@@ -1,3 +1,4 @@
+import { Admissions } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -22,8 +23,16 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
 
 const ACCENT = "#e40000";
 
-export default function AdmissionRequirementsireland() {
+type Prop = {
+  admissions: Admissions;
+};
+
+export default function AdmissionRequirementsireland({ admissions }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
+
+  useEffect(() => {
+    console.log("admission", admissions);
+  }, []);
 
   return (
     <section
@@ -46,26 +55,24 @@ export default function AdmissionRequirementsireland() {
         {/* LEFT: Content */}
         <div>
           <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-black">
-            Ireland Admissions — What You Need
+            {admissions?.title || <>Ireland Admissions — What You Need</>}
           </h2>
 
           <p className="mt-4 text-base md:text-lg font-semibold text-black">
-            Why Study in Ireland?
+            {admissions?.subheading1 || "Why Study in Ireland?"}
           </p>
 
           <p
             className="mt-1 text-sm md:text-base font-semibold"
             style={{ color: ACCENT }}
           >
-            World-Class Universities | 1-Year Master’s | Stamp 2 Work Rights
+            {admissions?.subheading2 ||
+              "World-Class Universities | 1-Year Master’s | Stamp 2 Work Rights"}
           </p>
 
           <p className="mt-5 text-sm md:text-base leading-relaxed text-neutral-800">
-            Ireland offers globally respected universities, research-driven
-            programs, and welcoming campuses in an English-speaking country.
-            With industry links to leading tech and pharma firms, clear post-study
-            stay-back options, and a safe, vibrant culture, it’s a fantastic
-            destination for international students.
+            {admissions?.description ||
+              "Ireland offers globally respected universities, research-driven programs, and welcoming campuses in an English-speaking country. With industry links to leading tech and pharma firms, clear post-study stay-back options, and a safe, vibrant culture, it’s a fantastic destination for international students."}
           </p>
 
           <div className="mt-7">
@@ -87,26 +94,26 @@ export default function AdmissionRequirementsireland() {
             </h3>
 
             <ul className="mt-4 space-y-3">
-              {CHECK_ITEMS.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
-                >
-                  <CheckIcon />
-                  <span className="text-sm md:text-base text-neutral-900">
-                    {item}
-                  </span>
-                </li>
-              ))}
+              {admissions &&
+                admissions?.checklist &&
+                admissions?.checklist?.texts &&
+                admissions?.checklist?.texts.map((item, idx) => (
+                  <li
+                    key={item?.id || idx}
+                    className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
+                  >
+                    <CheckIcon />
+                    <span className="text-sm md:text-base text-neutral-900">
+                      {item?.text || "text not loaded properly"}
+                    </span>
+                  </li>
+                ))}
             </ul>
 
             {/* subtle note */}
             <p className="mt-4 text-xs md:text-sm text-neutral-600">
-              * Requirements vary by university and program. For Ireland visas
-              (Normal/API), typical expectations include a tuition deposit
-              (often €6,000+), private medical insurance, and proof of funds as
-              per INIS guidelines. Aim to apply 6–7 weeks before course start.
-              We’ll guide you on exact documents, scores, and timelines.
+              {admissions?.checklist?.note ||
+                "* Requirements vary by university and program. For SDS (Student Direct Stream), typical expectations include IELTS 6.0 in each band, 1-year tuition payment receipt, and a CAD $10,000 GIC. We’ll guide you on exact documents, score targets, and timelines."}
             </p>
           </div>
         </div>
@@ -114,26 +121,6 @@ export default function AdmissionRequirementsireland() {
     </section>
   );
 }
-
-const CHECK_ITEMS = [
-  "Completed Online Application & Payment",
-  "Valid Passport (current) + copies of previous passports",
-  "Academic Transcripts (10th/12th & Bachelor’s, as applicable)",
-  "Degree Certificates / Provisional Certificate / CMM",
-  "Medium of Instruction (MOI) — if applicable",
-  "English Proficiency (IELTS/TOEFL/PTE/DET — course-specific scores)",
-  "GRE/GMAT (only if required by the program)",
-  "Statement of Purpose (SOP)",
-  "Letters of Recommendation (2–3)",
-  "Resume/CV (projects, internships, achievements)",
-  "Work Experience Letters (if any)",
-  "Financial Affidavit & Bank Statements (proof of funds)",
-  "Tuition Fee Deposit Receipt (e.g., €6,000+ / or 50% if fees > €12,000)",
-  "Private Medical Insurance (policy/quote)",
-  "Letter of Acceptance (from the university, post-admission)",
-  "Signed Application Letter & Gap Explanations (if applicable)",
-  "Two Recent Passport-size Photographs",
-];
 
 /* simple accent check icon */
 function CheckIcon() {

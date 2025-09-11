@@ -1,3 +1,4 @@
+import { Admissions } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -22,8 +23,16 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
 
 const ACCENT = "#e40000";
 
-export default function AdmissionRequirementsUK() {
+type Prop = {
+  admissions: Admissions;
+};
+
+export default function AdmissionRequirementsUK({ admissions }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
+
+  useEffect(() => {
+    console.log("admission", admissions);
+  }, []);
 
   return (
     <section
@@ -46,26 +55,28 @@ export default function AdmissionRequirementsUK() {
         {/* LEFT: Content */}
         <div>
           <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-black">
-            Admission Requirement <br className="hidden sm:block" /> in UK
+            {admissions?.title || (
+              <>
+                Admission Requirement <br className="hidden sm:block" /> in UK
+              </>
+            )}
           </h2>
 
           <p className="mt-4 text-base md:text-lg font-semibold text-black">
-            Why Study in the UK?
+            {admissions?.subheading1 || " Why Study in the UK?"}
           </p>
 
           <p
             className="mt-1 text-sm md:text-base font-semibold"
             style={{ color: ACCENT }}
           >
-            World-Class Education | Global Recognition | Multicultural Experience
+            {admissions?.subheading2 ||
+              " World-Class Education | Global Recognition | Multicultural Experience"}
           </p>
 
           <p className="mt-5 text-sm md:text-base leading-relaxed text-neutral-800">
-            Studying in the UK is more than earning a degree— it’s about gaining
-            a globally respected education, experiencing rich cultural diversity,
-            and unlocking endless career possibilities. With universities that
-            rank among the world’s best, the UK offers cutting-edge programs
-            across every major field.
+            {admissions?.description ||
+              " Studying in the UK is more than earning a degree— it’s about gaining a globally respected education, experiencing rich cultural diversity, and unlocking endless career possibilities. With universities that rank among the world’s best, the UK offers cutting-edge programs across every major field."}
           </p>
 
           <div className="mt-7">
@@ -87,23 +98,26 @@ export default function AdmissionRequirementsUK() {
             </h3>
 
             <ul className="mt-4 space-y-3">
-              {CHECK_ITEMS.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
-                >
-                  <CheckIcon />
-                  <span className="text-sm md:text-base text-neutral-900">
-                    {item}
-                  </span>
-                </li>
-              ))}
+              {admissions &&
+                admissions?.checklist &&
+                admissions?.checklist?.texts &&
+                admissions?.checklist?.texts.map((item, idx) => (
+                  <li
+                    key={item?.id || idx}
+                    className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
+                  >
+                    <CheckIcon />
+                    <span className="text-sm md:text-base text-neutral-900">
+                      {item?.text || "text not loaded properly"}
+                    </span>
+                  </li>
+                ))}
             </ul>
 
             {/* subtle note */}
             <p className="mt-4 text-xs md:text-sm text-neutral-600">
-              * Requirements can vary by university and course. We’ll guide you
-              on exact documents and timelines.
+              {admissions?.checklist?.note ||
+                "* Requirements can vary by university and course. We’ll you on exact documents and timelines."}
             </p>
           </div>
         </div>
@@ -111,14 +125,6 @@ export default function AdmissionRequirementsUK() {
     </section>
   );
 }
-
-const CHECK_ITEMS = [
-  "Complete Application Form",
-  "Academic Transcripts",
-  "Proficiency Test Score (IELTS/TOEFL/PTE)",
-  "Letters of Recommendation (LORs)",
-  "Statement of Purpose (SOP)/Essay",
-];
 
 /* simple accent check icon */
 function CheckIcon() {

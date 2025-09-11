@@ -1,3 +1,4 @@
+import { Admissions } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -22,7 +23,11 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
 
 const ACCENT = "#e40000";
 
-export default function AdmissionRequirementscanada() {
+type Prop = {
+  admissions: Admissions;
+};
+
+export default function AdmissionRequirementscanada({ admissions }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -46,26 +51,24 @@ export default function AdmissionRequirementscanada() {
         {/* LEFT: Content */}
         <div>
           <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-black">
-            Admission Requirements <br className="hidden sm:block" /> in Canada
+            {admissions?.title || <>Admission Requirements in Canada</>}
           </h2>
 
           <p className="mt-4 text-base md:text-lg font-semibold text-black">
-            Why Study in Canada?
+            {admissions?.subheading1 || "Why Study in Canada?"}
           </p>
 
           <p
             className="mt-1 text-sm md:text-base font-semibold"
             style={{ color: ACCENT }}
           >
-            World-Class Education | Co-op Programs | PGWP up to 3 Years
+            {admissions?.subheading2 ||
+              "World-Class Education | Co-op Programs | PGWP up to 3 Years"}
           </p>
 
           <p className="mt-5 text-sm md:text-base leading-relaxed text-neutral-800">
-            Canada offers publicly funded, globally respected universities and
-            colleges with cutting-edge labs, diverse campuses, and strong
-            industry links. With paid co-ops/internships, clear post-study work
-            pathways, and a safe, welcoming environment, it’s a top destination
-            for international students seeking great outcomes.
+            {admissions?.description ||
+              "Canada offers publicly funded, globally respected universities and colleges with cutting-edge labs, diverse campuses, and strong industry links. With paid co-ops/internships, clear post-study work pathways, and a safe, welcoming environment, it’s a top destination for international students seeking great outcomes."}
           </p>
 
           <div className="mt-7">
@@ -87,25 +90,26 @@ export default function AdmissionRequirementscanada() {
             </h3>
 
             <ul className="mt-4 space-y-3">
-              {CHECK_ITEMS.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
-                >
-                  <CheckIcon />
-                  <span className="text-sm md:text-base text-neutral-900">
-                    {item}
-                  </span>
-                </li>
-              ))}
+              {admissions &&
+                admissions?.checklist &&
+                admissions?.checklist?.texts &&
+                admissions?.checklist?.texts.map((item, idx) => (
+                  <li
+                    key={item?.id || idx}
+                    className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
+                  >
+                    <CheckIcon />
+                    <span className="text-sm md:text-base text-neutral-900">
+                      {item?.text || "text not loaded properly"}
+                    </span>
+                  </li>
+                ))}
             </ul>
 
             {/* subtle note */}
             <p className="mt-4 text-xs md:text-sm text-neutral-600">
-              * Requirements vary by university and program. For SDS (Student
-              Direct Stream), typical expectations include IELTS 6.0 in each
-              band, 1-year tuition payment receipt, and a CAD $10,000 GIC. We’ll
-              guide you on exact documents, score targets, and timelines.
+              {admissions?.checklist?.note ||
+                "* Requirements vary by university and program. For SDS (Student Direct Stream), typical expectations include IELTS 6.0 in each band, 1-year tuition payment receipt, and a CAD $10,000 GIC. We’ll guide you on exact documents, score targets, and timelines."}
             </p>
           </div>
         </div>
@@ -113,22 +117,6 @@ export default function AdmissionRequirementscanada() {
     </section>
   );
 }
-
-const CHECK_ITEMS = [
-  "Completed Online Application & Fee",
-  "Academic Transcripts (10th/12th & Bachelor’s, as applicable)",
-  "English Proficiency (IELTS/TOEFL/PTE/DET — SDS commonly IELTS 6.0 each band)",
-  "Statement of Purpose (SOP) / Essays",
-  "Letters of Recommendation (2–3)",
-  "Resume/CV (projects, internships, achievements)",
-  "Valid Passport (bio page)",
-  "Portfolio/Writing Samples (if required by program)",
-  // Admission → Visa prep essentials commonly requested for Canada
-  "Proof of Funds (e.g., CAD $10,000 GIC for SDS) & Financial Statements",
-  "1-Year Tuition Fee Payment Receipt (for SDS/visa processing)",
-  "LOA (Letter of Acceptance) from a DLI (post-admission)",
-  "Upfront Medicals & Biometrics (as per IRCC, for visa stage)",
-];
 
 /* simple accent check icon */
 function CheckIcon() {

@@ -1,3 +1,4 @@
+import { WhyStudyin } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,7 +25,11 @@ function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
   return { ref, inView };
 }
 
-export default function WhyStudyUK() {
+type Prop = {
+  whyStudyin: WhyStudyin;
+};
+
+export default function WhyStudyUK({ whyStudyin }: Prop) {
   // Animate the whole left content block
   const { ref: leftRef, inView: leftInView } = useInView<HTMLDivElement>();
 
@@ -42,14 +47,13 @@ export default function WhyStudyUK() {
         {/* Left: Intro (slides from LEFT) */}
         <div ref={leftRef} style={leftStyle}>
           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-black">
-            Study in the UK — Build a Global-Ready Career
+            {whyStudyin?.title ||
+              "Study in the UK — Build a Global-Ready Career"}
           </h2>
 
           <p className="mt-4 text-sm md:text-base leading-relaxed text-neutral-700">
-            The UK blends world-class universities with practical learning and
-            industry connections. Gain internationally recognized degrees, learn
-            from renowned faculty, and access a multicultural campus life that
-            prepares you for global opportunities.
+            {whyStudyin?.description ||
+              "The UK blends world-class universities with practical learning and industry connections. Gain internationally recognized degrees, learn from renowned faculty, and access a multicultural campus life that prepares you for global opportunities."}
           </p>
 
           {/* Accent divider */}
@@ -60,22 +64,19 @@ export default function WhyStudyUK() {
 
           {/* Bulleted highlights */}
           <ul className="mt-6 space-y-3">
-            {[
-              "1-year Master’s in many disciplines",
-              "Graduate Route (post-study work) opportunities",
-              "Strong research, internships & industry links",
-              "Vibrant student life with 150+ nationalities",
-            ].map((point) => (
-              <li key={point} className="flex items-start gap-3">
-                <span
-                  className="mt-1 inline-block h-2.5 w-2.5 rounded-full shrink-0"
-                  style={{ backgroundColor: "#e40000" }}
-                />
-                <span className="text-sm md:text-base text-neutral-800">
-                  {point}
-                </span>
-              </li>
-            ))}
+            {whyStudyin &&
+              whyStudyin?.highlights_points &&
+              whyStudyin?.highlights_points.map((point) => (
+                <li key={point?.id} className="flex items-start gap-3">
+                  <span
+                    className="mt-1 inline-block h-2.5 w-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: "#e40000" }}
+                  />
+                  <span className="text-sm md:text-base text-neutral-800">
+                    {point?.description}
+                  </span>
+                </li>
+              ))}
           </ul>
 
           {/* CTA */}
@@ -92,34 +93,16 @@ export default function WhyStudyUK() {
 
         {/* Right: Feature cards (each slides from LEFT with stagger) */}
         <div className="grid sm:grid-cols-2 gap-4">
-          {[ // we’ll map to give each card a staggered delay
-            {
-              title: "Globally Recognized",
-              body:
-                "UK degrees are valued by employers worldwide for academic rigor and practical skills.",
-              icon: "🎓",
-            },
-            {
-              title: "Multicultural Ecosystem",
-              body:
-                "Learn alongside students from across the world and build a global network.",
-              icon: "🌍",
-            },
-            {
-              title: "Career Edge",
-              body:
-                "Access internships, industry projects, and post-study work opportunities.",
-              icon: "💼",
-            },
-          ].map((c, i) => (
-            <AnimatedFeatureCard
-              key={c.title}
-              title={c.title}
-              body={c.body}
-              icon={c.icon}
-              index={i}
-            />
-          ))}
+          {whyStudyin &&
+            whyStudyin?.whyStudyin_cards &&
+            whyStudyin?.whyStudyin_cards.map((c, i) => (
+              <AnimatedFeatureCard
+                key={c.id}
+                title={c.title}
+                body={c.description}
+                index={i}
+              />
+            ))}
         </div>
       </div>
     </section>
@@ -129,12 +112,10 @@ export default function WhyStudyUK() {
 function AnimatedFeatureCard({
   title,
   body,
-  icon,
   index = 0,
 }: {
   title: string;
   body: string;
-  icon: string;
   index?: number;
 }) {
   const { ref, inView } = useInView<HTMLDivElement>();
@@ -156,9 +137,6 @@ function AnimatedFeatureCard({
       className="rounded-xl border bg-white p-5 md:p-6 shadow-sm hover:shadow transition will-change-transform"
     >
       <div className="flex items-center gap-3">
-        <span className="text-2xl" aria-hidden>
-          {icon}
-        </span>
         <h3 className="text-base md:text-lg font-semibold text-black">
           {title}
         </h3>

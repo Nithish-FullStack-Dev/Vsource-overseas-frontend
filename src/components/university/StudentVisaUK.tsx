@@ -1,3 +1,6 @@
+import { Visa_requirements } from "@/types/StudyInPage";
+import { BoldText } from "@/utils/BoldText";
+import { HighlightedText } from "@/utils/HighlightedText";
 import React, { useEffect, useRef, useState } from "react";
 
 /* tiny hook for scroll-in animation */
@@ -21,7 +24,11 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
 
 const ACCENT = "#e40000";
 
-export default function StudentVisaUK() {
+type Prop = {
+  visa_requirements: Visa_requirements;
+};
+
+export default function StudentVisaUK({ visa_requirements }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -44,37 +51,43 @@ export default function StudentVisaUK() {
       >
         {/* LEFT: Text content */}
         <div>
-          <h2
-            className="text-2xl md:text-3xl font-extrabold leading-tight"
-            style={{ color: ACCENT }}
-          >
-            Student Visa
-            <br className="hidden sm:block" />
-            <span className="block text-black">Requirements for Indians</span>
-          </h2>
-
+          {visa_requirements?.title ? (
+            <HighlightedText
+              text={visa_requirements?.title}
+              mobileSize="42px"
+              color="red"
+            />
+          ) : (
+            <h2
+              className="text-2xl md:text-3xl font-extrabold leading-tight"
+              style={{ color: ACCENT }}
+            >
+              Student Visa
+              <br className="hidden sm:block" />
+              <span className="block text-black">Requirements for Indians</span>
+            </h2>
+          )}
           <p className="mt-5 text-base md:text-lg font-semibold text-black">
-            Indian students will need to apply for a tier 4 student visa to study in UK.
+            {visa_requirements?.subheading ? (
+              <BoldText text={visa_requirements?.subheading} />
+            ) : (
+              "Indian students will need to apply for a tier 4 student visa to study in UK."
+            )}
           </p>
-
           <ul className="mt-6 space-y-3">
-            {[
-              "Valid Passport",
-              "Tuberculosis Test Results (If Applicable)",
-              "Proof of Acceptance of a UK University",
-              "Evidence of Finances to Support your stay in the UK",
-              "Biometric Information",
-            ].map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
-              >
-                <Dot />
-                <span className="text-sm md:text-base text-neutral-900">
-                  {item}
-                </span>
-              </li>
-            ))}
+            {visa_requirements &&
+              visa_requirements?.details &&
+              visa_requirements?.details.map((item, idx) => (
+                <li
+                  key={item?.id || idx}
+                  className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
+                >
+                  <Dot />
+                  <span className="text-sm md:text-base text-neutral-900">
+                    {item?.text}
+                  </span>
+                </li>
+              ))}
           </ul>
         </div>
 

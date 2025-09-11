@@ -1,3 +1,4 @@
+import { Highlights, Overview } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 
 type Highlight = {
@@ -110,7 +111,11 @@ function extractNumberParts(input: string) {
   };
 }
 
-export default function OverviewHighlights() {
+type Props = {
+  overview: Overview;
+};
+
+export default function OverviewHighlights({ overview }: Props) {
   return (
     <section
       className="container mx-auto px-4 md:px-6 py-10 md:py-14 rounded-2xl"
@@ -131,17 +136,12 @@ export default function OverviewHighlights() {
 
       {/* First row: 4 boxes on desktop */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-        {firstRow.map((item, idx) => (
-          <HighlightCard
-            key={item.label}
-            label={item.label}
-            value={item.value}
-            index={idx}
-          />
+        {overview?.highlights?.map((item) => (
+          <HighlightCard key={item.id} label={item.label} value={item.value} />
         ))}
       </div>
 
-      {/* Second row: 3 boxes on desktop */}
+      {/* Second row: 3 boxes on desktop
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         {secondRow.map((item, idx) => (
           <HighlightCard
@@ -151,7 +151,7 @@ export default function OverviewHighlights() {
             index={firstRow.length + idx}
           />
         ))}
-      </div>
+      </div> */}
     </section>
   );
 }

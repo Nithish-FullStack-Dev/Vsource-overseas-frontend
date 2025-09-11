@@ -187,7 +187,7 @@ const Hero = () => {
               <p className="text-[10px] text-orange-400 font-semibold mt-2 animate-blink">
                 {heroData?.intakes}
               </p>
-              <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit mx-auto">
+              <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit">
                 {heroData?.country_names &&
                   heroData?.country_names.map((flag, idx) => (
                     <img
@@ -209,35 +209,39 @@ const Hero = () => {
               <img
                 src={`${heroData?.Badge?.url}`}
                 alt="20 Years Logo"
-                className="w-20 h-auto mt-4 mx-auto"
+                className="w-20 h-auto mt-4 "
               />
             </motion.div>
 
             <div className="mt-auto pb-6 w-full text-center">
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white/20 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[95%] mx-auto shadow-sm"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="bg-white/20 backdrop-blur-md px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-lg border border-white/30 flex flex-col items-center text-center"
               >
+                {/* Highlighted headline */}
                 <HighlightedText
                   text={heroData?.gateway}
-                  size={"20px"}
-                  mobileSize={"18px"}
-                  color={"red"}
+                  size="22px"
+                  mobileSize="18px"
+                  color="red"
                 />
-                <Link
-                  to="/explore-universities"
-                  className="bg-[#D93F36] text-white px-5 py-3 rounded-md font-semibold text-lg hover:bg-[#c2352d] transition-colors"
-                >
-                  Explore Universities
-                </Link>
-                <div className="mt-[20px] inline-block">
+
+                {/* Actions */}
+                <div className="mt-6 flex flex-col sm:flex-row gap-4 w-full justify-center">
+                  <Link
+                    to="/explore-universities"
+                    className="flex-1 bg-[#D93F36] text-white px-6 py-3 rounded-md font-semibold text-lg shadow-md hover:bg-[#c2352d] hover:shadow-lg transition-all duration-300 text-center"
+                  >
+                    Explore Universities
+                  </Link>
+
                   <Link
                     to="/book-counseling"
-                    className="bg-white border border-white text-black px-3 py-3  rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center justify-center  space-x-2"
+                    className="flex-1 bg-white/80 border border-white text-black px-6 py-3 rounded-md font-semibold text-lg shadow-md hover:bg-white hover:shadow-lg transition-all duration-300 text-center"
                   >
-                    <span>Book Free Counseling</span>
+                    Book Free Counseling
                   </Link>
                 </div>
               </motion.div>

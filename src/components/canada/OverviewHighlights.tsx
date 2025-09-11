@@ -1,29 +1,12 @@
+import { Overview } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
-
-type Highlight = {
-  label: string;
-  value: string;
-};
-
-const firstRow: Highlight[] = [
-  { label: "Capital", value: "Ottawa" },
-  { label: "Population", value: "4.1 crores+" }, // ≈ 41 million+
-  { label: "Currency", value: "CAD ($)" },
-  { label: "Quality of Life", value: "Very High" },
-];
-
-const secondRow: Highlight[] = [
-  { label: "Major Cities", value: "Toronto, Vancouver, Montreal, Calgary, Ottawa" },
-  { label: "No. of International Students", value: "10,00,000+" },
-  { label: "Top Sectors", value: "IT, AI, Renewable Energy, Engineering, Finance, Biotechnology" },
-];
 
 /* ---- Brand colors ---- */
 const BRAND = {
-  sectionBg: "#FFFCFB",   // base
-  cardBg: "#E5EBF0",      // neutral surface
-  accent: "#E3000F",      // for small accents
-  text: "#111111",        // readable on light bg
+  sectionBg: "#FFFCFB",
+  cardBg: "#E5EBF0",
+  accent: "#E3000F",
+  text: "#111111",
 };
 
 function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
@@ -78,7 +61,6 @@ function useCountUp({
 }
 
 function extractNumberParts(input: string) {
-  // Require a digit; allow commas for grouping and an optional decimal part.
   const match = input.match(/\d[\d,]*(?:\.\d+)?/);
 
   if (!match)
@@ -96,7 +78,7 @@ function extractNumberParts(input: string) {
   const cleaned = raw.replace(/,/g, "");
   const parsed = Number(cleaned);
   const decimals = cleaned.includes(".")
-    ? (cleaned.split(".")[1]?.length || 0)
+    ? cleaned.split(".")[1]?.length || 0
     : 0;
 
   return {
@@ -108,7 +90,11 @@ function extractNumberParts(input: string) {
   };
 }
 
-export default function OverviewHighlights() {
+type Props = {
+  overview: Overview;
+};
+
+export default function OverviewHighlights({ overview }: Props) {
   return (
     <section
       className="container mx-auto px-4 md:px-6 py-10 md:py-14 rounded-2xl"
@@ -116,27 +102,25 @@ export default function OverviewHighlights() {
     >
       {/* Heading + Subheading */}
       <div className="text-center">
-        <h2 className="text-3xl md:text-5xl font-bold text-black">CANADA OVERVIEW</h2>
-        <p className="mt-2 text-base md:text-lg font-semibold" style={{ color: BRAND.accent }}>
+        <h2 className="text-3xl md:text-5xl font-bold text-black">
+          {overview?.title || "CANADA OVERVIEW"}
+        </h2>
+        <p
+          className="mt-2 text-base md:text-lg font-semibold"
+          style={{ color: BRAND.accent }}
+        >
           HIGHLIGHTS
         </p>
       </div>
 
-      {/* First row: 4 boxes on desktop */}
+      {/* Highlights grid */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-        {firstRow.map((item, idx) => (
-          <HighlightCard key={item.label} label={item.label} value={item.value} index={idx} />
-        ))}
-      </div>
-
-      {/* Second row: 3 boxes on desktop */}
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-        {secondRow.map((item, idx) => (
+        {overview?.highlights?.map((item, idx) => (
           <HighlightCard
-            key={item.label}
+            key={item.id}
             label={item.label}
             value={item.value}
-            index={firstRow.length + idx}
+            index={idx}
           />
         ))}
       </div>
@@ -144,7 +128,15 @@ export default function OverviewHighlights() {
   );
 }
 
-function HighlightCard({ label, value, index = 0 }: Highlight & { index?: number }) {
+function HighlightCard({
+  label,
+  value,
+  index = 0,
+}: {
+  label: string;
+  value: string;
+  index?: number;
+}) {
   const { ref, inView } = useInView<HTMLDivElement>();
 
   const parts = extractNumberParts(value);
@@ -163,7 +155,6 @@ function HighlightCard({ label, value, index = 0 }: Highlight & { index?: number
       : Math.round(countValue).toLocaleString("en-IN")
     : null;
 
-  // stagger
   const delayMs = 80 * index;
 
   const cardStyle: React.CSSProperties = {
@@ -180,7 +171,9 @@ function HighlightCard({ label, value, index = 0 }: Highlight & { index?: number
   const valueStyle: React.CSSProperties = {
     transform: inView ? "translateX(0)" : "translateX(-16px)",
     opacity: inView ? 1 : 0,
-    transition: `transform 520ms cubic-bezier(0.22,1,0.36,1) ${inView ? delayMs + 120 : 0}ms, opacity 520ms ${inView ? delayMs + 120 : 0}ms`,
+    transition: `transform 520ms cubic-bezier(0.22,1,0.36,1) ${
+      inView ? delayMs + 120 : 0
+    }ms, opacity 520ms ${inView ? delayMs + 120 : 0}ms`,
     willChange: "transform, opacity",
   };
 
@@ -190,19 +183,24 @@ function HighlightCard({ label, value, index = 0 }: Highlight & { index?: number
       style={cardStyle}
       className="rounded-xl px-5 py-4 md:py-5 shadow-sm will-change-transform"
     >
-      {/* Accent label line */}
       <div className="flex items-center gap-2">
         <span
           aria-hidden
           style={{ backgroundColor: BRAND.accent }}
           className="inline-block h-4 w-1.5 rounded"
         />
-        <div className="text-lg md:text-base font-bold" style={{ color: BRAND.text }}>
+        <div
+          className="text-lg md:text-base font-bold"
+          style={{ color: BRAND.text }}
+        >
           {label}
         </div>
       </div>
 
-      <div className="mt-1 text-base md:text-lg leading-snug" style={{ ...valueStyle, color: BRAND.text }}>
+      <div
+        className="mt-1 text-base md:text-lg leading-snug"
+        style={{ ...valueStyle, color: BRAND.text }}
+      >
         {parts.hasNumber ? (
           <>
             {parts.before}

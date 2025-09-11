@@ -1,3 +1,6 @@
+import { Visa_requirements } from "@/types/StudyInPage";
+import { BoldText } from "@/utils/BoldText";
+import { HighlightedText } from "@/utils/HighlightedText";
 import React, { useEffect, useRef, useState } from "react";
 
 /* tiny hook for scroll-in animation */
@@ -21,7 +24,11 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
 
 const ACCENT = "#e40000";
 
-export default function StudentVisaUSA() {
+type Prop = {
+  visa_requirements: Visa_requirements;
+};
+
+export default function StudentVisaUK({ visa_requirements }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -44,55 +51,49 @@ export default function StudentVisaUSA() {
       >
         {/* LEFT: Text content */}
         <div>
-          <h2
-            className="text-2xl md:text-3xl font-extrabold leading-tight"
-            style={{ color: ACCENT }}
-          >
-            Student Visa
-            <br className="hidden sm:block" />
-            <span className="block text-black">Requirements for Indians (USA)</span>
-          </h2>
-
+          {visa_requirements?.title ? (
+            <HighlightedText
+              text={visa_requirements?.title}
+              mobileSize="42px"
+              color="red"
+            />
+          ) : (
+            <h2
+              className="text-2xl md:text-3xl font-extrabold leading-tight"
+              style={{ color: ACCENT }}
+            >
+              Student Visa
+              <br className="hidden sm:block" />
+              <span className="block text-black">
+                Requirements for Indians (USA)
+              </span>
+            </h2>
+          )}
           <p className="mt-5 text-base md:text-lg font-semibold text-black">
-            Most students apply for an <span className="font-bold">F-1</span> visa (academic).
-            <span className="hidden md:inline"> </span>
-            <span className="block md:inline text-neutral-800 font-normal">
-              <b>M-1</b> is for vocational programs and <b>J-1</b> is for exchange visitors.
-            </span>
+            {visa_requirements?.subheading ? (
+              <BoldText text={visa_requirements?.subheading} />
+            ) : (
+              "Most students apply for an F-1 visa (academic). M-1 is for vocational programs and J-1 is for exchange visitors."
+            )}
           </p>
-
           <ul className="mt-6 space-y-3">
-            {[
-              "Valid passport",
-              "Form I-20 from an SEVP-certified school (or DS-2019 for J-1)",
-              "SEVIS I-901 fee payment receipt",
-              "DS-160 confirmation page & visa appointment confirmation",
-              "MRV (visa application) fee receipt",
-              "US-spec passport photo (or digital upload as required)",
-              "Academic transcripts/marksheets & degree certificates",
-              "English test scores (TOEFL/IELTS/PTE/DET) and SAT/ACT or GRE/GMAT as applicable",
-              "Financial proof: bank statements/affidavit/loan sanction to cover tuition + 1 year living",
-              "Resume/CV and any work-experience letters (if applicable)",
-            ].map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
-              >
-                <Dot />
-                <span className="text-sm md:text-base text-neutral-900">
-                  {item}
-                </span>
-              </li>
-            ))}
+            {visa_requirements &&
+              visa_requirements?.details &&
+              visa_requirements?.details.map((item, idx) => (
+                <li
+                  key={item?.id || idx}
+                  className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
+                >
+                  <Dot />
+                  <span className="text-sm md:text-base text-neutral-900">
+                    {item?.text}
+                  </span>
+                </li>
+              ))}
           </ul>
-
-          <p className="mt-4 text-xs md:text-sm text-neutral-600">
-            * Carry your SEVIS ID, school contact details, and all originals to the visa
-            interview. Requirements can vary by consulate and program.
-          </p>
         </div>
 
-        {/* RIGHT: Intakes — small boxes */}
+        {/* RIGHT: Intakes — small boxes like your image */}
         <div className="w-full">
           <div className="rounded-[5px] bg-white p-6 md:p-7 shadow-[0_12px_28px_rgba(16,24,40,0.10)] ring-1 ring-gray-200/70">
             <h3 className="text-lg md:text-xl font-bold text-black">Intakes</h3>
@@ -119,7 +120,7 @@ export default function StudentVisaUSA() {
             </div>
 
             <p className="mt-5 text-xs md:text-sm text-neutral-600">
-              * Intake windows may vary by university/program; some offer rolling admissions.
+              * Actual intake windows can vary by university and program.
             </p>
           </div>
         </div>
@@ -144,6 +145,7 @@ function Dot() {
  * IntakeSmallBox
  * - Compact card with rounded border
  * - Colored top band (title), white bottom (subtitle)
+ * - Matches the reference look
  */
 function IntakeSmallBox({
   title,

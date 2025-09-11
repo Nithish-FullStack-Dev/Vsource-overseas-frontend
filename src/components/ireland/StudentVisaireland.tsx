@@ -1,3 +1,6 @@
+import { Visa_requirements } from "@/types/StudyInPage";
+import { BoldText } from "@/utils/BoldText";
+import { HighlightedText } from "@/utils/HighlightedText";
 import React, { useEffect, useRef, useState } from "react";
 
 /* tiny hook for scroll-in animation */
@@ -21,7 +24,11 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
 
 const ACCENT = "#e40000";
 
-export default function StudentVisaireland() {
+type Prop = {
+  visa_requirements: Visa_requirements;
+};
+
+export default function StudentVisaireland({ visa_requirements }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -44,96 +51,77 @@ export default function StudentVisaireland() {
       >
         {/* LEFT: Text content */}
         <div>
-          <h2
-            className="text-2xl md:text-3xl font-extrabold leading-tight"
-            style={{ color: ACCENT }}
-          >
-            Study Visa (Ireland)
-            <br className="hidden sm:block" />
-            <span className="block text-black">Requirements for Students</span>
-          </h2>
-
+          {visa_requirements?.title ? (
+            <HighlightedText
+              text={visa_requirements?.title}
+              mobileSize="35px"
+              color="red"
+            />
+          ) : (
+            <h2
+              className="text-2xl md:text-3xl font-extrabold leading-tight"
+              style={{ color: ACCENT }}
+            >
+              Study Visa(Ireland)
+              <br className="hidden sm:block" />
+              <span className="block text-black">
+                Requirements for Students
+              </span>
+            </h2>
+          )}
           <p className="mt-5 text-base md:text-lg font-semibold text-black">
-            Part-time work & stay-back
+            {visa_requirements?.subheading ? (
+              <BoldText text={visa_requirements?.subheading} />
+            ) : (
+              "Most students apply for a Study Permit (SDS/Non-SDS). Work up to 24 hours/week off-campus during classes (if eligible) and full-time in scheduled breaks."
+            )}
           </p>
-          <p className="mt-1 text-sm md:text-base text-neutral-800">
-            Non-EEA students must register with local immigration when staying
-            over 3 months. You may work up to <b>20 hours/week during semester</b>
-            and up to <b>40 hours/week during vacations</b>. Stay-back options
-            are available after graduation via the Third Level Graduate
-            Programme.
-          </p>
-
           <ul className="mt-6 space-y-3">
-            {[
-              "Letter of acceptance from a recognized university confirming your candidature for a full-time course",
-              "English language certification depicting a student’s ability to pursue a course in English",
-              "Receipt for payment of course fee",
-              "Evidence such as Bank statements to show access to enough funds to maintain through the initial years",
-              "Private medical insurance",
-              "A commitment letter to leave Ireland after the expiry of the Student Visa",
-              "Certificates for all academic qualifications as required by the university",
-              "Two recent colored passport sized photographs",
-              "A signed application letter with full contact details",
-              "Evidence for explaining any gaps in the educational history of the candidate.",
-              "Current passport and copies of previous passports.",
-            ].map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
-              >
-                <Dot />
-                <span className="text-sm md:text-base text-neutral-900">
-                  {item}
-                </span>
-              </li>
-            ))}
+            {visa_requirements &&
+              visa_requirements?.details &&
+              visa_requirements?.details.map((item, idx) => (
+                <li
+                  key={item?.id || idx}
+                  className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
+                >
+                  <Dot />
+                  <span className="text-sm md:text-base text-neutral-900">
+                    {item?.text}
+                  </span>
+                </li>
+              ))}
           </ul>
-
-          {/* timelines note */}
-          <div className="mt-5 rounded-md bg-gray-50 p-3 ring-1 ring-gray-200/70">
-            <p className="text-xs md:text-sm text-neutral-700">
-              <b>Normal Visa:</b> Apply at least <b>6 weeks</b> before travel; must have an
-              <b> unconditional offer</b> and pay a minimum deposit of <b>€6,000</b> if fees
-              are €12,000 or less, or <b>50%</b> of tuition if fees exceed €12,000. Applications
-              lodged <b>3 weeks or less</b> before travel will not be processed (deadline refers
-              to the file reaching the visa office in New Delhi).
-              <br />
-              <b>API (Approval in Principle):</b> Apply with a <b>conditional offer</b> (pending
-              final year mark sheets and provisional degree), pay at least <b>€6,000</b>, and
-              lodge the application at least <b>7 weeks</b> before course start. After submitting
-              final documents to the Ireland Embassy, New Delhi, the visa is issued.
-            </p>
-          </div>
         </div>
 
-        {/* RIGHT: Intakes — small boxes */}
+        {/* RIGHT: Intakes — small boxes like your image */}
         <div className="w-full">
           <div className="rounded-[5px] bg-white p-6 md:p-7 shadow-[0_12px_28px_rgba(16,24,40,0.10)] ring-1 ring-gray-200/70">
-            <h3 className="text-lg md:text-xl font-bold text-black">Ireland Intakes</h3>
+            <h3 className="text-lg md:text-xl font-bold text-black">Intakes</h3>
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 place-items-center">
               <IntakeSmallBox
-                title="Autumn / September Intake"
-                subtitle="Primary intake · deadlines Dec–Jun (prev. year)"
+                title="Fall Intake"
+                subtitle="(Aug – Dec)"
                 color="#E38B00"
                 delay={0}
               />
               <IntakeSmallBox
-                title="Spring / January Intake"
-                subtitle="Limited courses (mainly PG) · deadlines Aug–Nov (prev. year)"
+                title="Spring Intake"
+                subtitle="(Jan – May)"
                 color="#3976D9"
-                delay={120}
+                delay={100}
+              />
+              <IntakeSmallBox
+                title="Summer Intake"
+                subtitle="(May – Jul)"
+                color="#22A065"
+                delay={200}
               />
             </div>
 
-            <div className="mt-5 rounded-md bg-gray-50 p-3 ring-1 ring-gray-200/70">
-              <p className="text-xs md:text-sm text-neutral-700">
-                Tip: Under the <b>Third Level Graduate Programme</b>, graduates may stay back
-                to seek work (commonly up to <b>2 years after a Master’s</b> and <b>1 year after
-                a Bachelor’s (Hons)</b>).
-              </p>
-            </div>
+            <p className="mt-5 text-xs md:text-sm text-neutral-600">
+              * Actual intake windows can vary by university and program.
+            </p>
           </div>
         </div>
       </div>
@@ -157,6 +145,7 @@ function Dot() {
  * IntakeSmallBox
  * - Compact card with rounded border
  * - Colored top band (title), white bottom (subtitle)
+ * - Matches the reference look
  */
 function IntakeSmallBox({
   title,

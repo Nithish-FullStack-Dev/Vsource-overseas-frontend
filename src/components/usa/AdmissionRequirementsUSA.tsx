@@ -1,3 +1,4 @@
+import { Admissions } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -22,8 +23,16 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
 
 const ACCENT = "#e40000";
 
-export default function AdmissionRequirementsUSA() {
+type Prop = {
+  admissions: Admissions;
+};
+
+export default function AdmissionRequirementsUSA({ admissions }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
+
+  useEffect(() => {
+    console.log("admission", admissions);
+  }, []);
 
   return (
     <section
@@ -46,26 +55,28 @@ export default function AdmissionRequirementsUSA() {
         {/* LEFT: Content */}
         <div>
           <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-black">
-            Admission Requirements <br className="hidden sm:block" /> in USA
+            {admissions?.title || (
+              <>
+                Admission Requirement <br className="hidden sm:block" /> in USA
+              </>
+            )}
           </h2>
 
           <p className="mt-4 text-base md:text-lg font-semibold text-black">
-            Why Study in the USA?
+            {admissions?.subheading1 || " Why Study in the USA?"}
           </p>
 
           <p
             className="mt-1 text-sm md:text-base font-semibold"
             style={{ color: ACCENT }}
           >
-            World-Class Research | Flexible Programs | STEM OPT up to 36 Months
+            {admissions?.subheading2 ||
+              "World-Class Research | Flexible Programs | STEM OPT up to 36 Months"}
           </p>
 
           <p className="mt-5 text-sm md:text-base leading-relaxed text-neutral-800">
-            The United States offers top-ranked universities, practical and
-            interdisciplinary learning, and unparalleled access to labs,
-            startups, and global companies. With assistantships and scholarships
-            available, a diverse campus life, and great career outcomes, the USA
-            is a leading choice for international students.
+            {admissions?.description ||
+              "The United States offers top-ranked universities, practical and interdisciplinary learning, and unparalleled access to labs, startups, and global companies. With assistantships and scholarships available, a diverse campus life, and great career outcomes, the USA is a leading choice for international students."}
           </p>
 
           <div className="mt-7">
@@ -87,23 +98,26 @@ export default function AdmissionRequirementsUSA() {
             </h3>
 
             <ul className="mt-4 space-y-3">
-              {CHECK_ITEMS.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
-                >
-                  <CheckIcon />
-                  <span className="text-sm md:text-base text-neutral-900">
-                    {item}
-                  </span>
-                </li>
-              ))}
+              {admissions &&
+                admissions?.checklist &&
+                admissions?.checklist?.texts &&
+                admissions?.checklist?.texts.map((item, idx) => (
+                  <li
+                    key={item?.id || idx}
+                    className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
+                  >
+                    <CheckIcon />
+                    <span className="text-sm md:text-base text-neutral-900">
+                      {item?.text || "text not loaded properly"}
+                    </span>
+                  </li>
+                ))}
             </ul>
 
             {/* subtle note */}
             <p className="mt-4 text-xs md:text-sm text-neutral-600">
-              * Requirements vary by university and program. We’ll guide you on
-              exact documents, score targets, and timelines.
+              {admissions?.checklist?.note ||
+                "* Requirements can vary by university and course. We’ll you on exact documents and timelines."}
             </p>
           </div>
         </div>
@@ -111,19 +125,6 @@ export default function AdmissionRequirementsUSA() {
     </section>
   );
 }
-
-const CHECK_ITEMS = [
-  "Completed Online Application & Fee",
-  "Academic Transcripts (10th/12th & Bachelor’s, as applicable)",
-  "English Proficiency (TOEFL/IELTS/PTE/DET)",
-  "Standardized Tests (SAT/ACT for UG; GRE/GMAT for some PG programs)",
-  "Statement of Purpose (SOP) / Essays",
-  "Letters of Recommendation (2–3)",
-  "Resume/CV (projects, internships, achievements)",
-  "Valid Passport (bio page)",
-  "Financial Documents (bank statements, affidavit/support, scholarship or loan letter)",
-  "Portfolio/Writing Samples (if required by program)",
-];
 
 /* simple accent check icon */
 function CheckIcon() {

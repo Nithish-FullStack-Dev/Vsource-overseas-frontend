@@ -1,3 +1,4 @@
+import { Living_Cost_Tuition_Fee } from "@/types/StudyInPage";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 /* ---------- small hook to animate on scroll ---------- */
@@ -19,171 +20,34 @@ function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
   return { ref, inView };
 }
 
-/* ---------- data ---------- */
-
-type CityKey = "london" | "edinburgh" | "manchester" | "glasgow" | "bristol";
-type TableRow = { label: string; value: string };
-
-type CityContent = {
-  title: string;
-  description: string;
-  image: string;
-  costOfLiving: TableRow[];
-  weather: TableRow[];
-  tuitionFees: TableRow[];
+/* ---------- component ---------- */
+type Prop = {
+  living_Cost_Tuition_Fee: Living_Cost_Tuition_Fee;
 };
-
-const CITY_DATA: Record<CityKey, CityContent> = {
-  london: {
-    title: "London",
-    description:
-      "A captivating city of iconic landmarks, rich history, and vibrant culture, inviting students to immerse themselves in its enchanting tapestry. Discover a treasure trove of experiences, from royal palaces to bustling markets, that will leave you spellbound.",
-    image: "/assets/images/london.jpg",
-    costOfLiving: [
-      { label: "Rent", value: "£750 – £1,400" },
-      { label: "Transportation", value: "£90 – £120" },
-      { label: "Food", value: "£200 – £350" },
-      { label: "Entertainment", value: "£80 – £200" },
-      { label: "Miscellaneous", value: "£80 – £180" },
-    ],
-    weather: [
-      { label: "Winter (Dec–Feb)", value: "0–8°C · Occasional rain" },
-      { label: "Spring (Mar–May)", value: "7–15°C · Mild, showery" },
-      { label: "Summer (Jun–Aug)", value: "15–24°C · Warm, sunnier" },
-      { label: "Autumn (Sep–Nov)", value: "8–15°C · Cool, breezy" },
-    ],
-    tuitionFees: [
-      { label: "UG (per year)", value: "£12,000 – £22,000" },
-      { label: "PG Taught (per year)", value: "£13,000 – £28,000" },
-      { label: "MBA (per year)", value: "£25,000 – £45,000" },
-    ],
-  },
-
-  edinburgh: {
-    title: "Edinburgh",
-    description:
-      "A dramatic capital where medieval closes meet Georgian elegance. World-class festivals, iconic castles, and rugged hills create a study experience that’s both inspiring and intimate.",
-    image: "/assets/images/edin.webp",
-    costOfLiving: [
-      { label: "Rent", value: "£650 – £1,200" },
-      { label: "Transportation", value: "£60 – £80" },
-      { label: "Food", value: "£180 – £300" },
-      { label: "Entertainment", value: "£70 – £180" },
-      { label: "Miscellaneous", value: "£70 – £150" },
-    ],
-    weather: [
-      { label: "Winter (Dec–Feb)", value: "-1–6°C · Cold, brisk, showery" },
-      { label: "Spring (Mar–May)", value: "5–12°C · Fresh, changeable" },
-      { label: "Summer (Jun–Aug)", value: "12–20°C · Mild, brighter" },
-      { label: "Autumn (Sep–Nov)", value: "6–12°C · Cool, breezy" },
-    ],
-    tuitionFees: [
-      { label: "UG (per year)", value: "£11,000 – £21,000" },
-      { label: "PG Taught (per year)", value: "£12,000 – £26,000" },
-      { label: "MBA (per year)", value: "£23,000 – £40,000" },
-    ],
-  },
-
-  manchester: {
-    title: "Manchester",
-    description:
-      "A dynamic northern hub for music, sport, and media with a buzzing student scene. Affordable living, excellent connectivity, and fast-growing tech and creative sectors.",
-    image: "/assets/images/man.webp",
-    costOfLiving: [
-      { label: "Rent", value: "£600 – £1,100" },
-      { label: "Transportation", value: "£60 – £85" },
-      { label: "Food", value: "£180 – £300" },
-      { label: "Entertainment", value: "£70 – £180" },
-      { label: "Miscellaneous", value: "£70 – £150" },
-    ],
-    weather: [
-      { label: "Winter (Dec–Feb)", value: "1–7°C · Cool, frequent showers" },
-      { label: "Spring (Mar–May)", value: "6–13°C · Mild, changeable" },
-      { label: "Summer (Jun–Aug)", value: "14–22°C · Warm spells" },
-      { label: "Autumn (Sep–Nov)", value: "7–13°C · Cool, breezy" },
-    ],
-    tuitionFees: [
-      { label: "UG (per year)", value: "£10,000 – £20,000" },
-      { label: "PG Taught (per year)", value: "£12,000 – £24,000" },
-      { label: "MBA (per year)", value: "£22,000 – £40,000" },
-    ],
-  },
-
-  glasgow: {
-    title: "Glasgow",
-    description:
-      "Scotland’s friendly cultural powerhouse—legendary music venues, striking architecture, and renowned universities, all with a down-to-earth vibe and great value.",
-    image: "/assets/images/glasgow.jpg",
-    costOfLiving: [
-      { label: "Rent", value: "£550 – £1,000" },
-      { label: "Transportation", value: "£55 – £75" },
-      { label: "Food", value: "£170 – £290" },
-      { label: "Entertainment", value: "£60 – £160" },
-      { label: "Miscellaneous", value: "£60 – £140" },
-    ],
-    weather: [
-      { label: "Winter (Dec–Feb)", value: "0–6°C · Cool, frequent rain" },
-      { label: "Spring (Mar–May)", value: "5–12°C · Fresh, showery" },
-      { label: "Summer (Jun–Aug)", value: "12–20°C · Mild, brighter" },
-      { label: "Autumn (Sep–Nov)", value: "6–12°C · Cool, breezy" },
-    ],
-    tuitionFees: [
-      { label: "UG (per year)", value: "£10,000 – £20,000" },
-      { label: "PG Taught (per year)", value: "£12,000 – £24,000" },
-      { label: "MBA (per year)", value: "£22,000 – £38,000" },
-    ],
-  },
-
-  bristol: {
-    title: "Bristol",
-    description:
-      "A creative, green port city with a thriving aerospace scene, independent culture, and lively harbourside—ideal for hands-on learners and innovators.",
-    image: "/assets/images/bristol.jpg",
-    costOfLiving: [
-      { label: "Rent", value: "£650 – £1,200" },
-      { label: "Transportation", value: "£60 – £85" },
-      { label: "Food", value: "£180 – £310" },
-      { label: "Entertainment", value: "£70 – £180" },
-      { label: "Miscellaneous", value: "£70 – £150" },
-    ],
-    weather: [
-      { label: "Winter (Dec–Feb)", value: "2–8°C · Cool, occasional rain" },
-      { label: "Spring (Mar–May)", value: "7–14°C · Mild, showery" },
-      { label: "Summer (Jun–Aug)", value: "15–23°C · Warm, sunnier" },
-      { label: "Autumn (Sep–Nov)", value: "8–14°C · Cool, breezy" },
-    ],
-    tuitionFees: [
-      { label: "UG (per year)", value: "£11,000 – £21,000" },
-      { label: "PG Taught (per year)", value: "£12,000 – £26,000" },
-      { label: "MBA (per year)", value: "£23,000 – £40,000" },
-    ],
-  },
-};
-
-
-const TABS: { key: CityKey; label: string }[] = [
-  { key: "london", label: "London" },
-  { key: "edinburgh", label: "Edinburgh" },
-  { key: "manchester", label: "Manchester" },
-  { key: "glasgow", label: "Glasgow" },
-  { key: "bristol", label: "Bristol" },
-];
 
 const ACCENT = "#e40000";
 
-/* ---------- component ---------- */
-
-export default function CityCostsTabs() {
-  const [active, setActive] = useState<CityKey>("london");
+export default function CityCostsTabs({ living_Cost_Tuition_Fee }: Prop) {
+  const [active, setActive] = useState<number>(
+    living_Cost_Tuition_Fee?.cities[0]?.id || 0
+  );
   const { ref, inView } = useInView<HTMLDivElement>();
-  const content = useMemo(() => CITY_DATA[active], [active]);
+
+  const activeCity = useMemo(
+    () => living_Cost_Tuition_Fee?.cities.find((city) => city.id === active),
+    [active, living_Cost_Tuition_Fee]
+  );
+
+  if (!living_Cost_Tuition_Fee || !living_Cost_Tuition_Fee.cities.length) {
+    return null; // Or a loading/placeholder state
+  }
 
   return (
     <section className="container mx-auto px-4 md:px-6 py-10 md:py-14">
       {/* Heading */}
       <div className="text-center">
         <h2 className="text-2xl md:text-3xl font-extrabold text-black">
-          Living Cost & Tuition Fee
+          {living_Cost_Tuition_Fee?.title || "Living Cost & Tuition Fee"}
         </h2>
       </div>
 
@@ -191,16 +55,16 @@ export default function CityCostsTabs() {
       <div className="mt-6">
         <div className="w-fit mx-auto border-b">
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-center">
-            {TABS.map((t) => {
-              const isActive = t.key === active;
+            {living_Cost_Tuition_Fee.cities.map((t) => {
+              const isActive = t.id === active;
               return (
                 <button
-                  key={t.key}
-                  onClick={() => setActive(t.key)}
+                  key={t.id}
+                  onClick={() => setActive(t.id)}
                   className="relative pb-2 text-sm md:text-base font-semibold transition-colors"
                   style={{ color: isActive ? ACCENT : "#444" }}
                 >
-                  {t.label}
+                  {t.city}
                   <span
                     className="absolute left-0 right-0 -bottom-[1px] h-[2px] rounded-full"
                     style={{
@@ -215,69 +79,56 @@ export default function CityCostsTabs() {
       </div>
 
       {/* Content */}
-      <div
-        ref={ref}
-        className="mt-8 max-w-3xl mx-auto"
-        style={{
-          transform: inView ? "translate3d(0,0,0)" : "translate3d(0,16px,0)",
-          opacity: inView ? 1 : 0,
-          transition:
-            "transform 600ms cubic-bezier(0.22,1,0.36,1), opacity 600ms",
-        }}
-      >
-        {/* City title */}
-        <h3 className="text-xl md:text-2xl font-bold text-black text-center">
-          {content.title}
-        </h3>
+      {activeCity && (
+        <div
+          ref={ref}
+          className="mt-8 max-w-3xl mx-auto"
+          style={{
+            transform: inView ? "translate3d(0,0,0)" : "translate3d(0,16px,0)",
+            opacity: inView ? 1 : 0,
+            transition:
+              "transform 600ms cubic-bezier(0.22,1,0.36,1), opacity 600ms",
+          }}
+        >
+          {/* City title */}
+          <h3 className="text-xl md:text-2xl font-bold text-black text-center">
+            {activeCity.city}
+          </h3>
 
-        {/* Description */}
-        <p className="mt-3 text-sm md:text-base text-neutral-700 text-center">
-          {content.description}
-        </p>
+          {/* Description */}
+          <p className="mt-3 text-sm md:text-base text-neutral-700 text-center">
+            {activeCity.description}
+          </p>
 
-        {/* Image */}
-        {content.image && (
-          <div className="mt-6 rounded-xl overflow-hidden shadow-lg ring-1 ring-gray-200/70">
-            <img
-              src={content.image}
-              alt={content.title}
-              className="w-full h-auto object-cover"
-            />
-          </div>
-        )}
-
-        {/* Cost of Living */}
-        <SectionBlock title="Cost of Living">
-          {content.costOfLiving.length ? (
-            <CardTable rows={content.costOfLiving} />
-          ) : (
-            <Placeholder />
+          {/* Image */}
+          {activeCity.image && (
+            <div className="mt-6 rounded-xl overflow-hidden shadow-lg ring-1 ring-gray-200/70">
+              <img
+                src={activeCity.image.url}
+                alt={activeCity.city}
+                className="w-full h-auto object-cover"
+              />
+            </div>
           )}
-        </SectionBlock>
 
-        {/* Weather */}
-        <SectionBlock title="Weather">
-          {content.weather.length ? (
-            <CardTable rows={content.weather} />
-          ) : (
-            <Placeholder />
-          )}
-        </SectionBlock>
-
-        {/* Tuition Fees */}
-        <SectionBlock title="Tuition Fees">
-          {content.tuitionFees.length ? (
-            <CardTable rows={content.tuitionFees} />
-          ) : (
-            <Placeholder />
-          )}
-        </SectionBlock>
-      </div>
+          {/* Tables */}
+          {activeCity.tables.map((table) => (
+            <SectionBlock title={table.title} key={table.id}>
+              {table.label_values.length ? (
+                <CardTable rows={table.label_values} />
+              ) : (
+                <Placeholder />
+              )}
+            </SectionBlock>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
 
 /* ---------- subcomponents ---------- */
+type TableRow = { label: string; value: string };
 
 function SectionBlock({
   title,

@@ -11,42 +11,82 @@ import JobsInireland from "../components/ireland/JobsInireland";
 import LogoMarquee from "../components/ireland/LogoMarquee";
 // import VideoCarousel from "../components/ireland/VideoCarousel";
 import VideoCarousel from "../components/home/VideoCarousel";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { StudyIn } from "@/types/StudyInPage";
+import { toast } from "sonner";
+import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+
+export const fetchStudyInIreland = async () => {
+  const { data } = await axios.get(
+    `${
+      import.meta.env.VITE_CMS_GLOBALURL
+    }/api/abroads?filters[id][$eq]=15&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=alternativeText&populate[overview][populate][highlights]=true&populate[whyStudyin][populate][highlights_points]=true&populate[whyStudyin][populate][whyStudyin_cards]=true&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]=url&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]=documentId&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]=alternativeText&populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]=true&populate[admissions][populate][checklist][populate][texts]=true&populate[visa_requirements][populate][details]=true&populate[students_expriences][populate][image][populate][image][fields][0]=url&populate[students_expriences][populate][image][populate][image][fields][1]=documentId&populate[students_expriences][populate][image][populate][image][fields][2]=alternativeText`
+  );
+  return data.data[0] || [];
+};
+
 const StudyIreland = () => {
+  const {
+    data: studyInIreland,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<StudyIn>({
+    queryKey: ["studyInIreland"],
+    queryFn: fetchStudyInIreland,
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  if (isError) {
+    toast.error("failed to load study in canada");
+    console.error("failed to load study in canada", error);
+  }
+
+  if (isLoading || !studyInIreland) {
+    return <BannerSkeleton />;
+  }
+
   return (
     <>
-      <HeroBanner />
+      <HeroBanner
+        banner={studyInIreland?.banner}
+        title={studyInIreland?.title}
+      />
 
       {/* Quick links (solid red pills) */}
       <QuickLinksSection />
 
       {/* Anchor: Overview */}
       <section id="overview" className="anchor-section">
-        <OverviewHighlights />
-        <WhyStudyireland />
+        <OverviewHighlights overview={studyInIreland?.overview} />
+        <WhyStudyireland whyStudyin={studyInIreland?.whyStudyin} />
       </section>
 
       {/* Anchor: Costs */}
       <section id="costs" className="anchor-section">
-        <CityCostsTabs />
+        <CityCostsTabs
+          living_Cost_Tuition_Fee={studyInIreland?.Living_Cost_Tuition_Fee}
+        />
       </section>
 
       {/* Anchor: Admissions */}
       <section id="admissions" className="anchor-section">
-        <AdmissionRequirementsireland />
-        <StudentVisaireland />
+        <AdmissionRequirementsireland admissions={studyInIreland?.admissions} />
+        <StudentVisaireland
+          visa_requirements={studyInIreland?.visa_requirements || null}
+        />
       </section>
 
       {/* Anchor: Top Universities */}
       <section id="top-universities" className="anchor-section">
-      <LogoMarquee />
- </section>
-      
-        <PopularCourses />
-     
+        <LogoMarquee />
+      </section>
+
+      <PopularCourses />
 
       {/* Anchor: Jobs */}
       <section id="jobs" className="anchor-section">
