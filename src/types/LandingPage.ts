@@ -41,6 +41,7 @@ export interface Image {
   documentId: string;
   url: string;
   alternativeText: string | null;
+  name?: string;
 }
 
 //! Cources Section

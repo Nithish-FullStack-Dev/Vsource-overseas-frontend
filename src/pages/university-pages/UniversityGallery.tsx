@@ -1,7 +1,8 @@
+import { Image } from "@/types/LandingPage";
 import React from "react";
 
 interface UniversityGalleryProps {
-  items: string[];
+  items: Image[];
 }
 
 const UniversityGallery: React.FC<UniversityGalleryProps> = ({ items }) => {
@@ -9,7 +10,7 @@ const UniversityGallery: React.FC<UniversityGalleryProps> = ({ items }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {items.map((image, index) => (
         <div
-          key={index}
+          key={image?.id || index}
           className={`rounded-lg overflow-hidden 
             ${
               // Only apply collage spans on larger screens
@@ -18,7 +19,7 @@ const UniversityGallery: React.FC<UniversityGalleryProps> = ({ items }) => {
           `}
         >
           <img
-            src={image}
+            src={image?.url}
             alt={`Gallery image ${index + 1}`}
             className="w-full h-full object-cover"
           />

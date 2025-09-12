@@ -1,13 +1,12 @@
 import React, { useMemo, useState, useEffect } from "react";
-import {
-  UNIVERSITIES,
-  COUNTRIES,
-  Country,
-  University,
-} from "@/lib/Universities";
+import { COUNTRIES, Country, University } from "@/lib/Universities";
 import UniversityList from "@/components/UniversityList";
 import { useNavigate, useParams } from "react-router-dom";
 import { Search } from "lucide-react";
+import { useUniversities } from "./UniversityDetails";
+import { toast } from "sonner";
+import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+import UniversityHomePageSkeleton from "@/Loaders/LandingPages/UniversityHomePageSkeleton";
 
 const UniversityHomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,7 +15,8 @@ const UniversityHomePage: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Sync dropdown with URL param on mount/param change
+  const { data: UNIVERSITIES, isError, isLoading, error } = useUniversities();
+
   useEffect(() => {
     if (country) {
       setSelectedCountry(country);
@@ -24,6 +24,16 @@ const UniversityHomePage: React.FC = () => {
       setSelectedCountry("All");
     }
   }, [country]);
+
+  if (isError) {
+    toast.error("Failed to load explore universities");
+    console.error("Failed to load explore universities", error);
+    return null;
+  }
+
+  if (isLoading || !UNIVERSITIES) {
+    return <UniversityHomePageSkeleton />;
+  }
 
   const handleCountryChange = (value: string) => {
     setSelectedCountry(value);
@@ -34,17 +44,24 @@ const UniversityHomePage: React.FC = () => {
     }
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   const filteredUniversities = useMemo(() => {
+    if (!UNIVERSITIES) return [];
     return UNIVERSITIES.filter((uni: University) => {
       const matchesCountry =
         selectedCountry === "All" || uni.country === selectedCountry;
+
       const matchesQuery =
         searchQuery === "" ||
         uni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         uni.campus.toLowerCase().includes(searchQuery.toLowerCase());
+
       return matchesCountry && matchesQuery;
     });
-  }, [selectedCountry, searchQuery]);
+  }, [selectedCountry, searchQuery, UNIVERSITIES]);
 
   return (
     <main>
@@ -58,27 +75,41 @@ const UniversityHomePage: React.FC = () => {
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/70"></div>
 
-        {/* Content */}
+        {/* Banner Content */}
         <div className="relative z-10 mb-6 container mx-auto max-w-6xl p-4">
-          <div className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow " data-aos="fade-down-right">
-            <h2 className="text-4xl font-bold text-red-600" data-aso-delay="200">
+          <div
+            className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow"
+            data-aos="fade-down-right"
+          >
+            <h2
+              className="text-4xl font-bold text-red-600"
+              data-aso-delay="200"
+            >
               Explore Top Universities
             </h2>
-            <p className="mt-2 text-sm sm:text-base opacity-90" data-aso-delay="300">
+            <p
+              className="mt-2 text-sm sm:text-base opacity-90"
+              data-aso-delay="300"
+            >
               Filter by country and search to find the right match.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Dropdown filter */}
+      {/* Filters */}
       <div className="w-full max-w-[1400px] mx-auto px-4">
+        {/* Country Dropdown */}
         <div className="relative z-10 -mt-16 flex justify-center px-4">
-          <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3"  data-aos="zoom-in-up" data-aso-delay="100">
+          <div
+            className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3"
+            data-aos="zoom-in-up"
+            data-aso-delay="100"
+          >
             <label
               htmlFor="countrySelect"
-              className="text-black-700 font-semibold text-2xl  text-center"
-           >
+              className="text-black-700 font-semibold text-2xl text-center"
+            >
               Select Country
             </label>
             <select
@@ -104,7 +135,7 @@ const UniversityHomePage: React.FC = () => {
         </div>
 
         {/* Count + Search */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between mb-6 gap-4  mx-auto px-4 mt-3">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between mb-6 gap-4 mx-auto px-4 mt-3">
           {/* Count */}
           <div className="text-gray-700 font-medium text-sm sm:text-base md:text-lg">
             Showing{" "}
@@ -128,7 +159,7 @@ const UniversityHomePage: React.FC = () => {
               type="search"
               placeholder="Search universities..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleSearchChange}
               className="w-full px-4 py-3 text-sm sm:text-base text-gray-700 placeholder-gray-400 rounded-2xl focus:outline-none"
             />
             <button className="p-3 text-gray-500 hover:text-blue-500 transition">
