@@ -52,29 +52,36 @@ const StudyCanada = () => {
 
   return (
     <>
-      <HeroBanner banner={studyInCanada?.banner} title={studyInCanada?.title} />
+      <HeroBanner
+        banner={studyInCanada?.banner || null}
+        title={studyInCanada?.title}
+      />
 
       {/* Quick links (solid red pills) */}
       <QuickLinksSection />
 
       {/* Anchor: Overview */}
       <section id="overview" className="anchor-section">
-        <OverviewHighlights overview={studyInCanada?.overview} />
-        <WhyStudycanada whyStudyin={studyInCanada?.whyStudyin} />
+        <OverviewHighlights overview={studyInCanada?.overview || null} />
+        <WhyStudycanada whyStudyin={studyInCanada?.whyStudyin || null} />
       </section>
 
       {/* Anchor: Costs */}
       <section id="costs" className="anchor-section">
         <CityCostsTabs
-          living_Cost_Tuition_Fee={studyInCanada?.Living_Cost_Tuition_Fee}
+          living_Cost_Tuition_Fee={
+            studyInCanada?.Living_Cost_Tuition_Fee || null
+          }
         />
       </section>
 
       {/* Anchor: Admissions */}
       <section id="admissions" className="anchor-section">
-        <AdmissionRequirementscanada admissions={studyInCanada?.admissions} />
+        <AdmissionRequirementscanada
+          admissions={studyInCanada?.admissions || null}
+        />
         <StudentVisacanada
-          visa_requirements={studyInCanada?.visa_requirements}
+          visa_requirements={studyInCanada?.visa_requirements || null}
         />
       </section>
 

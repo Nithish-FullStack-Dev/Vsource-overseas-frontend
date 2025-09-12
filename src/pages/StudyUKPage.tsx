@@ -52,28 +52,30 @@ const StudyUKPage = () => {
 
   return (
     <>
-      <HeroBanner banner={studyInUk.banner} title={studyInUk.title} />
+      <HeroBanner banner={studyInUk.banner || null} title={studyInUk.title} />
 
       {/* Quick links (solid red pills) */}
       <QuickLinksSection />
 
       {/* Anchor: Overview */}
       <section id="overview" className="anchor-section">
-        <OverviewHighlights overview={studyInUk?.overview} />
-        <WhyStudyUK whyStudyin={studyInUk?.whyStudyin} />
+        <OverviewHighlights overview={studyInUk?.overview || null} />
+        <WhyStudyUK whyStudyin={studyInUk?.whyStudyin || null} />
       </section>
 
       {/* Anchor: Costs */}
       <section id="costs" className="anchor-section">
         <CityCostsTabs
-          living_Cost_Tuition_Fee={studyInUk?.Living_Cost_Tuition_Fee}
+          living_Cost_Tuition_Fee={studyInUk?.Living_Cost_Tuition_Fee || null}
         />
       </section>
 
       {/* Anchor: Admissions */}
       <section id="admissions" className="anchor-section">
-        <AdmissionRequirementsUK admissions={studyInUk?.admissions} />
-        <StudentVisaUK visa_requirements={studyInUk?.visa_requirements} />
+        <AdmissionRequirementsUK admissions={studyInUk?.admissions || null} />
+        <StudentVisaUK
+          visa_requirements={studyInUk?.visa_requirements || null}
+        />
       </section>
 
       {/* Anchor: Top Universities */}

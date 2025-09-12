@@ -1,3 +1,4 @@
+import { WhyStudyin } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,9 +12,7 @@ function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
     if (!el) return;
 
     const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => setInView(e.isIntersecting));
-      },
+      (entries) => entries.forEach((e) => setInView(e.isIntersecting)),
       { root: null, threshold: 0.25, ...options }
     );
 
@@ -24,8 +23,11 @@ function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
   return { ref, inView };
 }
 
-export default function WhyStudyFrance() {
-  // Animate the whole left content block
+type Prop = {
+  whyStudyin: WhyStudyin;
+};
+
+export default function WhyStudyFrance({ whyStudyin }: Prop) {
   const { ref: leftRef, inView: leftInView } = useInView<HTMLDivElement>();
 
   const leftStyle: React.CSSProperties = {
@@ -42,44 +44,33 @@ export default function WhyStudyFrance() {
         {/* Left: Intro (slides from LEFT) */}
         <div ref={leftRef} style={leftStyle}>
           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-black">
-            Study in France — Learn, Innovate, Thrive
+            {whyStudyin?.title || "Study in France — Learn, Innovate, Thrive"}
           </h2>
 
           <p className="mt-4 text-sm md:text-base leading-relaxed text-neutral-700">
-            France is the world’s 4th-largest study destination and a leading non-English speaking hub.
-            Choose from 1,500+ English-taught programs and 500+ scholarships, benefit from a system that
-            blends theory with hands-on practice, and tap into a vibrant innovation ecosystem—backed by
-            64 Nobel Laureates and 15 Fields Medals. Degrees are mutually recognized with India and
-            open doors to 570+ French companies operating in India.
+            {whyStudyin?.description ||
+              "France is the world’s 4th-largest study destination and a leading non-English speaking hub. Choose from 1,500+ English-taught programs and 500+ scholarships, benefit from a system that blends theory with hands-on practice, and tap into a vibrant innovation ecosystem—backed by 64 Nobel Laureates and 15 Fields Medals. Degrees are mutually recognized with India and open doors to 570+ French companies operating in India."}
           </p>
 
-          {/* Accent divider */}
           <div
             className="mt-6 h-1 w-20 rounded-full"
             style={{ backgroundColor: "#e40000" }}
           />
 
-          {/* Bulleted highlights */}
           <ul className="mt-6 space-y-3">
-            {[
-              "1,500+ English-taught programmes",
-              "500+ scholarships for Indian students",
-              "Mutual degree recognition with India",
-              "Research excellence: 64 Nobel & 15 Fields Medals",
-            ].map((point) => (
-              <li key={point} className="flex items-start gap-3">
+            {whyStudyin?.highlights_points?.map((point) => (
+              <li key={point.id} className="flex items-start gap-3">
                 <span
                   className="mt-1 inline-block h-2.5 w-2.5 rounded-full shrink-0"
                   style={{ backgroundColor: "#e40000" }}
                 />
                 <span className="text-sm md:text-base text-neutral-800">
-                  {point}
+                  {point.description}
                 </span>
               </li>
             ))}
           </ul>
 
-          {/* CTA */}
           <div className="mt-8">
             <Link
               to="/apply"
@@ -91,33 +82,13 @@ export default function WhyStudyFrance() {
           </div>
         </div>
 
-        {/* Right: Feature cards (each slides from LEFT with stagger) */}
+        {/* Right: Feature cards */}
         <div className="grid sm:grid-cols-2 gap-4">
-          {[
-            {
-              title: "Professionally Oriented",
-              body:
-                "Programmes combine theory and real-world practice using industry-standard tools.",
-              icon: "🛠️",
-            },
-            {
-              title: "Research & Excellence",
-              body:
-                "A global leader in innovation with 64 Nobel Laureates and 15 Fields Medals.",
-              icon: "🔬",
-            },
-            {
-              title: "Entrepreneurial Ecosystem",
-              body:
-                "A startup-friendly environment that supports young innovators and founders.",
-              icon: "🚀",
-            },
-          ].map((c, i) => (
+          {whyStudyin?.whyStudyin_cards?.map((c, i) => (
             <AnimatedFeatureCard
-              key={c.title}
+              key={c.id}
               title={c.title}
-              body={c.body}
-              icon={c.icon}
+              body={c.description}
               index={i}
             />
           ))}
@@ -130,16 +101,14 @@ export default function WhyStudyFrance() {
 function AnimatedFeatureCard({
   title,
   body,
-  icon,
   index = 0,
 }: {
   title: string;
   body: string;
-  icon: string;
   index?: number;
 }) {
   const { ref, inView } = useInView<HTMLDivElement>();
-  const delayMs = 120 * index; // stagger
+  const delayMs = 120 * index;
 
   const style: React.CSSProperties = {
     transform: inView ? "translate3d(0,0,0)" : "translate3d(-32px,0,0)",
@@ -157,9 +126,6 @@ function AnimatedFeatureCard({
       className="rounded-xl border bg-white p-5 md:p-6 shadow-sm hover:shadow transition will-change-transform"
     >
       <div className="flex items-center gap-3">
-        <span className="text-2xl" aria-hidden>
-          {icon}
-        </span>
         <h3 className="text-base md:text-lg font-semibold text-black">
           {title}
         </h3>

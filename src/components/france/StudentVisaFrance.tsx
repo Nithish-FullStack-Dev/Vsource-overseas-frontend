@@ -1,3 +1,6 @@
+import { Visa_requirements } from "@/types/StudyInPage";
+import { BoldText } from "@/utils/BoldText";
+import { HighlightedText } from "@/utils/HighlightedText";
 import React, { useEffect, useRef, useState } from "react";
 
 /* tiny hook for scroll-in animation */
@@ -19,9 +22,13 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
   return { ref, inView };
 }
 
-const ACCENT = "#e40000"; // keep previous accent color
+const ACCENT = "#e40000";
 
-export default function StudentVisaFrance() {
+type Prop = {
+  visa_requirements: Visa_requirements;
+};
+
+export default function StudentVisaFrance({ visa_requirements }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -44,65 +51,74 @@ export default function StudentVisaFrance() {
       >
         {/* LEFT: Text content */}
         <div>
-          <h2
-            className="text-2xl md:text-3xl font-extrabold leading-tight"
-            style={{ color: ACCENT }}
-          >
-            France Student Visa
-            <br className="hidden sm:block" />
-            <span className="block text-black">Requirements for Indian Students</span>
-          </h2>
-
+          {visa_requirements?.title ? (
+            <HighlightedText
+              text={visa_requirements?.title}
+              mobileSize="42px"
+              color="red"
+            />
+          ) : (
+            <h2
+              className="text-2xl md:text-3xl font-extrabold leading-tight"
+              style={{ color: ACCENT }}
+            >
+              France Student Visa
+              <br className="hidden sm:block" />
+              <span className="block text-black">Requirements for Indians</span>
+            </h2>
+          )}
           <p className="mt-5 text-base md:text-lg font-semibold text-black">
-            Indian students typically apply for the long-stay student visa (VLS-TS) to study in France.
+            {visa_requirements?.subheading ? (
+              <BoldText text={visa_requirements?.subheading} />
+            ) : (
+              "Indian students typically apply for the long-stay student visa (VLS-TS) to study in France."
+            )}
           </p>
-
           <ul className="mt-6 space-y-3">
-            {[
-              "Age 18+ and a chosen course of study",
-              "Acceptance/Pre-registration from a French higher education institution",
-              "Valid passport with ≥ 2 blank pages and validity beyond intended stay",
-              "ID photograph and proof of legal residency (if applicable)",
-              "Proof of last completed degree (if applicable)",
-              "Proof of funds for tuition & living (minimum €7,380 per year or ~€615/month)",
-              "Proof of accommodation (rental agreement or host attestation)",
-              "Visa fee payment of €99 (≈ INR 9,000)",
-            ].map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
-              >
-                <Dot />
-                <span className="text-sm md:text-base text-neutral-900">
-                  {item}
-                </span>
-              </li>
-            ))}
+            {visa_requirements &&
+              visa_requirements?.details &&
+              visa_requirements?.details.map((item, idx) => (
+                <li
+                  key={item?.id || idx}
+                  className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
+                >
+                  <Dot />
+                  <span className="text-sm md:text-base text-neutral-900">
+                    {item?.text}
+                  </span>
+                </li>
+              ))}
           </ul>
         </div>
 
-        {/* RIGHT: Intakes — small boxes */}
+        {/* RIGHT: Intakes — small boxes like your image */}
         <div className="w-full">
           <div className="rounded-[5px] bg-white p-6 md:p-7 shadow-[0_12px_28px_rgba(16,24,40,0.10)] ring-1 ring-gray-200/70">
             <h3 className="text-lg md:text-xl font-bold text-black">Intakes</h3>
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 place-items-center">
               <IntakeSmallBox
-                title="Winter Intake"
-                subtitle="(September – October)"
-                color="#E38B00" // previous palette color
+                title="Fall Intake"
+                subtitle="(Aug – Dec)"
+                color="#E38B00"
                 delay={0}
               />
               <IntakeSmallBox
+                title="Spring Intake"
+                subtitle="(Jan – May)"
+                color="#3976D9"
+                delay={100}
+              />
+              <IntakeSmallBox
                 title="Summer Intake"
-                subtitle="(January – February)"
-                color="#22A065" // previous palette color
-                delay={120}
+                subtitle="(May – Jul)"
+                color="#22A065"
+                delay={200}
               />
             </div>
 
             <p className="mt-5 text-xs md:text-sm text-neutral-600">
-              * Common deadlines: Summer up to Nov&nbsp;15; Winter up to Jul&nbsp;15. Windows vary by university/program.
+              * Actual intake windows can vary by university and program.
             </p>
           </div>
         </div>
@@ -127,6 +143,7 @@ function Dot() {
  * IntakeSmallBox
  * - Compact card with rounded border
  * - Colored top band (title), white bottom (subtitle)
+ * - Matches the reference look
  */
 function IntakeSmallBox({
   title,

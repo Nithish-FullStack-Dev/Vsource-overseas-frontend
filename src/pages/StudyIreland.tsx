@@ -53,7 +53,7 @@ const StudyIreland = () => {
   return (
     <>
       <HeroBanner
-        banner={studyInIreland?.banner}
+        banner={studyInIreland?.banner || null}
         title={studyInIreland?.title}
       />
 
@@ -62,20 +62,24 @@ const StudyIreland = () => {
 
       {/* Anchor: Overview */}
       <section id="overview" className="anchor-section">
-        <OverviewHighlights overview={studyInIreland?.overview} />
-        <WhyStudyireland whyStudyin={studyInIreland?.whyStudyin} />
+        <OverviewHighlights overview={studyInIreland?.overview || null} />
+        <WhyStudyireland whyStudyin={studyInIreland?.whyStudyin || null} />
       </section>
 
       {/* Anchor: Costs */}
       <section id="costs" className="anchor-section">
         <CityCostsTabs
-          living_Cost_Tuition_Fee={studyInIreland?.Living_Cost_Tuition_Fee}
+          living_Cost_Tuition_Fee={
+            studyInIreland?.Living_Cost_Tuition_Fee || null || null
+          }
         />
       </section>
 
       {/* Anchor: Admissions */}
       <section id="admissions" className="anchor-section">
-        <AdmissionRequirementsireland admissions={studyInIreland?.admissions} />
+        <AdmissionRequirementsireland
+          admissions={studyInIreland?.admissions || null}
+        />
         <StudentVisaireland
           visa_requirements={studyInIreland?.visa_requirements || null}
         />

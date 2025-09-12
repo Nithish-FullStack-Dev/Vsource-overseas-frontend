@@ -28,7 +28,7 @@ type Prop = {
   visa_requirements: Visa_requirements;
 };
 
-export default function StudentVisaUK({ visa_requirements }: Prop) {
+export default function StudentVisaUSA({ visa_requirements }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (

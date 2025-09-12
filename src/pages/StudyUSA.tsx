@@ -52,28 +52,33 @@ const StudyUSA = () => {
 
   return (
     <>
-      <HeroBanner banner={studyInUsa?.banner} title={studyInUsa?.title} />
+      <HeroBanner
+        banner={studyInUsa?.banner || null}
+        title={studyInUsa?.title}
+      />
 
       {/* Quick links (solid red pills) */}
       <QuickLinksSection />
 
       {/* Anchor: Overview */}
       <section id="overview" className="anchor-section">
-        <OverviewHighlights overview={studyInUsa?.overview} />
-        <WhyStudyUSA whyStudyin={studyInUsa?.whyStudyin} />
+        <OverviewHighlights overview={studyInUsa?.overview || null} />
+        <WhyStudyUSA whyStudyin={studyInUsa?.whyStudyin || null} />
       </section>
 
       {/* Anchor: Costs */}
       <section id="costs" className="anchor-section">
         <CityCostsTabs
-          living_Cost_Tuition_Fee={studyInUsa?.Living_Cost_Tuition_Fee}
+          living_Cost_Tuition_Fee={studyInUsa?.Living_Cost_Tuition_Fee || null}
         />
       </section>
 
       {/* Anchor: Admissions */}
       <section id="admissions" className="anchor-section">
-        <AdmissionRequirementsUSA admissions={studyInUsa?.admissions} />
-        <StudentVisaUSA visa_requirements={studyInUsa?.visa_requirements} />
+        <AdmissionRequirementsUSA admissions={studyInUsa?.admissions || null} />
+        <StudentVisaUSA
+          visa_requirements={studyInUsa?.visa_requirements || null}
+        />
       </section>
 
       {/* Anchor: Top Universities */}

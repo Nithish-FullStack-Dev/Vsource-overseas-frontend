@@ -1,3 +1,4 @@
+import { Admissions } from "@/types/StudyInPage";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -20,9 +21,13 @@ function useInView<T extends HTMLElement>(threshold = 0.2) {
   return { ref, inView };
 }
 
-const ACCENT = "#e40000"; // French blue
+const ACCENT = "#e40000";
 
-export default function AdmissionRequirementsFrance() {
+type Prop = {
+  admissions: Admissions;
+};
+
+export default function AdmissionRequirementsFrance({ admissions }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -46,26 +51,29 @@ export default function AdmissionRequirementsFrance() {
         {/* LEFT: Content */}
         <div>
           <h2 className="text-3xl md:text-4xl font-extrabold leading-tight text-black">
-            Admission Requirements <br className="hidden sm:block" /> in France
+            {admissions?.title || (
+              <>
+                Admission Requirement <br className="hidden sm:block" /> in
+                France
+              </>
+            )}
           </h2>
 
           <p className="mt-4 text-base md:text-lg font-semibold text-black">
-            Why Study in France?
+            {admissions?.subheading1 || " Why Study in the France?"}
           </p>
 
           <p
             className="mt-1 text-sm md:text-base font-semibold"
             style={{ color: ACCENT }}
           >
-            1,500+ English-taught Programs | 500+ Scholarships | Research & Innovation Hub
+            {admissions?.subheading2 ||
+              "1,500+ English-taught Programs | 500+ Scholarships | Research & Innovation Hub"}
           </p>
 
           <p className="mt-5 text-sm md:text-base leading-relaxed text-neutral-800">
-            France is the world’s fourth-largest destination for international students and the leading
-            non-English speaking choice. Degrees are mutually recognized with India and open doors to
-            570+ French companies operating in India. Programs are professionally oriented, blending
-            theory with real-world practice, and the country’s research excellence includes 64 Nobel
-            Laureates and 15 Fields Medals—perfect for ambitious, innovation-minded graduates.
+            {admissions?.description ||
+              "France is the world’s fourth-largest destination for international students and the leading non-English speaking choice. Degrees are mutually recognized with India and open doors to 570+ French companies operating in India. Programs are professionally oriented, blending theory with real-world practice, and the country’s research excellence includes 64 Nobel Laureates and 15 Fields Medals—perfect for ambitious, innovation-minded graduates."}
           </p>
 
           <div className="mt-7">
@@ -87,23 +95,26 @@ export default function AdmissionRequirementsFrance() {
             </h3>
 
             <ul className="mt-4 space-y-3">
-              {CHECK_ITEMS.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
-                >
-                  <CheckIcon />
-                  <span className="text-sm md:text-base text-neutral-900">
-                    {item}
-                  </span>
-                </li>
-              ))}
+              {admissions &&
+                admissions?.checklist &&
+                admissions?.checklist?.texts &&
+                admissions?.checklist?.texts.map((item, idx) => (
+                  <li
+                    key={item?.id || idx}
+                    className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
+                  >
+                    <CheckIcon />
+                    <span className="text-sm md:text-base text-neutral-900">
+                      {item?.text || "text not loaded properly"}
+                    </span>
+                  </li>
+                ))}
             </ul>
 
             {/* subtle note */}
             <p className="mt-4 text-xs md:text-sm text-neutral-600">
-              * Requirements vary by university and program. Intakes: Jan/Feb & Sep/Oct.
-              Typical deadlines: Nov&nbsp;15 (Summer) and Jul&nbsp;15 (Winter). We’ll guide you on exact documents and timelines.
+              {admissions?.checklist?.note ||
+                "* Requirements vary by university and program. Intakes: Jan/Feb & Sep/Oct. Typical deadlines: Nov 15 (Summer) and Jul 15 (Winter). We’ll guide you on exact documents and timelines."}
             </p>
           </div>
         </div>
@@ -112,25 +123,12 @@ export default function AdmissionRequirementsFrance() {
   );
 }
 
-const CHECK_ITEMS = [
-  "Complete Application Form (Campus France/University)",
-  "Academic Transcripts",
-  "Passport & ID Photographs",
-  "English/French Proficiency (IELTS/TOEFL or DELF/DALF)",
-  "Letters of Recommendation (2–3)",
-  "Statement of Purpose (SOP)/Motivation Letter",
-  "CV/Resume; work experience/internships (if any)",
-  "Proof of Funds (≥ €7,380 per year)",
-  "Proof of Accommodation",
-  "Application Fee Receipt (if applicable)",
-];
-
 /* simple accent check icon */
 function CheckIcon() {
   return (
     <span
       className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full"
-      style={{ backgroundColor: "rgba(0,85,164,0.12)", color: ACCENT }}
+      style={{ backgroundColor: "rgba(228,0,0,0.1)", color: ACCENT }}
       aria-hidden
     >
       <svg
