@@ -129,3 +129,17 @@ export interface Member {
   bio: string;
   image: Image;
 }
+
+//! Testimonials
+
+export interface Testimonials {
+  basic: Basic;
+  testimonials: Testimonial[];
+}
+
+export interface Testimonial {
+  id: number;
+  name: string;
+  feedback: string;
+  image: Image;
+}
