@@ -87,7 +87,9 @@ const StudyUKPage = () => {
 
       {/* Anchor: Jobs */}
       <section id="jobs" className="anchor-section">
-        <JobsInUK />
+        <JobsInUK
+          students_expriences={studyInUk?.students_expriences || null}
+        />
       </section>
 
       <VideoCarousel />

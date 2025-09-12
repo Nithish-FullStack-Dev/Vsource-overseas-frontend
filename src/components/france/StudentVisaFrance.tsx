@@ -54,7 +54,7 @@ export default function StudentVisaFrance({ visa_requirements }: Prop) {
           {visa_requirements?.title ? (
             <HighlightedText
               text={visa_requirements?.title}
-              mobileSize="42px"
+              mobileSize="35px"
               color="red"
             />
           ) : (

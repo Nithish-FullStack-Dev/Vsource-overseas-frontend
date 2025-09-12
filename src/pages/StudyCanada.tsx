@@ -94,7 +94,9 @@ const StudyCanada = () => {
 
       {/* Anchor: Jobs */}
       <section id="jobs" className="anchor-section">
-        <JobsIncanada />
+        <JobsIncanada
+          students_expriences={studyInCanada?.students_expriences || null}
+        />
       </section>
 
       <VideoCarousel />

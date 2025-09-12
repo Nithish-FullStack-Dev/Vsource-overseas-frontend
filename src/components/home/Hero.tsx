@@ -92,7 +92,6 @@ const Hero = () => {
             <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 shadow-md max-w-3xl space-y-4">
               <HighlightedText
                 text={heroData?.Title}
-                size={"52px"}
                 mobileSize={"42px"}
                 color={"red"}
               />
@@ -223,7 +222,6 @@ const Hero = () => {
                 {/* Highlighted headline */}
                 <HighlightedText
                   text={heroData?.gateway}
-                  size="22px"
                   mobileSize="18px"
                   color="red"
                 />

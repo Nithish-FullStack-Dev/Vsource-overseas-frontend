@@ -30,10 +30,6 @@ type Prop = {
 export default function AdmissionRequirementsUK({ admissions }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
-  useEffect(() => {
-    console.log("admission", admissions);
-  }, []);
-
   return (
     <section
       className="py-12 md:py-16"

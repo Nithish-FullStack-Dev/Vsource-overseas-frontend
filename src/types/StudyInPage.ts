@@ -106,4 +106,5 @@ export interface Students_expriences {
   id: number;
   title: string;
   subheading: string;
+  images: Image[];
 }

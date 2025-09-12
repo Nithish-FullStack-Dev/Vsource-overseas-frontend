@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import "../JobsIn.css";
+import { Image } from "@/types/LandingPage";
+import { Students_expriences } from "@/types/StudyInPage";
 /* ---- small hook for scroll-in animation ---- */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
@@ -34,7 +36,10 @@ const GearIcon = (p: React.SVGProps<SVGSVGElement>) => (
 );
 const PaletteIcon = (p: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...p}>
-    <path strokeWidth="2" d="M12 3a9 9 0 1 0 0 18h3a3 3 0 0 0 0-6h-1a2 2 0 0 1-2-2V9a6 6 0 0 0-6 6" />
+    <path
+      strokeWidth="2"
+      d="M12 3a9 9 0 1 0 0 18h3a3 3 0 0 0 0-6h-1a2 2 0 0 1-2-2V9a6 6 0 0 0-6 6"
+    />
     <circle cx="7.5" cy="10.5" r="1.2" fill="currentColor" />
     <circle cx="10" cy="6.5" r="1.2" fill="currentColor" />
     <circle cx="14" cy="6.5" r="1.2" fill="currentColor" />
@@ -43,13 +48,19 @@ const PaletteIcon = (p: React.SVGProps<SVGSVGElement>) => (
 );
 const ShieldIcon = (p: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...p}>
-    <path strokeWidth="2" d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" />
+    <path
+      strokeWidth="2"
+      d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z"
+    />
     <path strokeWidth="2" d="M9 12l2 2 4-4" />
   </svg>
 );
 const CloudIcon = (p: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...p}>
-    <path strokeWidth="2" d="M7 18h10a4 4 0 0 0 0-8 6 6 0 0 0-11-1A4 4 0 0 0 7 18z" />
+    <path
+      strokeWidth="2"
+      d="M7 18h10a4 4 0 0 0 0-8 6 6 0 0 0-11-1A4 4 0 0 0 7 18z"
+    />
   </svg>
 );
 const ChartIcon = (p: React.SVGProps<SVGSVGElement>) => (
@@ -91,7 +102,12 @@ const BASE_COLUMNS: Column[] = [
     color: "#C61E5E",
     icon: StethoscopeIcon,
     salary: 131346,
-    jobs: ["Nurse Practitioner", "Physician Assistant", "Clinical Researcher", "Healthcare Admin"],
+    jobs: [
+      "Nurse Practitioner",
+      "Physician Assistant",
+      "Clinical Researcher",
+      "Healthcare Admin",
+    ],
   },
   {
     key: "data",
@@ -123,7 +139,12 @@ const BASE_COLUMNS: Column[] = [
     color: "#E38B00",
     icon: BriefcaseIcon,
     salary: 92000,
-    jobs: ["Financial Manager", "Sales Manager", "Operations Analyst", "Business Analyst"],
+    jobs: [
+      "Financial Manager",
+      "Sales Manager",
+      "Operations Analyst",
+      "Business Analyst",
+    ],
   },
   {
     key: "engineering",
@@ -131,7 +152,12 @@ const BASE_COLUMNS: Column[] = [
     color: "#2563EB",
     icon: GearIcon,
     salary: 95000,
-    jobs: ["Project Engineer", "Mechanical Engineer", "Electrical Engineer", "Software Engineer"],
+    jobs: [
+      "Project Engineer",
+      "Mechanical Engineer",
+      "Electrical Engineer",
+      "Software Engineer",
+    ],
   },
   {
     key: "arts",
@@ -139,7 +165,12 @@ const BASE_COLUMNS: Column[] = [
     color: "#22A065",
     icon: PaletteIcon,
     salary: 60000,
-    jobs: ["UX/UI Designer", "Creative Strategist", "Content Writer", "Motion Designer"],
+    jobs: [
+      "UX/UI Designer",
+      "Creative Strategist",
+      "Content Writer",
+      "Motion Designer",
+    ],
   },
   {
     key: "film",
@@ -147,13 +178,22 @@ const BASE_COLUMNS: Column[] = [
     color: "#8B5CF6",
     icon: CameraIcon,
     salary: 38995,
-    jobs: ["Projectionist", "Video Editor", "Production Assistant", "Sound Tech"],
+    jobs: [
+      "Projectionist",
+      "Video Editor",
+      "Production Assistant",
+      "Sound Tech",
+    ],
   },
 ];
 
 /* ---- utilities ---- */
 const usd = (n: number) =>
-  n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) + "/yr";
+  n.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }) + "/yr";
 
 /* ---- Carousel with infinite loop ---- */
 function useSlidesPerView() {
@@ -174,7 +214,11 @@ function useSlidesPerView() {
   return spv;
 }
 
-export default function JobsInUSAFlow() {
+type Prop = {
+  students_expriences: Students_expriences;
+};
+
+export default function JobsInUSAFlow({ students_expriences }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.15);
   const slidesPerView = useSlidesPerView();
 
@@ -191,7 +235,8 @@ export default function JobsInUSAFlow() {
   const [paused, setPaused] = useState(false);
 
   // Normalize index to active (without clones)
-  const active = (index - slidesPerView + BASE_COLUMNS.length) % BASE_COLUMNS.length;
+  const active =
+    (index - slidesPerView + BASE_COLUMNS.length) % BASE_COLUMNS.length;
 
   useEffect(() => {
     setIndex(slidesPerView); // reset when spv changes
@@ -310,7 +355,10 @@ export default function JobsInUSAFlow() {
               {slides.map((col, i) => (
                 <div
                   key={`${col.key}-${i}`}
-                  style={{ flex: `0 0 ${100 / slidesPerView}%`, padding: "0 12px" }}
+                  style={{
+                    flex: `0 0 ${100 / slidesPerView}%`,
+                    padding: "0 12px",
+                  }}
                 >
                   <FlowColumn col={col} />
                 </div>
@@ -321,24 +369,50 @@ export default function JobsInUSAFlow() {
 
         {/* Alumni strip */}
         <div className="mt-12 text-center">
-          <div className="text-lg md:text-xl font-extrabold" style={{ color: ACCENT }}>
-            KNOW THEIR EXPERIENCES
+          <div
+            className="text-lg md:text-xl font-extrabold"
+            style={{ color: ACCENT }}
+          >
+            {students_expriences?.title || "KNOW THEIR EXPERIENCES"}
           </div>
           <div className="mt-1 text-xs md:text-sm text-neutral-700">
-            OUR ALUMNI FROM 10+ COUNTRIES
+            {students_expriences?.subheading ||
+              " OUR ALUMNI FROM 10+ COUNTRIES"}
           </div>
 
           {/* Desktop / Tablet normal layout */}
           <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
-            {[
-              "/assets/images/students/28.jpeg",
-              "/assets/images/students/48.jpg",
-              "/assets/images/students/59.jpg",
-              "/assets/images/students/PEDDIENENI HEMA PRIYA (USA).jpeg",
-            ].map((src, idx) => (
+            {(
+              students_expriences?.images || [
+                {
+                  id: 64,
+                  documentId: "ls976fjvugzcpd2jnzlkae74",
+                  url: "/assets/images/students/28.jpeg",
+                  alternativeText: null,
+                },
+                {
+                  id: 63,
+                  documentId: "yju20gzrb4aks312kz3qh9gk",
+                  url: "/assets/images/students/48.jpg",
+                  alternativeText: null,
+                },
+                {
+                  id: 60,
+                  documentId: "v5jresfp33atq0pk2q1jf24e",
+                  url: "/assets/images/students/59.jpg",
+                  alternativeText: null,
+                },
+                {
+                  id: 59,
+                  documentId: "s5kp1ej4udb9ydb7kydomr59",
+                  url: "/assets/images/students/PEDDIENENI HEMA PRIYA (USA).jpeg",
+                  alternativeText: null,
+                },
+              ]
+            ).map((src, idx) => (
               <img
-                key={idx}
-                src={src}
+                key={src?.id || idx}
+                src={src?.url}
                 alt="Alumni"
                 className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
               />
@@ -347,15 +421,37 @@ export default function JobsInUSAFlow() {
 
           {/* Mobile circle layout */}
           <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
-            {[
-             "/assets/images/students/28.jpeg",
-              "/assets/images/students/48.jpg",
-              "/assets/images/students/59.jpg",
-              "/assets/images/students/PEDDIENENI HEMA PRIYA (USA).jpeg",
-            ].map((src, idx) => (
+            {(
+              students_expriences?.images || [
+                {
+                  id: 64,
+                  documentId: "ls976fjvugzcpd2jnzlkae74",
+                  url: "/assets/images/students/28.jpeg",
+                  alternativeText: null,
+                },
+                {
+                  id: 63,
+                  documentId: "yju20gzrb4aks312kz3qh9gk",
+                  url: "/assets/images/students/48.jpg",
+                  alternativeText: null,
+                },
+                {
+                  id: 60,
+                  documentId: "v5jresfp33atq0pk2q1jf24e",
+                  url: "/assets/images/students/59.jpg",
+                  alternativeText: null,
+                },
+                {
+                  id: 59,
+                  documentId: "s5kp1ej4udb9ydb7kydomr59",
+                  url: "/assets/images/students/PEDDIENENI HEMA PRIYA (USA).jpeg",
+                  alternativeText: null,
+                },
+              ]
+            ).map((src, idx) => (
               <img
-                key={idx}
-                src={src}
+                key={src?.id || idx}
+                src={src?.url}
                 alt="Alumni"
                 className={`circle-img circle-${idx + 1}`}
               />
@@ -372,7 +468,10 @@ function FlowColumn({ col }: { col: Column }) {
   return (
     <div className="relative w-full max-w-[360px] mx-auto flex flex-col items-center">
       {/* Top colored header */}
-      <div className="w-full rounded-[8px] text-white shadow-sm relative" style={{ backgroundColor: col.color }}>
+      <div
+        className="w-full rounded-[8px] text-white shadow-sm relative"
+        style={{ backgroundColor: col.color }}
+      >
         <div className="flex items-center justify-center gap-2 px-5 pt-4">
           <col.icon width={18} height={18} />
           <span className="font-semibold text-base md:text-lg text-center">
@@ -380,20 +479,31 @@ function FlowColumn({ col }: { col: Column }) {
           </span>
         </div>
 
-        <div className="mx-5 my-3 h-px opacity-30" style={{ backgroundColor: "#fff" }} />
+        <div
+          className="mx-5 my-3 h-px opacity-30"
+          style={{ backgroundColor: "#fff" }}
+        />
 
         {/* white salary badge */}
         <div className="px-5 pb-5 flex justify-center">
           <div className="bg-white text-black rounded-md px-3 py-1.5 text-center shadow-sm">
-            <div className="text-[11px] md:text-xs opacity-80">Average Salary</div>
-            <div className="text-sm md:text-base font-extrabold">{usd(col.salary)}</div>
+            <div className="text-[11px] md:text-xs opacity-80">
+              Average Salary
+            </div>
+            <div className="text-sm md:text-base font-extrabold">
+              {usd(col.salary)}
+            </div>
           </div>
         </div>
 
         {/* connector */}
         <span
           className="absolute left-1/2 -translate-x-1/2 -bottom-3 h-8"
-          style={{ width: "2px", backgroundColor: col.color, borderRadius: "9999px" }}
+          style={{
+            width: "2px",
+            backgroundColor: col.color,
+            borderRadius: "9999px",
+          }}
           aria-hidden
         />
       </div>
@@ -402,7 +512,11 @@ function FlowColumn({ col }: { col: Column }) {
       <div className="relative w-full">
         <span
           className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 z-0"
-          style={{ width: "2px", backgroundColor: col.color, borderRadius: "9999px" }}
+          style={{
+            width: "2px",
+            backgroundColor: col.color,
+            borderRadius: "9999px",
+          }}
           aria-hidden
         />
         <div className="relative z-10 w-full space-y-2 pt-5">
