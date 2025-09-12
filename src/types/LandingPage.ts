@@ -143,3 +143,18 @@ export interface Testimonial {
   feedback: string;
   image: Image;
 }
+
+//! Service
+
+export interface Service {
+  id: number;
+  title: string;
+  services_list: Services_list[];
+}
+
+export interface Services_list {
+  id: number;
+  title: string;
+  description: string;
+  image: Image;
+}
