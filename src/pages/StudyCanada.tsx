@@ -44,6 +44,7 @@ const StudyCanada = () => {
   if (isError) {
     toast.error("failed to load study in canada");
     console.error("failed to load study in canada", error);
+    return null;
   }
 
   if (isLoading || !studyInCanada) {

@@ -4,6 +4,7 @@ import axios from "axios";
 import { Comprehensive } from "@/types/LandingPage";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
+import ComprehensiveSkeleton from "@/Loaders/LandingPages/ComprehensiveSkeleton";
 
 const services = [
   {
@@ -56,10 +57,11 @@ const ServicesSection = () => {
   if (isError) {
     toast.error("failed to load comprehensive");
     console.log("failed to load comprehensive", error);
+    return null;
   }
 
   if (isLoading || !comprehensive) {
-    return <div>Loading...</div>;
+    return <ComprehensiveSkeleton />;
   }
 
   return (

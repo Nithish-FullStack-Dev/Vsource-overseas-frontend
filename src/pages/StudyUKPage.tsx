@@ -44,6 +44,7 @@ const StudyUKPage = () => {
   if (isError) {
     toast.error("failed to load study in uk");
     console.error("failed to load study in uk", error);
+    return null;
   }
 
   if (isLoading || !studyInUk) {

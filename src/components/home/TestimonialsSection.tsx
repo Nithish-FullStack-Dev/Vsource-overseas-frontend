@@ -54,6 +54,7 @@ export default function TestimonialsSection() {
   if (isError) {
     toast.error("Failed to load testimonials.");
     console.error("Failed to load testimonials:", error);
+    return null;
   }
 
   if (isLoading || !data) {

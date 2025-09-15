@@ -43,6 +43,7 @@ const OurServices: React.FC = () => {
   if (isError) {
     toast.error("Failed to load services");
     console.log("failed to load", error);
+    return null;
   }
 
   if (isLoading || !services) {

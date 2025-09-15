@@ -36,6 +36,7 @@ const VideoSection = () => {
   if (isError) {
     toast.error("failed to load");
     console.log("failed to load", error);
+    return null;
   }
 
   if (isLoading || !video) {
