@@ -23,13 +23,9 @@ import "aos/dist/aos.css";
 import UniversityHomePage from "./pages/university-pages/UniversityHomePage";
 import GoVirtual from "./services/GoVirtual";
 import UniversityDetails from "./pages/university-pages/UniversityDetails";
-import ScrollToTop from "./ScrollToTop";
-import Login from "./server/auth/Login";
-import ServerLayout from "./ServerLayout";
-import ClientLayout from "./ClientLayout";
-import Dashboard from "./server/dashboard/Dashboard";
 import { AuthProvider } from "./components/config/AuthContext";
-import CMS from "./server/cms/CMS";
+import ClientLayout from "./ClientLayout";
+import ScrollToTop from "./ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -72,13 +68,6 @@ const App = () => {
                 <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/join-us" element={<JoinUsPage />} />
                 <Route path="/contact" element={<ContactPage />} />
-              </Route>
-
-              {/* Server */}
-              <Route element={<ServerLayout />}>
-                <Route path="/login" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/content" element={<CMS />} />
               </Route>
 
               <Route path="/meeting" element={<GoVirtual />} />

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
+import axios from "axios";
+import { toast } from "sonner";
 
 interface DelayedPopupProps {
   // Called AFTER the minimize animation completes
@@ -75,7 +77,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     setTimeout(onMinimize, 50);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (phoneNumber.length < 10 || name.trim().length === 0) {
@@ -83,9 +85,27 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
       return;
     }
 
-    alert("Thank you! We'll call you back shortly.");
-    localStorage.setItem("vsource_form_submitted", "true");
-    animateToIconAndClose();
+    const payload = {
+      data: {
+        student_name: name,
+        number: phoneNumber,
+        service_required: selectedOption,
+      },
+    };
+
+    try {
+      const { status } = await axios.post(
+        `${import.meta.env.VITE_CMS_URL}/api/enquires`,
+        payload
+      );
+      if (status === 200 || status === 201) {
+        toast.success("Submitted successfully!");
+        animateToIconAndClose();
+      }
+    } catch (error) {
+      console.error("failed to submit data", error);
+      toast.error("failed to submit data");
+    }
   };
 
   const handleOptionClick = (option: string) => {
