@@ -7,6 +7,13 @@ import { useUniversities } from "./UniversityDetails";
 import { toast } from "sonner";
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import UniversityHomePageSkeleton from "@/Loaders/LandingPages/UniversityHomePageSkeleton";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 const UniversityHomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -112,25 +119,23 @@ const UniversityHomePage: React.FC = () => {
             >
               Select Country
             </label>
-            <select
-              id="countrySelect"
-              value={selectedCountry}
-              onChange={(e) => handleCountryChange(e.target.value)}
-              className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition appearance-none"
-              style={{
-                backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 10L12 15L17 10' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>")`,
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "right 0.75rem center",
-                backgroundSize: "1.25rem",
-              }}
-            >
-              <option value="All">All Countries</option>
-              {COUNTRIES.map((c: Country) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+
+            <Select value={selectedCountry} onValueChange={handleCountryChange}>
+              <SelectTrigger
+                id="countrySelect"
+                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition appearance-none"
+              >
+                <SelectValue placeholder="Select a country" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All Countries</SelectItem>
+                {COUNTRIES.map((c: Country) => (
+                  <SelectItem key={c} value={c}>
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

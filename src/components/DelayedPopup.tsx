@@ -95,16 +95,20 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
     try {
       const { status } = await axios.post(
-        `${import.meta.env.VITE_CMS_URL}/api/enquires`,
+        `${import.meta.env.VITE_CMS_GLOBALURL}/api/enquires`,
         payload
       );
       if (status === 200 || status === 201) {
         toast.success("Submitted successfully!");
         animateToIconAndClose();
+        setName("");
+        setPhoneNumber("");
+        setSelectedOption("");
       }
     } catch (error) {
       console.error("failed to submit data", error);
       toast.error("failed to submit data");
+      return null;
     }
   };
 

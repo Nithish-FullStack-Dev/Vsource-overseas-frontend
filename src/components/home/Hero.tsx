@@ -212,12 +212,12 @@ const Hero = () => {
               />
             </motion.div>
 
-            <div className="mt-auto pb-6 w-full text-center">
+            <div className="mt-auto pb-20 w-full text-center">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="bg-white/20 backdrop-blur-md px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-lg border border-white/30 flex flex-col items-center text-center"
+                className="bg-white/5 backdrop-blur-md px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-lg border border-white/30 flex flex-col items-center text-center"
               >
                 {/* Highlighted headline */}
                 <HighlightedText

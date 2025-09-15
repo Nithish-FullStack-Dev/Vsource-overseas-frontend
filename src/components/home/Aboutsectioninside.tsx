@@ -1,8 +1,6 @@
 import { AboutSectionSkeleton } from "@/Loaders/LandingPages/AboutSectionSkeleton";
-import { AboutSectionProps, AboutUsBanner } from "@/types/LandingPage";
+import { AboutSectionProps } from "@/types/LandingPage";
 import { BoldText } from "@/utils/BoldText";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
@@ -34,28 +32,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       observer.disconnect();
     };
   }, []);
-
-  const useCounter = (end: number, start = 0, duration = 2000) => {
-    const [count, setCount] = useState(start);
-
-    useEffect(() => {
-      if (!isVisible) return;
-
-      let startTime: number | null = null;
-      const step = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        setCount(Math.floor(progress * (end - start) + start));
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
-      };
-
-      window.requestAnimationFrame(step);
-    }, [end, start, duration, isVisible]);
-
-    return count;
-  };
 
   if (isError) {
     toast.error("failed to load");
@@ -114,7 +90,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               {aboutData &&
                 aboutData?.about_cards &&
                 aboutData?.about_cards?.map((stat, index) => {
-                  const count = useCounter(Number(stat?.count));
                   return (
                     <div
                       key={stat.id}
@@ -131,7 +106,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                       />
                       <div className="stat-info">
                         <div className="count">
-                          {count.toLocaleString("en-US")}+
+                          {Number(stat.count).toLocaleString("en-US")}+
                         </div>
                       </div>
                       <div className="label">{stat?.text}</div>
@@ -269,6 +244,15 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         flex-direction: column;
         align-items: center;
       }
+         .text-section {
+     
+    flex-basis: 90%;
+    max-width: 90%;
+    }
+      .image-section {
+    max-width: 90%;
+    flex-basis: 90%;
+    }
     }
 
     @media (max-width: 485px) {
