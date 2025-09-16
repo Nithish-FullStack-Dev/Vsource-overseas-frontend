@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
 import { HighlightedText } from "@/utils/HighlightedText";
 import DelayedPopup from "../DelayedPopup";
+import { HighlightedTextWhite } from "@/utils/HighlightestextWhite";
 
 const fetchHero = async () => {
   const { data } = await axios.get(
@@ -186,7 +187,7 @@ const Hero = () => {
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[200px] text-left shadow-sm "
+              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[162px] text-left shadow-sm "
             >
               <p className="text-red-600 text-[18px] font-bold leading-tight uppercase tracking-wide">
                 {heroData?.mobile_title}
@@ -221,7 +222,7 @@ const Hero = () => {
               />
             </motion.div>
 
-            <div className="mt-auto pb-20 w-full text-center">
+            <div className="mt-auto w-full text-center pb-8">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -229,7 +230,7 @@ const Hero = () => {
                 className="bg-white/5 backdrop-blur-md px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-lg border border-white/30 flex flex-col items-center text-center"
               >
                 {/* Highlighted headline */}
-                <HighlightedText
+                <HighlightedTextWhite
                   text={heroData?.gateway}
                   mobileSize="18px"
                   color="red"
@@ -258,7 +259,7 @@ const Hero = () => {
       </motion.div>
 
       {/* Scroll Down Arrow */}
-      <div className="absolute bottom-4 md:bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+      {/* <div className="absolute bottom-4 md:bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white/50 flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -275,7 +276,7 @@ const Hero = () => {
             />
           </svg>
         </div>
-      </div>
+      </div> */}
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
