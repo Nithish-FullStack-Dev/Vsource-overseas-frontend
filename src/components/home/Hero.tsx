@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
 import { HighlightedText } from "@/utils/HighlightedText";
+import DelayedPopup from "../DelayedPopup";
 
 const fetchHero = async () => {
   const { data } = await axios.get(
@@ -18,6 +19,8 @@ const fetchHero = async () => {
 };
 
 const Hero = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
   const {
     data: heroData,
     isLoading,
@@ -37,6 +40,10 @@ const Hero = () => {
   if (isLoading || !heroData) {
     return <HeroSkeleton />;
   }
+
+  const handleMinimize = () => {
+    setShowPopup(false);
+  };
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 md:pt-0">
@@ -132,8 +139,8 @@ const Hero = () => {
                 Explore Universities
               </Link>
               <Link
-                to="/book-counseling"
-                className="bg-white border border-white text-black px-6 py-3 rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center space-x-2"
+                to="/meeting"
+                className="bg-white border border-white text-black px-6 py-3 rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center space-x-2 cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -203,6 +210,7 @@ const Hero = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6 }}
                 className="mt-4 bg-red-600 text-white text-sm px-4 py-1.5 rounded-full font-semibold shadow hover:bg-red-700 transition"
+                onClick={() => setShowPopup(true)}
               >
                 APPLY NOW
               </motion.button>
@@ -237,7 +245,7 @@ const Hero = () => {
                   </Link>
 
                   <Link
-                    to="/book-counseling"
+                    to="/meeting"
                     className="flex-1 bg-white/80 border border-white text-black px-6 py-3 rounded-md font-semibold text-lg shadow-md hover:bg-white hover:shadow-lg transition-all duration-300 text-center"
                   >
                     Book Free Counseling
@@ -272,6 +280,8 @@ const Hero = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
       `}</style>
+
+      {showPopup && <DelayedPopup onMinimize={handleMinimize} />}
     </section>
   );
 };
