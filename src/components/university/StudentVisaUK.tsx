@@ -84,7 +84,7 @@ export default function StudentVisaUK({ visa_requirements }: Prop) {
                 >
                   <Dot />
                   <span className="text-sm md:text-base text-neutral-900">
-                    {item?.text}
+                    {item?.lists}
                   </span>
                 </li>
               ))}
