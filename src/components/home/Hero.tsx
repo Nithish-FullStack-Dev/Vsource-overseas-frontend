@@ -9,7 +9,7 @@ import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
 import { HighlightedText } from "@/utils/HighlightedText";
 import DelayedPopup from "../DelayedPopup";
 import { HighlightedTextWhite } from "@/utils/HighlightestextWhite";
-
+import { PopupModal } from "react-calendly";
 const fetchHero = async () => {
   const { data } = await axios.get(
     `${
@@ -22,6 +22,7 @@ const fetchHero = async () => {
 const Hero = () => {
   const [showPopup, setShowPopup] = useState(false);
 
+  const [openCalendly, setOpenCalendly] = useState(false);
   const {
     data: heroData,
     isLoading,
@@ -44,6 +45,9 @@ const Hero = () => {
 
   const handleMinimize = () => {
     setShowPopup(false);
+  };
+    const handleGoVirtual = () => {
+    setOpenCalendly(true);
   };
 
   return (
@@ -139,8 +143,8 @@ const Hero = () => {
               >
                 Explore Universities
               </Link>
-              <Link
-                to="/meeting"
+              <a
+               onClick={handleGoVirtual}
                 className="bg-white border border-white text-black px-6 py-3 rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center space-x-2 cursor-pointer"
               >
                 <svg
@@ -158,7 +162,7 @@ const Hero = () => {
                   />
                 </svg>
                 <span>Book Free Counseling</span>
-              </Link>
+              </a>
             </motion.div>
 
             {/* Rating Info */}
@@ -283,6 +287,13 @@ const Hero = () => {
       `}</style>
 
       {showPopup && <DelayedPopup onMinimize={handleMinimize} />}
+        <PopupModal
+              url="https://calendly.com/sriram9491/30min"
+              open={openCalendly}
+              onModalClose={() => setOpenCalendly(false)}
+              rootElement={document.getElementById("root")}
+              pageSettings={{ hideEventTypeDetails: false }}
+            />
     </section>
   );
 };
