@@ -95,11 +95,16 @@ export interface Texts {
   text: string;
 }
 
+export interface Text {
+  id: number;
+  lists: string;
+}
+
 export interface Visa_requirements {
   id: number;
   title: string;
   subheading: string;
-  details: Texts[];
+  details: Text[];
 }
 
 export interface Students_expriences {
