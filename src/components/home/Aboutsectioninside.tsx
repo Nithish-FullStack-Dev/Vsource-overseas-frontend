@@ -58,7 +58,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               data-aos-delay="200"
               data-aos-anchor-placement="center-bottom"
             >
-              {aboutData?.basic?.title || "About Vsource Overseas"}
+              {aboutData?.title || "About Vsource Overseas"}
             </h1>
 
             <p
@@ -69,7 +69,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               data-aos-anchor-placement="center-bottom"
             >
               <strong>
-                {aboutData?.basic?.description ||
+                {aboutData?.description ||
                   "Your Gateway to Global Academic Excellence"}
               </strong>
             </p>

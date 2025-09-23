@@ -109,10 +109,10 @@ const AboutPage = () => {
         <div className="relative w-full max-w-[1400px] mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl text-red-600 font-bold mb-6">
-              {aboutData?.basic?.title || "About Us"}
+              {aboutData?.title || "About Us"}
             </h1>
             <p className="text-xl text-gray-300">
-              {aboutData?.basic?.description ||
+              {aboutData?.description ||
                 "Learn about our journey, our team, and our mission to provide exceptional educational consultancy for over 20 years."}
             </p>
           </div>
@@ -145,9 +145,9 @@ const AboutPage = () => {
         <section className="py-16 md:py-24">
           <div className="w-full max-w-[1400px] mx-auto px-4">
             <SectionTitle
-              title={members?.basic?.title || "Our Management Team"}
+              title={members?.title || "Our Management Team"}
               subtitle={
-                members?.basic?.description ||
+                members?.description ||
                 "Meet the experts who make Vsource Company a trusted name in educational consultancy"
               }
             />

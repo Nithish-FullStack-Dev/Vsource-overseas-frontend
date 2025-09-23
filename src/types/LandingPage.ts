@@ -1,9 +1,3 @@
-export interface Basic {
-  id: number;
-  title: string;
-  description: string;
-}
-
 export interface AboutUs {
   id: number;
   title: string;
@@ -99,12 +93,16 @@ export interface Company {
 //! BANNER
 
 export interface AboutUsBanner {
-  basic: Basic;
+  id: number;
+  title: string;
+  description: string;
   banner: Image;
 }
 
 export interface InnerAboutUs {
-  basic: Basic;
+  id: number;
+  title: string;
+  description: string;
   subheadings: Description[];
   about_cards: AboutUsCounts[];
   chairman: Image;
@@ -118,7 +116,9 @@ export interface AboutSectionProps {
 }
 
 export interface Members {
-  basic: Basic;
+  id: number;
+  title: string;
+  description: string;
   members: Member[];
 }
 
@@ -133,7 +133,9 @@ export interface Member {
 //! Testimonials
 
 export interface Testimonials {
-  basic: Basic;
+  id: number;
+  title: string;
+  description: string;
   testimonials: Testimonial[];
 }
 

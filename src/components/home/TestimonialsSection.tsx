@@ -26,9 +26,9 @@ export default function TestimonialsSection() {
   });
 
   const testimonials = data?.testimonials || [];
-  const sectionTitle = data?.basic?.title || "Success Stories";
+  const sectionTitle = data?.title || "Success Stories";
   const sectionDescription =
-    data?.basic?.description ||
+    data?.description ||
     "Hear from our students who have achieved their academic and career goals with our guidance.";
   const testimonialsCount = testimonials.length;
 
