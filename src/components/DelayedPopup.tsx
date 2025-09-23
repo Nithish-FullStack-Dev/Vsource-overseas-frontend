@@ -9,6 +9,7 @@ interface DelayedPopupProps {
 }
 
 const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
+  const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -79,12 +80,17 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    if (loading) return;
     if (phoneNumber.length < 10 || name.trim().length === 0) {
       alert("Please enter your name and a valid phone number.");
       return;
     }
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      alert("Enter a valid 10-digit phone number.");
+      return;
+    }
 
+    setLoading(true);
     const payload = {
       data: {
         student_name: name,
@@ -109,6 +115,8 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
       console.error("failed to submit data", error);
       toast.error("failed to submit data");
       return null;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -241,10 +249,11 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
                 {/* Submit */}
                 <button
+                  disabled={loading}
                   type="submit"
                   className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-4 rounded-md transition duration-150 shadow-md"
                 >
-                  Request Callback
+                  {loading ? "Submitting..." : "Request Callback"}
                 </button>
               </form>
 
