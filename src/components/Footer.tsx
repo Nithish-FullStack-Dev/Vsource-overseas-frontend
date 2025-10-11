@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="bg-darkblue text-white py-12">
       <div className="w-full max-w-[1400px] mx-auto px-4">
         {/* Top Grid: Company Info + Services + Quick Links + Contact Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:mb-12 mb-4">
           {/* Column 1: Company Info & Socials */}
           <div>
             <p className="text-gray-400 mb-4">
@@ -112,25 +112,25 @@ const Footer = () => {
                   Support@vsourceoverseas.com
                 </span>
               </li>
-              <li className="flex items-start">
+              {/* <li className="flex items-start">
                 <MapPin className="w-5 h-5 mr-3 text-primary mt-1 shrink-0" />
                 <span className="text-gray-400">
                   Near Shashi Hospital, Metro pillar no-1519, Dilsukhnagar,
                   Hyderabad- 500060, Telangana.
                 </span>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
 
         {/* Bottom Grid: Corporate Office / Branches */}
-        <div className="border-t border-gray-800 pt-8">
+        <div className="border-t border-gray-800 md:pt-8 pt-5">
           <h2 className="text-2xl font-bold mb-6">CORPORATE OFFICE</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Telangana */}
             <div>
-              <h4 className="font-semibold mb-2">Telangana</h4>
+              <h4 className="font-semibold mb-2 text-xl">TELANGANA</h4>
               {[
                 {
                   name: "DILSUKHNAGAR",
@@ -149,7 +149,7 @@ const Footer = () => {
                 },
               ].map((branch) => (
                 <div key={branch.name} className="mb-2">
-                  <h5 className="font-medium">{branch.name}</h5>
+                  <h5 className="font-medium text-md">{branch.name}</h5>
                   <p className="text-gray-400 text-sm">{branch.address}</p>
                 </div>
               ))}
@@ -157,7 +157,7 @@ const Footer = () => {
 
             {/* Andhra Pradesh */}
             <div>
-              <h4 className="font-semibold mb-2">Andhra Pradesh</h4>
+              <h4 className="font-semibold mb-2 text-xl">ANDHRA PRADESH</h4>
               {[
                 {
                   name: "VIJAYAWADA",
@@ -176,7 +176,7 @@ const Footer = () => {
                 },
               ].map((branch) => (
                 <div key={branch.name} className="mb-2">
-                  <h5 className="font-medium">{branch.name}</h5>
+                  <h5 className="font-medium text-md">{branch.name}</h5>
                   <p className="text-gray-400 text-sm">{branch.address}</p>
                 </div>
               ))}
@@ -184,7 +184,7 @@ const Footer = () => {
 
             {/* Karnataka */}
             <div>
-              <h4 className="font-semibold mb-2">Karnataka</h4>
+              <h4 className="font-semibold mb-2 text-xl">KARNATAKA</h4>
               {[
                 {
                   name: "BENGALURU",
@@ -193,7 +193,7 @@ const Footer = () => {
                 },
               ].map((branch) => (
                 <div key={branch.name} className="mb-2">
-                  <h5 className="font-medium">{branch.name}</h5>
+                  <h5 className="font-medium text-md">{branch.name}</h5>
                   <p className="text-gray-400 text-sm">{branch.address}</p>
                 </div>
               ))}
