@@ -1,4 +1,4 @@
-import { Basic, Description, Image } from "@/types/LandingPage";
+import { Description, Image } from "@/types/LandingPage";
 import axios from "axios";
 
 export const COUNTRIES = ["USA", "UK", "Canada", "Ireland", "France"] as const;
@@ -98,7 +98,7 @@ export interface University {
   intakes: {
     id?: number;
     description: string;
-    famous_intakes: Basic[];
+    famous_intakes: { id?: number; title: string; description: string }[];
   };
 
   courses: {
