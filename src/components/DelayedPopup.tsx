@@ -262,7 +262,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                 <p className="text-base mb-4 md:mb-0">
                   You can always reach us on
                   <br />
-                  <span className="font-bold text-lg">+91 99126 11119</span>
+                  <span className="font-bold text-lg">+91 91217 11119</span>
                 </p>
 
                 <div className="text-xs text-gray-500">

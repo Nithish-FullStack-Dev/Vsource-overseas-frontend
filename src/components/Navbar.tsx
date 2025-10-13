@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,8 +13,8 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -28,39 +28,43 @@ const Navbar = () => {
         setDestOpen(false);
       }
     }
-    document.addEventListener('mousedown', onDocClick);
-    return () => document.removeEventListener('mousedown', onDocClick);
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about-us' },
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about-us" },
     // Study in Destination will be injected here
-    { name: 'Explore Universities', path: '/explore-universities' },
-    { name: '360 View', path: 'https://vsourceoverseas.com/360View/', external: true },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Branches', path: '/contact' },
+    { name: "Explore Universities", path: "/explore-universities" },
+    {
+      name: "360 View",
+      path: "https://vsourceoverseas.com/360View/",
+      external: true,
+    },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Branches", path: "/contact" },
   ];
 
   const destinations = [
-    { name: 'Study in UK', path: '/study-in-uk', flag: 'gb' },
-    { name: 'Study in USA', path: '/study-in-usa', flag: 'us' },
-    { name: 'Study in CANADA', path: '/study-in-canada', flag: 'ca' },
-    { name: 'Study in IRELAND', path: '/study-in-ireland', flag: 'ie' },
-    { name: 'Study in FRANCE', path: '/study-in-france', flag: 'fr' },
+    { name: "Study in UK", path: "/study-in-uk", flag: "gb" },
+    { name: "Study in USA", path: "/study-in-usa", flag: "us" },
+    { name: "Study in CANADA", path: "/study-in-canada", flag: "ca" },
+    { name: "Study in IRELAND", path: "/study-in-ireland", flag: "ie" },
+    { name: "Study in FRANCE", path: "/study-in-france", flag: "fr" },
   ];
 
   const linkColor = (path: string) =>
     location.pathname === path
-      ? 'text-primary'
+      ? "text-primary"
       : isScrolled
-        ? 'text-gray-800'
-        : 'text-white';
+      ? "text-gray-800"
+      : "text-white";
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+        isScrolled ? "bg-white shadow-md" : "bg-transparent"
       } py-4`}
     >
       {/* Custom container */}
@@ -85,13 +89,17 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
           <Link
             to="/"
-            className={`font-medium transition-colors hover:text-primary ${linkColor('/')}`}
+            className={`font-medium transition-colors hover:text-primary ${linkColor(
+              "/"
+            )}`}
           >
             Home
           </Link>
           <Link
             to="/about-us"
-            className={`font-medium transition-colors hover:text-primary ${linkColor('/about-us')}`}
+            className={`font-medium transition-colors hover:text-primary ${linkColor(
+              "/about-us"
+            )}`}
           >
             About Us
           </Link>
@@ -107,25 +115,31 @@ const Navbar = () => {
               type="button"
               onClick={() => setDestOpen((v) => !v)}
               className={`flex items-center gap-1 font-medium transition-colors hover:text-primary ${
-                isScrolled ? 'text-gray-800' : 'text-white'
+                isScrolled ? "text-gray-800" : "text-white"
               }`}
             >
               Study in Destination
               <ChevronDown
                 size={16}
-                className={`transition-transform ${destOpen ? 'rotate-180' : ''}`}
+                className={`transition-transform ${
+                  destOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
             <div
               className={`absolute left-1/2 -translate-x-1/2 mt-3 w-[720px] max-w-[90vw] rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-200 ${
                 destOpen
-                  ? 'opacity-100 visible translate-y-0'
-                  : 'opacity-0 invisible -translate-y-1'
+                  ? "opacity-100 visible translate-y-0"
+                  : "opacity-0 invisible -translate-y-1"
               }`}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 p-6">
                 {destinations.map((d) => (
-                  <Link key={d.path} to={d.path} className="flex items-center gap-3 group">
+                  <Link
+                    key={d.path}
+                    to={d.path}
+                    className="flex items-center gap-3 group"
+                  >
                     <img
                       src={`https://flagcdn.com/w40/${d.flag}.png`}
                       alt={d.name}
@@ -149,7 +163,7 @@ const Navbar = () => {
                 target="_blank"
                 rel="noreferrer"
                 className={`font-medium transition-colors hover:text-primary ${
-                  isScrolled ? 'text-gray-800' : 'text-white'
+                  isScrolled ? "text-gray-800" : "text-white"
                 }`}
               >
                 {link.name}
@@ -158,7 +172,9 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-medium transition-colors hover:text-primary ${linkColor(link.path)}`}
+                className={`font-medium transition-colors hover:text-primary ${linkColor(
+                  link.path
+                )}`}
               >
                 {link.name}
               </Link>
@@ -168,27 +184,33 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden hover:text-primary relative z-20 ${
-            isOpen || isScrolled ? 'text-gray-800' : 'text-white'
-          }`}
+          className={`md:hidden relative z-20 flex items-center justify-center
+    transition-all duration-300 ease-in-out
+    ${isOpen || isScrolled ? "text-black bg-white" : "text-black "}
+    hover:bg-primary hover:text-white
+    rounded-md font-bold w-12 h-12 `}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? (
+            <X size={28} strokeWidth={3} />
+          ) : (
+            <Menu size={40} strokeWidth={4} />
+          )}
         </button>
       </div>
 
       {/* Mobile Menu */}
       <div
         className={`md:hidden fixed inset-0 bg-white z-10 transition-all duration-300 ease-in-out ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-4 pt-28 pb-8 space-y-4">
           <Link
             to="/"
             className={`block text-lg font-medium py-2 transition-colors hover:text-primary ${
-              location.pathname === '/' ? 'text-primary' : 'text-gray-800'
+              location.pathname === "/" ? "text-primary" : "text-gray-800"
             }`}
           >
             Home
@@ -196,7 +218,9 @@ const Navbar = () => {
           <Link
             to="/about-us"
             className={`block text-lg font-medium py-2 transition-colors hover:text-primary ${
-              location.pathname === '/about-us' ? 'text-primary' : 'text-gray-800'
+              location.pathname === "/about-us"
+                ? "text-primary"
+                : "text-gray-800"
             }`}
           >
             About Us
@@ -210,11 +234,15 @@ const Navbar = () => {
               onClick={() => setMobileDestOpen((v) => !v)}
             >
               Study in Destination
-              {mobileDestOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+              {mobileDestOpen ? (
+                <ChevronUp size={18} />
+              ) : (
+                <ChevronDown size={18} />
+              )}
             </button>
             <div
               className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
-                mobileDestOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                mobileDestOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}
             >
               <div className="overflow-hidden">
@@ -255,7 +283,9 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={`block text-lg font-medium py-2 transition-colors hover:text-primary ${
-                  location.pathname === link.path ? 'text-primary' : 'text-gray-800'
+                  location.pathname === link.path
+                    ? "text-primary"
+                    : "text-gray-800"
                 }`}
               >
                 {link.name}
@@ -265,9 +295,6 @@ const Navbar = () => {
         </div>
       </div>
     </header>
-
-
-
   );
 };
 

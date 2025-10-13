@@ -19,6 +19,9 @@ import GoVirtual from "./services/GoVirtual";
 import { AuthProvider } from "./components/config/AuthContext";
 import HeroSkeleton from "./Loaders/LandingPages/HeroSkeleton";
 
+// <<== ADD THIS IMPORT (make sure path is correct for your repo)
+import ChatBot from "@/services/ChatBot"; // if alias doesn't resolve, use "../services/ChatBot" or "./services/ChatBot" per your folder
+
 const queryClient = new QueryClient();
 
 //Lazy-load
@@ -118,6 +121,11 @@ const App = () => {
             {!isGoVirtualPage && <Footer />}
           </div>
 
+          {/* ------------------ MOUNT CHAT BOT SERVICE HERE (once at root) ------------------ */}
+          {/* Replace TOKEN_HERE with your real token */}
+          <ChatBot token="YOUR_GALLABOX_TOKEN_HERE" openOnLoad={false} />
+
+          {/* Floating buttons */}
           <ScrollToTopButton
             showFormIcon={showFormIcon}
             onFormIconClick={() => {
