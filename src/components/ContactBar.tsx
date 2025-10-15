@@ -179,7 +179,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ visible = true }) => {
 
       {/* Calendly PopupModal */}
       <PopupModal
-        url="https://calendly.com/sriram9491/30min"
+        url="https://calendly.com/server-vsourceoverseas/30min"
         open={openCalendly}
         onModalClose={() => setOpenCalendly(false)}
         rootElement={document.getElementById("root")}
