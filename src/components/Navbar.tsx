@@ -39,7 +39,7 @@ const Navbar = () => {
     { name: "Explore Universities", path: "/explore-universities" },
     {
       name: "360 View",
-      path: "https://vsourceoverseas.com/360View/",
+      path: "src/360/index.html",
       external: true,
     },
     { name: "Gallery", path: "/gallery" },

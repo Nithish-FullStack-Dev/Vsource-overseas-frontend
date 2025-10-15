@@ -55,7 +55,6 @@ const Footer = () => {
               {[
                 "Indian University Admissions",
                 "MBBS/Masters Abroad",
-                "Work Visa Facilitation",
                 "Student Loans",
                 "Career Counseling",
               ].map((service) => (
