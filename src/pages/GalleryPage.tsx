@@ -43,6 +43,7 @@ const GalleryPage = () => {
   if (isLoading || !gallery) {
     return <BannerSkeleton />;
   }
+
   const journeyBlock = gallery?.blocks?.find(
     (block) => block?.__component === "gallery.journey-images"
   );
@@ -51,6 +52,31 @@ const GalleryPage = () => {
   );
   const journeyImages = journeyBlock?.journey_images || [];
   const view360Url = view360?.view360url;
+
+  // Define location iframe sources here. Dilsukhnagar uses the exact embed you provided.
+  const locationIframes: Record<
+    string,
+    { src: string; title?: string; subtitle?: string }
+  > = {
+    Dilsukhnagar: {
+      src: "https://www.google.com/maps/embed?pb=!4v1760515897382!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ052N21fY2c.!2m2!1d17.3692601595086!2d78.52138567492067!3f15.463848464555387!4f-3.5524557100136036!5f0.7820865974627469",
+      title: "Dilsukhnagar Office",
+      subtitle: "Location — Dilsukhnagar, Hyderabad",
+    },
+    Ameerpet: {
+      // A simple, reliable embed format — replace with a custom pb embed if you have one.
+      src: "https://www.google.com/maps/embed?pb=!4v1760518863069!6m8!1m7!1sCAoSHENJQUJJaERrUzk3bTZYR3JXMHREbjRtS1VOQnM.!2m2!1d17.43119354453962!2d78.44547854458258!3f200!4f0!5f0.7820865974627469",
+      title: "Ameerpet Office",
+      subtitle: "Location — Ameerpet, Hyderabad",
+    },
+    "KPHB- JNTU": {
+      src: "https://www.google.com/maps/embed?pb=!4v1760518780459!6m8!1m7!1sCAoSHENJQUJJaEFwY3RKdW40bmxYYTBFNHFTdDVuMzM.!2m2!1d17.49847161988275!2d78.38723216509213!3f0!4f0!5f0.7820865974627469",
+      title: "KPHB - JNTU Office",
+      subtitle: "Location — KPHB (near JNTU), Hyderabad",
+    },
+  };
+
+  const locationTabs = Object.keys(locationIframes);
 
   return (
     <>
@@ -73,7 +99,14 @@ const GalleryPage = () => {
           {/* Tabs */}
           <div className="flex justify-center mb-12">
             <div className="inline-flex bg-gray-100 rounded-lg p-1">
-              {["all", "photos", "students"].map((tab) => (
+              {[
+                "all",
+                "photos",
+                "students",
+                "Dilsukhnagar",
+                "Ameerpet",
+                "KPHB- JNTU",
+              ].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -91,7 +124,37 @@ const GalleryPage = () => {
             </div>
           </div>
 
-          {/* 360° Tour - Always visible (not part of tabs anymore) */}
+          {/* If the active tab is one of the location tabs, show its iframe */}
+          {locationTabs.includes(activeTab) && (
+            <section className="mb-16">
+              <SectionTitle
+                title={locationIframes[activeTab].title || activeTab}
+                // subtitle={
+                //   locationIframes[activeTab].subtitle ||
+                //   `Virtual location view — ${activeTab}`
+                // }
+              />
+              <AnimateOnScroll>
+                <div className="mt-10 max-w-4xl mx-auto">
+                  <div className="bg-white p-6 rounded-xl shadow-md">
+                    <div className="relative aspect-video overflow-hidden rounded-lg">
+                      <iframe
+                        src={locationIframes[activeTab].src}
+                        title={`${activeTab} Map`}
+                        className="w-full h-full border-0 rounded-lg"
+                        allow="accelerometer; gyroscope; fullscreen; clipboard-write; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </AnimateOnScroll>
+            </section>
+          )}
+
+          {/* 360° Tour - Always visible on "all" (not part of location tabs) */}
           {activeTab === "all" && view360Url && (
             <section className="mb-16">
               <SectionTitle
@@ -106,9 +169,7 @@ const GalleryPage = () => {
                   <div className="bg-white p-6 rounded-xl shadow-md">
                     <div className="relative aspect-video overflow-hidden rounded-lg">
                       <iframe
-                        src={
-                          view360Url || "https://vsourceadmissions.com/360View"
-                        }
+                        src={view360Url || "src/360/index.html"}
                         title="Hyderabad Office Virtual Tour"
                         className="w-full h-full border-0 rounded-lg"
                         allow="accelerometer; gyroscope; fullscreen"
@@ -126,24 +187,26 @@ const GalleryPage = () => {
             <Successstories />
           )}
 
-          {/* Regular Gallery Grid */}
-          {activeTab !== "students" && journeyImages.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {journeyImages.map((item, index) => (
-                <AnimateOnScroll key={item.id || index} delay={index * 100}>
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md group relative">
-                    <div className="relative h-64 overflow-hidden">
-                      <img
-                        src={item.url}
-                        alt={item.name || "Gallery Photo"}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
+          {/* Regular Gallery Grid — hide when a location tab is active */}
+          {!locationTabs.includes(activeTab) &&
+            activeTab !== "students" &&
+            journeyImages.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {journeyImages.map((item, index) => (
+                  <AnimateOnScroll key={item.id || index} delay={index * 100}>
+                    <div className="bg-white rounded-lg overflow-hidden shadow-md group relative">
+                      <div className="relative h-64 overflow-hidden">
+                        <img
+                          src={item.url}
+                          alt={item.name || "Gallery Photo"}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </AnimateOnScroll>
-              ))}
-            </div>
-          )}
+                  </AnimateOnScroll>
+                ))}
+              </div>
+            )}
         </div>
       </section>
     </>
