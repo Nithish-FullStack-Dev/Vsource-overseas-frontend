@@ -36,12 +36,14 @@ const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 const JoinUsPage = lazy(() => import("./pages/JoinUsPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
 const UniversityHomePage = lazy(
   () => import("./pages/university-pages/UniversityHomePage")
 );
 const UniversityDetails = lazy(
   () => import("./pages/university-pages/UniversityDetails")
 );
+const MaintenancePage = lazy(() => import("./pages/MaintenancePage"));
 
 const App = () => {
   const faqRef = useRef<HTMLDivElement>(null);
@@ -74,7 +76,9 @@ const App = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isGoVirtualPage = location.pathname === "/meeting";
+  // Hide Navbar/Footer/ContactBar on these pages
+  const hideLayoutPages = ["/meeting", "/maintenance"];
+  const shouldHideLayout = hideLayoutPages.includes(location.pathname);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -85,7 +89,7 @@ const App = () => {
           <ScrollToTop />
 
           <div className="flex flex-col min-h-screen">
-            {!isGoVirtualPage && <Navbar />}
+            {!shouldHideLayout && <Navbar />}
             <main className="flex-grow">
               <Suspense fallback={<HeroSkeleton />}>
                 <Routes>
@@ -112,13 +116,16 @@ const App = () => {
                   <Route path="/join-us" element={<JoinUsPage />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/meeting" element={<GoVirtual />} />
+                  <Route path="/maintenance" element={<MaintenancePage />} />
+
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </main>
 
-            {!isGoVirtualPage && <ContactBar />}
-            {!isGoVirtualPage && <Footer />}
+            {!shouldHideLayout && <Navbar />}
+            {!shouldHideLayout && <ContactBar />}
+            {!shouldHideLayout && <Footer />}
           </div>
 
           {/* ------------------ MOUNT CHAT BOT SERVICE HERE (once at root) ------------------ */}
@@ -126,15 +133,17 @@ const App = () => {
           <ChatBot token="YOUR_GALLABOX_TOKEN_HERE" openOnLoad={false} />
 
           {/* Floating buttons */}
-          <ScrollToTopButton
-            showFormIcon={showFormIcon}
-            onFormIconClick={() => {
-              setShowForm(true);
-              setShowFormIcon(false);
-            }}
-          />
+          {!shouldHideLayout && (
+            <ScrollToTopButton
+              showFormIcon={showFormIcon}
+              onFormIconClick={() => {
+                setShowForm(true);
+                setShowFormIcon(false);
+              }}
+            />
+          )}
 
-          {showForm && (
+          {!shouldHideLayout && showForm && (
             <DelayedPopup
               onMinimize={() => {
                 setShowForm(false);

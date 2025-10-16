@@ -46,7 +46,7 @@ const Hero = () => {
   const handleMinimize = () => {
     setShowPopup(false);
   };
-    const handleGoVirtual = () => {
+  const handleGoVirtual = () => {
     setOpenCalendly(true);
   };
 
@@ -144,7 +144,7 @@ const Hero = () => {
                 Explore Universities
               </Link>
               <a
-               onClick={handleGoVirtual}
+                onClick={handleGoVirtual}
                 className="bg-white border border-white text-black px-6 py-3 rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center space-x-2 cursor-pointer"
               >
                 <svg
@@ -287,13 +287,13 @@ const Hero = () => {
       `}</style>
 
       {showPopup && <DelayedPopup onMinimize={handleMinimize} />}
-        <PopupModal
-              url="https://calendly.com/sriram9491/30min"
-              open={openCalendly}
-              onModalClose={() => setOpenCalendly(false)}
-              rootElement={document.getElementById("root")}
-              pageSettings={{ hideEventTypeDetails: false }}
-            />
+      <PopupModal
+        url="https://calendly.com/server-vsourceoverseas/30min"
+        open={openCalendly}
+        onModalClose={() => setOpenCalendly(false)}
+        rootElement={document.getElementById("root")}
+        pageSettings={{ hideEventTypeDetails: false }}
+      />
     </section>
   );
 };

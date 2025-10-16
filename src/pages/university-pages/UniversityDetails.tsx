@@ -29,6 +29,7 @@ import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import RichText from "@/utils/RichText";
 import UniversityDetailsSkeleton from "@/Loaders/LandingPages/UniversityDetailsSkeleton";
 import UniversityNotFound from "@/Loaders/LandingPages/UniversityNotFound";
+import DelayedPopup from "@/components/DelayedPopup";
 
 // Update your TABS array
 export const TABS: Tab[] = [
@@ -100,7 +101,11 @@ const UniversityDetails: React.FC = () => {
 
     return () => observer.disconnect();
   }, [sectionRefs]);
+  const [showPopup, setShowPopup] = useState(false);
 
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
   if (isError) {
     toast.error("failed to load explore universities");
     console.error("failed to load explore universities", error);
@@ -191,15 +196,15 @@ const UniversityDetails: React.FC = () => {
               <p className="text-base md:text-lg text-black">
                 {university?.campus} • {university?.country}
               </p>
-              <a
-                href={university?.website}
-                target="_blank"
+              <button
+                onClick={() => setShowPopup(true)}
                 rel="noopener noreferrer"
                 className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:bg-red-600 w-full  text-center"
               >
                 Apply with VSource
-              </a>
+              </button>
             </div>
+            {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
           </div>
 
           {/* Right Section (Banner Image) */}

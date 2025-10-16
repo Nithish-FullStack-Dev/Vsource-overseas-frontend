@@ -17,28 +17,40 @@ const Footer = () => {
               loans.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="https://www.facebook.com/share/Up9qaiBuTj25dG5z/?mibextid=qi2Omg">
+              <a
+                href="https://www.facebook.com/share/Up9qaiBuTj25dG5z/?mibextid=qi2Omg"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/icons/fb.png"
                   alt="Facebook"
                   className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
                 />
               </a>
-              <a href="https://www.instagram.com/vsource_overseas/?igsh=M2dmemcwaHU5eHJy">
+              <a
+                href="https://www.instagram.com/vsource_overseas/?igsh=M2dmemcwaHU5eHJy"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/icons/insta.png"
                   alt="Instagram"
                   className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
                 />
               </a>
-              <a href="https://www.youtube.com/channel/UCNVjrnqI9L873rkB-5_p4kA">
+              <a
+                href="https://www.youtube.com/channel/UCNVjrnqI9L873rkB-5_p4kA"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/icons/yt.png"
                   alt="YouTube"
                   className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
                 />
               </a>
-              <a href="https://in.linkedin.com/company/vsource-educational-consultants">
+              <a
+                href="https://in.linkedin.com/company/vsource-educational-consultants"
+                target="_blank"
+              >
                 <img
                   src="/assets/images/icons/linked in.png"
                   alt="LinkedIn"
