@@ -133,15 +133,17 @@ const App = () => {
           <ChatBot token="YOUR_GALLABOX_TOKEN_HERE" openOnLoad={false} />
 
           {/* Floating buttons */}
-          <ScrollToTopButton
-            showFormIcon={showFormIcon}
-            onFormIconClick={() => {
-              setShowForm(true);
-              setShowFormIcon(false);
-            }}
-          />
+          {!shouldHideLayout && (
+            <ScrollToTopButton
+              showFormIcon={showFormIcon}
+              onFormIconClick={() => {
+                setShowForm(true);
+                setShowFormIcon(false);
+              }}
+            />
+          )}
 
-          {showForm && (
+          {!shouldHideLayout && showForm && (
             <DelayedPopup
               onMinimize={() => {
                 setShowForm(false);
