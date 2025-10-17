@@ -21,6 +21,7 @@ import HeroSkeleton from "./Loaders/LandingPages/HeroSkeleton";
 
 // <<== ADD THIS IMPORT (make sure path is correct for your repo)
 import ChatBot from "@/services/ChatBot"; // if alias doesn't resolve, use "../services/ChatBot" or "./services/ChatBot" per your folder
+import View360 from "./components/View360";
 
 const queryClient = new QueryClient();
 
@@ -77,7 +78,7 @@ const App = () => {
   }, []);
 
   // Hide Navbar/Footer/ContactBar on these pages
-  const hideLayoutPages = ["/meeting", "/maintenance"];
+  const hideLayoutPages = ["/meeting", "/maintenance", "/view-360"];
   const shouldHideLayout = hideLayoutPages.includes(location.pathname);
 
   return (
@@ -117,6 +118,7 @@ const App = () => {
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/meeting" element={<GoVirtual />} />
                   <Route path="/maintenance" element={<MaintenancePage />} />
+                  <Route path="/view-360" element={<View360 />} />
 
                   <Route path="*" element={<NotFound />} />
                 </Routes>
