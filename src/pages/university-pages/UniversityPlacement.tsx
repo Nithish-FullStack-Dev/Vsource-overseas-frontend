@@ -138,7 +138,7 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
             </tr>
           </thead>
           <tbody>
-            {items.jobs.map((job, index) => (
+            {items?.jobs?.map((job, index) => (
               <tr
                 key={job?.id || index}
                 className="hover:bg-gray-50"

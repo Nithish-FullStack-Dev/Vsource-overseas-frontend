@@ -92,7 +92,7 @@ export interface Checklist {
 
 export interface Texts {
   id: number;
-  text: string;
+  lists: string;
 }
 
 export interface Text {

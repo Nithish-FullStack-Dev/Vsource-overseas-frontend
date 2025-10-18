@@ -104,7 +104,7 @@ export default function AdmissionRequirementsUSA({ admissions }: Prop) {
                   >
                     <CheckIcon />
                     <span className="text-sm md:text-base text-neutral-900">
-                      {item?.text || "text not loaded properly"}
+                      {item?.lists || "text not loaded properly"}
                     </span>
                   </li>
                 ))}

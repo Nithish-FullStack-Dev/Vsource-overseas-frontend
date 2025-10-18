@@ -246,7 +246,7 @@ const UniversityDetails: React.FC = () => {
           </li>
           <li>
             <Link
-              to={`/explore-universities?country=${university.country}`}
+              to={`/explore-universities?country=${university?.country}`}
               className="text-gray-900 font-medium cursor-pointer hover:text-red-500"
             >
               {university?.country}
@@ -274,7 +274,7 @@ const UniversityDetails: React.FC = () => {
                   : ""
               }`}
             >
-              {tab.label}
+              {tab?.label}
             </button>
           ))}
         </div>
@@ -412,7 +412,7 @@ const UniversityDetails: React.FC = () => {
 
             {/* Ranking Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {university.rankings.items.map((ranking, idx) => (
+              {university?.rankings?.items?.map((ranking, idx) => (
                 <div
                   key={idx}
                   className="flex items-center gap-4 bg-white shadow-md p-6 rounded-xl hover:shadow-lg transition"
@@ -578,7 +578,7 @@ const UniversityDetails: React.FC = () => {
                 className="flex transition-transform duration-1000 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
-                {Array.from({ length: totalSlides }).map((_, slideIndex) => (
+                {Array.from({ length: totalSlides })?.map((_, slideIndex) => (
                   <div
                     key={slideIndex}
                     className="min-w-full grid grid-cols-1 md:grid-cols-1 grid-rows-4 gap-4 p-4"
@@ -586,12 +586,13 @@ const UniversityDetails: React.FC = () => {
                     {university &&
                       university?.courses &&
                       university?.courses?.famous_courses &&
-                      university.courses.famous_courses
-                        .slice(
+                      university?.courses?.famous_courses
+                        ?.slice(
                           slideIndex * coursesPerPage,
                           (slideIndex + 1) * coursesPerPage
                         )
-                        .map((course, index) => (
+                        ?.map((course, index) => (
+                          // .map((course, index) => (
                           <div
                             key={index}
                             className="bg-white rounded-lg shadow p-4 border border-gray-200 flex flex-col justify-between"
@@ -669,7 +670,7 @@ const UniversityDetails: React.FC = () => {
             <div className="flex items-start gap-2 mb-4">
               <Wallet color="red" className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">
-                Cost to Study {university.name}, {university.country}
+                Cost to Study {university?.name}, {university?.country}
               </h2>
             </div>
             <div className="text-gray-700 space-y-3 sm:space-y-4 text-sm sm:text-base">
@@ -997,7 +998,7 @@ const UniversityDetails: React.FC = () => {
                 className="w-6 h-6  text-red-500 shrink-0"
               />
               <h2 className="text-2xl font-bold">
-                {university.name}, {university.country} Placements
+                {university?.name}, {university?.country} Placements
               </h2>
             </div>
             <UniversityPlacement items={university?.placements || null} />
@@ -1036,7 +1037,7 @@ const UniversityDetails: React.FC = () => {
           <div className="sticky top-[22%] bg-white shadow-md rounded-lg ">
             <div className="bg-blue-600 text-center text-white py-4 px-3">
               <h2 className="text-xl md:text-2xl font-bold">
-                Want to Study in {university.country} ?
+                Want to Study in {university?.country} ?
               </h2>
               <p className="text-sm md:text-base">
                 Fill in your details and we'll call you back

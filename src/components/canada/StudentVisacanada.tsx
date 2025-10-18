@@ -80,7 +80,7 @@ export default function StudentVisacanada({ visa_requirements }: Prop) {
           <ul className="mt-6 space-y-3">
             {visa_requirements &&
               visa_requirements?.details &&
-              visa_requirements?.details.map((item, idx) => (
+              visa_requirements?.details?.map((item, idx) => (
                 <li
                   key={item?.id || idx}
                   className="flex items-start gap-3 rounded-lg border border-gray-200/80 bg-white px-4 py-3 shadow-[0_3px_10px_rgba(16,24,40,0.05)]"
