@@ -19,11 +19,18 @@ import GoVirtual from "./services/GoVirtual";
 import { AuthProvider } from "./components/config/AuthContext";
 import HeroSkeleton from "./Loaders/LandingPages/HeroSkeleton";
 
-// <<== ADD THIS IMPORT (make sure path is correct for your repo)
-import ChatBot from "@/services/ChatBot"; // if alias doesn't resolve, use "../services/ChatBot" or "./services/ChatBot" per your folder
+import ChatBot from "@/services/ChatBot";
 import View360 from "./components/View360";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchInterval: false,
+      retry: false,
+    },
+  },
+});
 
 //Lazy-load
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -142,7 +149,6 @@ const App = () => {
               onFormIconClick={() => {
                 setShowForm(true);
                 setShowFormIcon(false);
-                
               }}
             />
           )}

@@ -169,7 +169,11 @@ export default function CoursesSection() {
           <div className="relative aspect-square">
             <div
               className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url('${bg}')` }}
+              style={{
+                backgroundImage: `url('${
+                  import.meta.env.VITE_CMS_GLOBALURL
+                }${bg}')`,
+              }}
               aria-hidden
             />
             <div

@@ -125,7 +125,9 @@ export default function TestimonialsSection() {
               <div className="flex items-center gap-6">
                 <div className="flex-shrink-0">
                   <img
-                    src={currentTestimonial.image.url}
+                    src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                      currentTestimonial.image.url
+                    }`}
                     alt={currentTestimonial.name}
                     loading="lazy"
                     className="rounded-full w-36 h-36 object-cover shadow-lg"
