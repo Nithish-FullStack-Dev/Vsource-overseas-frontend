@@ -132,15 +132,17 @@ const App = () => {
 
           {/* ------------------ MOUNT CHAT BOT SERVICE HERE (once at root) ------------------ */}
           {/* Replace TOKEN_HERE with your real token */}
-          <ChatBot token="YOUR_GALLABOX_TOKEN_HERE" openOnLoad={false} />
+          <ChatBot token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0Ijoid3d3LnZzb3VyY2VvdmVyc2Vhcy5jb20iLCJpZCI6IjY3NmZlMzQ3Yzk3NTFkMmFhNWNkZTQ5NyIsImFjY0lkIjoiNjZiZjVjNjUzNTIzZmIxNjhjYzBkZTFlIiwiaWF0IjoxNzU4ODAzNjQ0fQ.8q-5u03q7aBSWYp_PcMzZIMZgPxtfc2eH76oWzlx7rU" />
 
           {/* Floating buttons */}
           {!shouldHideLayout && (
             <ScrollToTopButton
               showFormIcon={showFormIcon}
+              chatbotNudge={120}
               onFormIconClick={() => {
                 setShowForm(true);
                 setShowFormIcon(false);
+                
               }}
             />
           )}

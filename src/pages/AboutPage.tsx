@@ -11,30 +11,53 @@ import TeamSkeleton from "@/Loaders/about-us/TeamSkeleton";
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 
 const fetchAboutBanner = async () => {
-  const { data } = await axios.get(
-    `${
-      import.meta.env.VITE_CMS_GLOBALURL
-    }/api/about-us?populate[about][on][about-us.hero][populate][banner][fields][0]=url&populate[about][on][about-us.hero][populate][banner][fields][1]=alternativeText`
-  );
-  return data.data.about[0];
+  const url = `${
+    import.meta.env.VITE_CMS_GLOBALURL
+  }/api/about-us?populate[about][on][about-us.hero][populate][banner][fields][0]=url&populate[about][on][about-us.hero][populate][banner][fields][1]=alternativeText`;
+  const res = await axios.get(url);
+  // debug log entire response (remove in prod)
+  // eslint-disable-next-line no-console
+  console.info("[fetchAboutBanner] res.data:", res?.data);
+
+  const aboutArr = res?.data?.data?.about;
+  if (!aboutArr || !Array.isArray(aboutArr) || aboutArr.length === 0) {
+    throw new Error(
+      `No banner data returned from CMS (fetchAboutBanner). Response keys: ${Object.keys(
+        res?.data || {}
+      )}`
+    );
+  }
+  return aboutArr[0];
 };
 
 const fetchAboutUs = async () => {
-  const { data } = await axios.get(
-    `${
-      import.meta.env.VITE_CMS_GLOBALURL
-    }/api/about-us?populate[about][on][about-us.about][populate][subheadings]=true&populate[about][on][about-us.about][populate][about_cards][populate][image][fields][0]=url&populate[about][on][about-us.about][populate][about_cards][populate][image][fields][1]=alternativeText`
-  );
-  return data.data.about[0];
+  const url = `${
+    import.meta.env.VITE_CMS_GLOBALURL
+  }/api/about-us?populate[about][on][about-us.about][populate][subheadings]=true&populate[about][on][about-us.about][populate][about_cards][populate][image][fields][0]=url&populate[about][on][about-us.about][populate][about_cards][populate][image][fields][1]=alternativeText`;
+  const res = await axios.get(url);
+  // eslint-disable-next-line no-console
+  console.info("[fetchAboutUs] res.data:", res?.data);
+
+  const aboutArr = res?.data?.data?.about;
+  if (!aboutArr || !Array.isArray(aboutArr) || aboutArr.length === 0) {
+    throw new Error("No about-us data returned from CMS (fetchAboutUs)");
+  }
+  return aboutArr[0];
 };
 
 const fetchMembers = async () => {
-  const { data } = await axios.get(
-    `${
-      import.meta.env.VITE_CMS_GLOBALURL
-    }/api/about-us?populate[about][on][about-us.management-team][populate][members][populate][image][fields][0]=url&populate[about][on][about-us.management-team][populate][members][populate][image][fields][1]=alternativeText`
-  );
-  return data.data.about[0];
+  const url = `${
+    import.meta.env.VITE_CMS_GLOBALURL
+  }/api/about-us?populate[about][on][about-us.management-team][populate][members][populate][image][fields][0]=url&populate[about][on][about-us.management-team][populate][members][populate][image][fields][1]=alternativeText`;
+  const res = await axios.get(url);
+  // eslint-disable-next-line no-console
+  console.info("[fetchMembers] res.data:", res?.data);
+
+  const aboutArr = res?.data?.data?.about;
+  if (!aboutArr || !Array.isArray(aboutArr) || aboutArr.length === 0) {
+    throw new Error("No members data returned from CMS (fetchMembers)");
+  }
+  return aboutArr[0];
 };
 
 const AboutPage = () => {
