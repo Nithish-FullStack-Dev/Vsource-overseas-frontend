@@ -98,14 +98,14 @@ export default function AdmissionRequirementsFrance({ admissions }: Prop) {
               {admissions &&
                 admissions?.checklist &&
                 admissions?.checklist?.texts &&
-                admissions?.checklist?.texts.map((item, idx) => (
+                admissions?.checklist?.texts?.map((item, idx) => (
                   <li
                     key={item?.id || idx}
                     className="flex items-start gap-3 rounded-lg border border-gray-200/70 bg-gray-50 px-3.5 py-3"
                   >
                     <CheckIcon />
                     <span className="text-sm md:text-base text-neutral-900">
-                      {item?.text || "text not loaded properly"}
+                      {item?.lists || "text not loaded properly"}
                     </span>
                   </li>
                 ))}
