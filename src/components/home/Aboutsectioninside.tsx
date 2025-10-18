@@ -128,9 +128,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           >
             <img
               src={
-                `${import.meta.env.VITE_CMS_GLOBALURL}${
-                  aboutData?.chairman?.url
-                }` || "https://vsourcevarsity.com/assets/images/founder.webp"
+                aboutData?.chairman?.url
+                  ? `${import.meta.env.VITE_CMS_GLOBALURL}${
+                      aboutData.chairman.url
+                    }`
+                  : "https://vsourcevarsity.com/assets/images/founder.webp"
               }
               alt="Founder"
               data-aos="fade-right"
