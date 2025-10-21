@@ -28,6 +28,7 @@ const GalleryPage = () => {
   } = useQuery<Gallery>({
     queryKey: ["gallery"],
     queryFn: fetchGallery,
+    staleTime: Infinity,
   });
 
   useEffect(() => {
@@ -197,7 +198,9 @@ const GalleryPage = () => {
                     <div className="bg-white rounded-lg overflow-hidden shadow-md group relative">
                       <div className="relative h-64 overflow-hidden">
                         <img
-                          src={item.url}
+                          src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                            item.url
+                          }`}
                           alt={item.name || "Gallery Photo"}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
