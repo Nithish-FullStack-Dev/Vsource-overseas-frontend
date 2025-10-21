@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { University } from "@/lib/Universities";
 
 interface Props {
@@ -56,7 +56,7 @@ const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
       </div>
       <div className="flex border-t border-gray-200">
         <Link
-          to={`/explore-universities/${university.country}/${university?.slug}`}
+          to={`/explore-universities/${university.country}/${university?.slug}/${university?.documentId}`}
           className="flex-1 px-4 py-3 text-center text-sm font-medium text-red-600 "
           data-aos="fade-up-right"
           data-aos-anchor-placement="top-bottom"

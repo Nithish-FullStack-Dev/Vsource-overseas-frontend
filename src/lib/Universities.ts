@@ -1,4 +1,5 @@
 import { Description, Image } from "@/types/LandingPage";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export const COUNTRIES = ["USA", "UK", "Canada", "Ireland", "France"] as const;
@@ -78,7 +79,7 @@ export interface University {
   country: string;
   campus: string;
   website: string;
-
+  documentId?: string;
   overview: Description;
 
   stats: {
@@ -165,14 +166,81 @@ export interface Tab {
   label: string;
 }
 
-export const fetchExploreUniversities = async () => {
+export const fetchExploreUniversities = async (page = 1, country = "All") => {
+  let baseUrl = `${
+    import.meta.env.VITE_CMS_GLOBALURL
+  }/api/uni-directories?populate[logo][fields][0]=url&populate[logo][fields][1]=documentId&populate[logo][fields][2]=name&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=name&pagination[page]=${page}&pagination[pageSize]=4`;
+
+  if (country !== "All") {
+    baseUrl += `&filters[country][$in][0]=${country}`;
+  }
+  const { data } = await axios.get(baseUrl);
+  const pagination = data?.meta?.pagination || {
+    page: 1,
+    pageSize: 12,
+    pageCount: 1,
+    total: 0,
+  };
+
+  return {
+    universities: data.data || [],
+    pagination,
+  };
+};
+
+export const fetchUniversitiesByDocumentId = async (documentId: string) => {
   const { data } = await axios.get(
     `${
       import.meta.env.VITE_CMS_GLOBALURL
-    }/api/uni-directories?populate[logo][fields][0]=url&populate[logo][fields][1]=documentId&populate[logo][fields][2]=name&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=name&populate[overview]=true&populate[stats]=true&populate[rankings][populate][items]=true&populate[intakes][populate][famous_intakes]=true&populate[courses][populate][famous_courses]=true&populate[cost_of_study][populate][expenses_table]=true&populate[scholarship][populate][scholarship_details]=true&populate[admissions][populate][admissions_req][populate][requirement_items]=true&populate[placements][populate][jobs]=true&populate[placements][populate][top_recruiters_imgs][fields][0]=url&populate[placements][populate][top_recruiters_imgs][fields][1]=documentId&populate[placements][populate][top_recruiters_imgs][fields][2]=name&populate[gallerys][fields][0]=url&populate[gallerys][fields][1]=documentId&populate[gallerys][fields][2]=name&populate[faqs][populate][accordion]=true`
+    }/api/uni-directories/${documentId}?populate[logo][fields][0]=url&populate[logo][fields][1]=documentId&populate[logo][fields][2]=name&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=name&populate[overview]=true&populate[stats]=true&populate[rankings][populate][items]=true&populate[intakes][populate][famous_intakes]=true&populate[courses][populate][famous_courses]=true&populate[cost_of_study][populate][expenses_table]=true&populate[scholarship][populate][scholarship_details]=true&populate[admissions][populate][admissions_req][populate][requirement_items]=true&populate[placements][populate][jobs]=true&populate[placements][populate][top_recruiters_imgs][fields][0]=url&populate[placements][populate][top_recruiters_imgs][fields][1]=documentId&populate[placements][populate][top_recruiters_imgs][fields][2]=name&populate[gallerys][fields][0]=url&populate[gallerys][fields][1]=documentId&populate[gallerys][fields][2]=name&populate[faqs][populate][accordion]=true`
   );
-  return data.data || [];
+  return data.data;
 };
+
+export const TABS: Tab[] = [
+  { key: "overview", label: "Overview" },
+  { key: "rankings", label: "Rankings" },
+  { key: "intakes", label: "Intakes" },
+  { key: "courses", label: "Top Courses" },
+  { key: "cost", label: "Cost to Study" },
+  { key: "scholarships", label: "Scholarships" },
+  { key: "admissions", label: "Admissions" },
+  { key: "placements", label: "Placements" },
+  { key: "gallery", label: "Gallery" },
+  { key: "faq", label: "FAQs" },
+];
+
+type ExploreUniversitiesResponse = {
+  universities: University[];
+  pagination: {
+    page: number;
+    total: number;
+    pageCount: number;
+    pageSize: number;
+  };
+};
+
+export function useUniversities(page: number, country: string) {
+  return useQuery<ExploreUniversitiesResponse>({
+    queryKey: ["exploreUni", page, country],
+    queryFn: () => fetchExploreUniversities(page, country),
+    staleTime: Infinity,
+    placeholderData: {
+      universities: [],
+      pagination: { page: 1, pageSize: 12, pageCount: 1, total: 0 },
+    },
+  });
+}
+
+export function useUniversitiesByDocumentId(documentId: string) {
+  return useQuery<University>({
+    queryKey: ["exploreUniByDocumentId", documentId],
+    queryFn: () => fetchUniversitiesByDocumentId(documentId),
+    staleTime: Infinity,
+    enabled: !!documentId,
+    placeholderData: keepPreviousData,
+  });
+}
 
 // export const UNIVERSITIES: University[] = [
 //   {

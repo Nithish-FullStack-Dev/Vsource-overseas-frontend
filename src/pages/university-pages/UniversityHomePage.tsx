@@ -1,11 +1,14 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { COUNTRIES, Country, University } from "@/lib/Universities";
+import React, { useState, useEffect } from "react";
+import {
+  COUNTRIES,
+  Country,
+  University,
+  useUniversities,
+} from "@/lib/Universities";
 import UniversityList from "@/components/UniversityList";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
-import { useUniversities } from "./UniversityDetails";
 import { toast } from "sonner";
-import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import UniversityHomePageSkeleton from "@/Loaders/LandingPages/UniversityHomePageSkeleton";
 import {
   Select,
@@ -14,61 +17,68 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import Pagination from "./Pagination";
 
 const UniversityHomePage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  const page = Number(searchParams.get("page")) || 1;
   const { country } = useParams<{ country?: string }>();
 
   const [selectedCountry, setSelectedCountry] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const { data: UNIVERSITIES, isError, isLoading, error } = useUniversities();
+  // Fetch universities from API with country filter
+  const {
+    data: UNIVERSITIES,
+    isError,
+    isLoading,
+    error,
+  } = useUniversities(page, selectedCountry);
 
   useEffect(() => {
-    if (country) {
-      setSelectedCountry(country);
-    } else {
-      setSelectedCountry("All");
-    }
+    if (country) setSelectedCountry(country);
+    else setSelectedCountry("All");
   }, [country]);
 
   if (isError) {
-    toast.error("Failed to load explore universities");
-    console.error("Failed to load explore universities", error);
+    toast.error("Failed to load universities");
+    console.error(error);
     return null;
   }
 
-  if (isLoading || !UNIVERSITIES) {
+  if (isLoading || !UNIVERSITIES?.universities) {
     return <UniversityHomePageSkeleton />;
   }
 
   const handleCountryChange = (value: string) => {
     setSelectedCountry(value);
-    if (value === "All") {
-      navigate("/explore-universities");
-    } else {
-      navigate(`/explore-universities/${value}`);
-    }
+    setSearchParams({ page: "1" });
+    const path =
+      value === "All"
+        ? "/explore-universities"
+        : `/explore-universities/${value}`;
+    navigate(path, { replace: false });
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  const filteredUniversities = useMemo(() => {
-    if (!UNIVERSITIES) return [];
-    return UNIVERSITIES.filter((uni: University) => {
-      const matchesCountry =
-        selectedCountry === "All" || uni.country === selectedCountry;
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ page: newPage.toString() });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-      const matchesQuery =
-        searchQuery === "" ||
-        uni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        uni.campus.toLowerCase().includes(searchQuery.toLowerCase());
+  const totalPages = UNIVERSITIES?.pagination?.pageCount;
 
-      return matchesCountry && matchesQuery;
-    });
-  }, [selectedCountry, searchQuery, UNIVERSITIES]);
+  const displayedUniversities = searchQuery
+    ? UNIVERSITIES.universities.filter(
+        (uni: University) =>
+          uni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          uni.campus.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : UNIVERSITIES.universities;
 
   return (
     <main>
@@ -79,10 +89,7 @@ const UniversityHomePage: React.FC = () => {
           backgroundImage: `url(/assets/images/universitiess/universityHomeBg.jpg)`,
         }}
       >
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/70"></div>
-
-        {/* Banner Content */}
         <div className="relative z-10 mb-6 container mx-auto max-w-6xl p-4">
           <div
             className="mx-auto max-w-3xl text-white rounded-xl p-6 text-center shadow"
@@ -106,7 +113,6 @@ const UniversityHomePage: React.FC = () => {
 
       {/* Filters */}
       <div className="w-full max-w-[1400px] mx-auto px-4">
-        {/* Country Dropdown */}
         <div className="relative z-10 -mt-16 flex justify-center px-4">
           <div
             className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col space-y-3"
@@ -141,11 +147,10 @@ const UniversityHomePage: React.FC = () => {
 
         {/* Count + Search */}
         <div className="w-full flex flex-col md:flex-row items-center justify-between mb-6 gap-4 mx-auto px-4 mt-3">
-          {/* Count */}
           <div className="text-gray-700 font-medium text-sm sm:text-base md:text-lg">
             Showing{" "}
             <span className="font-semibold text-red-600">
-              {filteredUniversities.length}
+              {displayedUniversities.length}
             </span>{" "}
             universities
             {selectedCountry !== "All" && (
@@ -158,7 +163,6 @@ const UniversityHomePage: React.FC = () => {
             )}
           </div>
 
-          {/* Search */}
           <div className="w-full md:w-80 flex items-center bg-white border border-gray-300 rounded-md shadow-sm hover:shadow-md transition-all duration-300">
             <input
               type="search"
@@ -174,8 +178,14 @@ const UniversityHomePage: React.FC = () => {
         </div>
 
         {/* University List */}
-        <UniversityList universities={filteredUniversities} />
+        <UniversityList universities={displayedUniversities} />
 
+        <div className="h-8" />
+        <Pagination
+          currentPage={page}
+          onPageChange={handlePageChange}
+          totalPages={totalPages}
+        />
         <div className="h-8" />
       </div>
     </main>

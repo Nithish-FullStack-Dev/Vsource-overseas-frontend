@@ -117,7 +117,7 @@ const App = () => {
                     element={<UniversityHomePage />}
                   />
                   <Route
-                    path="/explore-universities/:country/:slug"
+                    path="/explore-universities/:country/:slug/:documentId"
                     element={<UniversityDetails />}
                   />
                   <Route path="/gallery" element={<GalleryPage />} />
@@ -139,7 +139,10 @@ const App = () => {
 
           {/* ------------------ MOUNT CHAT BOT SERVICE HERE (once at root) ------------------ */}
           {/* Replace TOKEN_HERE with your real token */}
-          <ChatBot token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0Ijoid3d3LnZzb3VyY2VvdmVyc2Vhcy5jb20iLCJpZCI6IjY3NmZlMzQ3Yzk3NTFkMmFhNWNkZTQ5NyIsImFjY0lkIjoiNjZiZjVjNjUzNTIzZmIxNjhjYzBkZTFlIiwiaWF0IjoxNzU4ODAzNjQ0fQ.8q-5u03q7aBSWYp_PcMzZIMZgPxtfc2eH76oWzlx7rU" />
+          <ChatBot
+            token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0Ijoid3d3LnZzb3VyY2VvdmVyc2Vhcy5jb20iLCJpZCI6IjY3NmZlMzQ3Yzk3NTFkMmFhNWNkZTQ5NyIsImFjY0lkIjoiNjZiZjVjNjUzNTIzZmIxNjhjYzBkZTFlIiwiaWF0IjoxNzU4ODAzNjQ0fQ.8q-5u03q7aBSWYp_PcMzZIMZgPxtfc2eH76oWzlx7rU"
+            mobileNudge={48}
+          />
 
           {/* Floating buttons */}
           {!shouldHideLayout && (

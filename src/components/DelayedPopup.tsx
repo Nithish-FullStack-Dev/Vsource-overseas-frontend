@@ -22,6 +22,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
   const options = ["Masters in abroad", "Education Loan Guidance"];
 
   // Animate form entrance
+  // Animate form entrance
   useEffect(() => {
     controls.start({
       opacity: 1,
@@ -31,6 +32,18 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
       transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
     });
   }, [controls]);
+
+  // ✅ Close when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        animateToIconAndClose();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Compute animation target (form -> icon)
   const animateToIconAndClose = async () => {
@@ -124,9 +137,23 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     setSelectedOption(option);
     setShowDropdown(false);
   };
+  // Close when clicking outside the popup card
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        // Trigger the same minimize animation as the ✕ button
+        animateToIconAndClose();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-[60]">
       {/* Backdrop (fades out at the very end) */}
       {backdropVisible && (
         <motion.div
