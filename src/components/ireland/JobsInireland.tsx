@@ -352,37 +352,42 @@ export default function CareersInIrelandFlow({ students_expriences }: Prop) {
 
           {/* Desktop / Tablet normal layout */}
           <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
-            {(
-              students_expriences?.images || [
-                {
-                  id: 64,
-                  documentId: "ls976fjvugzcpd2jnzlkae74",
-                  url: "/assets/images/students/11.jpeg",
-                  alternativeText: null,
-                },
-                {
-                  id: 63,
-                  documentId: "yju20gzrb4aks312kz3qh9gk",
-                  url: "/assets/images/students/9.jpeg",
-                  alternativeText: null,
-                },
-                {
-                  id: 60,
-                  documentId: "v5jresfp33atq0pk2q1jf24e",
-                  url: "/assets/images/students/31.jpeg",
-                  alternativeText: null,
-                },
-                {
-                  id: 59,
-                  documentId: "s5kp1ej4udb9ydb7kydomr59",
-                  url: "/assets/images/students/IMG-20240611-WA0030.jpg",
-                  alternativeText: null,
-                },
-              ]
+            {(students_expriences?.images?.length
+              ? students_expriences?.images
+              : [
+                  {
+                    id: 64,
+                    documentId: "ls976fjvugzcpd2jnzlkae74",
+                    url: "/assets/images/students/11.jpeg",
+                    alternativeText: null,
+                  },
+                  {
+                    id: 63,
+                    documentId: "yju20gzrb4aks312kz3qh9gk",
+                    url: "/assets/images/students/9.jpeg",
+                    alternativeText: null,
+                  },
+                  {
+                    id: 60,
+                    documentId: "v5jresfp33atq0pk2q1jf24e",
+                    url: "/assets/images/students/31.jpeg",
+                    alternativeText: null,
+                  },
+                  {
+                    id: 59,
+                    documentId: "s5kp1ej4udb9ydb7kydomr59",
+                    url: "/assets/images/students/IMG-20240611-WA0030.jpg",
+                    alternativeText: null,
+                  },
+                ]
             ).map((src, idx) => (
               <img
                 key={src?.id || idx}
-                src={src?.url}
+                src={
+                  students_expriences?.images?.length
+                    ? `${import.meta.env.VITE_CMS_GLOBALURL}${src?.url}`
+                    : src?.url
+                }
                 alt="Alumni"
                 className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
               />
@@ -391,37 +396,42 @@ export default function CareersInIrelandFlow({ students_expriences }: Prop) {
 
           {/* Mobile circle layout */}
           <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
-            {(
-              students_expriences?.images || [
-                {
-                  id: 64,
-                  documentId: "ls976fjvugzcpd2jnzlkae74",
-                  url: "/assets/images/students/11.jpeg",
-                  alternativeText: null,
-                },
-                {
-                  id: 63,
-                  documentId: "yju20gzrb4aks312kz3qh9gk",
-                  url: "/assets/images/students/9.jpeg",
-                  alternativeText: null,
-                },
-                {
-                  id: 60,
-                  documentId: "v5jresfp33atq0pk2q1jf24e",
-                  url: "/assets/images/students/31.jpeg",
-                  alternativeText: null,
-                },
-                {
-                  id: 59,
-                  documentId: "s5kp1ej4udb9ydb7kydomr59",
-                  url: "/assets/images/students/IMG-20240611-WA0030.jpg",
-                  alternativeText: null,
-                },
-              ]
+            {(students_expriences?.images?.length
+              ? students_expriences?.images
+              : [
+                  {
+                    id: 64,
+                    documentId: "ls976fjvugzcpd2jnzlkae74",
+                    url: "/assets/images/students/11.jpeg",
+                    alternativeText: null,
+                  },
+                  {
+                    id: 63,
+                    documentId: "yju20gzrb4aks312kz3qh9gk",
+                    url: "/assets/images/students/9.jpeg",
+                    alternativeText: null,
+                  },
+                  {
+                    id: 60,
+                    documentId: "v5jresfp33atq0pk2q1jf24e",
+                    url: "/assets/images/students/31.jpeg",
+                    alternativeText: null,
+                  },
+                  {
+                    id: 59,
+                    documentId: "s5kp1ej4udb9ydb7kydomr59",
+                    url: "/assets/images/students/IMG-20240611-WA0030.jpg",
+                    alternativeText: null,
+                  },
+                ]
             ).map((src, idx) => (
               <img
                 key={src?.id || idx}
-                src={src?.url}
+                src={
+                  students_expriences?.images?.length
+                    ? `${import.meta.env.VITE_CMS_GLOBALURL}${src?.url}`
+                    : src?.url
+                }
                 alt="Alumni"
                 className={`circle-img circle-${idx + 1}`}
               />
