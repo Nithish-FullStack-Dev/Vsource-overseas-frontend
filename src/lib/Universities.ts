@@ -169,7 +169,7 @@ export interface Tab {
 export const fetchExploreUniversities = async (page = 1, country = "All") => {
   let baseUrl = `${
     import.meta.env.VITE_CMS_GLOBALURL
-  }/api/uni-directories?populate[logo][fields][0]=url&populate[logo][fields][1]=documentId&populate[logo][fields][2]=name&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=name&pagination[page]=${page}&pagination[pageSize]=4`;
+  }/api/uni-directories?populate[logo][fields][0]=url&populate[logo][fields][1]=documentId&populate[logo][fields][2]=name&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=name&pagination[page]=${page}&pagination[pageSize]=12`;
 
   if (country !== "All") {
     baseUrl += `&filters[country][$in][0]=${country}`;

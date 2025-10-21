@@ -73,12 +73,12 @@ const UniversityHomePage: React.FC = () => {
   const totalPages = UNIVERSITIES?.pagination?.pageCount;
 
   const displayedUniversities = searchQuery
-    ? UNIVERSITIES.universities.filter(
+    ? UNIVERSITIES?.universities?.filter(
         (uni: University) =>
-          uni.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          uni.campus.toLowerCase().includes(searchQuery.toLowerCase())
+          uni?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase()) ||
+          uni?.campus?.toLowerCase()?.includes(searchQuery?.toLowerCase())
       )
-    : UNIVERSITIES.universities;
+    : UNIVERSITIES?.universities;
 
   return (
     <main>

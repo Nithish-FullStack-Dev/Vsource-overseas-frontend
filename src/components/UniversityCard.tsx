@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { University } from "@/lib/Universities";
 
 interface Props {
   university: University;
   delay?: number;
+  onClick: (showPopup: boolean) => void;
 }
 
-const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
+const UniversityCard: React.FC<Props> = ({
+  university,
+  delay = 0,
+  onClick,
+}) => {
   return (
     <div
       className="bg-white border border-gray-300 rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
@@ -64,15 +69,15 @@ const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
         >
           Know More
         </Link>
-        <Link
-          to="/"
+        <button
           className="flex-1 px-4 py-3 text-center text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200"
           data-aos="fade-up-right"
           data-aos-anchor-placement="top-bottom"
           data-aos-delay={delay + 650}
+          onClick={() => onClick(true)}
         >
           Apply Now
-        </Link>
+        </button>
       </div>
     </div>
   );
