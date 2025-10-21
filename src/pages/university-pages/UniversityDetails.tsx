@@ -49,7 +49,7 @@ export function useUniversities() {
   return useQuery<University[]>({
     queryKey: ["exploreUni"],
     queryFn: fetchExploreUniversities,
-    staleTime: 5 * 60 * 1000,
+    staleTime: Infinity,
     placeholderData: [],
   });
 }
@@ -177,7 +177,9 @@ const UniversityDetails: React.FC = () => {
           <div className="w-full md:basis-[40%]  flex flex-col bg-white p-[10px]  shadow">
             <div className="w-full h-full p-3">
               <img
-                src={university?.logo?.url}
+                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                  university?.logo?.url
+                }`}
                 alt={university?.logo?.alternativeText}
                 className="w-full h-full object-contain mb-4"
               />
@@ -220,7 +222,9 @@ const UniversityDetails: React.FC = () => {
             data-aos-delay="400"
           >
             <img
-              src={university?.banner?.url}
+              src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                university?.banner?.url
+              }`}
               alt={`${university?.name} banner`}
               className="w-full h-full object-cover"
             />

@@ -87,7 +87,7 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
                 >
                   <div className="bg-white shadow-md rounded-xl p-6 flex justify-center items-center h-40 w-full">
                     <img
-                      src={src?.url}
+                      src={`${import.meta.env.VITE_CMS_GLOBALURL}${src?.url}`}
                       alt={`Recruiter ${index}`}
                       className="max-h-16 object-contain"
                     />
