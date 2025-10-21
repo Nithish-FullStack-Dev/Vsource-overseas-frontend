@@ -68,7 +68,9 @@ const OurServices: React.FC = () => {
             data-aos="fade-up"
             data-aos-delay={index * 100}
             style={{
-              backgroundImage: `url(${service?.image?.url})`,
+              backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
+                service?.image?.url
+              })`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition:

@@ -35,6 +35,7 @@ const StudyUKPage = () => {
   } = useQuery<StudyIn>({
     queryKey: ["studyInUk"],
     queryFn: fetchStudyInUk,
+    staleTime: Infinity,
   });
 
   useEffect(() => {
@@ -50,7 +51,6 @@ const StudyUKPage = () => {
   if (isLoading || !studyInUk) {
     return <BannerSkeleton />;
   }
-
   return (
     <>
       <HeroBanner banner={studyInUk.banner || null} title={studyInUk.title} />

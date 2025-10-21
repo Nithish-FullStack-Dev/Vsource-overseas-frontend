@@ -25,6 +25,7 @@ const AboutSection: React.FC = () => {
   } = useQuery<AboutUs>({
     queryKey: ["about-us"],
     queryFn: fetchAboutus,
+    staleTime: Infinity,
   });
 
   useEffect(() => {
@@ -103,7 +104,9 @@ const AboutSection: React.FC = () => {
                   key={list.id}
                 >
                   <img
-                    src={list?.Image_or_gif?.url}
+                    src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                      list?.Image_or_gif?.url
+                    }`}
                     alt="check"
                     className="w-6 h-6"
                   />
@@ -128,7 +131,9 @@ const AboutSection: React.FC = () => {
                 >
                   <div className="left-box">
                     <img
-                      src={stat?.image_or_gif?.url}
+                      src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                        stat?.image_or_gif?.url
+                      }`}
                       alt=""
                       className="icon"
                     />
@@ -150,8 +155,9 @@ const AboutSection: React.FC = () => {
           >
             <img
               src={
-                aboutData?.chairmanImage?.url ||
-                "https://vsourcevarsity.com/assets/images/founder.webp"
+                `${import.meta.env.VITE_CMS_GLOBALURL}${
+                  aboutData?.chairmanImage?.url
+                }` || "https://vsourcevarsity.com/assets/images/founder.webp"
               }
               alt="Founder"
               className="founder-img"
@@ -173,7 +179,13 @@ const AboutSection: React.FC = () => {
                 data-aos-anchor-placement="center-bottom"
               >
                 <div className="left-box">
-                  <img src={stat?.image_or_gif?.url} alt="" className="icon" />
+                  <img
+                    src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                      stat?.image_or_gif?.url
+                    }`}
+                    alt=""
+                    className="icon"
+                  />
                   <div className="count text-[#1e73be]">
                     {Number(stat?.count).toLocaleString("en-US")}+
                   </div>

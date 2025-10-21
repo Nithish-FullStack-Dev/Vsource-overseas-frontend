@@ -91,7 +91,11 @@ const ServicesSection = () => {
                 key={service.title}
                 onClick={() => window.open(service?.external_url, "_blank")}
                 className="relative rounded-xl shadow-lg bg-cover bg-center bg-no-repeat cursor-pointer transform transition-transform duration-300 hover:scale-105 min-h-[320px]"
-                style={{ backgroundImage: `url(${service?.image?.url})` }}
+                style={{
+                  backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
+                    service?.image?.url
+                  })`,
+                }}
                 data-aos="fade-up"
                 data-aos-delay={index * 200} // stagger cards
                 data-aos-duration="800"
