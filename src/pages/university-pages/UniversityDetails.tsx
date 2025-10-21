@@ -174,7 +174,7 @@ const UniversityDetails: React.FC = () => {
       {/* Hero Section */}
       <div className="curved-before overflow-hidden relative w-full text-white before:content-[''] before:absolute before:top-0 before:left-0 before:bg-[#2563eb] before:right-0 before:0 before:w-full before:h-[80%]">
         <div className="absolute bottom-0 left-0 right-0 flex flex-col-reverse md:flex-row w-full max-w-[1400px] mx-auto px-4 rounded-mds">
-          <div className="w-full md:basis-[40%] flex flex-col bg-white p-[10px]  shadow">
+          <div className="w-full md:basis-[40%]  flex flex-col bg-white p-[10px]  shadow">
             <div className="w-full h-full p-3">
               <img
                 src={university?.logo?.url}
@@ -204,9 +204,14 @@ const UniversityDetails: React.FC = () => {
                 Apply with VSource
               </button>
             </div>
-            {showPopup && <DelayedPopup onMinimize={handlePopupClose} />}
+            {showPopup && (
+              <DelayedPopup
+                onMinimize={() => {
+                  setShowPopup(false);
+                }}
+              />
+            )}
           </div>
-
           {/* Right Section (Banner Image) */}
           <div
             className="w-full md:basis-[60%] h-[200px] md:h-auto  overflow-hidden"
