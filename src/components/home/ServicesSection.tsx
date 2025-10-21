@@ -103,7 +103,9 @@ const ServicesSection = () => {
                 <div className="absolute inset-0 bg-black/60 rounded-xl flex flex-col justify-between p-5">
                   <div>
                     <img
-                      src={service?.logo?.url}
+                      src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                        service?.logo?.url
+                      }`}
                       alt="Logo"
                       className="w-20 h-20 sm:w-24 sm:h-24 mb-3"
                       onClick={(e) => e.stopPropagation()}
