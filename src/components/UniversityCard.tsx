@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { University } from "@/lib/Universities";
 
 interface Props {
@@ -17,7 +17,7 @@ const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
     >
       <div className="w-[90%] mx-auto p-6 flex justify-center items-center h-40 border-b border-gray-300">
         <img
-          src={university?.logo?.url}
+          src={`${import.meta.env.VITE_CMS_GLOBALURL}${university?.logo?.url}`}
           alt={`${university.name} logo`}
           className="max-w-full max-h-full object-contain"
           data-aos="zoom-out-down"
@@ -56,7 +56,7 @@ const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
       </div>
       <div className="flex border-t border-gray-200">
         <Link
-          to={`/explore-universities/${university.country}/${university?.slug}`}
+          to={`/explore-universities/${university.country}/${university?.slug}/${university?.documentId}`}
           className="flex-1 px-4 py-3 text-center text-sm font-medium text-red-600 "
           data-aos="fade-up-right"
           data-aos-anchor-placement="top-bottom"

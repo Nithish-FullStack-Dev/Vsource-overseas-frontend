@@ -144,8 +144,8 @@ const ChatBot: React.FC<ChatBotProps> = ({
               nodes.find((n) => {
                 const rect = n.getBoundingClientRect();
                 return (
-                  rect.width > 4 &&
-                  rect.height > 4 &&
+                  rect.width > 3 &&
+                  rect.height > 3 &&
                   window.getComputedStyle(n).visibility !== "hidden"
                 );
               }) || nodes[0];

@@ -19,7 +19,7 @@ const UniversityGallery: React.FC<UniversityGalleryProps> = ({ items }) => {
           `}
         >
           <img
-            src={image?.url}
+            src={`${import.meta.env.VITE_CMS_GLOBALURL}${image?.url}`}
             alt={`Gallery image ${index + 1}`}
             className="w-full h-full object-cover"
           />

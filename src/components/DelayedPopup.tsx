@@ -153,7 +153,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-[60]">
       {/* Backdrop (fades out at the very end) */}
       {backdropVisible && (
         <motion.div

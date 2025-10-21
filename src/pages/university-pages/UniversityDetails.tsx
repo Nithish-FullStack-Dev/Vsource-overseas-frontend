@@ -1,6 +1,13 @@
 // import React, { useRef } from "react";
-import { useParams, Link } from "react-router-dom";
-import { fetchExploreUniversities, Tab, University } from "@/lib/Universities";
+import { useParams, Link, useSearchParams } from "react-router-dom";
+import {
+  fetchExploreUniversities,
+  Tab,
+  TABS,
+  University,
+  useUniversities,
+  useUniversitiesByDocumentId,
+} from "@/lib/Universities";
 import React, { useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
@@ -31,32 +38,17 @@ import UniversityDetailsSkeleton from "@/Loaders/LandingPages/UniversityDetailsS
 import UniversityNotFound from "@/Loaders/LandingPages/UniversityNotFound";
 import DelayedPopup from "@/components/DelayedPopup";
 
-// Update your TABS array
-export const TABS: Tab[] = [
-  { key: "overview", label: "Overview" },
-  { key: "rankings", label: "Rankings" },
-  { key: "intakes", label: "Intakes" },
-  { key: "courses", label: "Top Courses" },
-  { key: "cost", label: "Cost to Study" },
-  { key: "scholarships", label: "Scholarships" },
-  { key: "admissions", label: "Admissions" },
-  { key: "placements", label: "Placements" },
-  { key: "gallery", label: "Gallery" },
-  { key: "faq", label: "FAQs" },
-];
-
-export function useUniversities() {
-  return useQuery<University[]>({
-    queryKey: ["exploreUni"],
-    queryFn: fetchExploreUniversities,
-    staleTime: 5 * 60 * 1000,
-    placeholderData: [],
-  });
-}
-
 const UniversityDetails: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { data: UNIVERSITIES, isError, isLoading, error } = useUniversities();
+  const { documentId } = useParams<{
+    documentId: string;
+  }>();
+
+  const {
+    data: university,
+    isError,
+    isLoading,
+    error,
+  } = useUniversitiesByDocumentId(documentId);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTab, setActiveTab] = useState<string>("overview");
@@ -112,11 +104,11 @@ const UniversityDetails: React.FC = () => {
     return null;
   }
 
-  if (isLoading || !UNIVERSITIES) {
+  if (isLoading || !university) {
     return <UniversityDetailsSkeleton />;
   }
 
-  const university = UNIVERSITIES.find((u: University) => u.slug === slug);
+  // const university = UNIVERSITIES.find((u: University) => u.slug === slug);
 
   if (!university) {
     return <UniversityNotFound />;
@@ -177,7 +169,9 @@ const UniversityDetails: React.FC = () => {
           <div className="w-full md:basis-[40%]  flex flex-col bg-white p-[10px]  shadow">
             <div className="w-full h-full p-3">
               <img
-                src={university?.logo?.url}
+                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                  university?.logo?.url
+                }`}
                 alt={university?.logo?.alternativeText}
                 className="w-full h-full object-contain mb-4"
               />
@@ -220,7 +214,9 @@ const UniversityDetails: React.FC = () => {
             data-aos-delay="400"
           >
             <img
-              src={university?.banner?.url}
+              src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                university?.banner?.url
+              }`}
               alt={`${university?.name} banner`}
               className="w-full h-full object-cover"
             />
@@ -621,7 +617,10 @@ const UniversityDetails: React.FC = () => {
                                 </div>
                                 <div className="text-xs">Duration</div>
                               </div>
-                              <button className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded-md text-sm font-medium">
+                              <button
+                                className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded-md text-sm font-medium"
+                                onClick={() => setShowPopup(true)}
+                              >
                                 Apply Now
                               </button>
                             </div>
@@ -838,7 +837,10 @@ const UniversityDetails: React.FC = () => {
                               {scholarship?.level || "degree"}
                             </p>
                           </div>
-                          <button className="mt-6 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors">
+                          <button
+                            className="mt-6 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors"
+                            onClick={() => setShowPopup(true)}
+                          >
                             View & Apply
                           </button>
                         </div>
