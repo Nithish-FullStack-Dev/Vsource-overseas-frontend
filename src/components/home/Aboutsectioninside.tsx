@@ -100,9 +100,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                       data-aos-delay={800 + index * 200}
                     >
                       <img
-                        src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                          stat?.image?.url
-                        }`}
+                        src={`${stat?.image?.url}`}
                         alt={stat?.image?.alternativeText || "Icon"}
                         className="icon"
                       />
@@ -129,9 +127,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <img
               src={
                 aboutData?.chairman?.url
-                  ? `${import.meta.env.VITE_CMS_GLOBALURL}${
-                      aboutData.chairman.url
-                    }`
+                  ? `${aboutData.chairman.url}`
                   : "https://vsourcevarsity.com/assets/images/founder.webp"
               }
               alt="Founder"

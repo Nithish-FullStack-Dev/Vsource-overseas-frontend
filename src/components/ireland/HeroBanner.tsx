@@ -21,11 +21,7 @@ export default function HeroBanner({ title, banner }: Props) {
     >
       {/* Responsive image instead of CSS background */}
       <img
-        src={
-          banner?.url
-            ? `${import.meta.env.VITE_CMS_GLOBALURL}${banner?.url}`
-            : "/assets/images/ireland.webp"
-        }
+        src={banner?.url ? `${banner?.url}` : "/assets/images/ireland.webp"}
         alt=""
         aria-hidden="true"
         className="
