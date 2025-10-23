@@ -120,7 +120,7 @@ const AboutPage = () => {
       <section
         className="pt-40 pb-36 bg-cover bg-center bg-no-repeat relative text-white"
         style={{
-          backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
+          backgroundImage: `url(${
             aboutData?.banner?.url || "/assets/images/about-banner.jpg"
           })`,
         }}
@@ -190,9 +190,7 @@ const AboutPage = () => {
                       >
                         <div className="img">
                           <img
-                            src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                              member?.image?.url
-                            }`}
+                            src={`${member?.image?.url}`}
                             alt={member.name}
                             data-aos="flip-left"
                             data-aos-anchor-placement="center-bottom"

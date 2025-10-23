@@ -62,9 +62,7 @@ const VideoSection = () => {
                 className="w-full h-full"
                 src={
                   video?.video?.url
-                    ? `${import.meta.env.VITE_CMS_GLOBALURL}${
-                        video?.video?.url
-                      }`
+                    ? `${video?.video?.url}`
                     : "https://www.youtube.com/embed/IbjoEr-lTuw?autoplay=1"
                 }
                 title="Company Video"
@@ -80,9 +78,7 @@ const VideoSection = () => {
                 <img
                   src={
                     video?.thumbnail?.url
-                      ? `${import.meta.env.VITE_CMS_GLOBALURL}${
-                          video?.thumbnail?.url
-                        }`
+                      ? `${video?.thumbnail?.url}`
                       : "https://img.youtube.com/vi/IbjoEr-lTuw/maxresdefault.jpg"
                   }
                   alt="Company Video Thumbnail"

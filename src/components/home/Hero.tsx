@@ -63,9 +63,7 @@ const Hero = () => {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
-              heroData?.Background_image?.url
-            })`,
+            backgroundImage: `url(${heroData?.Background_image?.url})`,
           }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
@@ -78,18 +76,14 @@ const Hero = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
-            heroData?.Mobile_background_image?.url
-          })`,
+          backgroundImage: `url(${heroData?.Mobile_background_image?.url})`,
         }}
       />
 
       {/* Right-side Girl Image (Hidden on Mobile) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
-          src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-            heroData?.girl_image?.url
-          }`}
+          src={`${heroData?.girl_image?.url}`}
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
@@ -131,9 +125,7 @@ const Hero = () => {
               className="flex justify-start pt-6"
             >
               <img
-                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                  heroData?.Badge?.url
-                }`}
+                src={`${heroData?.Badge?.url}`}
                 alt="20 Years Logo"
                 className="w-36 h-auto"
               />
@@ -229,9 +221,7 @@ const Hero = () => {
                 APPLY NOW
               </motion.button>
               <img
-                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                  heroData?.Badge?.url
-                }`}
+                src={`${heroData?.Badge?.url}`}
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 "
               />

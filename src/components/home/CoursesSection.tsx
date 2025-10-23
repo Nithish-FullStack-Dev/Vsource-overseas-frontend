@@ -27,6 +27,7 @@ export default function CoursesSection() {
   } = useQuery<Courses>({
     queryKey: ["courses"],
     queryFn: fetchCourseSection,
+    staleTime: Infinity,
   });
 
   const [processedCourses, setProcessedCourses] = useState<Courses | null>(
@@ -170,9 +171,7 @@ export default function CoursesSection() {
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
-                backgroundImage: `url('${
-                  import.meta.env.VITE_CMS_GLOBALURL
-                }${bg}')`,
+                backgroundImage: `url(${bg})`,
               }}
               aria-hidden
             />
