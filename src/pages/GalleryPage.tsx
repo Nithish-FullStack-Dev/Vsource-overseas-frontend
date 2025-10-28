@@ -36,8 +36,8 @@ const GalleryPage = () => {
   }, []);
 
   if (isError) {
-    toast.error("failed to load gallery");
-    console.error("failed to gallery", error);
+    toast.error("Failed to load gallery");
+    console.error("Gallery error:", error);
     return null;
   }
 
@@ -51,37 +51,13 @@ const GalleryPage = () => {
   const view360 = gallery?.blocks?.find(
     (block) => block?.__component === "gallery.gallery-360"
   );
+
   const journeyImages = journeyBlock?.journey_images || [];
   const view360Url = view360?.view360url;
 
-  // Define location iframe sources here. Dilsukhnagar uses the exact embed you provided.
-  const locationIframes: Record<
-    string,
-    { src: string; title?: string; subtitle?: string }
-  > = {
-    Dilsukhnagar: {
-      src: "https://www.google.com/maps/embed?pb=!4v1760515897382!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ052N21fY2c.!2m2!1d17.3692601595086!2d78.52138567492067!3f15.463848464555387!4f-3.5524557100136036!5f0.7820865974627469",
-      title: "Dilsukhnagar Office",
-      subtitle: "Location — Dilsukhnagar, Hyderabad",
-    },
-    Ameerpet: {
-      // A simple, reliable embed format — replace with a custom pb embed if you have one.
-      src: "https://www.google.com/maps/embed?pb=!4v1760518863069!6m8!1m7!1sCAoSHENJQUJJaERrUzk3bTZYR3JXMHREbjRtS1VOQnM.!2m2!1d17.43119354453962!2d78.44547854458258!3f200!4f0!5f0.7820865974627469",
-      title: "Ameerpet Office",
-      subtitle: "Location — Ameerpet, Hyderabad",
-    },
-    "KPHB- JNTU": {
-      src: "https://www.google.com/maps/embed?pb=!4v1760518780459!6m8!1m7!1sCAoSHENJQUJJaEFwY3RKdW40bmxYYTBFNHFTdDVuMzM.!2m2!1d17.49847161988275!2d78.38723216509213!3f0!4f0!5f0.7820865974627469",
-      title: "KPHB - JNTU Office",
-      subtitle: "Location — KPHB (near JNTU), Hyderabad",
-    },
-  };
-
-  const locationTabs = Object.keys(locationIframes);
-
   return (
     <>
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="pt-36 pb-20 bg-gradient-to-b from-darkblue to-gray-900 text-white">
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -94,20 +70,13 @@ const GalleryPage = () => {
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* Gallery Tabs Section */}
       <section className="py-16 md:py-16">
         <div className="container mx-auto px-4">
           {/* Tabs */}
           <div className="flex justify-center mb-12">
             <div className="inline-flex bg-gray-100 rounded-lg p-1">
-              {[
-                "all",
-                "photos",
-                "students",
-                "Dilsukhnagar",
-                "Ameerpet",
-                "KPHB- JNTU",
-              ].map((tab) => (
+              {["all", "photos", "students"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -125,38 +94,8 @@ const GalleryPage = () => {
             </div>
           </div>
 
-          {/* If the active tab is one of the location tabs, show its iframe */}
-          {locationTabs.includes(activeTab) && (
-            <section className="mb-16">
-              <SectionTitle
-                title={locationIframes[activeTab].title || activeTab}
-                // subtitle={
-                //   locationIframes[activeTab].subtitle ||
-                //   `Virtual location view — ${activeTab}`
-                // }
-              />
-              <AnimateOnScroll>
-                <div className="mt-10 max-w-4xl mx-auto">
-                  <div className="bg-white p-6 rounded-xl shadow-md">
-                    <div className="relative aspect-video overflow-hidden rounded-lg">
-                      <iframe
-                        src={locationIframes[activeTab].src}
-                        title={`${activeTab} Map`}
-                        className="w-full h-full border-0 rounded-lg"
-                        allow="accelerometer; gyroscope; fullscreen; clipboard-write; encrypted-media; picture-in-picture"
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </AnimateOnScroll>
-            </section>
-          )}
-
-          {/* 360° Tour - Always visible on "all" (not part of location tabs) */}
-          {activeTab === "all" && view360Url && (
+          {/* 360° Virtual Tour (visible on "all") */}
+          {/* {activeTab === "all" && view360Url && (
             <section className="mb-16">
               <SectionTitle
                 title={view360?.title || "Virtual Office Tours"}
@@ -171,7 +110,7 @@ const GalleryPage = () => {
                     <div className="relative aspect-video overflow-hidden rounded-lg">
                       <iframe
                         src={view360Url || "src/360/index.html"}
-                        title="Hyderabad Office Virtual Tour"
+                        title="Virtual Tour"
                         className="w-full h-full border-0 rounded-lg"
                         allow="accelerometer; gyroscope; fullscreen"
                         allowFullScreen
@@ -181,16 +120,15 @@ const GalleryPage = () => {
                 </div>
               </AnimateOnScroll>
             </section>
-          )}
+          )} */}
 
           {/* Student Success Section */}
           {(activeTab === "students" || activeTab === "all") && (
             <Successstories />
           )}
 
-          {/* Regular Gallery Grid — hide when a location tab is active */}
-          {!locationTabs.includes(activeTab) &&
-            activeTab !== "students" &&
+          {/* Journey Gallery Grid */}
+          {(activeTab === "photos" || activeTab === "all") &&
             journeyImages.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {journeyImages.map((item, index) => (

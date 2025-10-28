@@ -40,7 +40,7 @@ const Navbar = () => {
     {
       name: "360 View",
       path: "/view-360",
-      external: true,
+      external: false,
     },
     { name: "Gallery", path: "/gallery" },
     { name: "Branches", path: "/contact" },
