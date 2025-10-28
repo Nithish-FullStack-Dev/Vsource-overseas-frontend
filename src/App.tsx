@@ -20,7 +20,6 @@ import { AuthProvider } from "./components/config/AuthContext";
 import HeroSkeleton from "./Loaders/LandingPages/HeroSkeleton";
 
 import ChatBot from "@/services/ChatBot";
-import View360 from "./components/View360";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +42,7 @@ const StudyFrance = lazy(() => import("./pages/StudyFrance"));
 const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 const JoinUsPage = lazy(() => import("./pages/JoinUsPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
+const View360 = lazy(() => import("./components/View360"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const UniversityHomePage = lazy(
@@ -85,7 +85,7 @@ const App = () => {
   }, []);
 
   // Hide Navbar/Footer/ContactBar on these pages
-  const hideLayoutPages = ["/meeting", "/maintenance", "/view-360"];
+  const hideLayoutPages = ["/meeting", "/maintenance"];
   const shouldHideLayout = hideLayoutPages.includes(location.pathname);
 
   return (
