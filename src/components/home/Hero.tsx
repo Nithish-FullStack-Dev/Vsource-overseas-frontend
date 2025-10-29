@@ -260,12 +260,26 @@ const Hero = () => {
                     Explore Universities
                   </Link>
 
-                  <Link
-                    to="/meeting"
-                    className="flex-1 bg-white/80 border border-white text-black px-6 py-3 rounded-md font-semibold text-lg shadow-md hover:bg-white hover:shadow-lg transition-all duration-300 text-center"
+                  <a
+                    onClick={handleGoVirtual}
+                    className="bg-white border border-white text-black px-6 py-3 rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center space-x-2 cursor-pointer"
                   >
-                    Book Free Counseling
-                  </Link>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <span>Book Free Counseling</span>
+                  </a>
                 </div>
               </motion.div>
             </div>
