@@ -27,6 +27,7 @@ const VideoSection = () => {
   } = useQuery<Company>({
     queryKey: ["company"],
     queryFn: fetchCompanyVideo,
+    staleTime: Infinity,
   });
 
   const handlePlay = () => {

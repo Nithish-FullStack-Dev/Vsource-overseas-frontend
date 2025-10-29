@@ -23,6 +23,7 @@ export default function TestimonialsSection() {
   const { data, isLoading, isError, error } = useQuery<Testimonials>({
     queryKey: ["testimonials"],
     queryFn: fetchTestimonialsSection,
+    staleTime: Infinity,
   });
 
   const testimonials = data?.testimonials || [];

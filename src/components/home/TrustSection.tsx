@@ -34,6 +34,7 @@ const OurServices: React.FC = () => {
   } = useQuery<Service>({
     queryKey: ["service"],
     queryFn: fetchService,
+    staleTime: Infinity,
   });
 
   useEffect(() => {
