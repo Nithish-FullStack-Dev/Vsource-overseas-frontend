@@ -125,18 +125,20 @@ export default function TestimonialsSection() {
               <div className="flex items-center gap-6">
                 <div className="flex-shrink-0">
                   <img
-                    src={`${currentTestimonial.image.url}`}
-                    alt={currentTestimonial.name}
+                    src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                      currentTestimonial?.image?.url
+                    }`}
+                    alt={currentTestimonial?.name}
                     loading="lazy"
                     className="rounded-full w-36 h-36 object-cover shadow-lg"
                   />
                 </div>
                 <div className="flex-grow">
                   <p className="text-lg md:text-xl mb-4 italic leading-relaxed">
-                    "{currentTestimonial.feedback}"
+                    "{currentTestimonial?.feedback}"
                   </p>
                   <h3 className="text-xl md:text-2xl font-semibold">
-                    {currentTestimonial.name}
+                    {currentTestimonial?.name}
                   </h3>
                 </div>
               </div>
@@ -163,21 +165,23 @@ export default function TestimonialsSection() {
             ref={sliderRef}
             className="flex overflow-x-hidden scroll-smooth snap-x snap-mandatory px-4"
           >
-            {testimonials.map((testimonial, i) => (
+            {testimonials?.map((testimonial, i) => (
               <div
                 key={i}
                 className="snap-center flex-shrink-0 w-full max-w-xs mx-auto bg-white bg-opacity-70 text-black p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition-all duration-300"
               >
                 <div className="mb-4">
                   <img
-                    src={testimonial.image.url}
-                    alt={testimonial.name}
+                    src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                      testimonial?.image?.url
+                    }`}
+                    alt={testimonial?.name}
                     loading="lazy"
                     className="rounded-full w-24 h-24 object-cover mx-auto shadow-md"
                   />
                 </div>
-                <p className="text-md italic mb-3">"{testimonial.feedback}"</p>
-                <h3 className="text-lg font-semibold">{testimonial.name}</h3>
+                <p className="text-md italic mb-3">"{testimonial?.feedback}"</p>
+                <h3 className="text-lg font-semibold">{testimonial?.name}</h3>
               </div>
             ))}
           </div>

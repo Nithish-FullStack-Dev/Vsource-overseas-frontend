@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { University } from "@/lib/Universities";
 
 interface Props {
   university: University;
   delay?: number;
-  onClick: (showPopup: boolean) => void;
 }
 
-const UniversityCard: React.FC<Props> = ({
-  university,
-  delay = 0,
-  onClick,
-}) => {
+const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
   return (
     <div
       className="bg-white border border-gray-300 rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
@@ -22,7 +17,7 @@ const UniversityCard: React.FC<Props> = ({
     >
       <div className="w-[90%] mx-auto p-6 flex justify-center items-center h-40 border-b border-gray-300">
         <img
-          src={`${university?.logo?.url}`}
+          src={`${import.meta.env.VITE_CMS_GLOBALURL}${university?.logo?.url}`}
           alt={`${university.name} logo`}
           className="max-w-full max-h-full object-contain"
           data-aos="zoom-out-down"
@@ -69,15 +64,15 @@ const UniversityCard: React.FC<Props> = ({
         >
           Know More
         </Link>
-        <button
+        <Link
+          to="/"
           className="flex-1 px-4 py-3 text-center text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200"
           data-aos="fade-up-right"
           data-aos-anchor-placement="top-bottom"
           data-aos-delay={delay + 650}
-          onClick={() => onClick(true)}
         >
-          Apply Now
-        </button>
+          Apply Now.
+        </Link>
       </div>
     </div>
   );
