@@ -43,6 +43,7 @@ const AboutPage = () => {
   } = useQuery<AboutUsBanner>({
     queryKey: ["bannerAbout"],
     queryFn: fetchAboutBanner,
+    staleTime: Infinity,
   });
 
   const {
@@ -53,6 +54,7 @@ const AboutPage = () => {
   } = useQuery<InnerAboutUs>({
     queryKey: ["aboutUs"],
     queryFn: fetchAboutUs,
+    staleTime: Infinity,
   });
 
   const {
@@ -63,6 +65,7 @@ const AboutPage = () => {
   } = useQuery<Members>({
     queryKey: ["members"],
     queryFn: fetchMembers,
+    staleTime: Infinity,
   });
 
   // Scroll to top on page load

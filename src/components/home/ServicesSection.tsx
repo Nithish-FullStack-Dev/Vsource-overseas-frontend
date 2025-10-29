@@ -52,6 +52,7 @@ const ServicesSection = () => {
   } = useQuery<Comprehensive>({
     queryKey: ["comprehensive"],
     queryFn: fetchComprehensive,
+    staleTime: Infinity,
   });
 
   if (isError) {

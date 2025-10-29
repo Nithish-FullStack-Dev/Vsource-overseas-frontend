@@ -27,6 +27,7 @@ export default function CoursesSection() {
   } = useQuery<Courses>({
     queryKey: ["courses"],
     queryFn: fetchCourseSection,
+    staleTime: Infinity,
   });
 
   const [processedCourses, setProcessedCourses] = useState<Courses | null>(
