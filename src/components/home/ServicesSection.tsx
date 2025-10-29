@@ -92,7 +92,9 @@ const ServicesSection = () => {
                 onClick={() => window.open(service?.external_url, "_blank")}
                 className="relative rounded-xl shadow-lg bg-cover bg-center bg-no-repeat cursor-pointer transform transition-transform duration-300 hover:scale-105 min-h-[320px]"
                 style={{
-                  backgroundImage: `url(${service?.image?.url})`,
+                  backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
+                    service?.image?.url
+                  })`,
                 }}
                 data-aos="fade-up"
                 data-aos-delay={index * 200} // stagger cards
@@ -101,7 +103,9 @@ const ServicesSection = () => {
                 <div className="absolute inset-0 bg-black/60 rounded-xl flex flex-col justify-between p-5">
                   <div>
                     <img
-                      src={`${service?.logo?.url}`}
+                      src={`${import.meta.env.VITE_CMS_GLOBALURL}${
+                        service?.logo?.url
+                      }`}
                       alt="Logo"
                       className="w-20 h-20 sm:w-24 sm:h-24 mb-3"
                       onClick={(e) => e.stopPropagation()}

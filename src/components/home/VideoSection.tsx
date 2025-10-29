@@ -27,7 +27,6 @@ const VideoSection = () => {
   } = useQuery<Company>({
     queryKey: ["company"],
     queryFn: fetchCompanyVideo,
-    staleTime: Infinity,
   });
 
   const handlePlay = () => {
@@ -58,11 +57,24 @@ const VideoSection = () => {
         <AnimateOnScroll>
           <div className="mt-10 relative overflow-hidden rounded-xl shadow-2xl max-w-4xl mx-auto aspect-video">
             {isPlaying ? (
+              // <iframe
+              //   className="w-full h-full"
+              //   src={
+              //     `${import.meta.env.VITE_CMS_GLOBALURL}${video?.video?.url}` ||
+              //     "https://www.youtube.com/embed/IbjoEr-lTuw?autoplay=1"
+              //   }
+              //   title="Company Video"
+              //   frameBorder="0"
+              //   allow="autoplay; encrypted-media"
+              //   allowFullScreen
+              // />
               <iframe
                 className="w-full h-full"
                 src={
                   video?.video?.url
-                    ? `${video?.video?.url}`
+                    ? `${import.meta.env.VITE_CMS_GLOBALURL}${
+                        video?.video?.url
+                      }`
                     : "https://www.youtube.com/embed/IbjoEr-lTuw?autoplay=1"
                 }
                 title="Company Video"
@@ -78,7 +90,9 @@ const VideoSection = () => {
                 <img
                   src={
                     video?.thumbnail?.url
-                      ? `${video?.thumbnail?.url}`
+                      ? `${import.meta.env.VITE_CMS_GLOBALURL}${
+                          video?.thumbnail?.url
+                        }`
                       : "https://img.youtube.com/vi/IbjoEr-lTuw/maxresdefault.jpg"
                   }
                   alt="Company Video Thumbnail"
