@@ -15,7 +15,7 @@ export function BoldText({ text }: BoldTextProps) {
     >
       {parts.map((part, i) =>
         part.startsWith("**") && part.endsWith("**") ? (
-          <strong key={i}>{part.slice(2, -2)}</strong>
+          <strong key={i}></strong>
         ) : (
           part
         )
