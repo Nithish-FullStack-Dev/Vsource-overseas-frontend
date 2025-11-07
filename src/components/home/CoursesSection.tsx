@@ -2,62 +2,79 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Courses, StudyCards } from "@/types/LandingPage";
-import CoursesSectionSkeleton from "@/Loaders/LandingPages/CoursesSectionSkeleton";
 
-const fetchCourseSection = async () => {
-  const { data } = await axios.get(
-    `${
-      import.meta.env.VITE_CMS_GLOBALURL
-    }/api/landing-pages?populate[Sections][on][blocks.study-destination][populate][study_cards][populate][image][fields][0]=url&populate[Sections][on][blocks.study-destination][populate][study_cards][populate][image][fields][1]=alternativeText&populate[Sections][on][blocks.study-destination][populate][study_cards][populate][descriptions]=true`
-  );
-  return data.data[0].Sections[0];
+type Course = {
+  country: string;
+  tag: string;
+  description: string[];
+  image: string;
+  url: string;
 };
 
+const courseCategories: Course[] = [
+  {
+    country: "UNITED KINGDOM",
+    tag: "Study in",
+    description: [
+      "Home to Top World-Ranking Universities",
+      "Wide Range of Scholarships & Financial Assistance",
+    ],
+    image: "/assets/images/countries/uk.png",
+    url: "https://vsourcevarsity.com/",
+  },
+  {
+    country: "USA",
+    tag: "Study in",
+    description: [
+      "#1 Destination for Top-Ranked Institutions",
+      "Extensive Scholarships & Financial Support",
+    ],
+    image: "/assets/images/countries/usa.png",
+    url: "https://vsourcevarsity.com/",
+  },
+  {
+    country: "CANADA",
+    tag: "Study in",
+    description: [
+      "World-Class Education with Affordable Tuition",
+      "Work Opportunities & Post-Study Work Permits",
+      "Scholarships and Financial Aid for International Students",
+    ],
+    image: "/assets/images/countries/canada.png",
+    url: "https://vsourcevarsity.com/",
+  },
+  {
+    country: "IRELAND",
+    tag: "Study in",
+    description: [
+      "Globally Recognized Universities & Research Excellence",
+      "Gateway to Europe with Post-Study Work Options",
+      "Scholarships & Financial Support Available",
+    ],
+    image: "/assets/images/countries/ireland.png",
+    url: "https://vsourcevarsity.com/",
+  },
+  {
+    country: "FRANCE",
+    tag: "Study in",
+    description: [
+      "Prestigious Universities",
+      "Affordable Education with Rich Cultural Experience",
+      "Scholarships & Financial Assistance for International Students",
+    ],
+    image: "/assets/images/countries/france.png",
+    url: "https://vsourcevarsity.com/",
+  },
+];
+
 export default function CoursesSection() {
-  const {
-    data: courses,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Courses>({
-    queryKey: ["courses"],
-    queryFn: fetchCourseSection,
-    staleTime: Infinity,
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["0 1", "0.8 1"],
   });
-
-  const [processedCourses, setProcessedCourses] = useState<Courses | null>(
-    null
-  );
-
-  useEffect(() => {
-    if (courses) {
-      const updatedCards = courses.study_cards.map((card) => {
-        let url = "";
-        const countryName = card.country.toLowerCase().trim();
-        if (countryName === "united kingdom") {
-          url = "/study-in-uk";
-        } else if (countryName === "usa") {
-          url = "/study-in-usa";
-        } else if (countryName === "canada") {
-          url = "/study-in-canada";
-        } else if (countryName === "ireland") {
-          url = "/study-in-ireland";
-        } else if (countryName === "france") {
-          url = "/study-in-france";
-        } else {
-          url = "/";
-        }
-        return { ...card, url };
-      });
-
-      setProcessedCourses({ ...courses, study_cards: updatedCards });
-    }
-  }, [courses]);
+  const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
+  const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
 
   const computeVisible = () => {
     const w = typeof window !== "undefined" ? window.innerWidth : 0;
@@ -73,13 +90,12 @@ export default function CoursesSection() {
   }, []);
 
   const slides = useMemo(() => {
-    if (!processedCourses) return [];
-    const head = processedCourses?.study_cards?.slice(0, visible);
-    const tail = processedCourses?.study_cards?.slice(-visible);
-    return [...tail, ...processedCourses?.study_cards, ...head];
-  }, [visible, processedCourses]);
+    const head = courseCategories.slice(0, visible);
+    const tail = courseCategories.slice(-visible);
+    return [...tail, ...courseCategories, ...head];
+  }, [visible]);
 
-  const N = processedCourses?.study_cards?.length;
+  const N = courseCategories.length;
   const [index, setIndex] = useState<number>(visible);
   const [isAnimating, setIsAnimating] = useState<boolean>(true);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -152,29 +168,16 @@ export default function CoursesSection() {
     isHoveringRef.current = false;
   };
 
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
-
-  if (isLoading) {
-    return <CoursesSectionSkeleton />;
-  }
-
-  const Card = ({ c }: { c: StudyCards }) => {
-    const bg = encodeURI(c?.image?.url);
+  const Card = ({ c }: { c: Course }) => {
+    const bg = encodeURI(c.image);
     return (
       <div className="px-3 box-border h-full py-6">
-        <div className="relative rounded-[15px]  overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
+        <div className="relative rounded-[15px] overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
+          {/* image */}
           <div className="relative aspect-square">
             <div
               className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url('${
-                  import.meta.env.VITE_CMS_GLOBALURL
-                }${bg}')`,
-              }}
+              style={{ backgroundImage: `url('${bg}')` }}
               aria-hidden
             />
             <div
@@ -198,56 +201,52 @@ export default function CoursesSection() {
                   Why Study in {shortLabel(c.country)}
                 </div>
                 <ul className="mt-2 space-y-1.5 md:space-y-2 max-h-28 sm:max-h-none overflow-hidden sm:overflow-visible">
-                  {c &&
-                    c.descriptions &&
-                    c.descriptions.map((line, i) => (
-                      <li
-                        key={line?.id || i}
-                        className={`flex items-start gap-2 text-[13px] md:text-[15px] lg:text-base text-[#334155] ${
-                          i > 1 ? "hidden sm:flex" : ""
-                        } sm:text-left`}
-                      >
-                        <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
-                        <span className="leading-snug">
-                          {line?.description}
-                        </span>
-                      </li>
-                    ))}
+                  {c.description.map((line, i) => (
+                    <li
+                      key={i}
+                      className={`flex items-start gap-2 text-[13px] md:text-[15px] lg:text-base text-[#334155] ${
+                        i > 1 ? "hidden sm:flex" : ""
+                      } sm:text-left`}
+                    >
+                      <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
+                      <span className="leading-snug">{line}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
           </div>
           <div className="px-4 md:px-5 lg:px-6 pb-4">
-            <Link
-              to={c.url}
-              target="_self"
+            <a
+              href={c.url}
+              target="_blank"
               rel="noopener noreferrer"
               className="mt-3 inline-flex w-full items-center justify-center rounded-md bg-[#e40000] px-4 py-3 text-white text-sm font-semibold hover:bg-[#9c0201] transition"
             >
               Enquire Now
-            </Link>
+            </a>
           </div>
         </div>
       </div>
     );
   };
 
+  /* ---- layout math ---- */
   const slideBasis = `${100 / visible}%`;
   const translatePercent = (100 / visible) * index;
 
   return (
     <section className="py-8 bg-white">
-      <div className="mx-auto sm:px-10 px-5">
+      <motion.div
+        ref={ref}
+        style={{ scale: scaleProgress, opacity: opacityProgress }}
+        className="mx-auto sm:px-10 px-5"
+      >
         <SectionTitle
-          title={
-            processedCourses?.title ||
-            "🎓 Know about popular study destinations!"
-          }
-          subtitle={
-            processedCourses?.description ||
-            "Discover globally ranked universities and career-ready opportunities across the world."
-          }
+          title="🎓 Know about popular study destinations!"
+          subtitle="Discover globally ranked universities and career-ready opportunities across the world."
         />
+
         <AnimateOnScroll>
           <div
             className="relative mt-6"
@@ -284,29 +283,15 @@ export default function CoursesSection() {
                 ))}
               </div>
             </div>
+
+            {/* Arrows */}
             <button
               type="button"
               aria-label="Previous"
               onClick={prev}
               className="flex sm:hidden absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70 transition z-10"
             >
-              <h1 className="text-xl">
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M15 7L10 12L15 17"
-                    stroke="#fff"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </h1>
+              ‹
             </button>
             <button
               type="button"
@@ -314,24 +299,9 @@ export default function CoursesSection() {
               onClick={next}
               className="flex sm:hidden absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70 transition z-10"
             >
-              <h1 className="text-xl">
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9 7L14 12L9 17"
-                    stroke="#fff"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </h1>
+              ›
             </button>
+
             <button
               type="button"
               aria-label="Previous"
@@ -350,7 +320,7 @@ export default function CoursesSection() {
             </button>
           </div>
         </AnimateOnScroll>
-      </div>
+      </motion.div>
     </section>
   );
 }

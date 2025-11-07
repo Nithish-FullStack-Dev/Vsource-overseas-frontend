@@ -1,49 +1,34 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
-import HeroSkeleton from "@/Loaders/LandingPages/HeroSkeleton";
-import { HighlightedText } from "@/utils/HighlightedText";
 import DelayedPopup from "../DelayedPopup";
-import { HighlightedTextWhite } from "@/utils/HighlightestextWhite";
 import { PopupModal } from "react-calendly";
-const fetchHero = async () => {
-  const { data } = await axios.get(
-    `${
-      import.meta.env.VITE_CMS_GLOBALURL
-    }/api/landing-pages?populate[Badge][fields][0]=name&populate[Badge][fields][1]=url&populate[Badge][fields][2]=alternativeText&populate[Background_image][fields][0]=name&populate[Background_image][fields][1]=url&populate[Background_image][fields][2]=alternativeText&populate[girl_image][fields][0]=name&populate[girl_image][fields][1]=url&populate[girl_image][fields][2]=alternativeText&populate[Mobile_background_image][fields][0]=name&populate[Mobile_background_image][fields][1]=url&populate[Mobile_background_image][fields][2]=alternativeText`
-  );
-  return data.data[0];
-};
+
+const animatedTexts = [
+  ["STUDY MASTER'S", "IN USA, UK IRELAND, CANADA, FRANCE"],
+];
 
 const Hero = () => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [showText, setShowText] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
   const [openCalendly, setOpenCalendly] = useState(false);
-  const {
-    data: heroData,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["heroData"],
-    queryFn: fetchHero,
-    staleTime: Infinity,
-  });
 
-  if (isError) {
-    toast.error("failed to load");
-    console.log("failed to load", error);
-    return null;
-  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex(
+        (prevIndex) => (prevIndex + 1) % animatedTexts.length
+      );
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
-  if (isLoading || !heroData) {
-    return <HeroSkeleton />;
-  }
-
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowText(true);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
   const handleMinimize = () => {
     setShowPopup(false);
   };
@@ -53,43 +38,33 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-16 md:pt-0">
-      {/* Desktop Background Image */}
       <motion.div
-        className="absolute inset-0 hidden md:block z-0"
+        className="hidden md:block absolute inset-0 z-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{
-            backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
-              heroData?.Background_image?.url
-            })`,
-          }}
+          style={{ backgroundImage: "url('/assets/images/vsource 1.png')" }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
       </motion.div>
 
-      {/* Mobile Background */}
       <motion.div
         className="block md:hidden absolute inset-0 bg-center bg-cover bg-no-repeat z-0"
         initial={{ y: 200, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: `url(${import.meta.env.VITE_CMS_GLOBALURL}${
-            heroData?.Mobile_background_image?.url
-          })`,
+          backgroundImage: "url('/assets/images/SLIDER nn-01.png')",
         }}
       />
 
       {/* Right-side Girl Image (Hidden on Mobile) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
-          src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-            heroData?.girl_image?.url
-          }`}
+          src="/assets/images/vsource.png"
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
@@ -107,23 +82,35 @@ const Hero = () => {
         transition={{ delay: 1.5, duration: 0.5 }}
       >
         <div className="grid lg:grid-cols-2 gap-8 items-center">
-          {/* Desktop Left Content */}
           <div className="hidden md:block space-y-6 pt-28">
             <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 shadow-md max-w-3xl space-y-4">
-              <HighlightedText
-                text={heroData?.Title}
-                mobileSize={"42px"}
-                color={"red"}
-              />
+              <motion.h1
+                initial={{ opacity: 0, x: -80 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                className="text-[42px] md:text-[52px] leading-tight font-bold text-black max-w-2xl"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                Your <span style={{ color: "#e40000" }}>Global</span> Pathway{" "}
+                <br /> to Academic{" "}
+                <span style={{ color: "#e40000" }}>Excellence</span>
+              </motion.h1>
 
               <div className="space-y-1">
-                <p className="text-lg text-black font-medium">
-                  {heroData?.Study_in}
-                </p>
+                {animatedTexts[currentTextIndex].map((line, idx) => (
+                  <motion.p
+                    key={idx}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 * idx, duration: 0.5 }}
+                    className="text-lg text-black font-medium"
+                  >
+                    {line}
+                  </motion.p>
+                ))}
               </div>
             </div>
 
-            {/* 20 Years Logo */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
@@ -131,15 +118,12 @@ const Hero = () => {
               className="flex justify-start pt-6"
             >
               <img
-                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                  heroData?.Badge?.url
-                }`}
+                src="/assets/images/20 years logo.png"
                 alt="20 Years Logo"
                 className="w-36 h-auto"
               />
             </motion.div>
 
-            {/* Buttons */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
@@ -174,7 +158,6 @@ const Hero = () => {
               </a>
             </motion.div>
 
-            {/* Rating Info */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
@@ -183,41 +166,43 @@ const Hero = () => {
             >
               <div className="flex items-center space-x-1">
                 <span className="text-yellow-400 text-lg">★★★★★</span>
-                <span className="text-sm text-black">{heroData?.ratings}</span>
+                <span className="text-sm text-black">4.9/5 Rating</span>
               </div>
               <div className="text-sm font-semibold text-black">
-                {heroData?.Students_Guided}
+                100,000+ Students Guided
               </div>
               <div className="text-sm font-semibold text-black">
-                {heroData?.University_Partners}
+                250+ Global University Partners
               </div>
             </motion.div>
           </div>
 
-          {/* Mobile Content */}
           <div className="md:hidden relative flex flex-col min-h-screen pt-[250px] px-4 z-10 font-[Poppins]">
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[162px] text-left shadow-sm "
+              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[280px] text-left shadow-sm"
             >
-              <p className="text-red-600 text-[18px] font-bold leading-tight uppercase tracking-wide">
-                {heroData?.mobile_title}
+              <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide">
+                GLOBAL
+                <br />
+                TOP
+                <br />
+                UNIVERSITIES
               </p>
               <p className="text-[10px] text-orange-400 font-semibold mt-2 animate-blink">
-                {heroData?.intakes}
+                FALL-INTAKE 2025-2026
               </p>
-              <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit">
-                {heroData?.country_names &&
-                  heroData?.country_names.map((flag, idx) => (
-                    <img
-                      key={idx}
-                      src={`https://flagcdn.com/${flag}.svg`}
-                      alt={flag.toUpperCase()}
-                      className="w-5 h-5 object-cover rounded-full"
-                    />
-                  ))}
+              <div className="bg-white rounded-xl px-2 py-1 mt-3 flex justify-center gap-1 w-fit mx-auto">
+                {["fr", "us", "ie", "ca", "gb"].map((flag, idx) => (
+                  <img
+                    key={idx}
+                    src={`https://flagcdn.com/${flag}.svg`}
+                    alt={flag.toUpperCase()}
+                    className="w-4 h-4 object-cover rounded-full"
+                  />
+                ))}
               </div>
               <motion.button
                 initial={{ opacity: 0, x: -40 }}
@@ -229,9 +214,7 @@ const Hero = () => {
                 APPLY NOW
               </motion.button>
               <img
-                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                  heroData?.Badge?.url
-                }`}
+                src="/assets/images/20 years logo.png"
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 "
               />
@@ -244,13 +227,13 @@ const Hero = () => {
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="bg-white/5 backdrop-blur-md px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-lg border border-white/30 flex flex-col items-center text-center"
               >
-                {/* Highlighted headline */}
-                <HighlightedTextWhite
-                  text={heroData?.gateway}
-                  mobileSize="18px"
-                  color="red"
-                />
-
+                <p className="text-[18px] sm:text-[20px] font-semibold text-white leading-snug">
+                  Your Gateway to
+                </p>
+                <p className="text-[18px] sm:text-[20px] font-semibold text-white">
+                  <span className="text-red-600 font-bold">Global</span>{" "}
+                  Academic Excellence
+                </p>
                 {/* Actions */}
                 <div className="mt-6 flex flex-col sm:flex-row gap-4 w-full justify-center">
                   <Link
@@ -287,7 +270,6 @@ const Hero = () => {
         </div>
       </motion.div>
 
-      {/* Scroll Down Arrow */}
       {/* <div className="absolute bottom-4 md:bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white/50 flex items-center justify-center">
           <svg
@@ -308,8 +290,15 @@ const Hero = () => {
       </div> */}
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
-      `}</style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .animate-blink {
+      animation: blink 1.4s infinite;
+    }
+  `}</style>
 
       {showPopup && <DelayedPopup onMinimize={handleMinimize} />}
       <PopupModal
