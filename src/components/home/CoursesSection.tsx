@@ -3,16 +3,14 @@ import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-/* ---------- Types ---------- */
 type Course = {
   country: string;
   tag: string;
   description: string[];
-  image: string; // path under /public
+  image: string;
   url: string;
 };
 
-/* ---------- Data ---------- */
 const courseCategories: Course[] = [
   {
     country: "UNITED KINGDOM",
@@ -21,7 +19,7 @@ const courseCategories: Course[] = [
       "Home to Top World-Ranking Universities",
       "Wide Range of Scholarships & Financial Assistance",
     ],
-    image: "assets/images/countries/uk.png",
+    image: "/assets/images/countries/uk.png",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -29,9 +27,9 @@ const courseCategories: Course[] = [
     tag: "Study in",
     description: [
       "#1 Destination for Top-Ranked Institutions",
-      "Extensive Scholarships & Financial Support  ",
+      "Extensive Scholarships & Financial Support",
     ],
-    image: "assets/images/countries/usa.png",
+    image: "/assets/images/countries/usa.png",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -42,7 +40,7 @@ const courseCategories: Course[] = [
       "Work Opportunities & Post-Study Work Permits",
       "Scholarships and Financial Aid for International Students",
     ],
-    image: "assets/images/countries/canada.png",
+    image: "/assets/images/countries/canada.png",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -53,7 +51,7 @@ const courseCategories: Course[] = [
       "Gateway to Europe with Post-Study Work Options",
       "Scholarships & Financial Support Available",
     ],
-    image: "assets/images/countries/ireland.png",
+    image: "/assets/images/countries/ireland.png",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -64,13 +62,12 @@ const courseCategories: Course[] = [
       "Affordable Education with Rich Cultural Experience",
       "Scholarships & Financial Assistance for International Students",
     ],
-    image: "assets/images/countries/france.png",
+    image: "/assets/images/countries/france.png",
     url: "https://vsourcevarsity.com/",
   },
 ];
 
 export default function CoursesSection() {
-  /* ---- subtle scroll-reveal ---- */
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -79,12 +76,11 @@ export default function CoursesSection() {
   const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
   const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
 
-  /* ---- responsive visible count (3 / 2 / 1) ---- */
   const computeVisible = () => {
     const w = typeof window !== "undefined" ? window.innerWidth : 0;
-    if (w >= 1024) return 3; // desktop: 3 in a row
-    if (w >= 640) return 2; // tablet: 2
-    return 1; // mobile: 1
+    if (w >= 1024) return 3;
+    if (w >= 640) return 2;
+    return 1;
   };
   const [visible, setVisible] = useState<number>(computeVisible());
   useEffect(() => {
@@ -93,7 +89,6 @@ export default function CoursesSection() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  /* ---- infinite slider (multi-item) ---- */
   const slides = useMemo(() => {
     const head = courseCategories.slice(0, visible);
     const tail = courseCategories.slice(-visible);
@@ -101,12 +96,11 @@ export default function CoursesSection() {
   }, [visible]);
 
   const N = courseCategories.length;
-  const [index, setIndex] = useState<number>(visible); // start at first real slide
+  const [index, setIndex] = useState<number>(visible);
   const [isAnimating, setIsAnimating] = useState<boolean>(true);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isHoveringRef = useRef(false);
 
-  // reset when visible changes (breakpoint)
   useEffect(() => {
     setIsAnimating(false);
     setIndex(visible);
@@ -114,7 +108,6 @@ export default function CoursesSection() {
     return () => cancelAnimationFrame(id);
   }, [visible]);
 
-  // autoplay (pause on hover)
   const startAutoplay = () => {
     stopAutoplay();
     autoplayRef.current = setInterval(() => {
@@ -130,7 +123,6 @@ export default function CoursesSection() {
     return stopAutoplay;
   }, []);
 
-  // snap when entering clones
   const handleTransitionEnd = () => {
     if (index >= visible + N) {
       setIsAnimating(false);
@@ -152,20 +144,19 @@ export default function CoursesSection() {
   const shortLabel = (country: string) =>
     country === "UNITED KINGDOM" ? "UK" : country;
 
-  /* ---- touch swipe (mobile) ---- */
   const touchStartXRef = useRef<number | null>(null);
   const touchDeltaXRef = useRef<number>(0);
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartXRef.current = e.touches[0].clientX;
     touchDeltaXRef.current = 0;
-    isHoveringRef.current = true; // pause autoplay
+    isHoveringRef.current = true;
   };
   const onTouchMove = (e: React.TouchEvent) => {
     if (touchStartXRef.current === null) return;
     const dx = e.touches[0].clientX - touchStartXRef.current;
     touchDeltaXRef.current = dx;
-    if (Math.abs(dx) > 10) e.preventDefault(); // stop vertical scroll when swiping
+    if (Math.abs(dx) > 10) e.preventDefault();
   };
   const onTouchEnd = () => {
     const dx = touchDeltaXRef.current;
@@ -177,20 +168,18 @@ export default function CoursesSection() {
     isHoveringRef.current = false;
   };
 
-  /* ---- card ---- */
   const Card = ({ c }: { c: Course }) => {
     const bg = encodeURI(c.image);
     return (
-      <div className="px-3 box-border h-full">
-        <div className="relative rounded-[5px] overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
-          {/* square image area */}
+      <div className="px-3 box-border h-full py-6">
+        <div className="relative rounded-[15px] overflow-hidden shadow-[0_10px_24px_rgba(16,24,40,0.10)] border border-gray-200 bg-white">
+          {/* image */}
           <div className="relative aspect-square">
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url('${bg}')` }}
               aria-hidden
             />
-            {/* right-side gradient for readability */}
             <div
               className="absolute inset-0"
               style={{
@@ -199,27 +188,25 @@ export default function CoursesSection() {
               }}
               aria-hidden
             />
-            {/* content: half-half on mobile (6/12) and 5/7 on desktop */}
-            <div className="absolute inset-0 grid grid-cols-12 pt-8 pr-4 pb-4 pl-4 md:pt-10 md:pr-5 md:pb-5 md:pl-5 lg:pt-12 lg:pr-6 lg:pb-6 lg:pl-6">
-              {/* reserve image area */}
+            <div className="absolute inset-0 grid grid-cols-12 pt-6 pr-4 pb-4 pl-4 md:pt-10 md:pr-5 md:pb-5 md:pl-5 lg:pt-12 lg:pr-6 lg:pb-6 lg:pl-6 overflow-hidden">
               <div className="col-span-6 md:col-span-5" aria-hidden />
-              {/* content area */}
-              <div className="col-span-6 md:col-span-7 flex flex-col mt-14 md:mt-0 md:pl-3 lg:pl-4 md:pt-10 sm:pt-0 sm:mt-0">
+              <div className="col-span-6 md:col-span-7 flex flex-col md:mt-0 md:pl-3 lg:pl-4 md:pt-10 sm:pt-0 sm:mt-0 overflow-hidden mt-6">
                 <div className="text-[#2563EB] text-xs md:text-sm font-semibold uppercase tracking-wide">
                   {c.tag}
                 </div>
-                <div className="mt-1 text-[22px] leading-tight md:text-3xl lg:text-4xl font-extrabold text-[#E3000F] uppercase">
+                <div className="mt-1 text-[20px] leading-tight md:text-3xl lg:text-4xl font-extrabold text-[#E3000F] uppercase">
                   {c.country}
                 </div>
-
                 <div className="mt-2 md:mt-3 text-[#0F172A] font-semibold">
                   Why Study in {shortLabel(c.country)}
                 </div>
-                <ul className="mt-2 space-y-1.5 md:space-y-2">
+                <ul className="mt-2 space-y-1.5 md:space-y-2 max-h-28 sm:max-h-none overflow-hidden sm:overflow-visible">
                   {c.description.map((line, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-[13.5px] md:text-[15px] lg:text-base text-[#334155]"
+                      className={`flex items-start gap-2 text-[13px] md:text-[15px] lg:text-base text-[#334155] ${
+                        i > 1 ? "hidden sm:flex" : ""
+                      } sm:text-left`}
                     >
                       <span className="mt-[7px] inline-block h-2 w-2 rounded-full bg-[#2563EB]" />
                       <span className="leading-snug">{line}</span>
@@ -229,8 +216,6 @@ export default function CoursesSection() {
               </div>
             </div>
           </div>
-
-          {/* CTA below image (inside card) */}
           <div className="px-4 md:px-5 lg:px-6 pb-4">
             <a
               href={c.url}
@@ -255,7 +240,7 @@ export default function CoursesSection() {
       <motion.div
         ref={ref}
         style={{ scale: scaleProgress, opacity: opacityProgress }}
-        className="mx-auto px-10"
+        className="mx-auto sm:px-10 px-5"
       >
         <SectionTitle
           title="🎓 Know about popular study destinations!"
@@ -263,7 +248,6 @@ export default function CoursesSection() {
         />
 
         <AnimateOnScroll>
-          {/* Infinite multi-card carousel: 3/2/1 per view with arrows */}
           <div
             className="relative mt-6"
             onMouseEnter={() => {
@@ -300,14 +284,14 @@ export default function CoursesSection() {
               </div>
             </div>
 
-            {/* Mobile arrows (visible only on mobile) */}
+            {/* Arrows */}
             <button
               type="button"
               aria-label="Previous"
               onClick={prev}
               className="flex sm:hidden absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70 transition z-10"
             >
-              <h1 className="text-xl">‹</h1>
+              ‹
             </button>
             <button
               type="button"
@@ -315,10 +299,9 @@ export default function CoursesSection() {
               onClick={next}
               className="flex sm:hidden absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70 transition z-10"
             >
-              <h1>›</h1>
+              ›
             </button>
 
-            {/* Desktop/tablet arrows (unchanged) */}
             <button
               type="button"
               aria-label="Previous"
