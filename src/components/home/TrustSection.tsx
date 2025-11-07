@@ -19,8 +19,7 @@ const services: Service[] = [
       "You’ll have a dedicated counsellor who will provide personalized guidance & support throughout your educational journey",
   },
   {
-    backgroundImage:
-      "/assets/images/Trusted-section/Universities_Shortlisting.jpg",
+    backgroundImage: "/assets/images/Trusted-section/accommodation-food.jpg",
     icon: <GraduationCap size={40} color="#ffffffff" />,
     title: "Universities Shortlisting",
     description:
@@ -34,8 +33,7 @@ const services: Service[] = [
       "We guide you through the edu-carm loan process with our trusted financial partners for a hassle-free experience",
   },
   {
-    backgroundImage:
-      "/assets/images/Trusted-section/Pre_&_Post_Landing_Support.jpg",
+    backgroundImage: "/assets/images/Trusted-section/pre-post-landing.jpg",
     icon: <MapPin size={40} color="#ffffffff" />,
     title: "Pre & Post Landing Support",
     description:
