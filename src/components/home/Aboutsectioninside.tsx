@@ -3,7 +3,29 @@ import { AboutSectionProps } from "@/types/LandingPage";
 import { BoldText } from "@/utils/BoldText";
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
-
+const stats = [
+  {
+    id: 1,
+    value: 100000,
+    suffix: "+",
+    label: "Students Empowered",
+    icon: "/assets/images/icons/hat.gif",
+  },
+  {
+    id: 2,
+    value: 20,
+    suffix: "+",
+    label: "Years of\nExperience",
+    icon: "/assets/images/icons/handshake.gif",
+  },
+  {
+    id: 3,
+    value: 10,
+    suffix: "+",
+    label: "Study Destinations",
+    icon: "/assets/images/icons/earth.gif",
+  },
+];
 const AboutSection: React.FC<AboutSectionProps> = ({
   aboutData,
   isLoading,
@@ -41,7 +63,22 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   if (isLoading || !aboutData) {
     return <AboutSectionSkeleton />;
   }
-
+  // Counter animation hook
+  const useCounter = (end: number, start = 0, duration = 2000) => {
+    const [count, setCount] = useState(start);
+    useEffect(() => {
+      if (!isVisible) return;
+      let startTime: number | null = null;
+      const step = (t: number) => {
+        if (startTime === null) startTime = t;
+        const p = Math.min((t - startTime) / duration, 1);
+        setCount(Math.floor(p * (end - start) + start));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, [end, start, duration, isVisible]);
+    return count;
+  };
   return (
     <section className="about-section" ref={sectionRef}>
       <div className="w-full max-w-[1400px] mx-auto">
@@ -58,28 +95,85 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               data-aos-delay="200"
               data-aos-anchor-placement="center-bottom"
             >
-              {aboutData?.title || "About Vsource Overseas"}
+              About Vsource Overseas
             </h1>
 
             <p
-              className="subheading"
+              className="subheading my-4"
               data-aos="fade-right"
               data-aos-duration="1000"
               data-aos-delay="400"
               data-aos-anchor-placement="center-bottom"
             >
-              <strong>
-                {aboutData?.description ||
-                  "Your Gateway to Global Academic Excellence"}
-              </strong>
+              <strong>Your Gateway to Global Academic Excellence</strong>
             </p>
 
-            {aboutData &&
+            {/* {aboutData &&
               aboutData?.subheadings &&
               aboutData?.subheadings?.map((text, i) => (
                 <BoldText key={text?.id || i} text={text?.description} />
-              ))}
+              ))} */}
 
+            <p
+              className="paragraph"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="800"
+            >
+              At VSource Overseas, we specialize in transforming academic
+              ambition into international achievement. With a legacy of over 20
+              years, we are proud to be South India’s premier consultancy for
+              Master’s admissions abroad, guiding thousands of students to
+              top-ranked universities across the and other leading destinations.
+              <style>{`
+        .paragraph {
+      font-size: 15px;
+      line-height: 1.6;
+      color: black;
+      margin-bottom: 15px;
+      margin-top: 10px;
+      
+    }
+
+    @media (max-width: 768px) {
+      .paragraph {
+        text-align:justify
+      }
+      }
+      `}</style>
+            </p>
+            <p
+              className="paragraph"
+              data-aos="fade-right"
+              data-aos-anchor-placement="center-bottom"
+              data-aos-duration="1000"
+              data-aos-delay="800"
+            >
+              We partner with globally accredited universities known for
+              academic excellence, innovation, and industry relevance, ensuring
+              our students receive not only a quality education but also a
+              launchpad for global careers.
+              <style>{`
+        .paragraph {
+      font-size: 15px;
+      line-height: 1.6;
+      color: black;
+      margin-bottom: 15px;
+      margin-top: 10px;
+      
+    }
+
+    @media (max-width: 768px) {
+      .paragraph {
+        text-align:justify
+      }
+      }
+      `}</style>
+            </p>
+            <div className="my-2 ">
+              <strong>Our Legacy in Numbers</strong>
+            </div>
             {/* STATS SECTION */}
             <div
               className="stats"
@@ -87,34 +181,25 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               data-aos-duration="1000"
               data-aos-delay="700"
             >
-              {aboutData &&
-                aboutData?.about_cards &&
-                aboutData?.about_cards?.map((stat, index) => {
-                  return (
-                    <div
-                      key={stat.id}
-                      className="stat-block"
-                      data-aos="fade-up"
-                      data-aos-anchor-placement="center-bottom"
-                      data-aos-duration="1000"
-                      data-aos-delay={800 + index * 200}
-                    >
-                      <img
-                        src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                          stat?.image?.url
-                        }`}
-                        alt={stat?.image?.alternativeText || "Icon"}
-                        className="icon"
-                      />
-                      <div className="stat-info">
-                        <div className="count">
-                          {Number(stat.count).toLocaleString("en-US")}+
-                        </div>
-                      </div>
-                      <div className="label">{stat?.text}</div>
+              {stats.map((stat, i) => {
+                const count = useCounter(stat.value);
+                return (
+                  <div
+                    key={stat.id}
+                    className="stat-box"
+                    data-aos="fade-up"
+                    data-aos-delay={i * 200}
+                    data-aos-duration="1000"
+                  >
+                    <img src={stat.icon} alt="" className="icon" />
+                    <div className="count">
+                      {count.toLocaleString("en-US")}
+                      {stat.suffix}
                     </div>
-                  );
-                })}
+                    <div className="label">{stat.label}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -127,13 +212,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             data-aos-delay="400"
           >
             <img
-              src={
-                aboutData?.chairman?.url
-                  ? `${import.meta.env.VITE_CMS_GLOBALURL}${
-                      aboutData.chairman.url
-                    }`
-                  : "https://vsourcevarsity.com/assets/images/founder.webp"
-              }
+              src={"/assets/images/about-us/imgi_5_founder.png"}
               alt="Founder"
               data-aos="fade-right"
               data-aos-anchor-placement="center-bottom"
@@ -157,6 +236,80 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 
       {/* CSS */}
       <style>{`
+       .about-section {
+          padding: clamp(32px, 4vw, 50px) 16px;
+          background: #fff;
+          font-family: 'Barlow', sans-serif;
+          color: #111;
+        }
+        .top-section {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        @media (min-width: 768px) {
+          .top-section {
+            grid-template-columns: 65% 30%;
+            gap: 32px;
+            align-items: start;
+          }
+        }
+        h2 { font-size: clamp(30px, 3.6vw, 32px); font-weight: 700; margin: 0; }
+        .desc { font-size: clamp(18px, 2.3vw, 20px); margin-top: 12px; line-height: 1.6; }
+        .features { list-style: none; padding: 0; margin-top: 16px; display: grid; gap: 10px; }
+        .features li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; font-size: clamp(15px, 2.3vw, 16px); align-items: center; }
+        .features li img { width: 24px; height: 24px; }
+        .right { display: flex; flex-direction: column; align-items: center; }
+        .founder-img { width: 100%; max-width: 450px; border-radius: 10px; border: 1px solid #e5e7eb; }
+        .quote { font-style: italic; margin-top: 10px; text-align: center; font-size: 15px; }
+        .bottom-section {
+          margin-top: clamp(28px, 6vw, 50px);
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 20px;
+          width: 80%;
+          margin: clamp(28px, 6vw, 50px) auto 0;
+        }
+        @media (min-width: 640px) {
+          .bottom-section { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+          .bottom-section { grid-template-columns: repeat(3, 1fr); }
+        }
+        .stat-box {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .icon {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+        }
+        .count {
+          font-size: clamp(20px, 4.5vw, 30px);
+          font-weight: 800;
+          color: #1e73be;
+          white-space: nowrap;
+        }
+        .label {
+          font-size: clamp(13px, 3.5vw, 15px);
+          font-weight: 600;
+          color: #111;
+          text-align: right;
+          margin-left: 10px;
+        }
+        @media (max-width: 380px) {
+          .stat-box { gap: 8px; padding: 10px; }
+          .count { font-size: 18px; }
+          .label { font-size: 12px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .about-section * {
+            animation: none !important;
+            transition: none !important;
+          }
+        }
     .about-section {
       font-family: 'Barlow', sans-serif;
       background-color: #fff;

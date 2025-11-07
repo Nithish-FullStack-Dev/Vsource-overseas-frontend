@@ -151,7 +151,8 @@ const AboutSection: React.FC = () => {
           {/* Right Side (Founder Image) */}
           <div className="right" data-aos="flip-left" data-aos-duration="2000">
             <img
-              src="https://vsourcevarsity.com/assets/images/founder.webp"
+
+              src="/assets/images/about-us/imgi_5_founder.png"
               alt="Founder"
               className="founder-img"
             />
