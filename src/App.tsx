@@ -55,7 +55,7 @@ const App = () => {
 
   // AOS setup
   useEffect(() => {
-    AOS.init({ once: false, mirror: true });
+    AOS.init({ once: true, mirror: false, duration: 600 });
   }, []);
 
   useEffect(() => {
