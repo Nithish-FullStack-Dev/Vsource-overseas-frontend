@@ -222,8 +222,6 @@ const AboutSection: React.FC = () => {
           justify-items: center;
           align-items: center;
           flex-wrap: wrap;
-          border-top: 1px solid #ccc;
-          border-bottom: 1px solid #ccc;
           padding: 20px 0;
           margin-top: 10px;
         }
