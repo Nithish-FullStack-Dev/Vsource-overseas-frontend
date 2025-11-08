@@ -46,7 +46,7 @@ const Hero = () => {
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{ backgroundImage: "url('/assets/images/vsource 1.png')" }}
+          style={{ backgroundImage: "url('/assets/images/vsource 1.jpg')" }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
       </motion.div>
@@ -57,7 +57,7 @@ const Hero = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: "url('/assets/images/SLIDER nn-01.png')",
+          backgroundImage: "url('/assets/images/SLIDER nn-01.jpg')",
         }}
       />
 

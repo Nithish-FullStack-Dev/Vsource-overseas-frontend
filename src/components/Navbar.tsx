@@ -74,7 +74,7 @@ const Navbar = () => {
           <img
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
-            src="/assets/images/vsource-logo.png"
+            src="/assets/images/vsource-logo.jpg"
           />
           <div>
             <img
