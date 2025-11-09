@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import imgFounder from "@/assets/about-us/imgi_5_founder.png";
 
 const useCounter = (end: number, duration = 2000) => {
   const [count, setCount] = useState(0);
@@ -159,7 +158,7 @@ const AboutSection: React.FC = () => {
           data-aos-anchor-placement="center-bottom"
         >
           <img
-            src={imgFounder}
+            src={"https://res.cloudinary.com/dch00stdh/image/upload/v1762706615/imgi_5_founder_vtpuke.png"}
             alt="Founder"
             data-aos="fade-right"
             data-aos-duration="1200"

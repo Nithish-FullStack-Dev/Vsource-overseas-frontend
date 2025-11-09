@@ -2,9 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import "./Accreditation.css";
 import { Link } from "react-router-dom";
-import etsImage from "@/assets/homepage/ets.webp";
-import eaiImage from "@/assets/homepage/images.webp";
-import nafsaImage from "@/assets/homepage/nafsa.webp";
+// import etsImage from "@/assets/homepage/ets.webp";
+// import eaiImage from "@/assets/homepage/images.webp";
+// import nafsaImage from "@/assets/homepage/nafsa.webp";
 
 const Accreditation = () => {
   return (
@@ -38,7 +38,9 @@ const Accreditation = () => {
           >
             <h2 className="section-title">CERTIFICATIONS</h2>
             <img
-              src={etsImage}
+              src={
+                "https://res.cloudinary.com/dch00stdh/image/upload/v1762707879/ets_hrpoem.webp"
+              }
               alt="ETS Certification"
               className="accreditation-img large-img"
             />
@@ -54,7 +56,9 @@ const Accreditation = () => {
             <h2 className="section-title">MEMBERSHIPS</h2>
             <div className="membership-row">
               <img
-                src={eaiImage}
+                src={
+                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707889/images_tzknwo.webp"
+                }
                 alt="EAIE Membership"
                 className="accreditation-img"
                 data-aos="fade-up"
@@ -62,7 +66,9 @@ const Accreditation = () => {
                 data-aos-duration="900"
               />
               <img
-                src={nafsaImage}
+                src={
+                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707890/nafsa_awwntg.webp"
+                }
                 alt="NAFSA Membership"
                 className="accreditation-img"
                 data-aos="fade-up"
@@ -100,7 +106,9 @@ const Accreditation = () => {
           >
             <h2 className="section-title">CERTIFICATIONS</h2>
             <img
-              src={etsImage}
+              src={
+                "https://res.cloudinary.com/dch00stdh/image/upload/v1762707879/ets_hrpoem.webp"
+              }
               alt="ETS Certification"
               className="accreditation-img"
             />
@@ -116,7 +124,9 @@ const Accreditation = () => {
             <h2 className="section-title">MEMBERSHIPS</h2>
             <div className="membership-row">
               <img
-                src={eaiImage}
+                src={
+                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707889/images_tzknwo.webp"
+                }
                 alt="EAIE Membership"
                 className="accreditation-img"
                 data-aos="fade-up"
@@ -124,7 +134,9 @@ const Accreditation = () => {
                 data-aos-duration="900"
               />
               <img
-                src={nafsaImage}
+                src={
+                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707890/nafsa_awwntg.webp"
+                }
                 alt="NAFSA Membership"
                 className="accreditation-img"
                 data-aos="fade-up"

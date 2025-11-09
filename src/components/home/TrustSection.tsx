@@ -16,28 +16,32 @@ interface Service {
 
 const services: Service[] = [
   {
-    backgroundImage: dedicatedImage,
+    backgroundImage:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762706926/Dedicated_Counsellor_mypjj8.webp",
     icon: <User size={40} color="#ffffff" />,
     title: "Dedicated Counsellor",
     description:
       "You’ll have a dedicated counsellor who will provide personalized guidance & support throughout your educational journey",
   },
   {
-    backgroundImage: accImage,
+    backgroundImage:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762706925/accommodation-food_suedpf.webp",
     icon: <GraduationCap size={40} color="#ffffffff" />,
     title: "Universities Shortlisting",
     description:
       "We assist in selecting the best-fit universities based on your academic goals and preferences",
   },
   {
-    backgroundImage: loadnImage,
+    backgroundImage:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762706929/Loan_Assistance_u5idg4.webp",
     icon: <IndianRupee size={40} color="#ffffffff" />,
     title: "Loan Assistance",
     description:
       "We guide you through the edu-carm loan process with our trusted financial partners for a hassle-free experience",
   },
   {
-    backgroundImage: preImage,
+    backgroundImage:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762706937/pre-post-landing_rk8hka.webp",
     icon: <MapPin size={40} color="#ffffffff" />,
     title: "Pre & Post Landing Support",
     description:

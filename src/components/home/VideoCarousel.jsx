@@ -1,13 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import styles from "./VideoCarousel.module.css"; // CSS module
-// import student4 from "https://res.cloudinary.com/dch00stdh/video/upload/v1762691780/student4_bjqhnt.mp4";
-// import student8 from "@/assets/video/student8.mp4";
-// import student7 from "@/assets/video/student7.mp4";
-// import student1 from "@/assets/video/student1.mp4";
-// import student6 from "@/assets/video/student6.mp4";
-// import student2 from "@/assets/video/student2.mp4";
-// import student5 from "@/assets/video/student5.mp4";
-// import student3 from "https://res.cloudinary.com/dch00stdh/video/upload/v1762692631/student3_kpisvc.mp4";
+import styles from "./VideoCarousel.module.css";
 
 const videos = [
   { name: "SAMSRUTHI", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762691780/student4_bjqhnt.mp4" },
@@ -20,7 +12,6 @@ const videos = [
   { name: "LOVLISH REDDY", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762692631/student3_kpisvc.mp4" },
 ];
 
-
 const OFFSET = 3;
 const displayedVideos = [
   ...videos.slice(-OFFSET),
@@ -30,211 +21,138 @@ const displayedVideos = [
 
 const VideoCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(OFFSET);
-  const [playingIndex, setPlayingIndex] = useState(null); // which displayed index is playing
+  const [playingIndex, setPlayingIndex] = useState(null);
   const carouselRef = useRef(null);
   const sectionRef = useRef(null);
-  const videoRefs = useRef([]); // refs to <video> in displayedVideos order
-  const [cardCalculatedWidth, setCardCalculatedWidth] = useState(300);
-  const gapSize = 10;
+  const videoRefs = useRef([]);
+  const [cardCalculatedWidth, setCardCalculatedWidth] = useState(280);
 
-  const updateCardWidthAndPadding = () => {
-    const container = carouselRef.current;
-    if (!container || container.children.length === 0) return;
+  /* 🔵 FIX: Smooth stable card width */
+  const updateCardWidth = () => {
+    const c = carouselRef.current;
+    if (!c) return;
 
-    let newCardWidth;
-    if (window.innerWidth >= 1024) {
-      newCardWidth = (container.offsetWidth - 2 * gapSize) / 3;
-      newCardWidth = Math.min(300, newCardWidth);
-    } else if (window.innerWidth >= 768) {
-      newCardWidth = (container.offsetWidth - gapSize) / 2;
-      newCardWidth = Math.min(300, newCardWidth);
-    } else {
-      newCardWidth = container.offsetWidth - 2 * gapSize;
-      newCardWidth = Math.min(300, newCardWidth);
-    }
-    setCardCalculatedWidth(newCardWidth);
+    let W = 280;
+    if (window.innerWidth >= 1024) W = 300;
+    else if (window.innerWidth >= 768) W = 260;
+    else W = 220;
 
-    const padding = `calc(50% - ${newCardWidth / 2}px)`;
-    container.style.paddingLeft = padding;
-    container.style.paddingRight = padding;
+    setCardCalculatedWidth(W);
   };
 
+  /* 🔵 FIX: No jump initial load */
+  useEffect(() => {
+    updateCardWidth();
+    setTimeout(() => {
+      scrollToIndex(OFFSET, "auto");
+    }, 60);
+
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, []);
+
+  /* 🔵 Smooth scrollToIndex */
   const scrollToIndex = (index, behavior = "smooth") => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const videoCards = Array.from(container.children);
-    const targetElement = videoCards[index];
+    const cards = Array.from(container.children);
+    const target = cards[index];
+    if (!target) return;
 
-    if (targetElement) {
-      const containerWidth = container.offsetWidth;
-      const elementOffsetLeft = targetElement.offsetLeft;
-      const elementWidth = targetElement.offsetWidth;
+    const scrollPos =
+      target.offsetLeft -
+      container.clientWidth / 2 +
+      target.clientWidth / 2;
 
-      const scrollLeft =
-        elementOffsetLeft - containerWidth / 2 + elementWidth / 2;
-
-      container.scrollTo({ left: scrollLeft, behavior });
-    }
-
+    container.scrollTo({ left: scrollPos, behavior });
     setCurrentIndex(index);
   };
 
-  const goPrev = () => {
-    const prevIndex = currentIndex - 1;
-    if (prevIndex >= OFFSET) scrollToIndex(prevIndex);
-  };
+  const goPrev = () => scrollToIndex(currentIndex - 1);
+  const goNext = () => scrollToIndex(currentIndex + 1);
 
-  const goNext = () => {
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < videos.length + OFFSET) scrollToIndex(nextIndex);
-  };
-
-  // Pause & reset non-active videos when active card changes
-  useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (!video) return;
-      if (index !== currentIndex) {
-        video.pause();
-        video.currentTime = 0;
-      }
-    });
-    setPlayingIndex(null); // hide controls when active changes
-  }, [currentIndex]);
-
-  // Initial layout / center on initial active
-  useEffect(() => {
-    if (!carouselRef.current) return;
-    const timer = setTimeout(() => {
-      updateCardWidthAndPadding();
-      scrollToIndex(currentIndex, "auto");
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Scroll listener to compute active (closest to center) + infinite looping
+  /* 🔵 FIX: Proper smooth active-card detection */
   useEffect(() => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
-      const containerCenter = container.scrollLeft + container.offsetWidth / 2;
-      let newActiveIndex = currentIndex;
-      let minDistance = Infinity;
+    let ticking = false;
 
-      Array.from(container.children).forEach((child, index) => {
-        const el = child;
-        const childCenter = el.offsetLeft + el.offsetWidth / 2;
-        const distance = Math.abs(containerCenter - childCenter);
-        if (distance < minDistance) {
-          minDistance = distance;
-          newActiveIndex = index;
-        }
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const center = container.scrollLeft + container.clientWidth / 2;
+
+        let nearest = currentIndex;
+        let minDist = Infinity;
+
+        Array.from(container.children).forEach((child, i) => {
+          const childCenter =
+            child.offsetLeft + child.clientWidth / 2;
+
+          const dist = Math.abs(center - childCenter);
+          if (dist < minDist) {
+            minDist = dist;
+            nearest = i;
+          }
+        });
+
+        setCurrentIndex(nearest);
+        ticking = false;
       });
+    };
 
-      if (newActiveIndex !== currentIndex) setCurrentIndex(newActiveIndex);
+    container.addEventListener("scroll", onScroll);
+    return () => container.removeEventListener("scroll", onScroll);
+  }, []);
 
-      // Infinite loop logic
-      const videoCards = Array.from(container.children);
-      if (newActiveIndex >= videos.length + OFFSET) {
-        container.scrollTo({
-          left:
-            videoCards[newActiveIndex - videos.length].offsetLeft -
-            container.offsetWidth / 2 +
-            videoCards[newActiveIndex - videos.length].offsetWidth / 2,
-          behavior: "auto",
-        });
-        setCurrentIndex(newActiveIndex - videos.length);
-      } else if (
-        newActiveIndex < OFFSET &&
-        newActiveIndex >= 0 &&
-        container.scrollLeft < 10
-      ) {
-        container.scrollTo({
-          left:
-            videoCards[videos.length + newActiveIndex].offsetLeft -
-            container.offsetWidth / 2 +
-            videoCards[videos.length + newActiveIndex].offsetWidth / 2,
-          behavior: "auto",
-        });
-        setCurrentIndex(videos.length + newActiveIndex);
+  /* 🔵 FIX: Stop videos on inactive */
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (v && i !== playingIndex) {
+        v.pause();
+        v.currentTime = 0;
       }
-    };
+    });
+  }, [playingIndex]);
 
-    let scrollTimeout;
-    const debounced = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(handleScroll, 100);
-    };
-
-    container.addEventListener("scroll", debounced);
-    window.addEventListener("resize", updateCardWidthAndPadding);
-
-    return () => {
-      container.removeEventListener("scroll", debounced);
-      window.removeEventListener("resize", updateCardWidthAndPadding);
-      clearTimeout(scrollTimeout);
-    };
-  }, [currentIndex]);
-
-  const handlePlayClick = (index) => {
-    const v = videoRefs.current[index];
-    if (!v) return;
-
-    // If someone clicks play on a duplicated edge item, make sure it is active
-    if (index !== currentIndex) {
-      scrollToIndex(index);
-      // Allow the scroll to settle, then play
-      setTimeout(() => {
-        const vNow = videoRefs.current[index];
-        if (vNow) {
-          vNow.play().catch(() => {});
-          setPlayingIndex(index);
-        }
-      }, 200);
-      return;
-    }
-
-    v.play().catch(() => {});
-    setPlayingIndex(index);
+  /* 🔵 FIX: Video play logic stable */
+  const handlePlay = (i) => {
+    scrollToIndex(i);
+    setTimeout(() => {
+      const v = videoRefs.current[i];
+      if (v) {
+        v.play().catch(() => {});
+        setPlayingIndex(i);
+      }
+    }, 150);
   };
-
-  const onVideoPause = (index) => {
-    if (playingIndex === index) setPlayingIndex(null);
-  };
-
-  const onVideoEnded = () => {
-    setPlayingIndex(null);
-  };
-
-  const isLeftArrowDisabled = currentIndex === OFFSET;
-  const isRightArrowDisabled = currentIndex === videos.length + OFFSET - 1;
 
   return (
     <div ref={sectionRef} className={styles.wrapper}>
       <h2 className={styles.title}>Our Student Testimonials</h2>
 
       <div className={styles.carouselContainer}>
-        <button
-          onClick={goPrev}
-          className={styles.arrowButtonLeft}
-          disabled={isLeftArrowDisabled}
-        >
+        <button onClick={goPrev} className={styles.arrowButtonLeft}>
           ❮
         </button>
 
-        <div className={styles.carousel} ref={carouselRef}>
+        <div ref={carouselRef} className={styles.carousel}>
           {displayedVideos.map((vid, index) => {
             const isActive = index === currentIndex;
-            const isPlaying = playingIndex === index;
+            const isPlaying = index === playingIndex;
 
             return (
               <div
-                key={`${vid.name}-${index}`}
-                className={`${styles.videoCard} ${isActive ? styles.activeCard : ""}`}
-                style={{ width: cardCalculatedWidth + "px" }}
+                key={index}
+                className={`${styles.videoCard} ${
+                  isActive ? styles.activeCard : ""
+                }`}
+                style={{ width: cardCalculatedWidth }}
               >
-                {/* Keep overlays centered relative to the VIDEO area */}
                 <div className={styles.videoArea}>
                   <video
                     ref={(el) => (videoRefs.current[index] = el)}
@@ -243,17 +161,17 @@ const VideoCarousel = () => {
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     controls={isPlaying}
-                    onPause={() => onVideoPause(index)}
-                    onEnded={onVideoEnded}
+                    onEnded={() => setPlayingIndex(null)}
+                    onPause={() => setPlayingIndex(null)}
                   />
 
-                  {/* Centered Play Button: only when active and not playing */}
+                  {/* Play Button */}
                   {isActive && !isPlaying && (
                     <button
                       className={styles.playButton}
-                      onClick={() => handlePlayClick(index)}
-                      aria-label="Play video"
+                      onClick={() => handlePlay(index)}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
                         <circle cx="100" cy="100" r="90" />
@@ -263,7 +181,7 @@ const VideoCarousel = () => {
                   )}
                 </div>
 
-                {/* Labels only on active card */}
+                {/* Labels */}
                 {isActive && (
                   <>
                     <div className={styles.videoCardText}>
@@ -278,11 +196,7 @@ const VideoCarousel = () => {
           })}
         </div>
 
-        <button
-          onClick={goNext}
-          className={styles.arrowButtonRight}
-          disabled={isRightArrowDisabled}
-        >
+        <button onClick={goNext} className={styles.arrowButtonRight}>
           ❯
         </button>
       </div>
