@@ -62,6 +62,8 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ logos, reverse = false }) => {
                 const target = e.target as HTMLImageElement;
                 target.onerror = null;
               }}
+              decoding="sync"
+              fetchPriority={idx < 3 ? "high" : "low"}
             />
           </div>
         ))}
@@ -76,35 +78,28 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ logos, reverse = false }) => {
 
 const LogoMarquee = () => {
   const usLogos = [
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/academy-of-art-university.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/arizona-state-university.webp",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/auburn-at-montgomery.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/A-State_Stack_2C_Light.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/attend-western.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/University_of_the_Pacific_logo.png.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/USA Universities Logos/Seal_of_the_University_of_Michigan.svg.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706588/NYIT_p7wh07.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706588/niagara_bpkxfd.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706588/laurentian_wcjq12.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706588/fairleigh_epfo5m.jpg",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706588/lakehead_ti6eyo.png",
   ];
 
   const ukLogos = [
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/980_university_liverpool_logo-removebg-preview2.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/187302.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/ARU-logo-1440x1080-1-1-1024x768.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/AU_Birmingham_logo_Purple_RGB.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/bcu-birmingham-city-university5078.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/Black-Logo.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/cardiff-university.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/uk universities logos/coventry-university-logo-scaled.jpg",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706608/Atlantic_ubiflk.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706608/dublin_vz84yc.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706608/University_College_Cork_tbds4a.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706608/tusmidland_z2c7ye.jpg",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706608/ATU_hjjju9.png",
   ];
 
   const btechLogos = [
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/Atlantic.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dublin.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dublin.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/dundaik.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/maynooth.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/mtu.jpg",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/nci.png",
-    "/assets/images/LOGOS OF COUNTRIES WISE UNIVERSITIES/Ireland Universities Logos/ollscil.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706159/ARU-logo-1440x1080-1-1_rxd2ag.jpg",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706159/avg07l8ep_ni8ned.webp",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706157/download_pu3xvf.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706157/download_8_fxoi5g.png",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706159/images_1_fniupj.jpg",
+    "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_300,c_limit/v1762706159/Heriot-Watt_University_logo.svg_eju2ub.png",
   ];
 
   // const mbbsLogos = [

@@ -83,6 +83,7 @@ const Hero = () => {
           className="object-contain h-full max-h-[120vh]"
           style={{ right: 0 }}
           loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -217,6 +218,8 @@ const Hero = () => {
                     alt={flag.toUpperCase()}
                     className="w-4 h-4 object-cover rounded-full"
                     loading="lazy"
+                    decoding="async"
+                    fetchPriority={idx < 3 ? "high" : "low"}
                   />
                 ))}
               </div>
@@ -237,6 +240,7 @@ const Hero = () => {
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 "
                 loading="lazy"
+                decoding="async"
               />
             </motion.div>
 
@@ -245,9 +249,9 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="bg-white/10 backdrop-blur-sm will-change-transform will-change-[backdrop-filter] 
-px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-md border border-white/20 
-flex flex-col items-center text-center"
+                className="bg-white/10 backdrop-blur-sm 
+                    px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-md border border-white/20 
+                    flex flex-col items-center text-center"
               >
                 <p className="text-[18px] sm:text-[20px] font-semibold text-white leading-snug">
                   Your Gateway to
