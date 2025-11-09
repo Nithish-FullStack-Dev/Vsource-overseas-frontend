@@ -1,21 +1,34 @@
-import { useEffect } from "react";
-import HeroBanner from "../components/canada/HeroBanner";
-import QuickLinksSection from "../components/canada/QuickLinksSection";
-import OverviewHighlights from "../components/canada/OverviewHighlights";
-import WhyStudycanada from "../components/canada/WhyStudycanada";
-import CityCostsTabs from "../components/canada/CityCostsTabs";
-import AdmissionRequirementscanada from "../components/canada/AdmissionRequirementscanada";
-import StudentVisacanada from "../components/canada/StudentVisacanada";
-import PopularCourses from "../components/canada/PopularCourses";
-import JobsIncanada from "../components/canada/JobsIncanada";
-import LogoMarquee from "../components/canada/LogoMarquee";
-// import VideoCarousel from "../components/canada/VideoCarousel";
-import VideoCarousel from "../components/home/VideoCarousel";
+import React, { Suspense, lazy, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { StudyIn } from "@/types/StudyInPage";
 import { toast } from "sonner";
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+import { StudyIn } from "@/types/StudyInPage";
+
+// 🔹 Lazy load heavy content sections
+const HeroBanner = lazy(() => import("../components/canada/HeroBanner"));
+const QuickLinksSection = lazy(
+  () => import("../components/canada/QuickLinksSection")
+);
+const OverviewHighlights = lazy(
+  () => import("../components/canada/OverviewHighlights")
+);
+const WhyStudycanada = lazy(
+  () => import("../components/canada/WhyStudycanada")
+);
+const CityCostsTabs = lazy(() => import("../components/canada/CityCostsTabs"));
+const AdmissionRequirementscanada = lazy(
+  () => import("../components/canada/AdmissionRequirementscanada")
+);
+const StudentVisacanada = lazy(
+  () => import("../components/canada/StudentVisacanada")
+);
+const PopularCourses = lazy(
+  () => import("../components/canada/PopularCourses")
+);
+const JobsIncanada = lazy(() => import("../components/canada/JobsIncanada"));
+const LogoMarquee = lazy(() => import("../components/canada/LogoMarquee"));
+const VideoCarousel = lazy(() => import("../components/home/VideoCarousel"));
 
 export const fetchStudyInCanada = async () => {
   const { data } = await axios.get(
@@ -53,7 +66,7 @@ const StudyCanada = () => {
   }
 
   return (
-    <>
+    <Suspense fallback={<BannerSkeleton />}>
       <HeroBanner
         banner={studyInCanada?.banner || null}
         title={studyInCanada?.title}
@@ -108,7 +121,7 @@ const StudyCanada = () => {
         html { scroll-behavior: smooth; }
         .anchor-section { scroll-margin-top: 100px; } /* adjust for your fixed header */
       `}</style>
-    </>
+    </Suspense>
   );
 };
 

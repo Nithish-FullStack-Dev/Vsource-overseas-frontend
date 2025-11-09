@@ -55,6 +55,7 @@ const ServicesSection = () => {
                       alt="Logo"
                       className="w-20 h-20 sm:w-24 sm:h-24 mb-3"
                       onClick={(e) => e.stopPropagation()}
+                      loading="lazy"
                     />
                     <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 leading-tight">
                       {service.title}

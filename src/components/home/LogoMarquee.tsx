@@ -73,6 +73,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({
                 const target = e.target as HTMLImageElement;
                 target.onerror = null;
               }}
+              loading="lazy"
             />
           </div>
         ))}
