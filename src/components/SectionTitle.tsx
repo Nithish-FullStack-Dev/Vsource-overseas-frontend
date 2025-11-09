@@ -23,16 +23,17 @@ const SectionTitle = ({
         data-aos="zoom-in"
         data-aos-delay="200"
       >
-        Our Management Team
+        {title}
       </h2>
-      <p
-        className="text-lg text-muted-foreground max-w-3xl mx-auto"
-        data-aos="zoom-in"
-        data-aos-delay="400"
-      >
-        Meet the experts who make Vsource Company a trusted name in educational
-        consultancy
-      </p>
+      {subtitle && (
+        <p
+          className="text-lg text-muted-foreground max-w-3xl mx-auto"
+          data-aos="zoom-in"
+          data-aos-delay="400"
+        >
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 };
