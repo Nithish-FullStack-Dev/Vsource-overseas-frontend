@@ -75,6 +75,7 @@ const Hero = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="object-contain h-full max-h-[120vh]"
           style={{ right: 0 }}
+          loading="lazy"
         />
       </div>
 
@@ -125,6 +126,7 @@ const Hero = () => {
                 src={badgeImage}
                 alt="20 Years Logo"
                 className="w-36 h-auto"
+                loading="lazy"
               />
             </motion.div>
 
@@ -205,6 +207,7 @@ const Hero = () => {
                     src={`https://flagcdn.com/${flag}.svg`}
                     alt={flag.toUpperCase()}
                     className="w-4 h-4 object-cover rounded-full"
+                    loading="lazy"
                   />
                 ))}
               </div>
@@ -221,6 +224,7 @@ const Hero = () => {
                 src={badgeImage}
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 "
+                loading="lazy"
               />
             </motion.div>
 

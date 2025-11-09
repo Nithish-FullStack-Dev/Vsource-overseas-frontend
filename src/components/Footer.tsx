@@ -22,7 +22,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <img
-                  src="/assets/images/icons/fb.png"
+                  src="/assets/images/icons/fb.webp"
                   alt="Facebook"
                   className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
                 />
@@ -32,7 +32,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <img
-                  src="/assets/images/icons/insta.png"
+                  src="/assets/images/icons/insta.webp"
                   alt="Instagram"
                   className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
                 />
@@ -42,7 +42,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <img
-                  src="/assets/images/icons/yt.png"
+                  src="/assets/images/icons/yt.webp"
                   alt="YouTube"
                   className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
                 />
@@ -52,7 +52,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <img
-                  src="/assets/images/icons/linked in.png"
+                  src="/assets/images/icons/linked in.webp"
                   alt="LinkedIn"
                   className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
                 />
