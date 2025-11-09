@@ -1,12 +1,15 @@
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
+import btechImage from "@/assets/homepage/btech.webp";
+import mbbsImage from "@/assets/homepage/mbbs.webp";
+import eduImage from "@/assets/homepage/edu.webp";
 
 const services = [
   {
     title: "BTECH",
     description:
       "Igniting Your Journey To Engineering Excellence\nIn CSE (AI/ML)",
-    imageSrc: "/assets/images/badges/btech.jpeg",
+    imageSrc: btechImage,
     externalUrl: "https://vsourcevarsity.com/",
     logoSrc: "/assets/images/logo varsity.png",
   },
@@ -14,7 +17,7 @@ const services = [
     title: "MBBS IN ABROAD",
     description:
       "Affordable, Globally Recognized\n MBBS Abroad\nGeorgia | Russia",
-    imageSrc: "/assets/images/badges/mbbs.jpg",
+    imageSrc: mbbsImage,
     externalUrl: "https://vsourceadmissions.com/",
     logoSrc: "/assets/images/mini logo.png",
   },
@@ -22,7 +25,7 @@ const services = [
     title: "EDU LOAN",
     description:
       "100% EDUCATION LOAN\nFOR BTECH IN NAAC A, A+, A++\nFOR MASTER IN US | UK | IRELAND | CANADA | FRANCE",
-    imageSrc: "/assets/images/badges/edu.jpg",
+    imageSrc: eduImage,
     externalUrl: "https://www.vsourcefintech.com/",
     logoSrc: "/assets/images/logo fintech.png",
   },

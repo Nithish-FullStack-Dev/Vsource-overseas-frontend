@@ -2,6 +2,10 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { User, GraduationCap, IndianRupee, MapPin } from "lucide-react";
+import dedicatedImage from "@/assets/homepage/Dedicated_Counsellor.webp";
+import loadnImage from "@/assets/homepage/Loan_Assistance.webp";
+import accImage from "@/assets/homepage/accommodation-food.webp";
+import preImage from "@/assets/homepage/pre-post-landing.webp";
 
 interface Service {
   icon: JSX.Element;
@@ -12,28 +16,28 @@ interface Service {
 
 const services: Service[] = [
   {
-    backgroundImage: "/assets/images/Trusted-section/Dedicated_Counsellor.jpg",
+    backgroundImage: dedicatedImage,
     icon: <User size={40} color="#ffffff" />,
     title: "Dedicated Counsellor",
     description:
       "You’ll have a dedicated counsellor who will provide personalized guidance & support throughout your educational journey",
   },
   {
-    backgroundImage: "/assets/images/Trusted-section/accommodation-food.jpg",
+    backgroundImage: accImage,
     icon: <GraduationCap size={40} color="#ffffffff" />,
     title: "Universities Shortlisting",
     description:
       "We assist in selecting the best-fit universities based on your academic goals and preferences",
   },
   {
-    backgroundImage: "/assets/images/Trusted-section/Loan_Assistance.jpg",
+    backgroundImage: loadnImage,
     icon: <IndianRupee size={40} color="#ffffffff" />,
     title: "Loan Assistance",
     description:
       "We guide you through the edu-carm loan process with our trusted financial partners for a hassle-free experience",
   },
   {
-    backgroundImage: "/assets/images/Trusted-section/pre-post-landing.jpg",
+    backgroundImage: preImage,
     icon: <MapPin size={40} color="#ffffffff" />,
     title: "Pre & Post Landing Support",
     description:
