@@ -1,21 +1,27 @@
-import { useEffect } from "react";
-import HeroBanner from "../components/usa/HeroBanner";
-import QuickLinksSection from "../components/usa/QuickLinksSection";
-import OverviewHighlights from "../components/usa/OverviewHighlights";
-import WhyStudyUSA from "../components/usa/WhyStudyUSA";
-import CityCostsTabs from "../components/usa/CityCostsTabs";
-import AdmissionRequirementsUSA from "../components/usa/AdmissionRequirementsUSA";
-import StudentVisaUSA from "../components/usa/StudentVisaUSA";
-import PopularCourses from "../components/usa/PopularCourses";
-import JobsInUSA from "../components/usa/JobsInUSA";
-import LogoMarquee from "../components/usa/LogoMarquee";
-// import VideoCarousel from "../components/usa/VideoCarousel";
-import VideoCarousel from "../components/home/VideoCarousel";
-import { useQuery } from "@tanstack/react-query";
-import { StudyIn } from "@/types/StudyInPage";
+import React, { Suspense, lazy, useEffect } from "react";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+import { StudyIn } from "@/types/StudyInPage";
+
+const HeroBanner = lazy(() => import("../components/usa/HeroBanner"));
+const QuickLinksSection = lazy(
+  () => import("../components/usa/QuickLinksSection")
+);
+const OverviewHighlights = lazy(
+  () => import("../components/usa/OverviewHighlights")
+);
+const WhyStudyUSA = lazy(() => import("../components/usa/WhyStudyUSA"));
+const CityCostsTabs = lazy(() => import("../components/usa/CityCostsTabs"));
+const AdmissionRequirementsUSA = lazy(
+  () => import("../components/usa/AdmissionRequirementsUSA")
+);
+const StudentVisaUSA = lazy(() => import("../components/usa/StudentVisaUSA"));
+const PopularCourses = lazy(() => import("../components/usa/PopularCourses"));
+const JobsInUSA = lazy(() => import("../components/usa/JobsInUSA"));
+const LogoMarquee = lazy(() => import("../components/usa/LogoMarquee"));
+const VideoCarousel = lazy(() => import("../components/home/VideoCarousel"));
 
 export const fetchStudyInUsa = async () => {
   const { data } = await axios.get(
@@ -53,7 +59,7 @@ const StudyUSA = () => {
   }
 
   return (
-    <>
+    <Suspense fallback={<BannerSkeleton />}>
       <HeroBanner
         banner={studyInUsa?.banner || null}
         title={studyInUsa?.title}
@@ -104,7 +110,7 @@ const StudyUSA = () => {
         html { scroll-behavior: smooth; }
         .anchor-section { scroll-margin-top: 100px; } /* adjust for your fixed header */
       `}</style>
-    </>
+    </Suspense>
   );
 };
 

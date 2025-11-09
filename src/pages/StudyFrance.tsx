@@ -1,21 +1,33 @@
-import { useEffect } from "react";
-import HeroBanner from "../components/france/HeroBanner";
-import QuickLinksSection from "../components/france/QuickLinksSection";
-import OverviewHighlights from "../components/france/OverviewHighlights";
-import WhyStudyFrance from "../components/france/WhyStudyFrance";
-import CityCostsTabs from "../components/france/CityCostsTabs";
-import AdmissionRequirementsFrance from "../components/france/AdmissionRequirementsFrance";
-import StudentVisaFrance from "../components/france/StudentVisaFrance";
-import PopularCourses from "../components/france/PopularCourses";
-import JobsInFrance from "../components/france/JobsInFrance";
-import LogoMarquee from "../components/france/LogoMarquee";
-// import VideoCarousel from "../components/france/VideoCarousel";
-import VideoCarousel from "../components/home/VideoCarousel";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { StudyIn } from "@/types/StudyInPage";
-import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import { toast } from "sonner";
+import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+import { StudyIn } from "@/types/StudyInPage";
+import React, { Suspense, lazy, useEffect } from "react";
+
+const HeroBanner = lazy(() => import("../components/france/HeroBanner"));
+const QuickLinksSection = lazy(
+  () => import("../components/france/QuickLinksSection")
+);
+const OverviewHighlights = lazy(
+  () => import("../components/france/OverviewHighlights")
+);
+const WhyStudyFrance = lazy(
+  () => import("../components/france/WhyStudyFrance")
+);
+const CityCostsTabs = lazy(() => import("../components/france/CityCostsTabs"));
+const AdmissionRequirementsFrance = lazy(
+  () => import("../components/france/AdmissionRequirementsFrance")
+);
+const StudentVisaFrance = lazy(
+  () => import("../components/france/StudentVisaFrance")
+);
+const PopularCourses = lazy(
+  () => import("../components/france/PopularCourses")
+);
+const JobsInFrance = lazy(() => import("../components/france/JobsInFrance"));
+const LogoMarquee = lazy(() => import("../components/france/LogoMarquee"));
+const VideoCarousel = lazy(() => import("../components/home/VideoCarousel"));
 
 export const fetchStudyInFrance = async () => {
   const { data } = await axios.get(
@@ -53,7 +65,7 @@ const StudyFrance = () => {
   }
 
   return (
-    <>
+    <Suspense fallback={<BannerSkeleton />}>
       <HeroBanner
         banner={studyInFrance?.banner || null}
         title={studyInFrance?.title}
@@ -108,7 +120,7 @@ const StudyFrance = () => {
         html { scroll-behavior: smooth; }
         .anchor-section { scroll-margin-top: 100px; } /* adjust for your fixed header */
       `}</style>
-    </>
+    </Suspense>
   );
 };
 

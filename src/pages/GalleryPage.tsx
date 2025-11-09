@@ -109,6 +109,7 @@ const GalleryPage = () => {
                         src={`${import.meta.env.VITE_CMS_GLOBALURL}${item.url}`}
                         alt={item.name || "Gallery Photo"}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
                       />
                     </div>
                   </div>

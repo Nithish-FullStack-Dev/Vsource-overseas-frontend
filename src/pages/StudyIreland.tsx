@@ -1,21 +1,33 @@
-import { useEffect } from "react";
-import HeroBanner from "../components/ireland/HeroBanner";
-import QuickLinksSection from "../components/ireland/QuickLinksSection";
-import OverviewHighlights from "../components/ireland/OverviewHighlights";
-import WhyStudyireland from "../components/ireland/WhyStudyireland";
-import CityCostsTabs from "../components/ireland/CityCostsTabs";
-import AdmissionRequirementsireland from "../components/ireland/AdmissionRequirementsireland";
-import StudentVisaireland from "../components/ireland/StudentVisaireland";
-import PopularCourses from "../components/ireland/PopularCourses";
-import JobsInireland from "../components/ireland/JobsInireland";
-import LogoMarquee from "../components/ireland/LogoMarquee";
-// import VideoCarousel from "../components/ireland/VideoCarousel";
-import VideoCarousel from "../components/home/VideoCarousel";
+import React, { Suspense, lazy, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { StudyIn } from "@/types/StudyInPage";
 import { toast } from "sonner";
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+import { StudyIn } from "@/types/StudyInPage";
+
+const HeroBanner = lazy(() => import("../components/ireland/HeroBanner"));
+const QuickLinksSection = lazy(
+  () => import("../components/ireland/QuickLinksSection")
+);
+const OverviewHighlights = lazy(
+  () => import("../components/ireland/OverviewHighlights")
+);
+const WhyStudyireland = lazy(
+  () => import("../components/ireland/WhyStudyireland")
+);
+const CityCostsTabs = lazy(() => import("../components/ireland/CityCostsTabs"));
+const AdmissionRequirementsireland = lazy(
+  () => import("../components/ireland/AdmissionRequirementsireland")
+);
+const StudentVisaireland = lazy(
+  () => import("../components/ireland/StudentVisaireland")
+);
+const PopularCourses = lazy(
+  () => import("../components/ireland/PopularCourses")
+);
+const JobsInireland = lazy(() => import("../components/ireland/JobsInireland"));
+const LogoMarquee = lazy(() => import("../components/ireland/LogoMarquee"));
+const VideoCarousel = lazy(() => import("../components/home/VideoCarousel"));
 
 export const fetchStudyInIreland = async () => {
   const { data } = await axios.get(
@@ -53,7 +65,7 @@ const StudyIreland = () => {
   }
 
   return (
-    <>
+    <Suspense fallback={<BannerSkeleton />}>
       <HeroBanner
         banner={studyInIreland?.banner || null}
         title={studyInIreland?.title}
@@ -108,7 +120,7 @@ const StudyIreland = () => {
         html { scroll-behavior: smooth; }
         .anchor-section { scroll-margin-top: 100px; } /* adjust for your fixed header */
       `}</style>
-    </>
+    </Suspense>
   );
 };
 
