@@ -158,7 +158,7 @@ const AboutSection: React.FC = () => {
           data-aos-anchor-placement="center-bottom"
         >
           <img
-            src="/assets/images/about-us/imgi_5_founder.png"
+            src="src/assets/about-us/imgi_5_founder.png"
             alt="Founder"
             data-aos="fade-right"
             data-aos-duration="1200"
