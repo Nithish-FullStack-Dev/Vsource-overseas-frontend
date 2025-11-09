@@ -4,6 +4,68 @@ import AboutSection from "../components/home/Aboutsectioninside";
 import styled from "styled-components";
 import SectionTitle from "@/components/SectionTitle";
 import aboutBanner from "@/assets/homepage/about-banner.webp";
+
+import img1 from "@/assets/about-us/imgi_6_1698599558.jpg";
+import img2 from "@/assets/about-us/imgi_7_1742728530.jpg";
+import img3 from "@/assets/about-us/imgi_8_1742879268.jpg";
+import img4 from "@/assets/about-us/imgi_9_1698845224.jpg";
+import img5 from "@/assets/about-us/imgi_10_1742793595.jpg";
+import img6 from "@/assets/about-us/imgi_11_1746726161.jpg";
+import img7 from "@/assets/about-us/imgi_12_1659255847.jpg";
+import img8 from "@/assets/about-us/imgi_13_1633425065.jpg";
+import img9 from "@/assets/about-us/imgi_14_1681479951.jpg";
+import img10 from "@/assets/about-us/1653732726.jpg";
+import img11 from "@/assets/about-us/imgi_16_1698838414.jpg";
+import img12 from "@/assets/about-us/imgi_18_1653732679.jpg";
+import img13 from "@/assets/about-us/imgi_17_1746727815.jpg";
+import img14 from "@/assets/about-us/imgi_20_1700658713.jpg";
+import img15 from "@/assets/about-us/imgi_19_1746799571.jpg";
+import img16 from "@/assets/about-us/imgi_22_1742967303.jpg";
+import img17 from "@/assets/about-us/imgi_21_1653732920.jpg";
+import img18 from "@/assets/about-us/imgi_23_1698835988.jpg";
+import img19 from "@/assets/about-us/imgi_24_1742794381.jpg";
+import img20 from "@/assets/about-us/imgi_25_1702922280.jpg";
+import img21 from "@/assets/about-us/imgi_26_1698841744.jpg";
+import img22 from "@/assets/about-us/imgi_27_1702989960.jpg";
+import img23 from "@/assets/about-us/imgi_35_1653733108.jpg";
+import img24 from "@/assets/about-us/imgi_28_1746788220.jpg";
+import img25 from "@/assets/about-us/imgi_29_1742733198.jpg";
+import img26 from "@/assets/about-us/imgi_30_1706010104.jpg";
+import img27 from "@/assets/about-us/imgi_31_1698844684.jpg";
+import img28 from "@/assets/about-us/imgi_32_1702915574.jpg";
+import img29 from "@/assets/about-us/imgi_33_1698841454.jpg";
+import img30 from "@/assets/about-us/imgi_34_1698839202.jpg";
+import img31 from "@/assets/about-us/imgi_37_1742967370.jpg";
+import img32 from "@/assets/about-us/imgi_38_1702987001.jpg";
+import img33 from "@/assets/about-us/imgi_39_1653732858.jpg";
+import img34 from "@/assets/about-us/imgi_40_1742967444.jpg";
+import img35 from "@/assets/about-us/imgi_41_1703151553.jpg";
+import img36 from "@/assets/about-us/imgi_42_1653732795.jpg";
+import img37 from "@/assets/about-us/imgi_43_1684232284.jpg";
+import img38 from "@/assets/about-us/imgi_44_1698835021.jpg";
+import img39 from "@/assets/about-us/imgi_45_1709625617.jpg";
+import img40 from "@/assets/about-us/imgi_46_1711625393.jpg";
+import img41 from "@/assets/about-us/imgi_47_1720255503.jpg";
+import img42 from "@/assets/about-us/imgi_48_1746798079.jpg";
+import img43 from "@/assets/about-us/imgi_49_1746798440.jpg";
+import img44 from "@/assets/about-us/imgi_50_1746799685.jpg";
+import img45 from "@/assets/about-us/imgi_55_1746800414.jpg";
+import img46 from "@/assets/about-us/imgi_51_1746799807.jpg";
+import img47 from "@/assets/about-us/imgi_52_1746800109.jpg";
+import img48 from "@/assets/about-us/imgi_53_1746800202.jpg";
+import img49 from "@/assets/about-us/imgi_54_1746800299.jpg";
+import img50 from "@/assets/about-us/imgi_56_1746800837.jpg";
+import img51 from "@/assets/about-us/imgi_57_1746800915.jpg";
+import img52 from "@/assets/about-us/imgi_58_1746801341.jpg";
+import img53 from "@/assets/about-us/imgi_59_1746801607.jpg";
+import img54 from "@/assets/about-us/imgi_60_1746802086.jpg";
+import img55 from "@/assets/about-us/imgi_61_1746802279.jpg";
+import img56 from "@/assets/about-us/imgi_62_1746802437.jpg";
+import img57 from "@/assets/about-us/imgi_63_1746802584.jpg";
+import img58 from "@/assets/about-us/imgi_64_1702915314.jpg";
+import img59 from "@/assets/about-us/imgi_65_1746802945.jpg";
+import img60 from "@/assets/about-us/imgi_66_1657097156.jpg";
+
 const AboutPage: React.FC = () => {
   // Scroll to top on page load
   useEffect(() => {
@@ -274,400 +336,361 @@ const teamMembers = [
   {
     name: "Mr. Mohammed Mustafa",
     position: "Founder",
-    image: "/assets/images/about-us/imgi_6_1698599558.jpg",
+    image: img1,
     bio: "VSOURCE COMPANY",
   },
   {
     name: "Mr. Nagender Rao",
     position: "Managing Director",
-    image: "/assets/images/about-us/imgi_7_1742728530.jpg",
+    image: img2,
     bio: "12 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Charan Teja",
     position: "CEO",
-    image: "/assets/images/about-us/imgi_8_1742879268.jpg",
+    image: img3,
     bio: "8 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Y Ranjith",
     position: "CFO",
-    image: "/assets/images/about-us/imgi_9_1698845224.jpg",
+    image: img4,
     bio: "12 YEARS WITH VSOURCE",
   },
-  // {
-  //   name: "Mr. Sai Siva Nag",
-  //   position: "Executive Director",
-  //   image: "/assets/images/about-us/imgi_10_1742793595",
-  //   bio: "20 YEARS WITH VSOURCE",
-  // },
   {
     name: "Mr. Shaik Yasin",
     position: "Executive Director",
-    image: "/assets/images/about-us/imgi_10_1742793595.jpg",
+    image: img5,
     bio: "8 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Akram",
     position: "Director, Admissions",
-    image: "/assets/images/about-us/imgi_11_1746726161.jpg",
+    image: img6,
     bio: "12 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Satyam Tomer",
     position: "Chief Technical Officer",
-    image: "/assets/images/about-us/imgi_12_1659255847.jpg",
+    image: img7,
     bio: "12 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Virendra Singh",
     position: "Vice President",
-    image: "/assets/images/about-us/imgi_13_1633425065.jpg",
+    image: img8,
     bio: "VSOURCE COMPANY",
   },
   {
     name: "Mr. Vijay Kumar",
     position: "Chief Advisor",
-    image: "/assets/images/about-us/imgi_14_1681479951.jpg",
+    image: img9,
     bio: "VSOURCE GROUP",
   },
   {
     name: "Mr. Arun",
     position: "Chief Operating Officer",
-    image: "/assets/images/about-us/1653732726.jpg",
+    image: img10,
     bio: "10 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Tejesh Naidu",
     position: "Director, Operations",
-    image: "/assets/images/about-us/imgi_16_1698838414.jpg",
+    image: img11,
     bio: "VSOURCE COMPANY",
   },
   {
     name: "Mr. Rajashekar",
     position: "Director, Education",
-    image: "/assets/images/about-us/imgi_18_1653732679.jpg",
+    image: img12,
     bio: "9 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Habib",
     position: "Director, Marketing",
-    image: "/assets/images/about-us/imgi_17_1746727815.jpg",
+    image: img13,
     bio: "10 YEARS WITH VSOURCE",
   },
   {
     name: "Mrs. Pushpalatha Reddy",
     position: "Director, Overseas",
-    image: "/assets/images/about-us/imgi_20_1700658713.jpg",
+    image: img14,
     bio: "7 YEARS WITH VSOURCE",
   },
   {
     name: "Mr. Moulali",
     position: "Director, Fintech",
-    image: "/assets/images/about-us/imgi_19_1746799571.jpg",
+    image: img15,
     bio: " ",
   },
   {
     name: "Dr. Giorgi Mikadze",
     position: "Director, Services. LLC",
-    image: "/assets/images/about-us/imgi_22_1742967303.jpg",
+    image: img16,
     bio: "Based in Georgia, specializing in services management.",
   },
   {
     name: "Dr. Mariam Kandelaki",
     position: "Director, Student Welfare",
-    image: "/assets/images/about-us/imgi_21_1653732920.jpg",
+    image: img17,
     bio: "Focused on student welfare initiatives in Georgia.",
   },
   {
     name: "Mr. Sreenath Reddy",
     position: "Director, Administration",
-    image: "/assets/images/about-us/imgi_23_1698835988.jpg",
+    image: img18,
     bio: "Leads administrative operations at VSOURCE Company.",
   },
   {
     name: "Ms. K Chaithanya",
     position: "HR",
-    image: "/assets/images/about-us/imgi_24_1742794381.jpg",
+    image: img19,
     bio: "Human Resources specialist at VSOURCE Company.",
   },
   {
     name: "Mr. Narun Reddy",
     position: "Head, Marketing",
-    image: "/assets/images/about-us/imgi_25_1702922280.jpg",
+    image: img20,
     bio: "Heads marketing operations for VSOURCE Varsity.",
   },
   {
     name: "Ms. Navya",
     position: "Head, Marketing",
-    image: "/assets/images/about-us/imgi_26_1698841744.jpg",
+    image: img21,
     bio: "Marketing lead for VSOURCE Overseas.",
   },
   {
     name: "Ms. Deepika",
     position: "Incharge, B.P.O",
-    image: "/assets/images/about-us/imgi_27_1702989960.jpg",
+    image: img22,
     bio: "Manages B.P.O operations at VSOURCE Fintech.",
   },
-
   {
     name: "Ms. Radha",
     position: "Branch Manager",
-    image: "/assets/images/about-us/imgi_35_1653733108.jpg",
+    image: img23,
     bio: "Branch Manager for Bengaluru operations.",
   },
   {
     name: "Mr. Mahesh",
     position: "B.P.O Incharge",
-    image: "/assets/images/about-us/imgi_28_1746788220.jpg",
+    image: img24,
     bio: "Overseeing B.P.O operations at VSOURCE Overseas.",
   },
-  // {
-  //   name: "Mr. Kumar",
-  //   position: "Branch Manager",
-  //   image: "/assets/images/about-us/imgi_36_1681473173.jpg",
-  //   bio: "Leading the Ongole branch.",
-  // },
   {
     name: "Mr. Srinivas Chowdary",
     position: "Branch Manager",
-    image: "/assets/images/about-us/imgi_29_1742733198.jpg",
+    image: img25,
     bio: "Managing branch operations in Tirupati.",
   },
   {
     name: "Mr. Srinadh Yadav",
     position: "Branch Manager",
-    image: "/assets/images/about-us/imgi_30_1706010104.jpg",
+    image: img26,
     bio: "Branch Manager for Vijayawada.",
   },
   {
     name: "Mr. Kiran Kumar",
     position: "Branch Manager",
-    image: "/assets/images/about-us/imgi_31_1698844684.jpg",
+    image: img27,
     bio: "Heading the Vizag branch.",
   },
   {
     name: "Ms. Nikhitha",
     position: "Branch Manager",
-    image: "/assets/images/about-us/imgi_32_1702915574.jpg",
+    image: img28,
     bio: "Branch Manager for Dilsukhnagar.",
   },
   {
     name: "Mr. Raj",
     position: "Branch Manager",
-    image: "/assets/images/about-us/imgi_33_1698841454.jpg",
+    image: img29,
     bio: "Managing the Ameerpet branch.",
   },
   {
     name: "Ms. Spandana",
     position: "Branch Manager",
-    image: "/assets/images/about-us/imgi_34_1698839202.jpg",
+    image: img30,
     bio: "Branch Manager in Kukatpally.",
   },
   {
     name: "Mrs. Tako",
     position: "Administration",
-    image: "/assets/images/about-us/imgi_37_1742967370.jpg",
+    image: img31,
     bio: "Part of the administrative team in Georgia.",
   },
   {
     name: "Mr. Zaza",
     position: "Administration",
-    image: "/assets/images/about-us/imgi_38_1702987001.jpg",
+    image: img32,
     bio: "Administrative team member in Georgia.",
   },
   {
     name: "Mr. Aleksandre",
     position: "Accountant",
-    image: "/assets/images/about-us/imgi_39_1653732858.jpg",
+    image: img33,
     bio: "Accountant based in Georgia.",
   },
   {
     name: "Ms. Nino",
     position: "Administration",
-    image: "/assets/images/about-us/imgi_40_1742967444.jpg",
+    image: img34,
     bio: "Administrative team member in Georgia.",
   },
   {
     name: "Mr. Dimitrilp",
     position: "Administration",
-    image: "/assets/images/about-us/imgi_41_1703151553.jpg",
+    image: img35,
     bio: "Administrative team member in Georgia.",
   },
   {
     name: "Mr. Noorbaz Khan Qaderi",
     position: "Administration",
-    image: "/assets/images/about-us/imgi_42_1653732795.jpg",
+    image: img36,
     bio: "Administrative team member in Russia.",
   },
   {
     name: "Mrs. Shaista Ashraf",
     position: "Head of Admissions",
-    image: "/assets/images/about-us/imgi_43_1684232284.jpg",
+    image: img37,
     bio: "Oversees admissions in UAE and Saudi Arabia.",
   },
-  // {
-  //   name: "Mr. Nithin",
-  //   position: "Senior Associate",
-  //   image:
-  //     "https://vsourceoverseas.com/uploads/about_team/IMG_20231220_093457.jpg",
-  //   bio: "Senior Associate at VSOURCE Overseas.",
-  // },
   {
     name: "Mr. Shaik Gafoor",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_44_1698835021.jpg",
+    image: img38,
     bio: "Senior Associate at VSOURCE Overseas.",
   },
   {
     name: "Mr. Venkata Sasi kumar",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_45_1709625617.jpg",
+    image: img39,
     bio: "Senior Associate at VSOURCE Varsity.",
   },
   {
     name: "Mr. Mahesh Patil",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_46_1711625393.jpg",
+    image: img40,
     bio: "Senior Associate at VSOURCE Overseas.",
   },
   {
     name: "Mr. Bhanu Sai Prakash",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_47_1720255503.jpg",
+    image: img41,
     bio: "Senior Associate at VSOURCE Overseas.",
   },
   {
     name: "Mr. Radha Krishna",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_48_1746798079.jpg",
+    image: img42,
     bio: "Senior Associate at VSOURCE Varsity.",
   },
   {
     name: "Mr. Venkat",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_49_1746798440.jpg",
+    image: img43,
     bio: "Senior Associate at VSOURCE Fintech.",
   },
-  // {
-  //   name: "Mr. Shaik Moulali",
-  //   position: "Senior Associate",
-  //   image: "/assets/images/about-us/imgi_49_1746798440.jpg",
-  //   bio: "Senior Associate at VSOURCE Fintech.",
-  // },
   {
     name: "Mr. Nagaraju",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_50_1746799685.jpg",
+    image: img44,
     bio: "Senior Associate at VSOURCE Fintech.",
   },
   {
     name: "Ms. Kavyasree",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_55_1746800414.jpg",
+    image: img45,
     bio: "Senior Associate at VSOURCE Fintech.",
   },
   {
     name: "Mr. Mahesh Goud",
     position: "Senior Associate",
-    image: "/assets/images/about-us/imgi_51_1746799807.jpg",
+    image: img46,
     bio: "Senior Associate at VSOURCE Fintech.",
   },
-
   {
     name: "Mr. RAKESH",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_52_1746800109.jpg",
+    image: img47,
     bio: "Associated with VSOURCE OVERSEAS.",
   },
   {
     name: "Mr. SHAIK MUNEER",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_53_1746800202.jpg",
+    image: img48,
     bio: "Associated with VSOURCE VARSITY.",
   },
   {
     name: "Mr. M PAVAN",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_54_1746800299.jpg",
+    image: img49,
     bio: "Associated with VSOURCE OVERSEAS.",
   },
-  // {
-  //   name: "Ms. DIVYA",
-  //   position: "Jr. ASSOCIATE",
-  //   image: "https://vsourceoverseas.com/uploads/about_team/DIVYA.jpeg",
-  //   bio: "Associated with VSOURCE OVERSEAS.",
-  // },
-  // {
-  //   name: "Mr. ATHAR PASHA",
-  //   position: "Jr. ASSOCIATE",
-  //   image: "https://vsourceoverseas.com/uploads/about_team/ATHAR.jpeg",
-  //   bio: "Associated with VSOURCE VARSITY.",
-  // },
   {
     name: "Mr. NAGA VENKATESH",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_56_1746800837.jpg",
+    image: img50,
     bio: "Associated with VSOURCE OVERSEAS.",
   },
   {
     name: "Mr. S PAVAN",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_57_1746800915.jpg",
+    image: img51,
     bio: "Associated with VSOURCE OVERSEAS.",
   },
   {
     name: "Mr. BHANU SAIRAM",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_58_1746801341.jpg",
+    image: img52,
     bio: "Associated with VSOURCE VARSITY.",
   },
   {
     name: "Mr. VIJAY",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_59_1746801607.jpg",
+    image: img53,
     bio: "Associated with VSOURCE OVERSEAS.",
   },
   {
     name: "Mr. SUBRAHMANYAM",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_60_1746802086.jpg",
+    image: img54,
     bio: "Associated with VSOURCE VARSITY.",
   },
   {
     name: "Mr. LAKSHMAN",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_61_1746802279.jpg",
+    image: img55,
     bio: "Associated with VSOURCE FINTECH.",
   },
   {
     name: "Mr. MOHAN KRISHNA",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_62_1746802437.jpg",
+    image: img56,
     bio: "Associated with VSOURCE FINTECH.",
   },
   {
     name: "Mr. RAMU",
     position: "Jr. ASSOCIATE",
-    image: "/assets/images/about-us/imgi_63_1746802584.jpg",
+    image: img57,
     bio: "Associated with VSOURCE FINTECH.",
   },
   {
     name: "Mr. FAHAD",
     position: "DIGITAL MARKETING",
-    image: "/assets/images/about-us/imgi_64_1702915314.jpg",
+    image: img58,
     bio: "Specialist in digital marketing for VSOURCE OVERSEAS.",
   },
   {
     name: "Mr. VAMSHI",
     position: "DIGITAL MARKETING",
-    image: "/assets/images/about-us/imgi_65_1746802945.jpg",
+    image: img59,
     bio: "Specialist in digital marketing for VSOURCE VARSITY.",
   },
   {
     name: "Mr. Purushotham Reddy",
     position: "GROUND MARKETING",
-    image: "/assets/images/about-us/imgi_66_1657097156.jpg",
+    image: img60,
     bio: "Ground marketing expert for Andhra & Telangana.",
   },
 ];

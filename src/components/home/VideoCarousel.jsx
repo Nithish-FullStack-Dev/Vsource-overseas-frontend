@@ -1,16 +1,25 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./VideoCarousel.module.css"; // CSS module
+import student4 from "@/assets/video/student4.mp4";
+import student8 from "@/assets/video/student8.mp4";
+import student7 from "@/assets/video/student7.mp4";
+import student1 from "@/assets/video/student1.mp4";
+import student6 from "@/assets/video/student6.mp4";
+import student2 from "@/assets/video/student2.mp4";
+import student5 from "@/assets/video/student5.mp4";
+import student3 from "@/assets/video/student3.mp4";
 
 const videos = [
-  { name: "SAMSRUTHI", video: "/assets/images/video/student4.mp4" },
-  { name: "AMITH REDDY", video: "/assets/images/video/student8.mp4" },
-  { name: "BEDRE VISHWAS", video: "/assets/images/video/student7.mp4" },
-  { name: "DEEKSHITHA", video: "/assets/images/video/student1.mp4" },
-  { name: "SHAIK MUNEER AHMED", video: "/assets/images/video/student6.mp4" },
-  { name: "KHASHIKA", video: "/assets/images/video/student2.mp4" },
-  { name: "SATHVIKA", video: "/assets/images/video/student5.mp4" }, 
-  { name: "LOVLISH REDDY", video: "/assets/images/video/student3.mp4" },
+  { name: "SAMSRUTHI", video: student4 },
+  { name: "AMITH REDDY", video: student8 },
+  { name: "BEDRE VISHWAS", video: student7 },
+  { name: "DEEKSHITHA", video: student1 },
+  { name: "SHAIK MUNEER AHMED", video: student6 },
+  { name: "KHASHIKA", video: student2 },
+  { name: "SATHVIKA", video: student5 },
+  { name: "LOVLISH REDDY", video: student3 },
 ];
+
 
 const OFFSET = 3;
 const displayedVideos = [
