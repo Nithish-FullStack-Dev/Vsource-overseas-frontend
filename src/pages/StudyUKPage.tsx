@@ -1,21 +1,34 @@
-import { useEffect } from "react";
-import HeroBanner from "../components/university/HeroBanner";
-import QuickLinksSection from "../components/university/QuickLinksSection";
-import OverviewHighlights from "../components/university/OverviewHighlights";
-import WhyStudyUK from "../components/university/WhyStudyUK";
-import CityCostsTabs from "../components/university/CityCostsTabs";
-import AdmissionRequirementsUK from "../components/university/AdmissionRequirementsUK";
-import StudentVisaUK from "../components/university/StudentVisaUK";
-import PopularCourses from "../components/university/PopularCourses";
-import JobsInUK from "../components/university/JobsInUK";
-import LogoMarquee from "../components/university/LogoMarquee";
-// import VideoCarousel from "../components/university/VideoCarousel";
-import VideoCarousel from "../components/home/VideoCarousel";
+import React, { Suspense, lazy, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import { toast } from "sonner";
+
+import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import { StudyIn } from "@/types/StudyInPage";
+
+const HeroBanner = lazy(() => import("../components/university/HeroBanner"));
+const QuickLinksSection = lazy(
+  () => import("../components/university/QuickLinksSection")
+);
+const OverviewHighlights = lazy(
+  () => import("../components/university/OverviewHighlights")
+);
+const WhyStudyUK = lazy(() => import("../components/university/WhyStudyUK"));
+const CityCostsTabs = lazy(
+  () => import("../components/university/CityCostsTabs")
+);
+const AdmissionRequirementsUK = lazy(
+  () => import("../components/university/AdmissionRequirementsUK")
+);
+const StudentVisaUK = lazy(
+  () => import("../components/university/StudentVisaUK")
+);
+const PopularCourses = lazy(
+  () => import("../components/university/PopularCourses")
+);
+const JobsInUK = lazy(() => import("../components/university/JobsInUK"));
+const LogoMarquee = lazy(() => import("../components/university/LogoMarquee"));
+const VideoCarousel = lazy(() => import("../components/home/VideoCarousel"));
 
 export const fetchStudyInUk = async () => {
   const { data } = await axios.get(
@@ -52,7 +65,7 @@ const StudyUKPage = () => {
     return <BannerSkeleton />;
   }
   return (
-    <>
+    <Suspense fallback={<BannerSkeleton />}>
       <HeroBanner banner={studyInUk.banner || null} title={studyInUk.title} />
 
       {/* Quick links (solid red pills) */}
@@ -100,7 +113,7 @@ const StudyUKPage = () => {
         html { scroll-behavior: smooth; }
         .anchor-section { scroll-margin-top: 100px; } /* adjust for your fixed header */
       `}</style>
-    </>
+    </Suspense>
   );
 };
 
