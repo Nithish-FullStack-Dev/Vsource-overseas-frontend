@@ -3,7 +3,7 @@ import AnimateOnScroll from "@/components/AnimateOnScroll";
 import AboutSection from "../components/home/Aboutsectioninside";
 import styled from "styled-components";
 import SectionTitle from "@/components/SectionTitle";
-
+import aboutBanner from "@/assets/homepage/about-banner.webp";
 const AboutPage: React.FC = () => {
   // Scroll to top on page load
   useEffect(() => {
@@ -16,7 +16,7 @@ const AboutPage: React.FC = () => {
       <section
         className="pt-40 pb-36 bg-cover bg-center bg-no-repeat relative text-white"
         style={{
-          backgroundImage: `url(/assets/images/about-banner.jpg)`,
+          backgroundImage: `url(${aboutBanner})`,
         }}
       >
         {/* Dark overlay */}

@@ -2,6 +2,11 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 import { motion, useScroll, useTransform } from "framer-motion";
+import ukImage from "@/assets/homepage/uk.webp";
+import usaImage from "@/assets/homepage/usa.webp";
+import franceImage from "@/assets/homepage/france.webp";
+import canadaImage from "@/assets/homepage/canada.webp";
+import irelandImage from "@/assets/homepage/ireland.webp";
 
 type Course = {
   country: string;
@@ -19,7 +24,7 @@ const courseCategories: Course[] = [
       "Home to Top World-Ranking Universities",
       "Wide Range of Scholarships & Financial Assistance",
     ],
-    image: "/assets/images/countries/uk.jpg",
+    image: ukImage,
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -29,7 +34,7 @@ const courseCategories: Course[] = [
       "#1 Destination for Top-Ranked Institutions",
       "Extensive Scholarships & Financial Support",
     ],
-    image: "/assets/images/countries/usa.jpg",
+    image: usaImage,
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -40,7 +45,7 @@ const courseCategories: Course[] = [
       "Work Opportunities & Post-Study Work Permits",
       "Scholarships and Financial Aid for International Students",
     ],
-    image: "/assets/images/countries/canada.jpg",
+    image: canadaImage,
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -51,7 +56,7 @@ const courseCategories: Course[] = [
       "Gateway to Europe with Post-Study Work Options",
       "Scholarships & Financial Support Available",
     ],
-    image: "/assets/images/countries/ireland.jpg",
+    image: irelandImage,
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -62,7 +67,7 @@ const courseCategories: Course[] = [
       "Affordable Education with Rich Cultural Experience",
       "Scholarships & Financial Assistance for International Students",
     ],
-    image: "/assets/images/countries/france.jpg",
+    image: franceImage,
     url: "https://vsourcevarsity.com/",
   },
 ];

@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import DelayedPopup from "../DelayedPopup";
 import { PopupModal } from "react-calendly";
+import banner from "@/assets/homepage/home-bg.webp";
+import displayGirlDesktop from "@/assets/homepage/vsource.webp";
+import bannerMobile from "@/assets/homepage/girl-mobile.webp";
+import badgeImage from "@/assets/homepage/20-years-logo.webp";
 
 const animatedTexts = [
   ["STUDY MASTER'S", "IN USA, UK IRELAND, CANADA, FRANCE"],
@@ -46,7 +50,7 @@ const Hero = () => {
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{ backgroundImage: "url('/assets/images/vsource 1.jpg')" }}
+          style={{ backgroundImage: `url(${banner})` }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
       </motion.div>
@@ -57,14 +61,14 @@ const Hero = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: "url('/assets/images/SLIDER nn-01.jpg')",
+          backgroundImage: `url(${bannerMobile})`,
         }}
       />
 
       {/* Right-side Girl Image (Hidden on Mobile) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
-          src="/assets/images/vsource.png"
+          src={displayGirlDesktop}
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
@@ -118,7 +122,7 @@ const Hero = () => {
               className="flex justify-start pt-6"
             >
               <img
-                src="/assets/images/20 years logo.png"
+                src={badgeImage}
                 alt="20 Years Logo"
                 className="w-36 h-auto"
               />
@@ -214,7 +218,7 @@ const Hero = () => {
                 APPLY NOW
               </motion.button>
               <img
-                src="/assets/images/20 years logo.png"
+                src={badgeImage}
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 "
               />

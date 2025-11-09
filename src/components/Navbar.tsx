@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
+import vLogo from "@/assets/homepage/vsource-logo.webp";
+import badgeLogo from "@/assets/homepage/nav-badge20years.webp";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,11 +76,11 @@ const Navbar = () => {
           <img
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
-            src="/assets/images/vsource-logo.jpg"
+            src={vLogo}
           />
           <div>
             <img
-              src="/assets/images/20 years logo-01.png"
+              src={badgeLogo}
               alt="20 Years Logo"
               className="h-20 md:h-18 ml-3 w-auto object-contain drop-shadow-md"
             />
