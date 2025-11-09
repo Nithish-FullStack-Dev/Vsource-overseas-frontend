@@ -1,23 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./VideoCarousel.module.css"; // CSS module
-import student4 from "@/assets/video/student4.mp4";
-import student8 from "@/assets/video/student8.mp4";
-import student7 from "@/assets/video/student7.mp4";
-import student1 from "@/assets/video/student1.mp4";
-import student6 from "@/assets/video/student6.mp4";
-import student2 from "@/assets/video/student2.mp4";
-import student5 from "@/assets/video/student5.mp4";
-import student3 from "@/assets/video/student3.mp4";
+// import student4 from "https://res.cloudinary.com/dch00stdh/video/upload/v1762691780/student4_bjqhnt.mp4";
+// import student8 from "@/assets/video/student8.mp4";
+// import student7 from "@/assets/video/student7.mp4";
+// import student1 from "@/assets/video/student1.mp4";
+// import student6 from "@/assets/video/student6.mp4";
+// import student2 from "@/assets/video/student2.mp4";
+// import student5 from "@/assets/video/student5.mp4";
+// import student3 from "https://res.cloudinary.com/dch00stdh/video/upload/v1762692631/student3_kpisvc.mp4";
 
 const videos = [
-  { name: "SAMSRUTHI", video: student4 },
-  { name: "AMITH REDDY", video: student8 },
-  { name: "BEDRE VISHWAS", video: student7 },
-  { name: "DEEKSHITHA", video: student1 },
-  { name: "SHAIK MUNEER AHMED", video: student6 },
-  { name: "KHASHIKA", video: student2 },
-  { name: "SATHVIKA", video: student5 },
-  { name: "LOVLISH REDDY", video: student3 },
+  { name: "SAMSRUTHI", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762691780/student4_bjqhnt.mp4" },
+  { name: "AMITH REDDY", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762694135/student8_blnbpq.mp4" },
+  { name: "BEDRE VISHWAS", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762694056/student7_fuwbjh.mp4" },
+  { name: "DEEKSHITHA", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762693376/student1_kbxkmk.mp4" },
+  { name: "SHAIK MUNEER AHMED", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762693862/student6_bajxom.mp4" },
+  { name: "KHASHIKA", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762693691/student2_y8tg7j.mp4" },
+  { name: "SATHVIKA", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762693758/student5_n9mezn.mp4" },
+  { name: "LOVLISH REDDY", video: "https://res.cloudinary.com/dch00stdh/video/upload/v1762692631/student3_kpisvc.mp4" },
 ];
 
 

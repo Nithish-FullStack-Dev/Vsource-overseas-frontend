@@ -229,7 +229,9 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="bg-white/5 backdrop-blur-md px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-lg border border-white/30 flex flex-col items-center text-center"
+                className="bg-white/10 backdrop-blur-sm will-change-transform will-change-[backdrop-filter] 
+px-6 py-5 rounded-2xl max-w-xl mx-auto shadow-md border border-white/20 
+flex flex-col items-center text-center"
               >
                 <p className="text-[18px] sm:text-[20px] font-semibold text-white leading-snug">
                   Your Gateway to
