@@ -6,11 +6,18 @@ import { PopupModal } from "react-calendly";
 import banner from "@/assets/homepage/home-bg.webp";
 import displayGirlDesktop from "@/assets/homepage/vsource.webp";
 import bannerMobile from "@/assets/homepage/girl-mobile.webp";
-import badgeImage from "@/assets/homepage/20-years-logo.webp";
+// import badgeImage from "@/assets/homepage/20-years-logo.webp";
 
 const animatedTexts = [
   ["STUDY MASTER'S", "IN USA, UK IRELAND, CANADA, FRANCE"],
 ];
+const flagUrls = {
+  fr: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/fr_cdemdi.svg",
+  us: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702274/us_ruv7bj.svg",
+  ie: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/ie_eixitt.svg",
+  ca: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/ca_p8rr4y.svg",
+  gb: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/gb_ywaagd.svg",
+};
 
 const Hero = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -122,7 +129,9 @@ const Hero = () => {
               className="flex justify-start pt-6"
             >
               <img
-                src={badgeImage}
+                src={
+                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762702830/20-years-logo_be7aro.webp"
+                }
                 alt="20 Years Logo"
                 className="w-36 h-auto"
               />
@@ -202,12 +211,14 @@ const Hero = () => {
                 {["fr", "us", "ie", "ca", "gb"].map((flag, idx) => (
                   <img
                     key={idx}
-                    src={`https://flagcdn.com/${flag}.svg`}
+                    src={flagUrls[flag]}
                     alt={flag.toUpperCase()}
                     className="w-4 h-4 object-cover rounded-full"
+                    loading="lazy"
                   />
                 ))}
               </div>
+
               <motion.button
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -218,7 +229,9 @@ const Hero = () => {
                 APPLY NOW
               </motion.button>
               <img
-                src={badgeImage}
+                src={
+                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762702830/20-years-logo_be7aro.webp"
+                }
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 "
               />

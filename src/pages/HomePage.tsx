@@ -1,3 +1,4 @@
+import React, { Suspense, useEffect } from "react";
 import Hero from "../components/home/Hero";
 import AboutSection from "../components/home/AboutSection";
 import AccreditationSection from "../components/home/AccreditationSection";
@@ -11,14 +12,15 @@ import ScholarshipsSection from "../components/home/ScholarshipsSection";
 import TestimonialsSection from "../components/home/TestimonialsSection";
 import Features from "../components/home/Features";
 import CareerOptionsCarousel from "../components/home/CareerOptionsCarousel";
-import VideoCarousel from "../components/home/VideoCarousel";
+// import VideoCarousel from "../components/home/VideoCarousel";
 // import CtaSection from "../components/home/CtaSection";
 import TrustSection from "../components/home/TrustSection";
 // import CounterSection from "../components/home/CounterSection";
 
-import StudyDestinationsCarousel from "../components/home/StudyDestinationsCarousel";
-import { useEffect } from "react";
-
+// import StudyDestinationsCarousel from "../components/home/StudyDestinationsCarousel";
+const VideoCarousel = React.lazy(
+  () => import("../components/home/VideoCarousel")
+);
 interface HomePageProps {
   faqRef?: React.RefObject<HTMLDivElement>;
 }
@@ -33,18 +35,22 @@ const HomePage = ({ faqRef }: HomePageProps) => {
     <>
       <Hero />
       <AboutSection />
-      
+
       {/* <CounterSection /> */}
       <AccreditationSection />
-       <CoursesSection />
-     <Features/>
-     <TrustSection />
+      <CoursesSection />
+      <Features />
+      <TrustSection />
       <ServicesSection />
-      <CareerOptionsCarousel/>
+      <CareerOptionsCarousel />
       <VideoSection />
-    
+
       <LogoMarquee />
-      <VideoCarousel/>
+      {/* <VideoCarousel/> */}
+      <Suspense fallback={<div style={{ height: 300 }}></div>}>
+        <VideoCarousel />
+      </Suspense>
+
       {/* <ScholarshipsSection />
       <StudyAbroadSection /> */}
       {/* <ExperienceSection /> */}
