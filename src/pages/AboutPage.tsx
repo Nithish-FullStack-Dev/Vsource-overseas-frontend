@@ -3,7 +3,6 @@ import AnimateOnScroll from "@/components/AnimateOnScroll";
 import AboutSection from "../components/home/Aboutsectioninside";
 import styled from "styled-components";
 import SectionTitle from "@/components/SectionTitle";
-import aboutBanner from "@/assets/homepage/about-banner.webp";
 
 import img1 from "@/assets/about-us/imgi_6_1698599558.jpg";
 import img2 from "@/assets/about-us/imgi_7_1742728530.jpg";
@@ -78,7 +77,7 @@ const AboutPage: React.FC = () => {
       <section
         className="pt-40 pb-36 bg-cover bg-center bg-no-repeat relative text-white"
         style={{
-          backgroundImage: `url(${aboutBanner})`,
+          backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/v1762707348/about-banner_dgscgs.webp)`,
         }}
       >
         {/* Dark overlay */}

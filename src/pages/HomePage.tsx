@@ -47,9 +47,7 @@ const HomePage = ({ faqRef }: HomePageProps) => {
 
       <LogoMarquee />
       {/* <VideoCarousel/> */}
-      <Suspense fallback={<div style={{ height: 300 }}></div>}>
-        <VideoCarousel />
-      </Suspense>
+      <VideoCarousel />
 
       {/* <ScholarshipsSection />
       <StudyAbroadSection /> */}

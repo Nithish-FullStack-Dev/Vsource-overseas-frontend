@@ -158,7 +158,7 @@ const AboutSection: React.FC = () => {
             data-aos-duration="2000"
           >
             <img
-              src="https://vsourcevarsity.com/assets/images/founder.webp"
+              src="https://res.cloudinary.com/dch00stdh/image/upload/v1762706615/imgi_5_founder_vtpuke.png"
               alt="Founder"
               className="founder-img"
             />

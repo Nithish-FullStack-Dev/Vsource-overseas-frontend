@@ -2,11 +2,6 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import SectionTitle from "../SectionTitle";
 import AnimateOnScroll from "../AnimateOnScroll";
 import { motion, useScroll, useTransform } from "framer-motion";
-import ukImage from "@/assets/homepage/uk.webp";
-import usaImage from "@/assets/homepage/usa.webp";
-import franceImage from "@/assets/homepage/france.webp";
-import canadaImage from "@/assets/homepage/canada.webp";
-import irelandImage from "@/assets/homepage/ireland.webp";
 
 type Course = {
   country: string;
@@ -24,7 +19,8 @@ const courseCategories: Course[] = [
       "Home to Top World-Ranking Universities",
       "Wide Range of Scholarships & Financial Assistance",
     ],
-    image: ukImage,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705950/uk_t9dc3s.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -34,7 +30,8 @@ const courseCategories: Course[] = [
       "#1 Destination for Top-Ranked Institutions",
       "Extensive Scholarships & Financial Support",
     ],
-    image: usaImage,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705953/usa_uf4f16.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -45,7 +42,8 @@ const courseCategories: Course[] = [
       "Work Opportunities & Post-Study Work Permits",
       "Scholarships and Financial Aid for International Students",
     ],
-    image: canadaImage,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705935/canada_jt1dc7.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -56,7 +54,8 @@ const courseCategories: Course[] = [
       "Gateway to Europe with Post-Study Work Options",
       "Scholarships & Financial Support Available",
     ],
-    image: irelandImage,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705976/ireland_v69csu.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -67,7 +66,8 @@ const courseCategories: Course[] = [
       "Affordable Education with Rich Cultural Experience",
       "Scholarships & Financial Assistance for International Students",
     ],
-    image: franceImage,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705947/france_lru1rl.webp",
     url: "https://vsourcevarsity.com/",
   },
 ];
