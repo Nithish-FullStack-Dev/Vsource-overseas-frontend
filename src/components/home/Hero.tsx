@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import DelayedPopup from "../DelayedPopup";
 import { PopupModal } from "react-calendly";
-import banner from "@/assets/homepage/home-bg.webp";
-import displayGirlDesktop from "@/assets/homepage/vsource.webp";
-import bannerMobile from "@/assets/homepage/girl-mobile.webp";
 // import badgeImage from "@/assets/homepage/20-years-logo.webp";
 
 const animatedTexts = [
@@ -57,7 +54,7 @@ const Hero = () => {
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{ backgroundImage: `url(${banner})` }}
+          style={{ backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/v1762706393/home-bg_lmooii.webp)` }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
       </motion.div>
@@ -68,14 +65,14 @@ const Hero = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: `url(${bannerMobile})`,
+          backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/v1762706392/girl-mobile_jdl10b.webp)`,
         }}
       />
 
       {/* Right-side Girl Image (Hidden on Mobile) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
-          src={displayGirlDesktop}
+          src={"https://res.cloudinary.com/dch00stdh/image/upload/v1762706393/vsource_o2hkq0.webp"}
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
