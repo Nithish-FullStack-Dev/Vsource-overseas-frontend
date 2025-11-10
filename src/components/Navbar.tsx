@@ -95,13 +95,13 @@ const Navbar = () => {
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
             src={
-              "https://res.cloudinary.com/dch00stdh/image/upload/v1762706238/vsource-logo_oofetg.webp"
+              "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_200,c_limit,dpr_auto/v1762706238/vsource-logo_oofetg.webp"
             }
           />
           <div>
             <img
               src={
-                "https://res.cloudinary.com/dch00stdh/image/upload/v1762706239/nav-badge20years_re4asz.webp"
+                "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_200,c_limit,dpr_auto/v1762706239/nav-badge20years_re4asz.webp"
               }
               alt="20 Years Logo"
               className="h-20 md:h-18 ml-3 w-auto object-contain drop-shadow-md"
