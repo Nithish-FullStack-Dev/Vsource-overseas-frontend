@@ -2,32 +2,32 @@ import { useEffect, useState, useRef } from "react";
 
 const imagePaths: Record<string, string> = {
   "Dakannagari Rohith Reddy":
-    "/assets/images/students/DAKANNAGARI ROHITH REDDY  (USA).jpeg",
-  "Aninash Yadav": "/assets/images/students/ANINASH YADAV  (UK).jpeg",
-  "Duddempudi Sahana": "/assets/images/students/DUDDEMPUDI SAHANA  (USA).jpeg",
-  "Asar Ali Mohammed": "/assets/images/students/ASAR ALI MOHAMMED  (UK).jpeg",
+    "/assets/images/students/DAKANNAGARI ROHITH REDDY  (USA).jpg",
+  "Aninash Yadav": "/assets/images/students/ANINASH YADAV  (UK).jpg",
+  "Duddempudi Sahana": "/assets/images/students/DUDDEMPUDI SAHANA  (USA).jpg",
+  "Asar Ali Mohammed": "/assets/images/students/ASAR ALI MOHAMMED  (UK).jpg",
   "Moghal Saheera Begum":
-    "/assets/images/students/MOGHAL SAHEERA BEGUM  (UK).jpeg",
+    "/assets/images/students/MOGHAL SAHEERA BEGUM  (UK).jpg",
   "Harsha Vardhan Reddy":
-    "/assets/images/students/HARSHA VARDHAN REDDY (USA).jpeg",
+    "/assets/images/students/HARSHA VARDHAN REDDY (USA).jpg",
   "Ashritha Reddy Beerelly":
-    "/assets/images/students/ASHRITHA REDDY BEERELLY (UK).jpeg",
+    "/assets/images/students/ASHRITHA REDDY BEERELLY (UK).jpg",
   "Kannikanti Geethika Chowdary":
-    "/assets/images/students/KANNIKANTI GEETHIKA CHOWDARY (USA).jpeg",
-  "Bojja Glory": "/assets/images/students/BOJJA GLORY (UK).jpeg",
-  "Khyathi Raguru": "/assets/images/students/KHYATHI RAGURU (USA).jpeg",
+    "/assets/images/students/KANNIKANTI GEETHIKA CHOWDARY (USA).jpg",
+  "Bojja Glory": "/assets/images/students/BOJJA GLORY (UK).jpg",
+  "Khyathi Raguru": "/assets/images/students/KHYATHI RAGURU (USA).jpg",
   "Deekshith Kumar Gudepu":
-    "/assets/images/students/DEEKSHITH KUMAR GUDEPU (UK).jpeg",
-  "Nithya Sree Bussu": "/assets/images/students/NITHYA SREE BUSSU (USA).jpeg",
-  "Kathi Tulasi": "/assets/images/students/KATHI TULASI (UK).jpeg",
-  "Preethi Kalva": "/assets/images/students/PREETHI KALVA (USA).jpeg",
-  "Sravya Sree Bussu": "/assets/images/students/SRAVYA SREE BUSSU (USA).jpeg",
+    "/assets/images/students/DEEKSHITH KUMAR GUDEPU (UK).jpg",
+  "Nithya Sree Bussu": "/assets/images/students/NITHYA SREE BUSSU (USA).jpg",
+  "Kathi Tulasi": "/assets/images/students/KATHI TULASI (UK).jpg",
+  "Preethi Kalva": "/assets/images/students/PREETHI KALVA (USA).jpg",
+  "Sravya Sree Bussu": "/assets/images/students/SRAVYA SREE BUSSU (USA).jpg",
   "Pakala Meghana Reddy":
-    "/assets/images/students/PAKALA MEGHANA REDDY (UK).jpeg",
-  "Soumya Gopagoni": "/assets/images/students/SOUMYA GOPAGONI (UK).jpeg",
+    "/assets/images/students/PAKALA MEGHANA REDDY (UK).jpg",
+  "Soumya Gopagoni": "/assets/images/students/SOUMYA GOPAGONI (UK).jpg",
   "Adavalli Tharun Kumar":
-    "/assets/images/students/ADAVALLI THARUN KUMAR (UK).jpeg",
-  "Ummagani Sai Kumar": "/assets/images/students/UMMAGANI SAI KUMAR (UK).jpeg",
+    "/assets/images/students/ADAVALLI THARUN KUMAR (UK).jpg",
+  "Ummagani Sai Kumar": "/assets/images/students/UMMAGANI SAI KUMAR (UK).jpg",
   Priyanka: "/assets/images/students/Priyanka.jpg",
 };
 

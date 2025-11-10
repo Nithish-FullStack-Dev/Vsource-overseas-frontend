@@ -20,7 +20,7 @@ const courseCategories: Course[] = [
       "Wide Range of Scholarships & Financial Assistance",
     ],
     image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705950/uk_t9dc3s.webp",
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762705950/uk_t9dc3s.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -31,7 +31,7 @@ const courseCategories: Course[] = [
       "Extensive Scholarships & Financial Support",
     ],
     image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705953/usa_uf4f16.webp",
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762705953/usa_uf4f16.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -43,7 +43,7 @@ const courseCategories: Course[] = [
       "Scholarships and Financial Aid for International Students",
     ],
     image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705935/canada_jt1dc7.webp",
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762705935/canada_jt1dc7.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -55,7 +55,7 @@ const courseCategories: Course[] = [
       "Scholarships & Financial Support Available",
     ],
     image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705976/ireland_v69csu.webp",
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762705976/ireland_v69csu.webp",
     url: "https://vsourcevarsity.com/",
   },
   {
@@ -67,7 +67,7 @@ const courseCategories: Course[] = [
       "Scholarships & Financial Assistance for International Students",
     ],
     image:
-      "https://res.cloudinary.com/dch00stdh/image/upload/v1762705947/france_lru1rl.webp",
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762705947/france_lru1rl.webp",
     url: "https://vsourcevarsity.com/",
   },
 ];

@@ -6,21 +6,21 @@ const stats = [
     value: 100000,
     suffix: "+",
     label: "Students Empowered",
-    icon: "/assets/images/icons/hat.gif",
+    icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762770342/hat_phpbum.gif",
   },
   {
     id: 2,
     value: 20,
     suffix: "+",
     label: "Years of\nExperience",
-    icon: "/assets/images/icons/handshake.gif",
+    icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762770342/handshake_ewjcsn.gif",
   },
   {
     id: 3,
     value: 10,
     suffix: "+",
     label: "Study Destinations",
-    icon: "/assets/images/icons/earth.gif",
+    icon: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762770342/earth_vhzkro.gif",
   },
 ];
 
@@ -181,7 +181,7 @@ const AboutSection: React.FC = () => {
                 data-aos-duration="1000"
               >
                 <div className="left-box">
-                  <img src={stat.icon} alt="" className="icon" />
+                  <img src={stat.icon} alt="" className="icon" loading="lazy" />
                   <div className="count text-[#1e73be]">
                     {count.toLocaleString("en-US")}
                     {stat.suffix}

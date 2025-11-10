@@ -4,23 +4,19 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import "aos/dist/aos.css";
+import AOS from "aos";
 
-// Static imports
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactBar from "@/components/ContactBar";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import DelayedPopup from "@/components/DelayedPopup";
 import ScrollToTop from "./ScrollToTop";
-import GoVirtual from "./services/GoVirtual";
 import { AuthProvider } from "./components/config/AuthContext";
-import ChatBot from "@/services/ChatBot";
 import AppSkeleton from "./AppSkeleton";
 
-// Page imports (no lazy load)
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const StudyUKPage = lazy(() => import("./pages/StudyUKPage"));
@@ -40,6 +36,7 @@ const UniversityDetails = lazy(
   () => import("./pages/university-pages/UniversityDetails")
 );
 const MaintenancePage = lazy(() => import("./pages/MaintenancePage"));
+const ChatBot = lazy(() => import("@/services/ChatBot"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,35 +51,40 @@ const queryClient = new QueryClient({
 const App = () => {
   const faqRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-
   const [showForm, setShowForm] = useState(false);
   const [showFormIcon, setShowFormIcon] = useState(false);
 
-  // AOS setup
   useEffect(() => {
-    AOS.init({ once: true, mirror: false, duration: 600 });
+    AOS.init({
+      duration: 600,
+      once: false,
+      mirror: false,
+      easing: "ease-out",
+      offset: 50,
+    });
   }, []);
 
   useEffect(() => {
-    AOS.refresh();
+    AOS.refreshHard();
   }, [location.pathname]);
 
-  // Popup logic
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight;
+
       if (docHeight > 0 && scrollTop / docHeight >= 0.2) {
         setShowForm(true);
         window.removeEventListener("scroll", handleScroll);
       }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const hideLayoutPages = ["/meeting", "/maintenance"];
+  const hideLayoutPages = ["/maintenance"];
   const shouldHideLayout = hideLayoutPages.includes(location.pathname);
 
   return (
@@ -95,8 +97,8 @@ const App = () => {
 
           <div className="flex flex-col min-h-screen">
             {!shouldHideLayout && <Navbar />}
+
             <main className="flex-grow">
-              {/* Direct routes (no Suspense) */}
               <Suspense fallback={<AppSkeleton />}>
                 <Routes>
                   <Route path="/" element={<HomePage faqRef={faqRef} />} />
@@ -121,7 +123,6 @@ const App = () => {
                   <Route path="/gallery" element={<GalleryPage />} />
                   <Route path="/join-us" element={<JoinUsPage />} />
                   <Route path="/contact" element={<ContactPage />} />
-                  <Route path="/meeting" element={<GoVirtual />} />
                   <Route path="/maintenance" element={<MaintenancePage />} />
                   <Route path="/view-360" element={<View360 />} />
                   <Route path="*" element={<NotFound />} />
@@ -129,18 +130,20 @@ const App = () => {
               </Suspense>
             </main>
 
-            {!shouldHideLayout && <Navbar />}
             {!shouldHideLayout && <ContactBar />}
             {!shouldHideLayout && <Footer />}
           </div>
 
-          {/* Chat Bot Service */}
-          <ChatBot
-            token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0Ijoid3d3LnZzb3VyY2VvdmVyc2Vhcy5jb20iLCJpZCI6IjY3NmZlMzQ3Yzk3NTFkMmFhNWNkZTQ5NyIsImFjY0lkIjoiNjZiZjVjNjUzNTIzZmIxNjhjYzBkZTFlIiwiaWF0IjoxNzU4ODAzNjQ0fQ.8q-5u03q7aBSWYp_PcMzZIMZgPxtfc2eH76oWzlx7rU"
-            mobileNudge={48}
-          />
+          <Suspense fallback={null}>
+            {!shouldHideLayout && (
+              <ChatBot
+                token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0Ijoid3d3LnZzb3VyY2VvdmVyc2Vhcy5jb20iLCJpZCI6IjY3NmZlMzQ3Yzk3NTFkMmFhNWNkZTQ5NyIsImFjY0lkIjoiNjZiZjVjNjUzNTIzZmIxNjhjYzBkZTFlIiwiaWF0IjoxNzU4ODAzNjQ0fQ.8q-5u03q7aBSWYp_PcMzZIMZgPxtfc2eH76oWzlx7rU"
+                mobileNudge={48}
+              />
+            )}
+          </Suspense>
 
-          {/* Floating buttons */}
+          {/* Floating Buttons */}
           {!shouldHideLayout && (
             <ScrollToTopButton
               showFormIcon={showFormIcon}
