@@ -39,7 +39,7 @@ const Accreditation = () => {
             <h2 className="section-title">CERTIFICATIONS</h2>
             <img
               src={
-                "https://res.cloudinary.com/dch00stdh/image/upload/v1762707879/ets_hrpoem.webp"
+                "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762707879/ets_hrpoem.webp"
               }
               alt="ETS Certification"
               className="accreditation-img large-img"
@@ -57,7 +57,7 @@ const Accreditation = () => {
             <div className="membership-row">
               <img
                 src={
-                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707889/images_tzknwo.webp"
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762707889/images_tzknwo.webp"
                 }
                 alt="EAIE Membership"
                 className="accreditation-img"
@@ -67,7 +67,7 @@ const Accreditation = () => {
               />
               <img
                 src={
-                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707890/nafsa_awwntg.webp"
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762707890/nafsa_awwntg.webp"
                 }
                 alt="NAFSA Membership"
                 className="accreditation-img"
@@ -107,7 +107,7 @@ const Accreditation = () => {
             <h2 className="section-title">CERTIFICATIONS</h2>
             <img
               src={
-                "https://res.cloudinary.com/dch00stdh/image/upload/v1762707879/ets_hrpoem.webp"
+                "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762707879/ets_hrpoem.webp"
               }
               alt="ETS Certification"
               className="accreditation-img"
@@ -125,7 +125,7 @@ const Accreditation = () => {
             <div className="membership-row">
               <img
                 src={
-                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707889/images_tzknwo.webp"
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762707889/images_tzknwo.webp"
                 }
                 alt="EAIE Membership"
                 className="accreditation-img"
@@ -135,7 +135,7 @@ const Accreditation = () => {
               />
               <img
                 src={
-                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762707890/nafsa_awwntg.webp"
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762707890/nafsa_awwntg.webp"
                 }
                 alt="NAFSA Membership"
                 className="accreditation-img"
