@@ -382,42 +382,12 @@ function JobsIncanadaFlow({ students_expriences }: Prop) {
 
           {/* Desktop / Tablet normal layout */}
           <div className="grid-layout hidden sm:flex justify-center gap-4 mt-8">
-            {(students_expriences?.images?.length
-              ? students_expriences.images
-              : [
-                  {
-                    id: 64,
-                    documentId: "ls976fjvugzcpd2jnzlkae74",
-                    url: "/assets/images/students/WhatsApp Image 2024-08-31 at 14.33.20_e81bc358.jpg",
-                    alternativeText: null,
-                  },
-                  {
-                    id: 63,
-                    documentId: "yju20gzrb4aks312kz3qh9gk",
-                    url: "/assets/images/students/WhatsApp Image 2024-07-25 at 10.29.55_cfec3de5.jpg",
-                    alternativeText: null,
-                  },
-                  {
-                    id: 60,
-                    documentId: "v5jresfp33atq0pk2q1jf24e",
-                    url: "/assets/images/students/71.jpg",
-                    alternativeText: null,
-                  },
-                  {
-                    id: 59,
-                    documentId: "s5kp1ej4udb9ydb7kydomr59",
-                    url: "/assets/images/students/42.png",
-                    alternativeText: null,
-                  },
-                ]
-            ).map((src, idx) => (
+            {(
+              students_expriences?.images?.length && students_expriences.images
+            )?.map((src, idx) => (
               <img
                 key={src?.id || idx}
-                src={
-                  students_expriences?.images?.length
-                    ? `${import.meta.env.VITE_CMS_GLOBALURL}${src?.url}`
-                    : src?.url
-                }
+                src={src?.url}
                 alt="Alumni"
                 className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md"
               />
@@ -426,42 +396,12 @@ function JobsIncanadaFlow({ students_expriences }: Prop) {
 
           {/* Mobile circle layout */}
           <div className="circle-wrapper sm:hidden relative w-full max-w-sm mx-auto mt-8">
-            {(students_expriences?.images?.length
-              ? students_expriences.images
-              : [
-                  {
-                    id: 64,
-                    documentId: "ls976fjvugzcpd2jnzlkae74",
-                    url: "/assets/images/students/WhatsApp Image 2024-08-31 at 14.33.20_e81bc358.jpg",
-                    alternativeText: null,
-                  },
-                  {
-                    id: 63,
-                    documentId: "yju20gzrb4aks312kz3qh9gk",
-                    url: "/assets/images/students/WhatsApp Image 2024-07-25 at 10.29.55_cfec3de5.jpg",
-                    alternativeText: null,
-                  },
-                  {
-                    id: 60,
-                    documentId: "v5jresfp33atq0pk2q1jf24e",
-                    url: "/assets/images/students/71.jpg",
-                    alternativeText: null,
-                  },
-                  {
-                    id: 59,
-                    documentId: "s5kp1ej4udb9ydb7kydomr59",
-                    url: "/assets/images/students/42.png",
-                    alternativeText: null,
-                  },
-                ]
-            ).map((src, idx) => (
+            {(
+              students_expriences?.images?.length && students_expriences.images
+            )?.map((src, idx) => (
               <img
                 key={src?.id || idx}
-                src={
-                  students_expriences?.images?.length
-                    ? `${import.meta.env.VITE_CMS_GLOBALURL}${src?.url}`
-                    : src?.url
-                }
+                src={src?.url}
                 alt="Alumni"
                 className={`circle-img circle-${idx + 1}`}
               />

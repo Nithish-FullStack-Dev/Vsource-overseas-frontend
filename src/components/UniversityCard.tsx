@@ -12,7 +12,7 @@ const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
     <div className="bg-white border border-gray-300 rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
       <div className="w-[90%] mx-auto p-6 flex justify-center items-center h-40 border-b border-gray-300">
         <img
-          src={`${import.meta.env.VITE_CMS_GLOBALURL}${university?.logo?.url}`}
+          src={university?.logo?.url}
           alt={`${university.name} logo`}
           className="max-w-full max-h-full object-contain"
           data-aos="zoom-in"

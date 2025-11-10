@@ -105,9 +105,7 @@ function CityCostsTabs({ living_Cost_Tuition_Fee }: Prop) {
           {activeCity.image && (
             <div className="mt-6 rounded-xl overflow-hidden shadow-lg ring-1 ring-gray-200/70">
               <img
-                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                  activeCity.image.url
-                }`}
+                src={activeCity.image.url}
                 alt={activeCity.city}
                 className="w-full h-auto object-cover"
               />

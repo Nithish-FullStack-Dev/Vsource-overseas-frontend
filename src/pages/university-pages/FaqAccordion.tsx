@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, memo } from "react";
 
 interface FaqItem {
   id?: number;
@@ -91,4 +91,4 @@ const FaqAccordion: React.FC<FaqAccordionProps> = ({ items }) => {
   );
 };
 
-export default FaqAccordion;
+export default memo(FaqAccordion);

@@ -1,16 +1,8 @@
-// import React, { useRef } from "react";
-import { useParams, Link, useSearchParams } from "react-router-dom";
-import {
-  fetchExploreUniversities,
-  Tab,
-  TABS,
-  University,
-  useUniversities,
-  useUniversitiesByDocumentId,
-} from "@/lib/Universities";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { TABS, useUniversitiesByDocumentId } from "@/lib/Universities";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
 import {
   ArrowDown,
   BarChart3,
@@ -25,18 +17,21 @@ import {
   LayoutDashboard,
   Wallet,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import UniversityGallery from "./UniversityGallery";
-import FaqAccordion from "./FaqAccordion";
-import UniversityPlacement from "./UniversityPlacement";
-import WantTOStudyForm from "./WantTOStudyForm";
-import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
+
+const UniversityGallery = lazy(() => import("./UniversityGallery"));
+const FaqAccordion = lazy(() => import("./FaqAccordion"));
+const UniversityPlacement = lazy(() => import("./UniversityPlacement"));
+const WantTOStudyForm = lazy(() => import("./WantTOStudyForm"));
+
+import DelayedPopup from "@/components/DelayedPopup";
 import RichText from "@/utils/RichText";
 import UniversityDetailsSkeleton from "@/Loaders/LandingPages/UniversityDetailsSkeleton";
 import UniversityNotFound from "@/Loaders/LandingPages/UniversityNotFound";
-import DelayedPopup from "@/components/DelayedPopup";
+import UniversityGallerySkeleton from "./UniversityGallerySkeleton";
+import UniversityPlacementSkeleton from "./UniversityPlacementSkeleton";
+import FaqAccordionSkeleton from "./FaqAccordionSkeleton";
+import WantTOStudyFormSkeleton from "./WantTOStudyFormSkeleton";
 
 const UniversityDetails: React.FC = () => {
   const { documentId } = useParams<{
@@ -169,9 +164,7 @@ const UniversityDetails: React.FC = () => {
           <div className="w-full md:basis-[40%]  flex flex-col bg-white p-[10px]  shadow">
             <div className="w-full h-full p-3">
               <img
-                src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                  university?.logo?.url
-                }`}
+                src={university?.logo?.url}
                 alt={university?.logo?.alternativeText}
                 className="w-full h-full object-contain mb-4"
                 data-aos="zoom-in"
@@ -214,9 +207,7 @@ const UniversityDetails: React.FC = () => {
             // data-aos-anchor-placement="top-bottom"
           >
             <img
-              src={`${import.meta.env.VITE_CMS_GLOBALURL}${
-                university?.banner?.url
-              }`}
+              src={university?.banner?.url}
               alt={`${university?.name} banner`}
               className="w-full h-full object-cover"
               loading="eager"
@@ -294,10 +285,7 @@ const UniversityDetails: React.FC = () => {
             data-aos-anchor-placement="top-bottom"
           >
             {/* Header */}
-            <div
-              className="flex gap-2 items-start mb-4"
-              data-aos="fade-right"
-            >
+            <div className="flex gap-2 items-start mb-4" data-aos="fade-right">
               <LayoutDashboard className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Overview</h2>
             </div>
@@ -314,10 +302,7 @@ const UniversityDetails: React.FC = () => {
                   <RichText content={university?.overview?.description} />
                 </p>
               ) : (
-                <p
-                  data-aos="fade-up"
-                  data-aos-anchor-placement="top-bottom"
-                >
+                <p data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                   {university?.name} is a modern university globally recognized
                   for high-quality education, applied research, and
                   international collaborations.
@@ -413,7 +398,7 @@ const UniversityDetails: React.FC = () => {
                   {/* Icon */}
                   <div className="flex-shrink-0 flex items-center justify-center w-20 h-20">
                     <img
-                      src="/assets/images/star.gif"
+                      src="https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762773790/star_msmg3k.gif"
                       alt=""
                       className="object-none"
                     />
@@ -516,10 +501,7 @@ const UniversityDetails: React.FC = () => {
             data-aos-anchor-placement="top-bottom"
           >
             {/* Header */}
-            <div
-              className="flex items-center gap-2 mb-4"
-              data-aos="fade-right"
-            >
+            <div className="flex items-center gap-2 mb-4" data-aos="fade-right">
               <BookOpen className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">
                 <span>Top Courses at {university?.name}</span>
@@ -539,10 +521,7 @@ const UniversityDetails: React.FC = () => {
 
             {/* Tab Buttons */}
             <div className="mb-6">
-              <div
-                className="flex gap-4 mb-8"
-                data-aos="zoom-in"
-              >
+              <div className="flex gap-4 mb-8" data-aos="zoom-in">
                 <button className="px-6 py-2 bg-red-600 text-white border-red-600 rounded-full">
                   Masters
                 </button>
@@ -974,7 +953,9 @@ const UniversityDetails: React.FC = () => {
                 {university?.name}, {university?.country} Placements
               </h2>
             </div>
-            <UniversityPlacement items={university?.placements || null} />
+            <Suspense fallback={<UniversityPlacementSkeleton />}>
+              <UniversityPlacement items={university?.placements || null} />
+            </Suspense>
           </div>
 
           {/* Gallery */}
@@ -988,8 +969,9 @@ const UniversityDetails: React.FC = () => {
                 <Image color="red" className="w-6 h-6  text-red-500 shrink-0" />
                 <h2 className="text-2xl font-bold">Gallery</h2>
               </div>
-
-              <UniversityGallery items={university?.gallerys || null} />
+              <Suspense fallback={<UniversityGallerySkeleton />}>
+                <UniversityGallery items={university?.gallerys || null} />
+              </Suspense>
             </div>
           </div>
 
@@ -1000,7 +982,9 @@ const UniversityDetails: React.FC = () => {
               <h2 className="text-2xl font-bold">FAQs</h2>
             </div>
             <div className="w-full">
-              <FaqAccordion items={university?.faqs || null} />
+              <Suspense fallback={<FaqAccordionSkeleton />}>
+                <FaqAccordion items={university?.faqs || null} />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -1016,7 +1000,9 @@ const UniversityDetails: React.FC = () => {
                 Fill in your details and we'll call you back
               </p>
             </div>
-            <WantTOStudyForm />
+            <Suspense fallback={<WantTOStudyFormSkeleton />}>
+              <WantTOStudyForm />
+            </Suspense>
           </div>
         </div>
       </div>
