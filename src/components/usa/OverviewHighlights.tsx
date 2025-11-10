@@ -1,5 +1,5 @@
 import { Overview } from "@/types/StudyInPage";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 /* ---- Brand colors ---- */
 const BRAND = {
@@ -94,7 +94,7 @@ type Props = {
   overview: Overview;
 };
 
-export default function USAOverviewHighlights({ overview }: Props) {
+function USAOverviewHighlights({ overview }: Props) {
   return (
     <section
       className="container mx-auto px-4 md:px-6 py-10 md:py-14 rounded-2xl"
@@ -214,3 +214,5 @@ function HighlightCard({
     </div>
   );
 }
+
+export default memo(USAOverviewHighlights);

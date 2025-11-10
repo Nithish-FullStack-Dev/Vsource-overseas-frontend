@@ -1,26 +1,10 @@
 import { Highlights, Overview } from "@/types/StudyInPage";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 type Highlight = {
   label: string;
   value: string;
 };
-
-const firstRow: Highlight[] = [
-  { label: "Capital", value: "London" },
-  { label: "Population", value: "6.8 crores" },
-  { label: "Currency", value: "GBP" },
-  { label: "Quality of Life", value: "Very High" },
-];
-
-const secondRow: Highlight[] = [
-  {
-    label: "Major Cities",
-    value: "Manchester, Birmingham, Liverpool, Glasgow, Edinburgh",
-  },
-  { label: "No. of International Students", value: "10,00,000" },
-  { label: "Top Sectors", value: "Health Care, IT, AI, Retail Trade" },
-];
 
 /* ---- Brand colors ---- */
 const BRAND = {
@@ -115,7 +99,7 @@ type Props = {
   overview: Overview;
 };
 
-export default function OverviewHighlights({ overview }: Props) {
+function OverviewHighlights({ overview }: Props) {
   return (
     <section
       className="container mx-auto px-4 md:px-6 py-10 md:py-14 rounded-2xl"
@@ -240,3 +224,5 @@ function HighlightCard({
     </div>
   );
 }
+
+export default memo(OverviewHighlights);

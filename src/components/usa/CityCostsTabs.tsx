@@ -1,5 +1,5 @@
 import { Living_Cost_Tuition_Fee } from "@/types/StudyInPage";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 
 /* ---------- small hook to animate on scroll ---------- */
 function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
@@ -27,7 +27,7 @@ type Prop = {
 
 const ACCENT = "#e40000";
 
-export default function CityCostsTabs({ living_Cost_Tuition_Fee }: Prop) {
+function CityCostsTabs({ living_Cost_Tuition_Fee }: Prop) {
   const [active, setActive] = useState<number>(
     living_Cost_Tuition_Fee?.cities[0]?.id || 0
   );
@@ -208,3 +208,5 @@ function Placeholder() {
     </div>
   );
 }
+
+export default memo(CityCostsTabs);

@@ -9,11 +9,11 @@ const animatedTexts = [
   ["STUDY MASTER'S", "IN USA, UK IRELAND, CANADA, FRANCE"],
 ];
 const flagUrls = {
-  fr: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/fr_cdemdi.svg",
-  us: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702274/us_ruv7bj.svg",
-  ie: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/ie_eixitt.svg",
-  ca: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/ca_p8rr4y.svg",
-  gb: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762702273/gb_ywaagd.svg",
+  fr: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto/v1762702273/fr_cdemdi.svg",
+  us: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto/v1762702274/us_ruv7bj.svg",
+  ie: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto/v1762702273/ie_eixitt.svg",
+  ca: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto/v1762702273/ca_p8rr4y.svg",
+  gb: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto/v1762702273/gb_ywaagd.svg",
 };
 
 const Hero = () => {
@@ -54,7 +54,9 @@ const Hero = () => {
       >
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{ backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/v1762706393/home-bg_lmooii.webp)` }}
+          style={{
+            backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_1920,c_limit,dpr_auto/v1762706393/home-bg_lmooii.webp)`,
+          }}
         />
         <div className="absolute inset-0 bg-grey opacity-30 z-10 mix-blend-overlay" />
       </motion.div>
@@ -65,22 +67,24 @@ const Hero = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
-          backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/v1762706392/girl-mobile_jdl10b.webp)`,
+          backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_768,c_limit,dpr_auto/v1762706392/girl-mobile_jdl10b.webp)`,
         }}
       />
 
       {/* Right-side Girl Image (Hidden on Mobile) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:flex justify-end">
         <motion.img
-          src={"https://res.cloudinary.com/dch00stdh/image/upload/v1762706393/vsource_o2hkq0.webp"}
+          src={
+            "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_1200,c_limit,dpr_auto/v1762706393/vsource_o2hkq0.webp"
+          }
           alt="Girl"
           initial={{ y: "60%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="object-contain h-full max-h-[120vh]"
           style={{ right: 0 }}
-          loading="lazy"
-          decoding="async"
+          loading="eager"
+          fetchPriority="high"
         />
       </div>
 
@@ -89,7 +93,7 @@ const Hero = () => {
         className="w-full max-w-[1400px] mx-auto px-4 z-20 text-center lg:text-left"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
+        transition={{ delay: 1, duration: 0.5 }}
       >
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div className="hidden md:block space-y-6 pt-28">
@@ -129,11 +133,13 @@ const Hero = () => {
             >
               <img
                 src={
-                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762702830/20-years-logo_be7aro.webp"
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_400,c_limit,dpr_auto/v1762702830/20-years-logo_be7aro.webp"
                 }
                 alt="20 Years Logo"
                 className="w-36 h-auto"
                 loading="lazy"
+                decoding="async"
+                fetchPriority="high"
               />
             </motion.div>
 
@@ -232,12 +238,13 @@ const Hero = () => {
               </motion.button>
               <img
                 src={
-                  "https://res.cloudinary.com/dch00stdh/image/upload/v1762702830/20-years-logo_be7aro.webp"
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_200,c_limit,dpr_auto/fl_lossy,e_sharpen/v1762702830/20-years-logo_be7aro.webp"
                 }
                 alt="20 Years Logo"
                 className="w-20 h-auto mt-4 "
-                loading="lazy"
+                loading="eager"
                 decoding="async"
+                fetchPriority="high"
               />
             </motion.div>
 
@@ -293,27 +300,7 @@ const Hero = () => {
         </div>
       </motion.div>
 
-      {/* <div className="absolute bottom-4 md:bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white/50 flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 md:h-6 md:w-6 text-white/50"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-        </div>
-      </div> */}
-
       <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
