@@ -133,6 +133,8 @@ const AboutPage: React.FC = () => {
                         data-aos="flip-left"
                         data-aos-anchor-placement="center-bottom"
                         data-aos-delay={delay}
+                        decoding="async"
+                        loading="eager"
                       />
                     </div>
                     <div className="caption">
