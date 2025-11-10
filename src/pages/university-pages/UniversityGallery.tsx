@@ -1,5 +1,5 @@
 import { Image } from "@/types/LandingPage";
-import React from "react";
+import React, { memo } from "react";
 
 interface UniversityGalleryProps {
   items: Image[];
@@ -19,7 +19,7 @@ const UniversityGallery: React.FC<UniversityGalleryProps> = ({ items }) => {
           `}
         >
           <img
-            src={`${import.meta.env.VITE_CMS_GLOBALURL}${image?.url}`}
+            src={image?.url}
             alt={`Gallery image ${index + 1}`}
             className="w-full h-full object-cover"
           />
@@ -29,4 +29,4 @@ const UniversityGallery: React.FC<UniversityGalleryProps> = ({ items }) => {
   );
 };
 
-export default UniversityGallery;
+export default memo(UniversityGallery);

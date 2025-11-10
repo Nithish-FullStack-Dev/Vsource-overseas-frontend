@@ -27,8 +27,7 @@ const RedIcon: React.FC<{
     role="img"
     aria-label={alt}
     data-aos="fade-right"
-    data-aos-delay={aosDelay}
-    className="fi-icon" // styled in CSS below
+    className="fi-icon"
     style={{
       display: "inline-block",
       width: size,
@@ -110,7 +109,6 @@ const FinancialAssistance: React.FC = () => {
               key={i}
               style={{ backgroundColor: item.bgColor }}
               data-aos="fade-up"
-              data-aos-delay={i * 200} // staggered delay (0, 200, 400, 600…)
               data-aos-duration="800"
               data-aos-anchor-placement="center-bottom"
             >
@@ -119,7 +117,6 @@ const FinancialAssistance: React.FC = () => {
                 className="text"
                 style={{ color: "#111827" }}
                 data-aos="fade-up"
-                data-aos-delay={i * 200 + 100} // slight delay after card anim
                 data-aos-duration="800"
                 data-aos-anchor-placement="center-bottom"
               >
@@ -138,7 +135,6 @@ const FinancialAssistance: React.FC = () => {
                   className="card"
                   style={{ backgroundColor: item.bgColor }}
                   data-aos="zoom-in" // smoother for slider
-                  data-aos-delay={i * 200} // stagger delay (0, 200, 400…)
                   data-aos-duration="700"
                   data-aos-anchor-placement="center-bottom"
                 >
@@ -147,7 +143,6 @@ const FinancialAssistance: React.FC = () => {
                     className="text"
                     style={{ color: "#111827" }}
                     data-aos="fade-up" // different effect for variety
-                    data-aos-delay={i * 200 + 100}
                     data-aos-duration="700"
                     data-aos-anchor-placement="center-bottom"
                   >
@@ -168,7 +163,6 @@ const FinancialAssistance: React.FC = () => {
             <button
               className="btn primary"
               data-aos="zoom-in-right"
-              data-aos-delay="200"
               data-aos-duration="700"
               data-aos-anchor-placement="center-bottom"
             >
@@ -180,7 +174,6 @@ const FinancialAssistance: React.FC = () => {
             <button
               className="btn secondary"
               data-aos="zoom-in-left"
-              data-aos-delay="400"
               data-aos-duration="700"
               data-aos-anchor-placement="center-bottom"
             >

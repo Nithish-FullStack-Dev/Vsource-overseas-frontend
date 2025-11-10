@@ -47,7 +47,7 @@ const StudyIreland = () => {
   } = useQuery<StudyIn>({
     queryKey: ["studyInIreland"],
     queryFn: fetchStudyInIreland,
-    staleTime: Infinity,
+    staleTime: 10 * 60 * 1000,
   });
 
   useEffect(() => {

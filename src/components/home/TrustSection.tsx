@@ -68,7 +68,6 @@ const OurServices: React.FC = () => {
             key={index}
             className="service-card"
             data-aos="fade-up"
-            data-aos-delay={index * 100}
             style={{
               backgroundImage: ` url(${service.backgroundImage})`,
               backgroundRepeat: "no-repeat",

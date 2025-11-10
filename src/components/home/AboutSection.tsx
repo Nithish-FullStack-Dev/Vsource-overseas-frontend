@@ -79,19 +79,13 @@ const AboutSection: React.FC = () => {
               className="desc pb-3 sm:pb-0"
               data-aos="fade-right"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               <strong className="font-bold">
                 South India's Leading Educational Group for Higher Education.
               </strong>
             </p>
 
-            <p
-              className="para"
-              data-aos="fade-right"
-              data-aos-duration="1000"
-              data-aos-delay="300"
-            >
+            <p className="para" data-aos="fade-right" data-aos-duration="1000">
               100% Educational Loan Guidance provided to support your academic
               journey.
             </p>
@@ -99,11 +93,7 @@ const AboutSection: React.FC = () => {
             <hr className="my-3 border-gray-300" />
 
             <ul className="features space-y-2">
-              <li
-                data-aos="fade-right"
-                data-aos-delay="400"
-                data-aos-duration="800"
-              >
+              <li data-aos="fade-right" data-aos-duration="800">
                 <img
                   src="https://cdn-icons-png.flaticon.com/128/10490/10490249.png"
                   alt="check"
@@ -114,11 +104,7 @@ const AboutSection: React.FC = () => {
                 </span>
               </li>
 
-              <li
-                data-aos="fade-right"
-                data-aos-delay="600"
-                data-aos-duration="800"
-              >
+              <li data-aos="fade-right" data-aos-duration="800">
                 <img
                   src="https://cdn-icons-png.flaticon.com/128/3176/3176293.png"
                   alt="globe"
@@ -131,11 +117,7 @@ const AboutSection: React.FC = () => {
                 </span>
               </li>
 
-              <li
-                data-aos="fade-right"
-                data-aos-delay="800"
-                data-aos-duration="800"
-              >
+              <li data-aos="fade-right" data-aos-duration="800">
                 <img
                   src="https://cdn-icons-png.flaticon.com/128/7339/7339281.png"
                   alt="university"
@@ -177,7 +159,6 @@ const AboutSection: React.FC = () => {
                 key={stat.id}
                 className="stat-box"
                 data-aos="fade-up"
-                data-aos-delay={i * 200}
                 data-aos-duration="1000"
               >
                 <div className="left-box">

@@ -28,7 +28,7 @@ const GalleryPage = () => {
   } = useQuery<Gallery>({
     queryKey: ["gallery"],
     queryFn: fetchGallery,
-    staleTime: Infinity,
+    staleTime: 10 * 60 * 1000,
   });
 
   useEffect(() => {
@@ -101,15 +101,16 @@ const GalleryPage = () => {
           {/* Regular Gallery Grid — hide when a location tab is active */}
           {activeTab !== "students" && journeyImages.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {journeyImages.map((item, index) => (
+              {journeyImages?.map((item, index) => (
                 <AnimateOnScroll key={item.id || index} delay={index * 100}>
                   <div className="bg-white rounded-lg overflow-hidden shadow-md group relative">
                     <div className="relative h-64 overflow-hidden">
                       <img
-                        src={`${import.meta.env.VITE_CMS_GLOBALURL}${item.url}`}
-                        alt={item.name || "Gallery Photo"}
+                        src={item?.url}
+                        alt={item?.name || "Gallery Photo"}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   </div>

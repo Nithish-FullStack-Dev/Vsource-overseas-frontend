@@ -224,7 +224,7 @@ export function useUniversities(page: number, country: string) {
   return useQuery<ExploreUniversitiesResponse>({
     queryKey: ["exploreUni", page, country],
     queryFn: () => fetchExploreUniversities(page, country),
-    staleTime: Infinity,
+    staleTime: 10 * 60 * 1000,
     placeholderData: {
       universities: [],
       pagination: { page: 1, pageSize: 12, pageCount: 1, total: 0 },
@@ -236,7 +236,7 @@ export function useUniversitiesByDocumentId(documentId: string) {
   return useQuery<University>({
     queryKey: ["exploreUniByDocumentId", documentId],
     queryFn: () => fetchUniversitiesByDocumentId(documentId),
-    staleTime: Infinity,
+    staleTime: 10 * 60 * 1000,
     enabled: !!documentId,
     placeholderData: keepPreviousData,
   });

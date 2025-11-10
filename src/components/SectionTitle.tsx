@@ -21,7 +21,6 @@ const SectionTitle = ({
       <h2
         className="text-3xl font-bold tracking-tight md:text-4xl mb-2"
         data-aos="zoom-in"
-        data-aos-delay="200"
       >
         {title}
       </h2>
@@ -29,7 +28,6 @@ const SectionTitle = ({
         <p
           className="text-lg text-muted-foreground max-w-3xl mx-auto"
           data-aos="zoom-in"
-          data-aos-delay="400"
         >
           {subtitle}
         </p>

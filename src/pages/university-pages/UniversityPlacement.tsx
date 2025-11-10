@@ -1,7 +1,7 @@
 import { Description, Image } from "@/types/LandingPage";
 import RichText from "@/utils/RichText";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface Placement {
@@ -51,7 +51,6 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
           key={items?.id}
           className="text-gray-700 text-justify tracking-tight"
           data-aos="fade-up"
-          data-aos-delay="300" // stagger effect
           data-aos-anchor-placement="top-bottom"
         >
           <RichText content={items?.description} />
@@ -82,12 +81,11 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
                   key={src?.id || index}
                   className="w-full sm:w-1/2 lg:w-1/3 flex justify-center items-center p-4"
                   data-aos="fade-up"
-                  data-aos-delay={index * 100} // stagger logos
                   data-aos-anchor-placement="top-bottom"
                 >
                   <div className="bg-white shadow-md rounded-xl p-6 flex justify-center items-center h-40 w-full">
                     <img
-                      src={`${import.meta.env.VITE_CMS_GLOBALURL}${src?.url}`}
+                      src={src?.url}
                       alt={`Recruiter ${index}`}
                       className="max-h-16 object-contain"
                     />
@@ -100,7 +98,6 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
           <div
             className="flex justify-center gap-3"
             data-aos="fade-in"
-            data-aos-delay="300"
             data-aos-anchor-placement="top-bottom"
           >
             <button onClick={prevSlide} className="p-2 rounded-full shadow-md">
@@ -126,7 +123,6 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
             <tr
               className="bg-blue-100"
               data-aos="fade-up"
-              data-aos-delay={100}
               data-aos-anchor-placement="top-bottom"
             >
               <th className="border border-gray-300 bg-red-200 text-black px-4 py-2 text-left">
@@ -143,7 +139,6 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
                 key={job?.id || index}
                 className="hover:bg-gray-50"
                 data-aos="fade-up"
-                data-aos-delay={index * 150}
                 data-aos-anchor-placement="top-bottom"
               >
                 <td className="border border-gray-300 px-4 py-2">
@@ -161,4 +156,4 @@ const UniversityPlacement: React.FC<PlacementProps> = ({ items }) => {
   );
 };
 
-export default UniversityPlacement;
+export default memo(UniversityPlacement);

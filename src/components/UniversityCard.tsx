@@ -12,19 +12,17 @@ const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
     <div className="bg-white border border-gray-300 rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
       <div className="w-[90%] mx-auto p-6 flex justify-center items-center h-40 border-b border-gray-300">
         <img
-          src={`${import.meta.env.VITE_CMS_GLOBALURL}${university?.logo?.url}`}
+          src={university?.logo?.url}
           alt={`${university.name} logo`}
           className="max-w-full max-h-full object-contain"
           data-aos="zoom-in"
           data-aos-anchor-placement="top-bottom"
-          data-aos-delay={delay + 150}
         />
       </div>
       <div
         className="p-6 flex flex-col items-center text-center"
         data-aos="fade-up"
         data-aos-anchor-placement="top-bottom"
-        data-aos-delay={delay + 100}
       >
         <h3 className="font-bold text-xl text-gray-900 mb-1">
           {university.name}

@@ -56,45 +56,41 @@ const categories = [
   {
     title: "Machine Learning",
     icon: (
-      <FaLaptopCode  className="text-white text-6xl mb-4 mx-auto transform transition-transform duration-300 ease-out " />
+      <FaLaptopCode className="text-white text-6xl mb-4 mx-auto transform transition-transform duration-300 ease-out " />
     ),
   },
 ];
 
 const PopularCategories = () => {
   return (
- <section className="bg-gray-100 py-12">
-  <div className="w-full max-w-[1400px] mx-auto px-4">
-    <h2
-      className="text-3xl md:text-4xl font-bold text-center mb-10"
-      data-aos="fade-up"
-      data-aos-duration="800"
-    >
-      POPULAR CATEGORIES
-    </h2>
+    <section className="bg-gray-100 py-12">
+      <div className="w-full max-w-[1400px] mx-auto px-4">
+        <h2
+          className="text-3xl md:text-4xl font-bold text-center mb-10"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          POPULAR CATEGORIES
+        </h2>
 
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-      {categories.map((category, index) => (
-      <div
-  key={index}
-  className="group relative bg-[#0A9CF9] rounded-xl shadow-md hover:shadow-lg p-6 text-center transition duration-300"
-  data-aos="flip-left"
-  data-aos-delay={index * 150}
-  data-aos-duration="800"
->
-  <div className="hi-icon-wrap">
-    {category.icon}
-  </div>
-  <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white mt-3">
-    {category.title}
-  </h3>
-</div>
-
-      ))}
-    </div>
-  </div>
-    <style>
-    {`
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className="group relative bg-[#0A9CF9] rounded-xl shadow-md hover:shadow-lg p-6 text-center transition duration-300"
+              data-aos="flip-left"
+              data-aos-duration="800"
+            >
+              <div className="hi-icon-wrap">{category.icon}</div>
+              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-white mt-3">
+                {category.title}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>
+        {`
       .hi-icon-wrap {
   position: relative;
   display: inline-flex;  /* keeps things centered */
@@ -142,12 +138,9 @@ const PopularCategories = () => {
 }
 
     `}
-  </style>
-</section>
-  
+      </style>
+    </section>
   );
 };
 
 export default PopularCategories;
-
-

@@ -45,7 +45,6 @@ const Accreditation = memo(() => {
               className="accreditation-section"
               data-aos="fade-right"
               data-aos-duration="1000"
-              data-aos-delay="200"
             >
               <h2 className="section-title">CERTIFICATIONS</h2>
               <motion.img
@@ -63,7 +62,6 @@ const Accreditation = memo(() => {
               className="accreditation-section"
               data-aos="fade-left"
               data-aos-duration="1000"
-              data-aos-delay="400"
             >
               <h2 className="section-title">MEMBERSHIPS</h2>
               <div className="membership-row">
@@ -110,7 +108,6 @@ const Accreditation = memo(() => {
             <div
               className="accreditation-section"
               data-aos="zoom-in"
-              data-aos-delay="200"
               data-aos-duration="1000"
             >
               <h2 className="section-title">CERTIFICATIONS</h2>
@@ -126,7 +123,6 @@ const Accreditation = memo(() => {
             <div
               className="accreditation-section"
               data-aos="zoom-in"
-              data-aos-delay="400"
               data-aos-duration="1000"
             >
               <h2 className="section-title">MEMBERSHIPS</h2>
