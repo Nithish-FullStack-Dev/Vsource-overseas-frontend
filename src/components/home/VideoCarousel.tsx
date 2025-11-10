@@ -1,15 +1,52 @@
 import React, { useRef, useState, useEffect } from "react";
-import styles from "./VideoCarousel.module.css"; // CSS module
+import styles from "./VideoCarousel.module.css";
 
-const videos = [
-  { name: "SAMSRUTHI", video: "/assets/images/video/student4.mp4" },
-  { name: "AMITH REDDY", video: "/assets/images/video/student8.mp4" },
-  { name: "BEDRE VISHWAS", video: "/assets/images/video/student7.mp4" },
-  { name: "DEEKSHITHA", video: "/assets/images/video/student1.mp4" },
-  { name: "SHAIK MUNEER AHMED", video: "/assets/images/video/student6.mp4" },
-  { name: "KHASHIKA", video: "/assets/images/video/student2.mp4" },
-  { name: "SATHVIKA", video: "/assets/images/video/student5.mp4" },
-  { name: "LOVLISH REDDY", video: "/assets/images/video/student3.mp4" },
+type VideoItem = {
+  name: string;
+  video: string;
+};
+
+const videos: VideoItem[] = [
+  {
+    name: "SAMSRUTHI",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762691780/student4_bjqhnt.mp4",
+  },
+  {
+    name: "AMITH REDDY",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762694135/student8_blnbpq.mp4",
+  },
+  {
+    name: "BEDRE VISHWAS",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762694056/student7_fuwbjh.mp4",
+  },
+  {
+    name: "DEEKSHITHA",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693376/student1_kbxkmk.mp4",
+  },
+  {
+    name: "SHAIK MUNEER AHMED",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693862/student6_bajxom.mp4",
+  },
+  {
+    name: "KHASHIKA",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693691/student2_y8tg7j.mp4",
+  },
+  {
+    name: "SATHVIKA",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762693758/student5_n9mezn.mp4",
+  },
+  {
+    name: "LOVLISH REDDY",
+    video:
+      "https://res.cloudinary.com/dch00stdh/video/upload/f_auto,q_auto:eco,br_300k/v1762692631/student3_kpisvc.mp4",
+  },
 ];
 
 const OFFSET = 3;
@@ -19,234 +56,165 @@ const displayedVideos = [
   ...videos.slice(0, OFFSET),
 ];
 
-const VideoCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(OFFSET);
-  const [playingIndex, setPlayingIndex] = useState(null); // which displayed index is playing
-  const carouselRef = useRef(null);
-  const sectionRef = useRef(null);
-  const videoRefs = useRef([]); // refs to <video> in displayedVideos order
-  const [cardCalculatedWidth, setCardCalculatedWidth] = useState(300);
-  const gapSize = 10;
+const VideoCarousel: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState<number>(OFFSET);
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
-  const updateCardWidthAndPadding = () => {
-    const container = carouselRef.current;
-    if (!container || container.children.length === 0) return;
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-    let newCardWidth;
-    if (window.innerWidth >= 1024) {
-      newCardWidth = (container.offsetWidth - 2 * gapSize) / 3;
-      newCardWidth = Math.min(300, newCardWidth);
-    } else if (window.innerWidth >= 768) {
-      newCardWidth = (container.offsetWidth - gapSize) / 2;
-      newCardWidth = Math.min(300, newCardWidth);
-    } else {
-      newCardWidth = container.offsetWidth - 2 * gapSize;
-      newCardWidth = Math.min(300, newCardWidth);
-    }
-    setCardCalculatedWidth(newCardWidth);
+  // Array of video DOM refs
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
 
-    const padding = `calc(50% - ${newCardWidth / 2}px)`;
-    container.style.paddingLeft = padding;
-    container.style.paddingRight = padding;
+  const [cardCalculatedWidth, setCardCalculatedWidth] = useState<number>(280);
+
+  /* ---------- Update Card Width ---------- */
+  const updateCardWidth = () => {
+    let W = 280;
+    if (window.innerWidth >= 1024) W = 300;
+    else if (window.innerWidth >= 768) W = 260;
+    else W = 220;
+
+    setCardCalculatedWidth(W);
   };
 
-  const scrollToIndex = (index, behavior = "smooth") => {
+  /* ---------- Initial Setup ---------- */
+  useEffect(() => {
+    updateCardWidth();
+
+    setTimeout(() => {
+      scrollToIndex(OFFSET, "auto");
+    }, 60);
+
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, []);
+
+  /* ---------- Smooth Scroll to Index ---------- */
+  const scrollToIndex = (
+    index: number,
+    behavior: ScrollBehavior = "smooth"
+  ) => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const videoCards = Array.from(container.children);
-    const targetElement = videoCards[index];
+    const cards = Array.from(container.children) as HTMLElement[];
+    const target = cards[index];
+    if (!target) return;
 
-    if (targetElement) {
-      const containerWidth = container.offsetWidth;
-      const elementOffsetLeft = targetElement.offsetLeft;
-      const elementWidth = targetElement.offsetWidth;
+    const scrollPos =
+      target.offsetLeft - container.clientWidth / 2 + target.clientWidth / 2;
 
-      const scrollLeft =
-        elementOffsetLeft - containerWidth / 2 + elementWidth / 2;
-
-      container.scrollTo({ left: scrollLeft, behavior });
-    }
-
+    container.scrollTo({ left: scrollPos, behavior });
     setCurrentIndex(index);
   };
 
-  const goPrev = () => {
-    const prevIndex = currentIndex - 1;
-    if (prevIndex >= OFFSET) scrollToIndex(prevIndex);
-  };
+  const goPrev = () => scrollToIndex(currentIndex - 1);
+  const goNext = () => scrollToIndex(currentIndex + 1);
 
-  const goNext = () => {
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < videos.length + OFFSET) scrollToIndex(nextIndex);
-  };
-
-  // Pause & reset non-active videos when active card changes
-  useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (!video) return;
-      if (index !== currentIndex) {
-        video.pause();
-        video.currentTime = 0;
-      }
-    });
-    setPlayingIndex(null); // hide controls when active changes
-  }, [currentIndex]);
-
-  // Initial layout / center on initial active
-  useEffect(() => {
-    if (!carouselRef.current) return;
-    const timer = setTimeout(() => {
-      updateCardWidthAndPadding();
-      scrollToIndex(currentIndex, "auto");
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Scroll listener to compute active (closest to center) + infinite looping
+  /* ---------- Detect Active Card While Scrolling ---------- */
   useEffect(() => {
     const container = carouselRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
-      const containerCenter = container.scrollLeft + container.offsetWidth / 2;
-      let newActiveIndex = currentIndex;
-      let minDistance = Infinity;
+    let ticking = false;
 
-      Array.from(container.children).forEach((child, index) => {
-        const el = child;
-        const childCenter = el.offsetLeft + el.offsetWidth / 2;
-        const distance = Math.abs(containerCenter - childCenter);
-        if (distance < minDistance) {
-          minDistance = distance;
-          newActiveIndex = index;
-        }
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const center = container.scrollLeft + container.clientWidth / 2;
+
+        let nearest = currentIndex;
+        let minDist = Infinity;
+
+        const children = Array.from(container.children) as HTMLElement[];
+
+        children.forEach((child, i) => {
+          const childCenter = child.offsetLeft + child.clientWidth / 2;
+
+          const dist = Math.abs(center - childCenter);
+          if (dist < minDist) {
+            minDist = dist;
+            nearest = i;
+          }
+        });
+
+        setCurrentIndex(nearest);
+        ticking = false;
       });
+    };
 
-      if (newActiveIndex !== currentIndex) setCurrentIndex(newActiveIndex);
+    container.addEventListener("scroll", onScroll);
+    return () => container.removeEventListener("scroll", onScroll);
+  }, []);
 
-      // Infinite loop logic
-      const videoCards = Array.from(container.children);
-      if (newActiveIndex >= videos.length + OFFSET) {
-        container.scrollTo({
-          left:
-            videoCards[newActiveIndex - videos.length].offsetLeft -
-            container.offsetWidth / 2 +
-            videoCards[newActiveIndex - videos.length].offsetWidth / 2,
-          behavior: "auto",
-        });
-        setCurrentIndex(newActiveIndex - videos.length);
-      } else if (
-        newActiveIndex < OFFSET &&
-        newActiveIndex >= 0 &&
-        container.scrollLeft < 10
-      ) {
-        container.scrollTo({
-          left:
-            videoCards[videos.length + newActiveIndex].offsetLeft -
-            container.offsetWidth / 2 +
-            videoCards[videos.length + newActiveIndex].offsetWidth / 2,
-          behavior: "auto",
-        });
-        setCurrentIndex(videos.length + newActiveIndex);
+  /* ---------- Stop Inactive Videos ---------- */
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (v && i !== playingIndex) {
+        v.pause();
+        v.currentTime = 0;
       }
-    };
+    });
+  }, [playingIndex]);
 
-    let scrollTimeout;
-    const debounced = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(handleScroll, 100);
-    };
+  /* ---------- Play Video ---------- */
+  const handlePlay = (i: number) => {
+    scrollToIndex(i);
 
-    container.addEventListener("scroll", debounced);
-    window.addEventListener("resize", updateCardWidthAndPadding);
-
-    return () => {
-      container.removeEventListener("scroll", debounced);
-      window.removeEventListener("resize", updateCardWidthAndPadding);
-      clearTimeout(scrollTimeout);
-    };
-  }, [currentIndex]);
-
-  const handlePlayClick = (index) => {
-    const v = videoRefs.current[index];
-    if (!v) return;
-
-    // If someone clicks play on a duplicated edge item, make sure it is active
-    if (index !== currentIndex) {
-      scrollToIndex(index);
-      // Allow the scroll to settle, then play
-      setTimeout(() => {
-        const vNow = videoRefs.current[index];
-        if (vNow) {
-          vNow.play().catch(() => {});
-          setPlayingIndex(index);
-        }
-      }, 200);
-      return;
-    }
-
-    v.play().catch(() => {});
-    setPlayingIndex(index);
+    setTimeout(() => {
+      const v = videoRefs.current[i];
+      if (v) {
+        v.play().catch(() => {});
+        setPlayingIndex(i);
+      }
+    }, 150);
   };
-
-  const onVideoPause = (index) => {
-    if (playingIndex === index) setPlayingIndex(null);
-  };
-
-  const onVideoEnded = () => {
-    setPlayingIndex(null);
-  };
-
-  const isLeftArrowDisabled = currentIndex === OFFSET;
-  const isRightArrowDisabled = currentIndex === videos.length + OFFSET - 1;
 
   return (
     <div ref={sectionRef} className={styles.wrapper}>
       <h2 className={styles.title}>Our Student Testimonials</h2>
 
       <div className={styles.carouselContainer}>
-        <button
-          onClick={goPrev}
-          className={styles.arrowButtonLeft}
-          disabled={isLeftArrowDisabled}
-        >
+        <button onClick={goPrev} className={styles.arrowButtonLeft}>
           ❮
         </button>
 
-        <div className={styles.carousel} ref={carouselRef}>
+        <div ref={carouselRef} className={styles.carousel}>
           {displayedVideos.map((vid, index) => {
             const isActive = index === currentIndex;
-            const isPlaying = playingIndex === index;
+            const isPlaying = index === playingIndex;
 
             return (
               <div
-                key={`${vid.name}-${index}`}
+                key={index}
                 className={`${styles.videoCard} ${
                   isActive ? styles.activeCard : ""
                 }`}
-                style={{ width: cardCalculatedWidth + "px" }}
+                style={{ width: cardCalculatedWidth }}
               >
-                {/* Keep overlays centered relative to the VIDEO area */}
                 <div className={styles.videoArea}>
                   <video
-                    ref={(el) => (videoRefs.current[index] = el)}
+                    ref={(el) => {
+                      if (el) videoRefs.current[index] = el;
+                    }}
                     src={vid.video}
                     className={styles.video}
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     controls={isPlaying}
-                    onPause={() => onVideoPause(index)}
-                    onEnded={onVideoEnded}
+                    onEnded={() => setPlayingIndex(null)}
+                    onPause={() => setPlayingIndex(null)}
                   />
 
-                  {/* Centered Play Button: only when active and not playing */}
-                  {isActive && !isPlaying && (
+                  {!isPlaying && isActive && (
                     <button
                       className={styles.playButton}
-                      onClick={() => handlePlayClick(index)}
-                      aria-label="Play video"
+                      onClick={() => handlePlay(index)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +227,6 @@ const VideoCarousel = () => {
                   )}
                 </div>
 
-                {/* Labels only on active card */}
                 {isActive && (
                   <>
                     <div className={styles.videoCardText}>
@@ -278,11 +245,7 @@ const VideoCarousel = () => {
           })}
         </div>
 
-        <button
-          onClick={goNext}
-          className={styles.arrowButtonRight}
-          disabled={isRightArrowDisabled}
-        >
+        <button onClick={goNext} className={styles.arrowButtonRight}>
           ❯
         </button>
       </div>
