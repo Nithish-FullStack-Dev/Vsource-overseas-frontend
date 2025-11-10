@@ -1,6 +1,6 @@
 // src/components/university/HeroBanner.tsx
 import { Banner } from "@/types/StudyInPage";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   banner: Banner;
 };
 
-export default function HeroBanner({ title, banner }: Props) {
+function HeroBanner({ title, banner }: Props) {
   return (
     <section
       className="
@@ -66,3 +66,5 @@ export default function HeroBanner({ title, banner }: Props) {
     </section>
   );
 }
+
+export default memo(HeroBanner);

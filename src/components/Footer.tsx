@@ -16,47 +16,54 @@ const Footer = () => {
               in university admissions, overseas education, and educational
               loans.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="https://www.facebook.com/share/Up9qaiBuTj25dG5z/?mibextid=qi2Omg"
-                target="_blank"
-              >
-                <img
-                  src="/assets/images/icons/fb.webp"
-                  alt="Facebook"
-                  className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
-                />
-              </a>
-              <a
-                href="https://www.instagram.com/vsource_overseas/?igsh=M2dmemcwaHU5eHJy"
-                target="_blank"
-              >
-                <img
-                  src="/assets/images/icons/insta.webp"
-                  alt="Instagram"
-                  className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
-                />
-              </a>
-              <a
-                href="https://www.youtube.com/channel/UCNVjrnqI9L873rkB-5_p4kA"
-                target="_blank"
-              >
-                <img
-                  src="/assets/images/icons/yt.webp"
-                  alt="YouTube"
-                  className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
-                />
-              </a>
-              <a
-                href="https://in.linkedin.com/company/vsource-educational-consultants"
-                target="_blank"
-              >
-                <img
-                  src="/assets/images/icons/linked in.webp"
-                  alt="LinkedIn"
-                  className="w-12 h-12 md:w-16 md:h-16 hover:scale-110 transition-transform duration-300"
-                />
-              </a>
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+              {[
+                {
+                  href: "https://www.facebook.com/share/Up9qaiBuTj25dG5z/?mibextid=qi2Omg",
+                  src: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto,fl_lossy,e_sharpen/v1762755430/fb_gdlsay.png",
+                  alt: "Facebook",
+                },
+                {
+                  href: "https://www.instagram.com/vsource_overseas/?igsh=M2dmemcwaHU5eHJy",
+                  src: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto,fl_lossy,e_sharpen/v1762755430/insta_zm9azg.png",
+                  alt: "Instagram",
+                },
+                {
+                  href: "https://www.youtube.com/channel/UCNVjrnqI9L873rkB-5_p4kA",
+                  src: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto,fl_lossy,e_sharpen/v1762755431/yt_pjpcex.png",
+                  alt: "YouTube",
+                },
+                {
+                  href: "https://in.linkedin.com/company/vsource-educational-consultants",
+                  src: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto,fl_lossy,e_sharpen/v1762755430/linked_in_angejo.png",
+                  alt: "LinkedIn",
+                },
+              ].map((icon, index) => (
+                <a
+                  key={index}
+                  href={icon.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit our ${icon.alt} page`}
+                  className="group"
+                >
+                  <img
+                    src={icon.src}
+                    alt={icon.alt}
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
+                    className="
+          w-10 h-10 md:w-14 md:h-14 
+          transition-transform duration-300 
+          group-hover:scale-110 
+          select-none pointer-events-auto
+        "
+                  />
+                </a>
+              ))}
             </div>
           </div>
 

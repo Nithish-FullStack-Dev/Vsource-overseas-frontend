@@ -1,5 +1,5 @@
 import { Admissions } from "@/types/StudyInPage";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 /* tiny hook for a subtle scroll-in animation */
@@ -27,7 +27,7 @@ type Prop = {
   admissions: Admissions;
 };
 
-export default function AdmissionRequirementsFrance({ admissions }: Prop) {
+function AdmissionRequirementsFrance({ admissions }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -146,3 +146,5 @@ function CheckIcon() {
     </span>
   );
 }
+
+export default memo(AdmissionRequirementsFrance);

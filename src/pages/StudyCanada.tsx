@@ -28,7 +28,7 @@ const PopularCourses = lazy(
 );
 const JobsIncanada = lazy(() => import("../components/canada/JobsIncanada"));
 const LogoMarquee = lazy(() => import("../components/canada/LogoMarquee"));
-const VideoCarousel = lazy(() => import("../components/home/VideoCarousel"));
+const VideoCarousel = lazy(() => import("@/components/home/VideoCarousel"));
 
 export const fetchStudyInCanada = async () => {
   const { data } = await axios.get(
