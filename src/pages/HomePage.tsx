@@ -1,4 +1,5 @@
 import AppSkeleton from "@/AppSkeleton";
+// import VideoCarousel from "";
 import { lazy, Suspense, useEffect } from "react";
 const Hero = lazy(() => import("../components/home/Hero"));
 const AboutSection = lazy(() => import("../components/home/AboutSection"));
@@ -18,7 +19,7 @@ const Features = lazy(() => import("../components/home/Features"));
 const CareerOptionsCarousel = lazy(
   () => import("../components/home/CareerOptionsCarousel")
 );
-const VideoCarousel = lazy(() => import("../components/home/VideoCarousel"));
+const VideoCarousel = lazy(() => import("@/components/home/VideoCarousel"));
 const TrustSection = lazy(() => import("../components/home/TrustSection"));
 
 interface HomePageProps {
@@ -48,6 +49,7 @@ const HomePage = ({ faqRef }: HomePageProps) => {
       <LogoMarquee />
       {/* <VideoCarousel/> */}
       <VideoCarousel />
+      {/* <VideoCarousel/> */}
 
       {/* <ScholarshipsSection />
       <StudyAbroadSection /> */}
