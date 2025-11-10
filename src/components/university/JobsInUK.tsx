@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 // import "../../App.css";
 import "../JobsIn.css";
 import { Students_expriences } from "@/types/StudyInPage";
@@ -104,7 +104,7 @@ type Prop = {
   students_expriences: Students_expriences;
 };
 
-export default function JobsInUKFlow({ students_expriences }: Prop) {
+function JobsInUKFlow({ students_expriences }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.2);
 
   return (
@@ -329,3 +329,5 @@ function FlowColumn({ col, index }: { col: Column; index: number }) {
     </div>
   );
 }
+
+export default memo(JobsInUKFlow);

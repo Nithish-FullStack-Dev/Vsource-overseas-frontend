@@ -1,7 +1,7 @@
 import { Visa_requirements } from "@/types/StudyInPage";
 import { BoldText } from "@/utils/BoldText";
 import { HighlightedText } from "@/utils/HighlightedText";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 /* tiny hook for scroll-in animation */
 function useInView<T extends HTMLElement>(threshold = 0.2) {
@@ -28,7 +28,7 @@ type Prop = {
   visa_requirements: Visa_requirements;
 };
 
-export default function StudentVisaUSA({ visa_requirements }: Prop) {
+function StudentVisaUSA({ visa_requirements }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
 
   return (
@@ -187,3 +187,5 @@ function IntakeSmallBox({
     </div>
   );
 }
+
+export default memo(StudentVisaUSA);

@@ -1,5 +1,5 @@
 import { WhyStudyin } from "@/types/StudyInPage";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 /* Small hook: toggles inView when element enters/leaves viewport */
@@ -29,7 +29,7 @@ type Prop = {
   whyStudyin: WhyStudyin;
 };
 
-export default function WhyStudyUK({ whyStudyin }: Prop) {
+function WhyStudyUK({ whyStudyin }: Prop) {
   // Animate the whole left content block
   const { ref: leftRef, inView: leftInView } = useInView<HTMLDivElement>();
 
@@ -153,3 +153,5 @@ function AnimatedFeatureCard({
     </div>
   );
 }
+
+export default memo(WhyStudyUK);

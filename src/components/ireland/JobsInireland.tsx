@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import "../JobsIn.css";
 import { Students_expriences } from "@/types/StudyInPage";
 /* ---- small hook for scroll-in animation ---- */
@@ -189,7 +189,7 @@ type Prop = {
   students_expriences: Students_expriences;
 };
 
-export default function CareersInIrelandFlow({ students_expriences }: Prop) {
+function CareersInIrelandFlow({ students_expriences }: Prop) {
   const { ref, inView } = useInView<HTMLDivElement>(0.15);
   const slidesPerView = useSlidesPerView();
 
@@ -511,3 +511,5 @@ declare module "react" {
     scrollbarWidth?: string;
   }
 }
+
+export default memo(CareersInIrelandFlow);

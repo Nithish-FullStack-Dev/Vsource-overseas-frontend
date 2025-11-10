@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 type Item = {
@@ -56,7 +56,7 @@ function getInitialTransform(dir: Dir) {
   }
 }
 
-export default function QuickLinksSection() {
+function QuickLinksSection() {
   return (
     <section className="container mx-auto px-4 md:px-6 py-10 md:py-14">
       {/* 1 per row (mobile) → 2 → 3 → 4 → 5 on xl */}
@@ -70,7 +70,15 @@ export default function QuickLinksSection() {
   );
 }
 
-function AnimatedPill({ item, index, dir }: { item: Item; index: number; dir: Dir }) {
+function AnimatedPill({
+  item,
+  index,
+  dir,
+}: {
+  item: Item;
+  index: number;
+  dir: Dir;
+}) {
   const { ref, inView } = useInView<HTMLAnchorElement>();
 
   // stagger each tile a bit for a one-by-one feel
@@ -106,7 +114,7 @@ function AnimatedPill({ item, index, dir }: { item: Item; index: number; dir: Di
       to={item.href}
       onClick={handleClick}
       style={style}
-      className="relative h-16 md:h-20 rounded-[10px] overflow-hidden shadow hover:shadow-lg transition-transform will-change-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A9CF9]"  // accent ring
+      className="relative h-16 md:h-20 rounded-[10px] overflow-hidden shadow hover:shadow-lg transition-transform will-change-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A9CF9]" // accent ring
       aria-label={item.title}
     >
       {/* Solid background switched to brand Secondary Blue */}
@@ -116,7 +124,10 @@ function AnimatedPill({ item, index, dir }: { item: Item; index: number; dir: Di
         aria-hidden="true"
       />
       {/* subtle overlay for a tiny depth effect */}
-      <div className="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors"
+        aria-hidden="true"
+      />
       {/* Text */}
       <div className="relative z-10 h-full w-full flex items-center justify-center px-4">
         <span className="text-white font-semibold text-sm md:text-base text-center">
@@ -126,3 +137,5 @@ function AnimatedPill({ item, index, dir }: { item: Item; index: number; dir: Di
     </Link>
   );
 }
+
+export default memo(QuickLinksSection);
