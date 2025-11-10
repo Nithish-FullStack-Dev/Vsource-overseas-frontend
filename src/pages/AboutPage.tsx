@@ -11,7 +11,7 @@ import img4 from "@/assets/about-us/imgi_9_1698845224.jpg";
 import img5 from "@/assets/about-us/imgi_10_1742793595.jpg";
 import img6 from "@/assets/about-us/imgi_11_1746726161.jpg";
 import img7 from "@/assets/about-us/imgi_12_1659255847.jpg";
-import img8 from "@/assets/about-us/imgi_13_1633425065.jpg";
+// import img8 from "@/assets/about-us/imgi_13_1633425065.jpg";
 import img9 from "@/assets/about-us/imgi_14_1681479951.jpg";
 import img10 from "@/assets/about-us/1653732726.jpg";
 import img11 from "@/assets/about-us/imgi_16_1698838414.jpg";
@@ -132,7 +132,6 @@ const AboutPage: React.FC = () => {
                         alt={member.name}
                         data-aos="flip-left"
                         data-aos-anchor-placement="center-bottom"
-                        data-aos-delay={delay}
                         decoding="async"
                         loading="eager"
                       />
@@ -141,14 +140,12 @@ const AboutPage: React.FC = () => {
                       <h3
                         data-aos="fade-right"
                         data-aos-anchor-placement="center-bottom"
-                        data-aos-delay={delay}
                       >
                         {member.name}
                       </h3>
                       <p
                         data-aos="fade-right"
                         data-aos-anchor-placement="center-bottom"
-                        data-aos-delay={delay}
                       >
                         {member.position}
                       </p>
@@ -379,7 +376,8 @@ const teamMembers = [
   {
     name: "Mr. Virendra Singh",
     position: "Vice President",
-    image: img8,
+    image:
+      "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto:low/v1762761969/imgi_13_1633425065_yrrles.jpg",
     bio: "VSOURCE COMPANY",
   },
   {
