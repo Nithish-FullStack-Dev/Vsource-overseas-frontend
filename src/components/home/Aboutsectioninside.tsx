@@ -67,36 +67,20 @@ const AboutSection: React.FC = () => {
         }`}
       >
         {/* LEFT CONTENT */}
-        <div
-          className="text-section w-full lg:w-1/2"
-          data-aos="fade-right"
-          data-aos-duration="1000"
-        >
-          <h1
-            data-aos="fade-right"
-            data-aos-duration="1000"
-            data-aos-delay="200"
-            data-aos-anchor-placement="center-bottom"
-          >
+        <div className="text-section w-full lg:w-1/2" data-aos="fade-right">
+          <h1 data-aos="fade-right" data-aos-anchor-placement="top-bottom">
             About Vsource Overseas
           </h1>
 
           <p
             className="subheading my-4"
             data-aos="fade-right"
-            data-aos-duration="1000"
-            data-aos-delay="400"
-            data-aos-anchor-placement="center-bottom"
+            data-aos-anchor-placement="top-bottom"
           >
             <strong>Your Gateway to Global Academic Excellence</strong>
           </p>
 
-          <p
-            className="paragraph"
-            data-aos="fade-right"
-            data-aos-duration="1000"
-            data-aos-delay="600"
-          >
+          <p className="paragraph" data-aos="fade-right">
             At VSource Overseas, we specialize in transforming academic ambition
             into international achievement. With a legacy of over 20 years, we
             are proud to be South India’s premier consultancy for Master’s
@@ -104,12 +88,7 @@ const AboutSection: React.FC = () => {
             universities across the and other leading destinations.
           </p>
 
-          <p
-            className="paragraph"
-            data-aos="fade-right"
-            data-aos-duration="1000"
-            data-aos-delay="800"
-          >
+          <p className="paragraph" data-aos="fade-right">
             We partner with globally accredited universities known for academic
             excellence, innovation, and industry relevance, ensuring our
             students receive not only a quality education but also a launchpad
@@ -121,12 +100,7 @@ const AboutSection: React.FC = () => {
           </div>
 
           {/* STATS SECTION */}
-          <div
-            className="stats"
-            data-aos="zoom-in-up"
-            data-aos-duration="1000"
-            data-aos-delay="700"
-          >
+          <div className="stats" data-aos="zoom-in-up" data-aos-duration="800">
             {stats.map((stat, i) => {
               const count = useCounter(stat.value);
               return (
@@ -134,8 +108,7 @@ const AboutSection: React.FC = () => {
                   key={stat.id}
                   className="stat-block"
                   data-aos="fade-up"
-                  data-aos-delay={i * 200}
-                  data-aos-duration="1000"
+                  data-aos-duration="800"
                 >
                   <img src={stat.icon} alt={stat.label} className="icon" />
                   <div className="count">
@@ -153,9 +126,8 @@ const AboutSection: React.FC = () => {
         <div
           className="image-section"
           data-aos="fade-right"
-          data-aos-duration="1200"
-          data-aos-delay="400"
-          data-aos-anchor-placement="center-bottom"
+          data-aos-duration="800"
+          data-aos-anchor-placement="top-bottom"
         >
           <img
             src={
@@ -163,15 +135,13 @@ const AboutSection: React.FC = () => {
             }
             alt="Founder"
             data-aos="fade-right"
-            data-aos-duration="1200"
-            data-aos-delay="500"
+            data-aos-duration="800"
           />
           <p
             className="caption"
             data-aos="fade-left"
-            data-aos-duration="1000"
-            data-aos-delay="700"
-            data-aos-anchor-placement="center-bottom"
+            data-aos-duration="800"
+            data-aos-anchor-placement="top-bottom"
           >
             <strong style={{ fontSize: "20px" }}>“</strong>
             Redefining Education for Tomorrow’s Innovators

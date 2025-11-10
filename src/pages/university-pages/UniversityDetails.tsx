@@ -174,15 +174,16 @@ const UniversityDetails: React.FC = () => {
                 }`}
                 alt={university?.logo?.alternativeText}
                 className="w-full h-full object-contain mb-4"
+                data-aos="zoom-in"
+                data-aos-anchor-placement="top-bottom"
               />
             </div>
 
             {/* Details */}
             <div
               className="flex flex-col gap-3 px-[15px] py-[10px]"
-              data-aos="flip-left"
-              data-aos-anchor-placement="top-bottom"
-              data-aos-delay="400"
+              // data-aos="zoom-in-up"
+              // data-aos-anchor-placement="top-bottom"
             >
               <h1 className="text-2xl md:text-4xl font-bold text-black">
                 {university?.name}
@@ -209,9 +210,8 @@ const UniversityDetails: React.FC = () => {
           {/* Right Section (Banner Image) */}
           <div
             className="w-full md:basis-[60%] h-[200px] md:h-auto  overflow-hidden"
-            data-aos="flip-right"
-            data-aos-anchor-placement="top-bottom"
-            data-aos-delay="400"
+            // data-aos="zoom-in-up"
+            // data-aos-anchor-placement="top-bottom"
           >
             <img
               src={`${import.meta.env.VITE_CMS_GLOBALURL}${
@@ -219,6 +219,7 @@ const UniversityDetails: React.FC = () => {
               }`}
               alt={`${university?.name} banner`}
               className="w-full h-full object-cover"
+              loading="eager"
             />
           </div>
         </div>
@@ -291,13 +292,11 @@ const UniversityDetails: React.FC = () => {
             ref={sectionRefs["overview"]}
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
-            data-aos-delay="100"
           >
             {/* Header */}
             <div
               className="flex gap-2 items-start mb-4"
               data-aos="fade-right"
-              data-aos-delay="200"
             >
               <LayoutDashboard className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Overview</h2>
@@ -311,14 +310,12 @@ const UniversityDetails: React.FC = () => {
                   data-aos="fade-up"
                   className="leading-relaxed mb-4 text-justify"
                   data-aos-anchor-placement="top-bottom"
-                  data-aos-delay="300" // stagger text
                 >
                   <RichText content={university?.overview?.description} />
                 </p>
               ) : (
                 <p
                   data-aos="fade-up"
-                  data-aos-delay="300"
                   data-aos-anchor-placement="top-bottom"
                 >
                   {university?.name} is a modern university globally recognized
@@ -333,7 +330,6 @@ const UniversityDetails: React.FC = () => {
               <div
                 className="p-4 bg-red-50 rounded-lg text-center"
                 data-aos="zoom-in"
-                data-aos-delay="500"
                 data-aos-anchor-placement="top-bottom"
               >
                 <p className="text-xl font-bold text-red-600">
@@ -344,7 +340,6 @@ const UniversityDetails: React.FC = () => {
               <div
                 className="p-4 bg-blue-50 rounded-lg text-center"
                 data-aos="zoom-in"
-                data-aos-delay="650"
                 data-aos-anchor-placement="top-bottom"
               >
                 <p className="text-xl font-bold text-blue-600">
@@ -355,7 +350,6 @@ const UniversityDetails: React.FC = () => {
               <div
                 className="p-4 bg-yellow-50 rounded-lg text-center"
                 data-aos="zoom-in"
-                data-aos-delay="800"
                 data-aos-anchor-placement="top-bottom"
               >
                 <p className="text-xl font-bold text-yellow-600">
@@ -366,7 +360,6 @@ const UniversityDetails: React.FC = () => {
               <div
                 className="p-4 bg-green-50 rounded-lg text-center"
                 data-aos="zoom-in"
-                data-aos-delay="950"
                 data-aos-anchor-placement="top-bottom"
               >
                 <p className="text-xl font-bold text-green-600">
@@ -384,13 +377,11 @@ const UniversityDetails: React.FC = () => {
             className="mb-12"
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
-            data-aos-delay="100"
           >
             <div
               className="flex items-center gap-2 mb-4"
               data-aos="fade-right"
               data-aos-anchor-placement="top-bottom"
-              data-aos-delay="200"
             >
               <div>
                 <BarChart3 className="w-6 h-6 text-red-500 shrink-0" />
@@ -405,7 +396,6 @@ const UniversityDetails: React.FC = () => {
                 className="leading-relaxed text-justify"
                 data-aos="fade-up"
                 data-aos-anchor-placement="top-bottom"
-                data-aos-delay="300"
               >
                 <RichText content={university?.rankings?.description} />
               </p>
@@ -419,7 +409,6 @@ const UniversityDetails: React.FC = () => {
                   className="flex items-center gap-4 bg-white shadow-md p-6 rounded-xl hover:shadow-lg transition"
                   data-aos="zoom-in"
                   data-aos-anchor-placement="top-bottom"
-                  data-aos-delay={`${500 + idx * 200}`} // stagger cards
                 >
                   {/* Icon */}
                   <div className="flex-shrink-0 flex items-center justify-center w-20 h-20">
@@ -448,14 +437,12 @@ const UniversityDetails: React.FC = () => {
             ref={sectionRefs["intakes"]}
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
-            data-aos-delay="100"
           >
             {/* Header */}
             <div
               className="flex items-center gap-2 mb-4"
               data-aos="fade-right"
               data-aos-anchor-placement="top-bottom"
-              data-aos-delay="200"
             >
               <CalendarDays className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Intakes</h2>
@@ -466,14 +453,12 @@ const UniversityDetails: React.FC = () => {
               className="text-gray-700 mb-6 text-justify text-sm sm:text-base"
               data-aos="fade-up"
               data-aos-anchor-placement="top-bottom"
-              data-aos-delay="300"
             >
               <span
                 key={university?.intakes?.id}
                 className="block mb-2 leading-relaxed "
                 data-aos="fade-up"
                 data-aos-anchor-placement="top-bottom"
-                data-aos-delay="300"
               >
                 {university?.rankings?.description ? (
                   <RichText content={university?.intakes?.description} />
@@ -494,7 +479,6 @@ const UniversityDetails: React.FC = () => {
                     className="bg-gray-100 rounded-md transition-all duration-300"
                     data-aos="zoom-in"
                     data-aos-anchor-placement="top-bottom"
-                    data-aos-delay={`${500 + index * 200}`}
                   >
                     {/* Summary / Toggle */}
                     <button
@@ -530,13 +514,11 @@ const UniversityDetails: React.FC = () => {
             ref={sectionRefs["courses"]}
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
-            data-aos-delay="100"
           >
             {/* Header */}
             <div
               className="flex items-center gap-2 mb-4"
               data-aos="fade-right"
-              data-aos-delay="200"
             >
               <BookOpen className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">
@@ -550,7 +532,6 @@ const UniversityDetails: React.FC = () => {
                 key={university?.courses?.id}
                 className="leading-relaxed text-justify"
                 data-aos="fade-up"
-                data-aos-delay="300" // stagger paragraphs
               >
                 <RichText content={university?.courses?.description} />
               </p>
@@ -561,7 +542,6 @@ const UniversityDetails: React.FC = () => {
               <div
                 className="flex gap-4 mb-8"
                 data-aos="zoom-in"
-                data-aos-delay="400"
               >
                 <button className="px-6 py-2 bg-red-600 text-white border-red-600 rounded-full">
                   Masters
@@ -573,7 +553,6 @@ const UniversityDetails: React.FC = () => {
             <div
               className="w-full max-w-4xl mx-auto overflow-hidden"
               data-aos="fade-up"
-              data-aos-delay="500"
             >
               <div
                 className="flex transition-transform duration-1000 ease-in-out"
@@ -598,7 +577,6 @@ const UniversityDetails: React.FC = () => {
                             key={index}
                             className="bg-white rounded-lg shadow p-4 border border-gray-200 flex flex-col justify-between"
                             data-aos="zoom-in"
-                            data-aos-delay={`${550 + index * 150}`} // stagger course cards
                           >
                             <h3 className="font-semibold text-lg mb-2">
                               {course?.name}
@@ -634,7 +612,6 @@ const UniversityDetails: React.FC = () => {
               <div
                 className="flex justify-center items-center gap-4 mt-6"
                 data-aos="fade-up"
-                data-aos-delay="800"
               >
                 <button
                   onClick={handlePrev}
@@ -695,7 +672,6 @@ const UniversityDetails: React.FC = () => {
             <div
               className="mt-6 sm:hidden"
               data-aos="fade-right"
-              data-aos-delay="200"
               data-aos-anchor-placement="top-bottom"
             >
               {university &&
@@ -723,7 +699,6 @@ const UniversityDetails: React.FC = () => {
             <div
               className="hidden sm:block mt-6 overflow-x-auto rounded-xl border border-gray-200"
               data-aos="fade-left"
-              data-aos-delay="300"
             >
               <table className="min-w-full text-left border-collapse text-sm sm:text-base">
                 <thead>
@@ -775,7 +750,6 @@ const UniversityDetails: React.FC = () => {
               className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base"
               data-aos="fade-up"
               data-aos-duration="1000"
-              data-aos-delay="200"
               data-aos-anchor-placement="top-bottom"
             >
               <p
@@ -791,7 +765,6 @@ const UniversityDetails: React.FC = () => {
               className="relative w-full max-w-6xl mx-auto overflow-hidden"
               data-aos="zoom-in-up"
               data-aos-duration="1000"
-              data-aos-delay="300"
               data-aos-anchor-placement="top-bottom"
             >
               <div
@@ -809,7 +782,6 @@ const UniversityDetails: React.FC = () => {
                         key={scholarship?.id || index}
                         className="min-w-full sm:min-w-[50%] md:min-w-[33.333%] p-4"
                         data-aos="fade-up"
-                        data-aos-delay={index * 150} // stagger effect
                         data-aos-duration="900"
                         data-aos-anchor-placement="top-bottom"
                       >
@@ -853,7 +825,6 @@ const UniversityDetails: React.FC = () => {
               <div
                 className="flex justify-center items-center gap-4 mt-5 pb-2"
                 data-aos="fade-up"
-                data-aos-delay="200"
                 data-aos-duration="800"
                 data-aos-anchor-placement="top-bottom"
               >
@@ -895,14 +866,12 @@ const UniversityDetails: React.FC = () => {
             ref={sectionRefs["admissions"]}
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
-            data-aos-delay="100"
           >
             {/* Heading */}
             <div
               className="flex items-center gap-2 mb-4"
               data-aos="fade-right"
               data-aos-anchor-placement="top-bottom"
-              data-aos-delay="150"
             >
               <FileText color="red" className="w-6 h-6 text-red-500 shrink-0" />
               <h2 className="text-2xl font-bold">Admission Requirements</h2>
@@ -913,7 +882,6 @@ const UniversityDetails: React.FC = () => {
               className="text-gray-700 mb-6 space-y-3 text-sm sm:text-base"
               data-aos="fade-up"
               data-aos-anchor-placement="top-bottom"
-              data-aos-delay="200"
             >
               <p
                 key={university?.admissions?.id}
@@ -928,7 +896,6 @@ const UniversityDetails: React.FC = () => {
               className="flex gap-4 mb-6"
               data-aos="zoom-in"
               data-aos-anchor-placement="top-bottom"
-              data-aos-delay="250"
             >
               {["masters"].map((tab) => (
                 <button
@@ -957,7 +924,6 @@ const UniversityDetails: React.FC = () => {
                     className="rounded-xl bg-blue-50 border border-blue-200"
                     data-aos="fade-up"
                     data-aos-anchor-placement="top-bottom"
-                    data-aos-delay="300"
                   >
                     <button
                       onClick={() => toggleAccordion(index)}
