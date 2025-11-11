@@ -10,7 +10,7 @@ export const fetchStudents = async () => {
   const { data } = await axios.get(
     `${
       import.meta.env.VITE_CMS_GLOBALURL
-    }/api/gallery?populate[blocks][on][gallery.student-images][populate][students_images][fields][0]=url&populate[blocks][on][gallery.student-images][populate][students_images][fields][1]=name&populate[blocks][on][gallery.student-images][populate][students_images][fields][2]=alternativeText&populate[blocks][on][gallery.student-images][populate][students_images][fields][3]=documentId`
+    }/api/gallery?populate[blocks][on][gallery.student-images][populate][students_images]=true`
   );
   return data.data.blocks[0] || {};
 };
@@ -57,7 +57,9 @@ const StudentWall = () => {
             students?.students_images?.map((img, index) => (
               <img
                 key={img?.id || index}
-                src={img?.url}
+                src={
+                  img?.formats?.small?.url ? img?.formats?.small?.url : img?.url
+                }
                 alt={`Student ${index + 1}`}
                 loading="lazy"
                 decoding="async"

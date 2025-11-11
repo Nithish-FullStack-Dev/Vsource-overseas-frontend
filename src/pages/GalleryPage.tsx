@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import SectionTitle from "@/components/SectionTitle";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import Successstories from "@/components/home/studentsuccess";
@@ -12,7 +12,7 @@ export const fetchGallery = async () => {
   const { data } = await axios.get(
     `${
       import.meta.env.VITE_CMS_GLOBALURL
-    }/api/gallery?populate[blocks][on][gallery.journey-images][populate][journey_images][fields][0]=url&populate[blocks][on][gallery.journey-images][populate][journey_images][fields][1]=name&populate[blocks][on][gallery.journey-images][populate][journey_images][fields][2]=alternativeText&populate[blocks][on][gallery.journey-images][populate][journey_images][fields][3]=documentId&populate[blocks][on][gallery.gallery-360][populate]=*`
+    }/api/gallery?populate[blocks][on][gallery.journey-images][populate][journey_images]=true&populate[blocks][on][gallery.gallery-360][populate]=*`
   );
   return data.data || {};
 };
@@ -48,11 +48,8 @@ const GalleryPage = () => {
   const journeyBlock = gallery?.blocks?.find(
     (block) => block?.__component === "gallery.journey-images"
   );
-  const view360 = gallery?.blocks?.find(
-    (block) => block?.__component === "gallery.gallery-360"
-  );
+
   const journeyImages = journeyBlock?.journey_images || [];
-  const view360Url = view360?.view360url;
 
   return (
     <>
@@ -75,7 +72,7 @@ const GalleryPage = () => {
           {/* Tabs */}
           <div className="flex justify-center mb-12">
             <div className="inline-flex bg-gray-100 rounded-lg p-1">
-              {["all", "photos", "students"].map((tab) => (
+              {["all", "photos", "students"]?.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -102,11 +99,15 @@ const GalleryPage = () => {
           {activeTab !== "students" && journeyImages.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {journeyImages?.map((item, index) => (
-                <AnimateOnScroll key={item.id || index} delay={index * 100}>
+                <AnimateOnScroll key={item?.id || index} delay={index * 100}>
                   <div className="bg-white rounded-lg overflow-hidden shadow-md group relative">
                     <div className="relative h-64 overflow-hidden">
                       <img
-                        src={item?.url}
+                        src={
+                          item?.formats?.small?.url
+                            ? item?.formats?.small?.url
+                            : item?.url
+                        }
                         alt={item?.name || "Gallery Photo"}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
@@ -124,7 +125,7 @@ const GalleryPage = () => {
   );
 };
 
-export default GalleryPage;
+export default memo(GalleryPage);
 
 /* 
 

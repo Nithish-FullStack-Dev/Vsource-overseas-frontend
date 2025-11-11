@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import axios from "axios";
 import { toast } from "sonner";
 
 interface DelayedPopupProps {
-  // Called AFTER the minimize animation completes
   onMinimize: () => void;
 }
 
@@ -21,8 +20,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
   const options = ["Masters in abroad", "Education Loan Guidance"];
 
-  // Animate form entrance
-  // Animate form entrance
   useEffect(() => {
     controls.start({
       opacity: 1,
@@ -33,7 +30,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     });
   }, [controls]);
 
-  // ✅ Close when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
@@ -45,13 +41,11 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Compute animation target (form -> icon)
   const animateToIconAndClose = async () => {
     const card = cardRef.current;
     const anchor = document.getElementById("form-icon-anchor");
 
     if (!card || !anchor) {
-      // Fallback: just fade out if anchor missing
       await controls.start({
         opacity: 0,
         scale: 0.8,
@@ -74,7 +68,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     const dx = anchorCx - cardCx;
     const dy = anchorCy - cardCy;
 
-    // Animate the card shrinking & moving into the icon position
     await controls.start({
       x: dx,
       y: dy,
@@ -137,11 +130,9 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     setSelectedOption(option);
     setShowDropdown(false);
   };
-  // Close when clicking outside the popup card
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
-        // Trigger the same minimize animation as the ✕ button
         animateToIconAndClose();
       }
     }
@@ -154,7 +145,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
   return (
     <div className="fixed inset-0 z-[60]">
-      {/* Backdrop (fades out at the very end) */}
       {backdropVisible && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -311,4 +301,4 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
   );
 };
 
-export default DelayedPopup;
+export default memo(DelayedPopup);

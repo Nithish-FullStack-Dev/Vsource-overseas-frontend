@@ -172,7 +172,7 @@ export default function TestimonialsSection() {
             100% { background-position: -100% 0; }
           }
           .animated-bg {
-            background-image: url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762753046/bg-test_vfjj6f.jpg');
+            background-image: url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762840388/da4ou7eefraey7tyvmfl.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

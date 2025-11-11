@@ -86,7 +86,8 @@ const UniversityHomePage: React.FC = () => {
       <div
         className="relative bg-cover bg-center bg-no-repeat pt-36 pb-20 overflow-hidden"
         style={{
-          backgroundImage: `url(/assets/images/universitiess/universityHomeBg.jpg)`,
+          backgroundImage:
+            "url('https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762839190/hrnuszgffk9gaq3rv3nt.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-black/70"></div>

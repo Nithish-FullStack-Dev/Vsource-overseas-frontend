@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { memo } from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -38,18 +39,18 @@ const Footer = () => {
                   src: "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto,w_64,h_64,c_limit,dpr_auto,fl_lossy,e_sharpen/v1762755430/linked_in_angejo.png",
                   alt: "LinkedIn",
                 },
-              ].map((icon, index) => (
+              ]?.map((icon, index) => (
                 <a
                   key={index}
-                  href={icon.href}
+                  href={icon?.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Visit our ${icon.alt} page`}
+                  aria-label={`Visit our ${icon?.alt} page`}
                   className="group"
                 >
                   <img
-                    src={icon.src}
-                    alt={icon.alt}
+                    src={icon?.src}
+                    alt={icon?.alt}
                     width={64}
                     height={64}
                     loading="lazy"
@@ -76,7 +77,7 @@ const Footer = () => {
                 "MBBS/Masters Abroad",
                 "Student Loans",
                 "Career Counseling",
-              ].map((service) => (
+              ]?.map((service) => (
                 <li key={service}>
                   <Link
                     to="/"
@@ -255,4 +256,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

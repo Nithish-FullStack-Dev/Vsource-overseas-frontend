@@ -77,7 +77,7 @@ const AboutPage: React.FC = () => {
       <section
         className="pt-40 pb-36 bg-cover bg-center bg-no-repeat relative text-white"
         style={{
-          backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/v1762707348/about-banner_dgscgs.webp)`,
+          backgroundImage: `url(https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1762707348/about-banner_dgscgs.webp)`,
         }}
       >
         {/* Dark overlay */}
@@ -128,8 +128,8 @@ const AboutPage: React.FC = () => {
                   >
                     <div className="img">
                       <img
-                        src={member.image}
-                        alt={member.name}
+                        src={member?.image}
+                        alt={member?.name}
                         data-aos="flip-left"
                         data-aos-anchor-placement="center-bottom"
                         decoding="async"
@@ -141,13 +141,13 @@ const AboutPage: React.FC = () => {
                         data-aos="fade-right"
                         data-aos-anchor-placement="center-bottom"
                       >
-                        {member.name}
+                        {member?.name}
                       </h3>
                       <p
                         data-aos="fade-right"
                         data-aos-anchor-placement="center-bottom"
                       >
-                        {member.position}
+                        {member?.position}
                       </p>
                     </div>
                     <div className="extra-info">{member.bio}</div>

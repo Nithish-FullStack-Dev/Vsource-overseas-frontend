@@ -1,6 +1,6 @@
 import AppSkeleton from "@/AppSkeleton";
-// import VideoCarousel from "";
 import { lazy, Suspense, useEffect } from "react";
+
 const Hero = lazy(() => import("../components/home/Hero"));
 const AboutSection = lazy(() => import("../components/home/AboutSection"));
 const AccreditationSection = lazy(
@@ -27,7 +27,6 @@ interface HomePageProps {
 }
 
 const HomePage = ({ faqRef }: HomePageProps) => {
-  // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -37,7 +36,6 @@ const HomePage = ({ faqRef }: HomePageProps) => {
       <Hero />
       <AboutSection />
 
-      {/* <CounterSection /> */}
       <AccreditationSection />
       <CoursesSection />
       <Features />
@@ -47,16 +45,9 @@ const HomePage = ({ faqRef }: HomePageProps) => {
       <VideoSection />
 
       <LogoMarquee />
-      {/* <VideoCarousel/> */}
       <VideoCarousel />
-      {/* <VideoCarousel/> */}
 
-      {/* <ScholarshipsSection />
-      <StudyAbroadSection /> */}
-      {/* <ExperienceSection /> */}
       <TestimonialsSection />
-      {/* <FaqSection ref={faqRef} /> */}
-      {/* <CtaSection /> */}
     </Suspense>
   );
 };

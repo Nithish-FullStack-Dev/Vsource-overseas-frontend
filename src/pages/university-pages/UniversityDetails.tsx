@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  lazy,
+  Suspense,
+  memo,
+} from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { TABS, useUniversitiesByDocumentId } from "@/lib/Universities";
@@ -1026,4 +1033,4 @@ const UniversityDetails: React.FC = () => {
   );
 };
 
-export default UniversityDetails;
+export default memo(UniversityDetails);
