@@ -1,13 +1,14 @@
-import React from "react";
+import React, { memo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { University } from "@/lib/Universities";
+import DelayedPopup from "./DelayedPopup";
 
 interface Props {
   university: University;
-  delay?: number;
 }
 
-const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
+const UniversityCard: React.FC<Props> = ({ university }) => {
+  const [showPopup, setShowPopup] = useState(false);
   return (
     <div className="bg-white border border-gray-300 rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
       <div className="w-[90%] mx-auto p-6 flex justify-center items-center h-40 border-b border-gray-300">
@@ -46,15 +47,22 @@ const UniversityCard: React.FC<Props> = ({ university, delay = 0 }) => {
         >
           Know More
         </Link>
-        <Link
-          to="/"
+        <button
+          onClick={() => setShowPopup(true)}
           className="flex-1 px-4 py-3 text-center text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200"
         >
           Apply Now.
-        </Link>
+        </button>
       </div>
+      {showPopup && (
+        <DelayedPopup
+          onMinimize={() => {
+            setShowPopup(false);
+          }}
+        />
+      )}
     </div>
   );
 };
 
-export default UniversityCard;
+export default memo(UniversityCard);

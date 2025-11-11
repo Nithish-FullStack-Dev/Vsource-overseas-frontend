@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { memo } from "react";
 
 interface SectionTitleProps {
   title: string;
@@ -36,4 +37,4 @@ const SectionTitle = ({
   );
 };
 
-export default SectionTitle;
+export default memo(SectionTitle);
