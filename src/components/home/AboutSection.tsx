@@ -334,11 +334,7 @@ const AboutSection: React.FC = () => {
           }
         }
 
-        @media (max-width: 640px) {
-          .bottom-section {
-            display: none;
-          }
-        }
+       
 
         @media (prefers-reduced-motion: reduce) {
           .about-section * {
