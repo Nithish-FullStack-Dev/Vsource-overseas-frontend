@@ -99,7 +99,7 @@ const ContactPage = () => {
                 locationUrl:
                   "https://www.google.com/maps/place/Vsource+Overseas+Consultants+Pvt+Ltd",
                 imageUrl:
-                  "https://lh3.googleusercontent.com/p/AF1QipOMh-oDSNTOEZF6eiY4ooUkyUCISycBKjzYiNYP=w426-h240-k-no",
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v169763103616/gipsmkbbewuew7kh690d.jpg",
               },
               {
                 city: "KPHB - JNTU",
@@ -132,7 +132,8 @@ const ContactPage = () => {
                 hours: "10am to 8pm",
                 locationUrl:
                   "https://www.google.com/maps/place/Annapurna+Nilayam/@17.7260105,83.3154943,15z/data=!4m10!1m2!2m1!1sAnnapurna+Nilayam+2nd+Floor,+Opp+Hotel+Kamat,+Lawson's+Bay+Colony,+Visakhapatnam,+AP.!3m6!1s0x3a3943003fa4956b:0xc818085c92e6c50c!8m2!3d17.7260105!4d83.3345487!15sClVBbm5hcHVybmEgTmlsYXlhbSAybmQgRmxvb3IsIE9wcCBIb3RlbCBLYW1hdCwgTGF3c29uJ3MgQmF5IENvbG9ueSwgVmlzYWtoYXBhdG5hbSwgQVAukgESYXBhcnRtZW50X2J1aWxkaW5nqgHPARABKlQiUGFubmFwdXJuYSBuaWxheWFtIDJuZCBmbG9vciBvcHAgaG90ZWwga2FtYXQgbGF3c29uJ3MgYmF5IGNvbG9ueSB2aXNha2hhcGF0bmFtIGFwKAAyHxABIhvuhInUa5mDOARt2VWc3lqHzM6Cr3G5c1dyBg0yVBACIlBhbm5hcHVybmEgbmlsYXlhbSAybmQgZmxvb3Igb3BwIGhvdGVsIGthbWF0IGxhd3NvbidzIGJheSBjb2xvbnkgdmlzYWtoYXBhdG5hbSBhcOABAA!16s%2Fg%2F11vxmf0vlw?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D",
-                imageUrl: "/assets/images/branches/vizag branch.jpeg",
+                imageUrl:
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763103829/p9rbcd5ihlkr3wxn3x4k.jpg",
               },
               {
                 city: "Tirupathi",
@@ -155,7 +156,8 @@ const ContactPage = () => {
                 hours: "10am to 8pm",
                 locationUrl:
                   "https://www.google.com/maps/place/VSOURCE+BENGALURU",
-                imageUrl: "/assets/images/branches/bangalore branch.jpeg",
+                imageUrl:
+                  "https://res.cloudinary.com/dch00stdh/image/upload/f_auto,q_auto/v1763103616/eyhy0tiintaiqqd3d7jq.jpg",
               },
             ].map((branch, index) => (
               <AnimateOnScroll key={index} delay={index * 100}>
