@@ -58,8 +58,8 @@ const Navbar = () => {
     location.pathname === path
       ? "text-primary"
       : isScrolled
-      ? "text-gray-800"
-      : "text-white";
+        ? "text-gray-800"
+        : "text-white";
 
   return (
     <header
@@ -78,8 +78,8 @@ const Navbar = () => {
           />
           <div>
             <img
-              src="/assets/images/20 years logo-01.webp"
-              alt="20 Years Logo"
+              src="/assets/images/21-years-logo.png"
+              alt="21 Years Logo"
               className="h-20 md:h-18 ml-3 w-auto object-contain drop-shadow-md"
             />
           </div>
@@ -90,7 +90,7 @@ const Navbar = () => {
           <Link
             to="/"
             className={`font-medium transition-colors hover:text-primary ${linkColor(
-              "/"
+              "/",
             )}`}
           >
             Home
@@ -98,7 +98,7 @@ const Navbar = () => {
           <Link
             to="/about-us"
             className={`font-medium transition-colors hover:text-primary ${linkColor(
-              "/about-us"
+              "/about-us",
             )}`}
           >
             About Us
@@ -176,12 +176,12 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={`font-medium transition-colors hover:text-primary ${linkColor(
-                  link.path
+                  link.path,
                 )}`}
               >
                 {link.name}
               </Link>
-            )
+            ),
           )}
         </nav>
 
@@ -296,7 +296,7 @@ const Navbar = () => {
               >
                 {link.name}
               </Link>
-            )
+            ),
           )}
         </div>
       </div>

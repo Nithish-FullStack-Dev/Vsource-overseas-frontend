@@ -25,7 +25,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex(
-        (prevIndex) => (prevIndex + 1) % animatedTexts.length
+        (prevIndex) => (prevIndex + 1) % animatedTexts.length,
       );
     }, 3000);
     return () => clearInterval(interval);
@@ -130,9 +130,9 @@ const Hero = () => {
               className="flex justify-start pt-6"
             >
               <img
-                src="/assets/images/20 years logo.webp"
-                alt="20 Years Logo"
-                className="w-36 h-auto"
+                src="/assets/images/21-years-logo.png"
+                alt="21 Years Logo"
+                className="w-52 h-auto"
                 loading="lazy"
                 decoding="async"
                 fetchPriority="high"
