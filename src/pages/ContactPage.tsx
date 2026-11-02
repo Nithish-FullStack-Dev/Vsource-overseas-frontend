@@ -40,7 +40,7 @@ const ContactPage = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Branches</h1>
             <p className="text-xl text-gray-300">
               Open All Days Include Sunday
-              <br /></br>(Excluding Public Holidays)
+              <br />(Excluding Public Holidays)
               <br /> Timings: 11:00 am to 7:30 pm
             </p>
           </div>
