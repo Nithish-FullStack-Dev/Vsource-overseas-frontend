@@ -73,10 +73,10 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4">Our Services</h3>
             <ul className="space-y-2">
               {[
-                "Indian University Admissions",
-                "MBBS/Masters Abroad",
-                "Student Loans",
-                "Career Counseling",
+                "100% Education Loan",
+                "Free Flight Ticket",
+                "Admission in your preferred ",
+                "Top UK Universities",
               ]?.map((service) => (
                 <li key={service}>
                   <Link
