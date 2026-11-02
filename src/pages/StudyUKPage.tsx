@@ -1,10 +1,10 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 import BannerSkeleton from "@/Loaders/about-us/BannerSkeleton";
 import { StudyIn } from "@/types/StudyInPage";
+import { fetchStrapiCollection } from "@/lib/strapi";
 
 const HeroBanner = lazy(() => import("../components/university/HeroBanner"));
 const QuickLinksSection = lazy(
@@ -30,120 +30,122 @@ const JobsInUK = lazy(() => import("../components/university/JobsInUK"));
 const LogoMarquee = lazy(() => import("../components/university/LogoMarquee"));
 const VideoCarousel = lazy(() => import("@/components/home/VideoCarousel"));
 
-const UK_API = "https://backend.vsourceoverseas.com/api/abroads";
-
-const UK_PARAMS = {
-  "filters[key][$eq]": "uk",
-  "populate[banner][fields][0]": "url",
-  "populate[banner][fields][1]": "documentId",
-  "populate[banner][fields][2]": "alternativeText",
-  "populate[overview][populate][highlights]": "true",
-  "populate[whyStudyin][populate][highlights_points]": "true",
-  "populate[whyStudyin][populate][whyStudyin_cards]": "true",
-  "populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]":
-    "url",
-  "populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]":
-    "documentId",
-  "populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]":
-    "alternativeText",
-  "populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]":
-    "true",
-  "populate[admissions][populate][checklist][populate][texts]": "true",
-  "populate[visa_requirements][populate][details]": "true",
-  "populate[students_expriences][populate][images][fields][0]": "url",
-  "populate[students_expriences][populate][images][fields][1]": "documentId",
-  "populate[students_expriences][populate][images][fields][2]":
-    "alternativeText",
-};
-
 export const fetchStudyInUk = async (): Promise<StudyIn> => {
-  try {
-    const response = await axios.get(UK_API, {
-      params: UK_PARAMS,
-      timeout: 30000,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+  return fetchStrapiCollection<StudyIn>("abroads", {
+    "filters[key][$eq]": "uk",
 
-    const result = response.data?.data?.[0];
+    "populate[banner][fields][0]": "url",
+    "populate[banner][fields][1]": "documentId",
+    "populate[banner][fields][2]": "alternativeText",
 
-    if (!result) {
-      throw new Error("UK data is missing from the API response");
-    }
+    "populate[overview][populate][highlights]": "true",
 
-    return result;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("UK API request failed:", {
-        message: error.message,
-        code: error.code,
-        status: error.response?.status,
-        response: error.response?.data,
-        url: error.config?.url,
-      });
-    } else {
-      console.error("UK API error:", error);
-    }
+    "populate[whyStudyin][populate][highlights_points]": "true",
+    "populate[whyStudyin][populate][whyStudyin_cards]": "true",
 
-    throw error;
-  }
+    "populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]":
+      "url",
+    "populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]":
+      "documentId",
+    "populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]":
+      "alternativeText",
+
+    "populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]":
+      "true",
+
+    "populate[admissions][populate][checklist][populate][texts]": "true",
+
+    "populate[visa_requirements][populate][details]": "true",
+
+    "populate[students_expriences][populate][images][fields][0]": "url",
+    "populate[students_expriences][populate][images][fields][1]": "documentId",
+    "populate[students_expriences][populate][images][fields][2]":
+      "alternativeText",
+  });
 };
 
-const StudyUKPage = () => {
+const StudyUKPage: React.FC = () => {
   const {
     data: studyInUk,
-    isLoading,
+    isPending,
     isError,
     error,
     refetch,
-  } = useQuery<StudyIn>({
+    isFetching,
+  } = useQuery<StudyIn, Error>({
     queryKey: ["studyInUk"],
     queryFn: fetchStudyInUk,
+
     staleTime: 10 * 60 * 1000,
-    retry: 2,
-    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 5000),
+    gcTime: 30 * 60 * 1000,
+
+    retry: (failureCount, error) => {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+
+        if (status && status >= 400 && status < 500) {
+          return false;
+        }
+      }
+
+      return failureCount < 3;
+    },
+
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10000),
+
     refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
   }, []);
 
-  useEffect(() => {
-    if (!isError || !error) return;
-
-    toast.error("Failed to load Study in UK", {
-      description: "Please check your connection and try again.",
-    });
-  }, [isError, error]);
-
-  if (isLoading) {
+  // Loading
+  if (isPending) {
     return <BannerSkeleton />;
   }
 
+  // Error handling
   if (isError || !studyInUk) {
+    let errorMessage = "Please check your internet connection and try again.";
+
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        errorMessage = `Server error (${error.response.status}). Please try again later.`;
+      } else if (error.code === "ECONNABORTED") {
+        errorMessage = "The request timed out. Please try again.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
     return (
-      <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 px-4 text-center">
-        <h2 className="text-xl font-semibold text-gray-900">
+      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-5 px-5 text-center">
+        <h2 className="text-2xl font-bold text-gray-900">
           Unable to load Study in UK
         </h2>
 
-        <p className="max-w-md text-sm text-gray-500">
-          We couldn't retrieve the information. Please try again.
-        </p>
+        <p className="max-w-lg text-gray-500">{errorMessage}</p>
 
         <button
           type="button"
           onClick={() => refetch()}
-          className="rounded-lg bg-red-600 px-6 py-3 font-medium text-white transition hover:bg-red-700"
+          disabled={isFetching}
+          className="rounded-xl bg-red-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Retry
+          {isFetching ? "Loading..." : "Try Again"}
         </button>
       </div>
     );
   }
 
+  // Success
   return (
     <>
       <Suspense fallback={<BannerSkeleton />}>
@@ -153,6 +155,7 @@ const StudyUKPage = () => {
 
         <section id="overview" className="anchor-section">
           <OverviewHighlights overview={studyInUk.overview || null} />
+
           <WhyStudyUK whyStudyin={studyInUk.whyStudyin || null} />
         </section>
 
@@ -164,6 +167,7 @@ const StudyUKPage = () => {
 
         <section id="admissions" className="anchor-section">
           <AdmissionRequirementsUK admissions={studyInUk.admissions || null} />
+
           <StudentVisaUK
             visa_requirements={studyInUk.visa_requirements || null}
           />
