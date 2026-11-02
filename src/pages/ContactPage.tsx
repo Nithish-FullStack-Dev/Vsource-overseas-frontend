@@ -39,7 +39,8 @@ const ContactPage = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Branches</h1>
             <p className="text-xl text-gray-300">
-              Visit our offices across India for in-person consultations
+              Open All Days Include Sunday (Excluding Public Holidays)
+              <br /> Timings: 11:00 am to 7:30 pm
             </p>
           </div>
         </div>
@@ -54,6 +55,7 @@ const ContactPage = () => {
                 city: "Dilsukhnagar",
                 address:
                   "Vsource, Near Shashi Hospital, Metro pillar no-1519, Dilsukhnagar, Hyderabad- 500060, Telangana.",
+                near: "Near Dilsukhnagar metro station",
                 phone: "+91 91217 11119",
                 email: "Support@vsourceadmissions.com",
                 hours: "11:00 am to 07:30 pm",
@@ -75,6 +77,7 @@ const ContactPage = () => {
                 city: "KPHB - JNTU",
                 address:
                   "Beside JNTU Metro station Near ICICI Bank, Hyderabad, Telangana.",
+                near: "Near JNTU metro station",
                 phone: "+91 91217 11119",
                 email: "Support@vsourceadmissions.com",
                 hours: "11:00 am to 07:30 pm",
@@ -113,16 +116,16 @@ const ContactPage = () => {
               //   imageUrl: "/assets/images/branches/tirupati branch.jpeg",
               // },
 
-              {
-                city: "Bengaluru",
-                address:
-                  "#88, 9th cross G-Block, Sahakar Nagar, Bengaluru-560092, Karnataka.",
-                phone: "+91 91217 11119",
-                email: "Support@vsourceadmissions.com",
-                hours: "11:00 am to 07:30 pm",
-                locationUrl: "https://maps.app.goo.gl/7Jkr9TLvTZmor3sY9",
-                imageUrl: "/assets/images/branches/bangular.webp",
-              },
+              // {
+              //   city: "Bengaluru",
+              //   address:
+              //     "#88, 9th cross G-Block, Sahakar Nagar, Bengaluru-560092, Karnataka.",
+              //   phone: "+91 91217 11119",
+              //   email: "Support@vsourceadmissions.com",
+              //   hours: "11:00 am to 07:30 pm",
+              //   locationUrl: "https://maps.app.goo.gl/7Jkr9TLvTZmor3sY9",
+              //   imageUrl: "/assets/images/branches/bangular.webp",
+              // },
             ].map((branch, index) => (
               <AnimateOnScroll key={index} delay={index * 100}>
                 <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
@@ -145,14 +148,35 @@ const ContactPage = () => {
                       <h3 className="text-xl font-semibold mb-4">
                         {branch.city} Branch
                       </h3>
-                      <div className="space-y-3">
+                      <div className="space-y-4">
+                        {/* Branch Address */}
+                        <div className="flex items-start gap-3">
+                          <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" />
+                          <span className="text-gray-700 leading-relaxed">
+                            {branch.address}
+                          </span>
+                        </div>
+
+                        {/* Nearby Landmark */}
+                        {branch.near && (
+                          <div className="flex items-center gap-3 pl-8">
+                            <span className="font-semibold text-gray-900 leading-relaxed">
+                              {branch.near}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      {/* <div className="space-y-3">
                         <div className="flex">
                           <MapPin className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
                           <span className="text-gray-700">
                             {branch.address}
                           </span>
                         </div>
-                        <div className="flex">
+                        <div>
+                          <b>{branch.near}</b>
+                        </div>
+                        {/* <div className="flex">
                           <Phone className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
                           <span className="text-gray-700">{branch.phone}</span>
                         </div>
@@ -163,8 +187,8 @@ const ContactPage = () => {
                         <div className="flex">
                           <Clock className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
                           <span className="text-gray-700">{branch.hours}</span>
-                        </div>
-                      </div>
+                        </div> */}
+                      {/* </div> */}
                     </div>
 
                     <a
