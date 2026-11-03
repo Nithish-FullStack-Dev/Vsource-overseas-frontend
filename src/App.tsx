@@ -58,7 +58,7 @@ const FloatingContactButtons = () => {
   const phoneNumber = "+919121711119";
 
   return (
-    <div className="fixed right-4 bottom-6 md:right-6 md:bottom-8 z-[9999] flex flex-col gap-3">
+    <div className="fixed right-4 bottom-24 md:right-6 md:bottom-32 z-[9999] flex flex-col gap-3">
 
       {/* Call Now */}
       <a
