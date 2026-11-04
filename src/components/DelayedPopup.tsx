@@ -1,4 +1,3 @@
-
 import React, { memo, useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import axios from "axios";
@@ -16,16 +15,14 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
   const [name, setName] = useState("");
   const [backdropVisible, setBackdropVisible] = useState(true);
   const [showFlightAnimation, setShowFlightAnimation] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const cardRef = useRef<HTMLDivElement | null>(null);
   const isClosingRef = useRef(false);
 
   const controls = useAnimation();
 
-  const options = [
-    "Masters in abroad",
-    "Education Loan Guidance",
-  ];
+  const options = ["Masters in abroad", "Education Loan Guidance"];
 
   // Finish closing after the flight animation completes
   const finishClose = () => {
@@ -41,55 +38,26 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     if (isClosingRef.current) return;
 
     isClosingRef.current = true;
+    setIsClosing(true);
 
-    // Start flight image animation
+    // Immediately remove the dark overlay
+    setBackdropVisible(false);
+
+    // Immediately restore website scrolling
+    document.body.style.overflow = "";
+
+    // Start the flight animation immediately
     setShowFlightAnimation(true);
 
-    const card = cardRef.current;
-    const anchor = document.getElementById("form-icon-anchor");
-
-    // If no minimize icon exists, simply fade out the popup
-    if (!card || !anchor) {
-      setBackdropVisible(false);
-
-      await controls.start({
-        opacity: 0,
-        scale: 0.85,
-        transition: {
-          duration: 0.3,
-          ease: "easeOut",
-        },
-      });
-
-      return;
-    }
-
-    // Existing card-to-icon animation, when an anchor is available
-    const cardRect = card.getBoundingClientRect();
-    const anchorRect = anchor.getBoundingClientRect();
-
-    const cardCx = cardRect.left + cardRect.width / 2;
-    const cardCy = cardRect.top + cardRect.height / 2;
-
-    const anchorCx = anchorRect.left + anchorRect.width / 2;
-    const anchorCy = anchorRect.top + anchorRect.height / 2;
-
-    const dx = anchorCx - cardCx;
-    const dy = anchorCy - cardCy;
-
+    // Close the popup quickly
     await controls.start({
-      x: dx,
-      y: dy,
-      scale: 0.1,
-      opacity: 0.9,
-      borderRadius: "999px",
+      opacity: 0,
+      scale: 0.9,
       transition: {
-        duration: 0.45,
-        ease: [0.22, 1, 0.36, 1],
+        duration: 0.15,
+        ease: "easeOut",
       },
     });
-
-    setBackdropVisible(false);
   };
 
   // Initial popup animation
@@ -111,10 +79,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     const handleOutside = (e: MouseEvent | TouchEvent) => {
       if (isClosingRef.current) return;
 
-      if (
-        cardRef.current &&
-        !cardRef.current.contains(e.target as Node)
-      ) {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
         void animateToIconAndClose();
       }
     };
@@ -130,10 +95,12 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
   // Prevent background scrolling while popup is open
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
     document.body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, []);
 
@@ -143,10 +110,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
     if (loading || isClosingRef.current) return;
 
-    if (
-      phoneNumber.length !== 10 ||
-      name.trim().length === 0
-    ) {
+    if (phoneNumber.length !== 10 || name.trim().length === 0) {
       toast.error("Please enter your name and a valid phone number.");
       return;
     }
@@ -174,7 +138,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
     try {
       const { status } = await axios.post(
         "https://backend.vsourceoverseas.com/api/enquires",
-        payload
+        payload,
       );
 
       if (status === 200 || status === 201) {
@@ -202,8 +166,11 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[60]">
-
+    <div
+      className={`fixed inset-0 z-[60] ${
+        isClosing ? "pointer-events-none" : ""
+      }`}
+    >
       {/* Background overlay */}
       {backdropVisible && (
         <motion.div
@@ -217,7 +184,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
       {/* Centered popup form */}
       <div className="absolute inset-0 flex items-center justify-center overflow-y-auto p-4 pointer-events-none">
-
         <motion.div
           ref={cardRef}
           className="relative w-full max-w-md max-h-[90vh] overflow-y-auto pointer-events-auto"
@@ -228,12 +194,9 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
           animate={controls}
         >
           <div className="relative w-full rounded-2xl shadow-xl overflow-hidden">
-
             <div className="bg-white md:p-6 p-3 text-gray-800 rounded-2xl">
-
               {/* Header */}
               <div className="bg-red-500 text-white md:py-6 md:px-6 md:-mx-6 md:-mt-6 mb-6 py-3 px-3 -mx-3 -mt-3 text-center relative rounded-t-2xl space-y-1">
-
                 <h2 className="text-2xl font-bold tracking-wide">
                   STUDY MASTERS IN UK
                 </h2>
@@ -242,9 +205,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                   FREE FLIGHT TICKET
                 </h2>
 
-                <p className="font-medium">
-                  TOP UNIVERSITIES • LOW PACKAGES
-                </p>
+                <p className="font-medium">TOP UNIVERSITIES • LOW PACKAGES</p>
 
                 <p className="text-xl font-medium">
                   APPLY NOW FOR JAN 2027 INTAKE
@@ -275,11 +236,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
               </div>
 
               {/* Form */}
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-4"
-              >
-
+              <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Student Name */}
                 <input
                   type="text"
@@ -292,7 +249,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
                 {/* Phone Number */}
                 <div className="flex rounded-md overflow-hidden border border-gray-300">
-
                   <div className="bg-gray-100 text-gray-700 px-4 py-3 flex items-center font-medium border-r">
                     +91
                   </div>
@@ -302,7 +258,9 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                     placeholder="Mobile Number"
                     value={phoneNumber}
                     onChange={(e) =>
-                      setPhoneNumber(e.target.value.replace(/\D/g, "").slice(0, 10))
+                      setPhoneNumber(
+                        e.target.value.replace(/\D/g, "").slice(0, 10),
+                      )
                     }
                     className="w-full px-4 py-3 text-gray-700 focus:outline-none"
                     required
@@ -313,15 +271,12 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
                 {/* Service Dropdown */}
                 <div className="relative">
-
                   <button
                     type="button"
                     className="w-full border border-gray-300 rounded-md px-4 py-3 text-gray-700 flex justify-between items-center cursor-pointer"
                     onClick={() => setShowDropdown(!showDropdown)}
                   >
-                    <span>
-                      {selectedOption || "Select Service Required"}
-                    </span>
+                    <span>{selectedOption || "Select Service Required"}</span>
 
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -339,7 +294,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
                   {showDropdown && (
                     <div className="absolute w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-
                       {options.map((option, index) => (
                         <div
                           key={index}
@@ -349,7 +303,6 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                           {option}
                         </div>
                       ))}
-
                     </div>
                   )}
                 </div>
@@ -362,14 +315,13 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                 >
                   {loading ? "Submitting..." : "Request Callback"}
                 </button>
-
               </form>
 
               {/* Footer */}
               <div className="bg-red-500 text-white md:-mb-6 md:-mx-6 md:p-6 md:mt-3 -mb-3 -mx-3 mt-2 p-3 text-center relative rounded-b-2xl space-y-1">
-
                 <span className="text-xl font-medium">
-                  100% LOAN ASSISTANCE FROM DIFFERENT GOVERNMENT & PRIVATE BANKS FOR
+                  100% LOAN ASSISTANCE FROM DIFFERENT GOVERNMENT & PRIVATE BANKS
+                  FOR
                 </span>
 
                 <br />
@@ -383,20 +335,18 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
                 <span className="text-xl font-medium">
                   COMPLETE GUIDANCE TILL VISA.
                 </span>
-
               </div>
-
             </div>
           </div>
         </motion.div>
       </div>
 
-      
-{/* ===================================
+      {/* ===================================
     FREE FLIGHT TICKET ANIMATION
     Bottom Left → Top Right
 ==================================== */}
 
+      {/* FLIGHT ANIMATION - DECORATIVE ONLY */}
 {showFlightAnimation && (
   <motion.div
     className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
@@ -411,21 +361,24 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
       opacity: [0, 1, 1, 0],
     }}
     transition={{
-      duration: 7.7,
+      duration: 3.5,
       ease: "easeInOut",
-      times: [0, 0.12, 0.82, 1],
+      times: [0, 0.15, 0.8, 1],
     }}
     onAnimationComplete={finishClose}
     style={{
+      pointerEvents: "none",
       willChange: "transform, opacity",
+      userSelect: "none",
     }}
   >
-    <motion.img
+    <img
       src="/assets/images/vsource-flight.png"
       alt=""
       aria-hidden="true"
       draggable={false}
       className="
+        pointer-events-none
         block
         w-[88vw]
         sm:w-[70vw]
@@ -435,12 +388,9 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
         object-contain
         select-none
       "
-      onError={finishClose}
     />
   </motion.div>
 )}
-
-
     </div>
   );
 };
