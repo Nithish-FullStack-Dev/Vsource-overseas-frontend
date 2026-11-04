@@ -361,7 +361,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
       opacity: [0, 1, 1, 0],
     }}
     transition={{
-      duration: 3.5,
+      duration: 6,
       ease: "easeInOut",
       times: [0, 0.15, 0.8, 1],
     }}
