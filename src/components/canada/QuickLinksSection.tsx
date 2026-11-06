@@ -11,7 +11,7 @@ const items: Item[] = [
   { title: "Living Cost & Tuition Fee", href: "#costs" },
   { title: "Admission Requirement in Canada", href: "#admissions" },
   { title: "Top Universities & Courses", href: "#top-universities" },
-  { title: "Job Scope in Canada", href: "#jobs" },
+  // { title: "Job Scope in Canada", href: "#jobs" },
 ];
 
 // Simple IntersectionObserver hook that toggles whenever item enters/leaves view
@@ -27,7 +27,7 @@ function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
       (entries) => {
         entries.forEach((e) => setInView(e.isIntersecting));
       },
-      { root: null, threshold: 0.25, ...options }
+      { root: null, threshold: 0.25, ...options },
     );
     obs.observe(el);
     return () => obs.unobserve(el);
@@ -70,7 +70,15 @@ export default function QuickLinksSection() {
   );
 }
 
-function AnimatedPill({ item, index, dir }: { item: Item; index: number; dir: Dir }) {
+function AnimatedPill({
+  item,
+  index,
+  dir,
+}: {
+  item: Item;
+  index: number;
+  dir: Dir;
+}) {
   const { ref, inView } = useInView<HTMLAnchorElement>();
 
   // stagger each tile a bit for a one-by-one feel
@@ -106,7 +114,7 @@ function AnimatedPill({ item, index, dir }: { item: Item; index: number; dir: Di
       to={item.href}
       onClick={handleClick}
       style={style}
-      className="relative h-16 md:h-20 rounded-[10px] overflow-hidden shadow hover:shadow-lg transition-transform will-change-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A9CF9]"  // accent ring
+      className="relative h-16 md:h-20 rounded-[10px] overflow-hidden shadow hover:shadow-lg transition-transform will-change-transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A9CF9]" // accent ring
       aria-label={item.title}
     >
       {/* Solid background switched to brand Secondary Blue */}
@@ -116,7 +124,10 @@ function AnimatedPill({ item, index, dir }: { item: Item; index: number; dir: Di
         aria-hidden="true"
       />
       {/* subtle overlay for a tiny depth effect */}
-      <div className="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-black/0 hover:bg-black/5 transition-colors"
+        aria-hidden="true"
+      />
       {/* Text */}
       <div className="relative z-10 h-full w-full flex items-center justify-center px-4">
         <span className="text-white font-semibold text-sm md:text-base text-center">

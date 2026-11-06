@@ -71,9 +71,9 @@ const HomePage = ({ faqRef }: HomePageProps) => {
         <LogoMarquee />
       </LazyRender>
 
-      <LazyRender minHeight="100vh" rootMargin="150px 0px">
+      {/* <LazyRender minHeight="100vh" rootMargin="150px 0px">
         <VideoCarousel />
-      </LazyRender>
+      </LazyRender> */}
 
       <LazyRender minHeight="80vh">
         <TestimonialsSection />

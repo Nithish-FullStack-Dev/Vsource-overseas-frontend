@@ -7,15 +7,15 @@ import { StudyIn } from "@/types/StudyInPage";
 
 const HeroBanner = lazy(() => import("../components/usa/HeroBanner"));
 const QuickLinksSection = lazy(
-  () => import("../components/usa/QuickLinksSection")
+  () => import("../components/usa/QuickLinksSection"),
 );
 const OverviewHighlights = lazy(
-  () => import("../components/usa/OverviewHighlights")
+  () => import("../components/usa/OverviewHighlights"),
 );
 const WhyStudyUSA = lazy(() => import("../components/usa/WhyStudyUSA"));
 const CityCostsTabs = lazy(() => import("../components/usa/CityCostsTabs"));
 const AdmissionRequirementsUSA = lazy(
-  () => import("../components/usa/AdmissionRequirementsUSA")
+  () => import("../components/usa/AdmissionRequirementsUSA"),
 );
 const StudentVisaUSA = lazy(() => import("../components/usa/StudentVisaUSA"));
 const PopularCourses = lazy(() => import("../components/usa/PopularCourses"));
@@ -25,7 +25,7 @@ const VideoCarousel = lazy(() => import("@/components/home/VideoCarousel"));
 
 export const fetchStudyInUsa = async () => {
   const { data } = await axios.get(
-    `https://backend.vsourceoverseas.com/api/abroads?filters[key][$eq]=usa&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=alternativeText&populate[overview][populate][highlights]=true&populate[whyStudyin][populate][highlights_points]=true&populate[whyStudyin][populate][whyStudyin_cards]=true&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]=url&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]=documentId&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]=alternativeText&populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]=true&populate[admissions][populate][checklist][populate][texts]=true&populate[visa_requirements][populate][details]=true&populate[students_expriences][populate][images][fields][0]=url&populate[students_expriences][populate][images][fields][1]=documentId&populate[students_expriences][populate][images][fields][2]=alternativeText`
+    `https://backend.vsourceoverseas.com/api/abroads?filters[key][$eq]=usa&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=alternativeText&populate[overview][populate][highlights]=true&populate[whyStudyin][populate][highlights_points]=true&populate[whyStudyin][populate][whyStudyin_cards]=true&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]=url&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]=documentId&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]=alternativeText&populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]=true&populate[admissions][populate][checklist][populate][texts]=true&populate[visa_requirements][populate][details]=true&populate[students_expriences][populate][images][fields][0]=url&populate[students_expriences][populate][images][fields][1]=documentId&populate[students_expriences][populate][images][fields][2]=alternativeText`,
   );
   return data.data[0] || [];
 };
@@ -95,11 +95,11 @@ const StudyUSA = () => {
       <PopularCourses />
 
       {/* Anchor: Jobs */}
-      <section id="jobs" className="anchor-section">
+      {/* <section id="jobs" className="anchor-section">
         <JobsInUSA
           students_expriences={studyInUsa?.students_expriences || null}
         />
-      </section>
+      </section> */}
 
       <VideoCarousel />
 

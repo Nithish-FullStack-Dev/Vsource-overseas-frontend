@@ -102,8 +102,8 @@ const Footer = () => {
                 { name: "Study In UK", path: "/study-in-uk" },
                 { name: "Study In USA", path: "/study-in-usa" },
                 { name: "Study In Canada", path: "/study-in-canada" },
-                { name: "Study In Ireland", path: "/study-in-ireland" },
-                { name: "Study In France", path: "/study-in-france" },
+                // { name: "Study In Ireland", path: "/study-in-ireland" },
+                // { name: "Study In France", path: "/study-in-france" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link

@@ -62,11 +62,11 @@ const features: Feature[] = [
     bgColor: GREY,
     title: "Quick & Easy Application Process",
   },
-  {
-    icon: "/icons/home-icon-silhouette.png",
-    bgColor: GREY,
-    title: "Income tax benefits under section 80E",
-  },
+  // {
+  //   icon: "/icons/home-icon-silhouette.png",
+  //   bgColor: GREY,
+  //   title: "Income tax benefits under section 80E",
+  // },
 ];
 
 const FinancialAssistance: React.FC = () => {

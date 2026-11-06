@@ -21,6 +21,8 @@ import ChatBot from "./services/ChatBot";
 import { Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import LazyRender from "./utils/LazyRender";
+const SuccessStories = lazy(() => import("./pages/SuccessStories"));
+const ListOfUkUniversities = lazy(() => import("./pages/ListOfUkUniversities"));
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -59,7 +61,7 @@ const FloatingContactButtons = () => {
   const phoneNumber = "+919121711119";
 
   return (
-    <div className="fixed right-4 bottom-24 md:right-6 md:bottom-32 z-[9999] flex flex-col gap-6">
+    <div className="fixed right-4 bottom-[30%] md:right-6 md:bottom-[30%] z-[9999] flex flex-col gap-16">
       {/* Call Now */}
       <a
         href={`tel:${phoneNumber}`}
@@ -149,6 +151,11 @@ const App = () => {
                 <Route path="/study-in-canada" element={<StudyCanada />} />
                 <Route path="/study-in-ireland" element={<StudyIreland />} />
                 <Route path="/study-in-france" element={<StudyFrance />} />
+                <Route path="/success-stories" element={<SuccessStories />} />
+                <Route
+                  path="/uk-universities"
+                  element={<ListOfUkUniversities />}
+                />
 
                 <Route
                   path="/explore-universities"

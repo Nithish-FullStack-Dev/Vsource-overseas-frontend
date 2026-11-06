@@ -151,7 +151,7 @@ const Hero = () => {
               >
                 Explore Universities
               </Link>
-              <a
+              {/* <a
                 onClick={handleGoVirtual}
                 className="bg-white border border-white text-black px-6 py-3 rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center space-x-2 cursor-pointer"
               >
@@ -170,7 +170,7 @@ const Hero = () => {
                   />
                 </svg>
                 <span>Book Free Counseling</span>
-              </a>
+              </a> */}
             </motion.div>
 
             <motion.div
@@ -205,11 +205,8 @@ const Hero = () => {
                 TOP UK
                 <br />
                 UNIVERSITIES
-                
-                
               </p>
               <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide mt-3">
-                
                 FREE FLIGHT TICKET
               </p>
               {/* <p className="text-[10px] text-orange-400 font-semibold mt-2 animate-blink">
@@ -273,7 +270,7 @@ const Hero = () => {
                     Explore Universities
                   </Link>
 
-                  <a
+                  {/* <a
                     onClick={handleGoVirtual}
                     className="bg-white border border-white text-black px-6 py-3 rounded-md font-semibold text-lg hover:bg-white/20 transition-colors flex items-center space-x-2 cursor-pointer"
                   >
@@ -292,7 +289,7 @@ const Hero = () => {
                       />
                     </svg>
                     <span>Book Free Counseling</span>
-                  </a>
+                  </a> */}
                 </div>
               </motion.div>
             </div>

@@ -3,6 +3,14 @@ import { useLocation } from "react-router-dom";
 import SectionTitle from "@/components/SectionTitle";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 const ContactPage = () => {
   const location = useLocation();
@@ -40,7 +48,8 @@ const ContactPage = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Branches</h1>
             <p className="text-xl text-gray-300">
               Open All Days Include Sunday
-              <br />(Excluding Public Holidays)
+              <br />
+              (Excluding Public Holidays)
               <br /> Timings: 11:00 am to 7:30 pm
             </p>
           </div>
@@ -62,7 +71,11 @@ const ContactPage = () => {
                 hours: "11:00 am to 07:30 pm",
                 locationUrl:
                   "https://www.google.com/maps/place/VSource/@17.3692602,78.519197,17z/data=!3m1!4b1!4m5!3m4!1s0x3bcb98f7d166d455:0x1d4049b98242ba23!8m2!3d17.3692602!4d78.5213857",
-                imageUrl: "/assets/images/branches/Dilsukhnagar.jpg",
+                imageUrl: [
+                  "/assets/images/branches/Dilsukhnagar.jpg",
+                  "/assets/images/branches/Dilsukhnagar.jpg",
+                  "/assets/images/branches/Dilsukhnagar.jpg",
+                ],
               },
               // {
               //   city: "Ameerpet",
@@ -83,7 +96,11 @@ const ContactPage = () => {
                 email: "Support@vsourceadmissions.com",
                 hours: "11:00 am to 07:30 pm",
                 locationUrl: "https://maps.app.goo.gl/YEPNx4qtezQ4SCjTA",
-                imageUrl: "/assets/images/branches/jntu branch.jpg",
+                imageUrl: [
+                  "/assets/images/branches/jntu-one.jpeg",
+                  "/assets/images/branches/jntu branch.jpg",
+                  "/assets/images/branches/jntu branch.jpg",
+                ],
               },
               {
                 city: "Vijayawada",
@@ -93,7 +110,11 @@ const ContactPage = () => {
                 email: "Support@vsourceadmissions.com",
                 hours: "11:00 am to 07:30 pm",
                 locationUrl: "https://maps.app.goo.gl/8S3veFkys9eqbEPJ8",
-                imageUrl: "/assets/images/branches/vijaywada branch.jpeg",
+                imageUrl: [
+                  "/assets/images/branches/vijaywada branch.jpeg",
+                  "/assets/images/branches/vijaywada branch.jpeg",
+                  "/assets/images/branches/vijaywada branch.jpeg",
+                ],
               },
               // {
               //   city: "Visakhapatnam",
@@ -130,13 +151,38 @@ const ContactPage = () => {
             ].map((branch, index) => (
               <AnimateOnScroll key={index} delay={index * 100}>
                 <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="h-56 bg-gray-200">
-                    {branch.imageUrl ? (
-                      <img
-                        src={branch.imageUrl}
-                        alt={`${branch.city} Branch`}
-                        className="w-full h-full object-cover"
-                      />
+                  <div className="h-56 bg-gray-200 relative overflow-hidden">
+                    {branch.imageUrl?.length > 0 ? (
+                      <Carousel
+                        opts={{
+                          align: "start",
+                          loop: branch.imageUrl.length > 1,
+                        }}
+                        className="w-full h-full"
+                      >
+                        <CarouselContent className="h-56 ml-0">
+                          {branch.imageUrl.map((image, imageIndex) => (
+                            <CarouselItem
+                              key={`${branch.city}-${imageIndex}`}
+                              className="h-56 basis-full pl-0"
+                            >
+                              <img
+                                src={image}
+                                alt={`${branch.city} Branch - ${imageIndex + 1}`}
+                                className="w-full h-56 object-cover object-center"
+                                loading="lazy"
+                              />
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+
+                        {branch.imageUrl.length > 1 && (
+                          <>
+                            <CarouselPrevious className="left-3 z-10 bg-white/90 hover:bg-white" />
+                            <CarouselNext className="right-3 z-10 bg-white/90 hover:bg-white" />
+                          </>
+                        )}
+                      </Carousel>
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-primary/10">
                         <MapPin className="h-10 w-10 text-primary/60" />

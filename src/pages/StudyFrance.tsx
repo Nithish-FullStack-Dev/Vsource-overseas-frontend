@@ -7,23 +7,23 @@ import React, { Suspense, lazy, useEffect } from "react";
 
 const HeroBanner = lazy(() => import("../components/france/HeroBanner"));
 const QuickLinksSection = lazy(
-  () => import("../components/france/QuickLinksSection")
+  () => import("../components/france/QuickLinksSection"),
 );
 const OverviewHighlights = lazy(
-  () => import("../components/france/OverviewHighlights")
+  () => import("../components/france/OverviewHighlights"),
 );
 const WhyStudyFrance = lazy(
-  () => import("../components/france/WhyStudyFrance")
+  () => import("../components/france/WhyStudyFrance"),
 );
 const CityCostsTabs = lazy(() => import("../components/france/CityCostsTabs"));
 const AdmissionRequirementsFrance = lazy(
-  () => import("../components/france/AdmissionRequirementsFrance")
+  () => import("../components/france/AdmissionRequirementsFrance"),
 );
 const StudentVisaFrance = lazy(
-  () => import("../components/france/StudentVisaFrance")
+  () => import("../components/france/StudentVisaFrance"),
 );
 const PopularCourses = lazy(
-  () => import("../components/france/PopularCourses")
+  () => import("../components/france/PopularCourses"),
 );
 const JobsInFrance = lazy(() => import("../components/france/JobsInFrance"));
 const LogoMarquee = lazy(() => import("../components/france/LogoMarquee"));
@@ -31,7 +31,7 @@ const VideoCarousel = lazy(() => import("@/components/home/VideoCarousel"));
 
 export const fetchStudyInFrance = async () => {
   const { data } = await axios.get(
-    `https://backend.vsourceoverseas.com/api/abroads?filters[key][$eq]=france&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=alternativeText&populate[overview][populate][highlights]=true&populate[whyStudyin][populate][highlights_points]=true&populate[whyStudyin][populate][whyStudyin_cards]=true&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]=url&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]=documentId&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]=alternativeText&populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]=true&populate[admissions][populate][checklist][populate][texts]=true&populate[visa_requirements][populate][details]=true&populate[students_expriences][populate][images][fields][0]=url&populate[students_expriences][populate][images][fields][1]=documentId&populate[students_expriences][populate][images][fields][2]=alternativeText`
+    `https://backend.vsourceoverseas.com/api/abroads?filters[key][$eq]=france&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=alternativeText&populate[overview][populate][highlights]=true&populate[whyStudyin][populate][highlights_points]=true&populate[whyStudyin][populate][whyStudyin_cards]=true&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]=url&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]=documentId&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]=alternativeText&populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]=true&populate[admissions][populate][checklist][populate][texts]=true&populate[visa_requirements][populate][details]=true&populate[students_expriences][populate][images][fields][0]=url&populate[students_expriences][populate][images][fields][1]=documentId&populate[students_expriences][populate][images][fields][2]=alternativeText`,
   );
   return data.data[0] || [];
 };
@@ -105,11 +105,11 @@ const StudyFrance = () => {
       <PopularCourses />
 
       {/* Anchor: Jobs */}
-      <section id="jobs" className="anchor-section">
+      {/* <section id="jobs" className="anchor-section">
         <JobsInFrance
           students_expriences={studyInFrance?.students_expriences || null}
         />
-      </section>
+      </section> */}
 
       <VideoCarousel />
 
