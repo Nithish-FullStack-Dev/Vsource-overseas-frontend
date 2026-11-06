@@ -347,37 +347,37 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 ==================================== */}
 
       {/* FLIGHT ANIMATION - DECORATIVE ONLY */}
-{showFlightAnimation && (
-  <motion.div
-    className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
-    initial={{
-      x: "-100vw",
-      y: "100vh",
-      opacity: 0,
-    }}
-    animate={{
-      x: "100vw",
-      y: "-100vh",
-      opacity: [0, 1, 1, 0],
-    }}
-    transition={{
-      duration: 6,
-      ease: "easeInOut",
-      times: [0, 0.15, 0.8, 1],
-    }}
-    onAnimationComplete={finishClose}
-    style={{
-      pointerEvents: "none",
-      willChange: "transform, opacity",
-      userSelect: "none",
-    }}
-  >
-    <img
-      src="/assets/images/vsource-flight.png"
-      alt=""
-      aria-hidden="true"
-      draggable={false}
-      className="
+      {showFlightAnimation && (
+        <motion.div
+          className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+          initial={{
+            x: "-100vw",
+            y: "100vh",
+            opacity: 0,
+          }}
+          animate={{
+            x: "100vw",
+            y: "-100vh",
+            opacity: [0, 1, 1, 0],
+          }}
+          transition={{
+            duration: 10,
+            ease: "easeInOut",
+            times: [0, 0.15, 0.8, 1],
+          }}
+          onAnimationComplete={finishClose}
+          style={{
+            pointerEvents: "none",
+            willChange: "transform, opacity",
+            userSelect: "none",
+          }}
+        >
+          <img
+            src="/assets/images/vsource-flight.png"
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="
         pointer-events-none
         block
         w-[88vw]
@@ -388,9 +388,9 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
         object-contain
         select-none
       "
-    />
-  </motion.div>
-)}
+          />
+        </motion.div>
+      )}
     </div>
   );
 };

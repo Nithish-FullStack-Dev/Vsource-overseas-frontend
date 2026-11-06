@@ -20,6 +20,7 @@ import TermsAndConditions from "./components/ireland/TermsAndConditions";
 import ChatBot from "./services/ChatBot";
 import { Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import LazyRender from "./utils/LazyRender";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -59,7 +60,6 @@ const FloatingContactButtons = () => {
 
   return (
     <div className="fixed right-4 bottom-24 md:right-6 md:bottom-32 z-[9999] flex flex-col gap-6">
-
       {/* Call Now */}
       <a
         href={`tel:${phoneNumber}`}
@@ -91,7 +91,6 @@ const FloatingContactButtons = () => {
           <FaWhatsapp className="text-white w-6 h-6 md:w-7 md:h-7" />
         </div>
       </a>
-
     </div>
   );
 };
@@ -179,9 +178,13 @@ const App = () => {
           </main>
 
           {/* {!shouldHideLayout && <ContactBar />}  */}
-          {!shouldHideLayout && <Footer />}
+          {!shouldHideLayout && (
+            <LazyRender minHeight="80vh">
+              <Footer />
+            </LazyRender>
+          )}
         </div>
-{/* 
+        {/* 
         <Suspense fallback={null}>
           {!shouldHideLayout && (
             <ChatBot
@@ -194,7 +197,7 @@ const App = () => {
 
         {/* Floating Buttons */}
         {/* Floating Call & WhatsApp Buttons */}
-{!shouldHideLayout && <FloatingContactButtons />}
+        {!shouldHideLayout && <FloatingContactButtons />}
         {/* {!shouldHideLayout && (
           <ScrollToTopButton
             showFormIcon={showFormIcon}

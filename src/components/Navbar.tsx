@@ -78,7 +78,7 @@ const Navbar = () => {
           />
           <div>
             <img
-              src="/assets/images/21-years-logo.png"
+              src="/assets/images/20 years logo-01.webp"
               alt="21 Years Logo"
               className="h-20 md:h-18 ml-3 w-auto object-contain drop-shadow-md"
             />
