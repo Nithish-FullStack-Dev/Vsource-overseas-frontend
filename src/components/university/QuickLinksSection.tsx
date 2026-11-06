@@ -8,10 +8,11 @@ type Item = {
 
 const items: Item[] = [
   { title: "UK Overview", href: "#overview" },
+  { title: "List of UK Universities", href: "/uk-universities" },
   { title: "Living Cost & Tuition Fee", href: "#costs" },
   { title: "Admission Requirement in UK", href: "#admissions" },
   { title: "Top Universities & Courses", href: "#top-universities" },
-  { title: "Job Scope in UK", href: "#jobs" },
+  // { title: "Job Scope in UK", href: "#jobs" },
 ];
 
 // Simple IntersectionObserver hook that toggles whenever item enters/leaves view
@@ -27,7 +28,7 @@ function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
       (entries) => {
         entries.forEach((e) => setInView(e.isIntersecting));
       },
-      { root: null, threshold: 0.25, ...options }
+      { root: null, threshold: 0.25, ...options },
     );
     obs.observe(el);
     return () => obs.unobserve(el);

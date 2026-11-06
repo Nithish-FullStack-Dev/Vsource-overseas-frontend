@@ -11,7 +11,7 @@ const items: Item[] = [
   { title: "Living Cost & Tuition Fee", href: "#costs" },
   { title: "Admission Requirement in France", href: "#admissions" },
   { title: "Top Universities & Courses", href: "#top-universities" },
-  { title: "Job Scope in France", href: "#jobs" },
+  // { title: "Job Scope in France", href: "#jobs" },
 ];
 
 // Simple IntersectionObserver hook that toggles whenever item enters/leaves view

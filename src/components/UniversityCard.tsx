@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { University } from "@/lib/Universities";
 import DelayedPopup from "./DelayedPopup";
 
@@ -8,6 +8,7 @@ interface Props {
 }
 
 const UniversityCard: React.FC<Props> = ({ university }) => {
+  const location = useLocation();
   const [showPopup, setShowPopup] = useState(false);
   return (
     <div className="bg-white border border-gray-300 rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
@@ -40,20 +41,22 @@ const UniversityCard: React.FC<Props> = ({ university }) => {
           {university.website}
         </a>
       </div>
-      <div className="flex border-t border-gray-200">
-        <Link
-          to={`/explore-universities/${university.country}/${university?.slug}/${university?.documentId}`}
-          className="flex-1 px-4 py-3 text-center text-sm font-medium text-red-600 "
-        >
-          Know More
-        </Link>
-        <button
-          onClick={() => setShowPopup(true)}
-          className="flex-1 px-4 py-3 text-center text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200"
-        >
-          Apply Now.
-        </button>
-      </div>
+      {location.pathname.includes("/uk-universities") || (
+        <div className="flex border-t border-gray-200">
+          <Link
+            to={`/explore-universities/${university.country}/${university?.slug}/${university?.documentId}`}
+            className="flex-1 px-4 py-3 text-center text-sm font-medium text-red-600 "
+          >
+            Know More
+          </Link>
+          <button
+            onClick={() => setShowPopup(true)}
+            className="flex-1 px-4 py-3 text-center text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors duration-200"
+          >
+            Apply Now.
+          </button>
+        </div>
+      )}
       {showPopup && (
         <DelayedPopup
           onMinimize={() => {

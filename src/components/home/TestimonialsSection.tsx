@@ -137,7 +137,7 @@ export default function TestimonialsSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) =>
-        prev === testimonialsData.length - 1 ? 0 : prev + 1
+        prev === testimonialsData.length - 1 ? 0 : prev + 1,
       );
     }, 5000);
     return () => clearInterval(interval);
@@ -153,13 +153,13 @@ export default function TestimonialsSection() {
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? testimonialsData.length - 1 : prev - 1
+      prev === 0 ? testimonialsData.length - 1 : prev - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev === testimonialsData.length - 1 ? 0 : prev + 1
+      prev === testimonialsData.length - 1 ? 0 : prev + 1,
     );
   };
 
@@ -201,8 +201,8 @@ export default function TestimonialsSection() {
             Success Stories
           </h2>
           <p className="text-base md:text-lg text-black-900 mt-20 mt-35">
-            Hear from our students who have achieved their academic and career
-            goals with our guidance.
+            A legacy of trust, a journey of excellence, and countless dreams
+            transformed into success
           </p>
         </div>
 

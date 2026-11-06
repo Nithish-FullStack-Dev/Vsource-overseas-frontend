@@ -105,11 +105,11 @@ const StudyIreland = () => {
       <PopularCourses />
 
       {/* Anchor: Jobs */}
-      <section id="jobs" className="anchor-section">
+      {/* <section id="jobs" className="anchor-section">
         <JobsInireland
           students_expriences={studyInIreland?.students_expriences || null}
         />
-      </section>
+      </section> */}
 
       <VideoCarousel />
 

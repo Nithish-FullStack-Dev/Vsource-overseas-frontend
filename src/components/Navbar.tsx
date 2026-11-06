@@ -44,14 +44,15 @@ const Navbar = () => {
     },
     { name: "Gallery", path: "/gallery" },
     { name: "Branches", path: "/contact" },
+    { name: "Success Stories", path: "/success-stories" },
   ];
 
   const destinations = [
     { name: "Study in UK", path: "/study-in-uk", flag: "gb" },
     { name: "Study in USA", path: "/study-in-usa", flag: "us" },
     { name: "Study in CANADA", path: "/study-in-canada", flag: "ca" },
-    { name: "Study in IRELAND", path: "/study-in-ireland", flag: "ie" },
-    { name: "Study in FRANCE", path: "/study-in-france", flag: "fr" },
+    // { name: "Study in IRELAND", path: "/study-in-ireland", flag: "ie" },
+    // { name: "Study in FRANCE", path: "/study-in-france", flag: "fr" },
   ];
 
   const linkColor = (path: string) =>

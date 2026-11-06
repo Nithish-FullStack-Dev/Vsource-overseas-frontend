@@ -179,11 +179,11 @@ const StudyUKPage: React.FC = () => {
 
         <PopularCourses />
 
-        <section id="jobs" className="anchor-section">
+        {/* <section id="jobs" className="anchor-section">
           <JobsInUK
             students_expriences={studyInUk.students_expriences || null}
           />
-        </section>
+        </section> */}
 
         <VideoCarousel />
       </Suspense>

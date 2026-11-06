@@ -8,23 +8,23 @@ import { StudyIn } from "@/types/StudyInPage";
 // 🔹 Lazy load heavy content sections
 const HeroBanner = lazy(() => import("../components/canada/HeroBanner"));
 const QuickLinksSection = lazy(
-  () => import("../components/canada/QuickLinksSection")
+  () => import("../components/canada/QuickLinksSection"),
 );
 const OverviewHighlights = lazy(
-  () => import("../components/canada/OverviewHighlights")
+  () => import("../components/canada/OverviewHighlights"),
 );
 const WhyStudycanada = lazy(
-  () => import("../components/canada/WhyStudycanada")
+  () => import("../components/canada/WhyStudycanada"),
 );
 const CityCostsTabs = lazy(() => import("../components/canada/CityCostsTabs"));
 const AdmissionRequirementscanada = lazy(
-  () => import("../components/canada/AdmissionRequirementscanada")
+  () => import("../components/canada/AdmissionRequirementscanada"),
 );
 const StudentVisacanada = lazy(
-  () => import("../components/canada/StudentVisacanada")
+  () => import("../components/canada/StudentVisacanada"),
 );
 const PopularCourses = lazy(
-  () => import("../components/canada/PopularCourses")
+  () => import("../components/canada/PopularCourses"),
 );
 const JobsIncanada = lazy(() => import("../components/canada/JobsIncanada"));
 const LogoMarquee = lazy(() => import("../components/canada/LogoMarquee"));
@@ -32,7 +32,7 @@ const VideoCarousel = lazy(() => import("@/components/home/VideoCarousel"));
 
 export const fetchStudyInCanada = async () => {
   const { data } = await axios.get(
-    `https://backend.vsourceoverseas.com/api/abroads?filters[key][$eq]=canada&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=alternativeText&populate[overview][populate][highlights]=true&populate[whyStudyin][populate][highlights_points]=true&populate[whyStudyin][populate][whyStudyin_cards]=true&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]=url&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]=documentId&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]=alternativeText&populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]=true&populate[admissions][populate][checklist][populate][texts]=true&populate[visa_requirements][populate][details]=true&populate[students_expriences][populate][images][fields][0]=url&populate[students_expriences][populate][images][fields][1]=documentId&populate[students_expriences][populate][images][fields][2]=alternativeText`
+    `https://backend.vsourceoverseas.com/api/abroads?filters[key][$eq]=canada&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=alternativeText&populate[overview][populate][highlights]=true&populate[whyStudyin][populate][highlights_points]=true&populate[whyStudyin][populate][whyStudyin_cards]=true&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][0]=url&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][1]=documentId&populate[Living_Cost_Tuition_Fee][populate][cities][populate][image][fields][2]=alternativeText&populate[Living_Cost_Tuition_Fee][populate][cities][populate][tables][populate][label_values]=true&populate[admissions][populate][checklist][populate][texts]=true&populate[visa_requirements][populate][details]=true&populate[students_expriences][populate][images][fields][0]=url&populate[students_expriences][populate][images][fields][1]=documentId&populate[students_expriences][populate][images][fields][2]=alternativeText`,
   );
   return data.data[0] || [];
 };
@@ -106,11 +106,11 @@ const StudyCanada = () => {
       <PopularCourses />
 
       {/* Anchor: Jobs */}
-      <section id="jobs" className="anchor-section">
+      {/* <section id="jobs" className="anchor-section">
         <JobsIncanada
           students_expriences={studyInCanada?.students_expriences || null}
         />
-      </section>
+      </section> */}
 
       <VideoCarousel />
 
