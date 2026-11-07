@@ -159,7 +159,7 @@ const FinancialAssistance: React.FC = () => {
           data-aos="fade-up"
           data-aos-duration="700"
         >
-          <a href="https://demofintech.vsource.online/" target="_blank">
+          <a href="https://www.vsourcefintech.com/" target="_blank">
             <button
               className="btn primary"
               data-aos="zoom-in-right"
@@ -170,7 +170,7 @@ const FinancialAssistance: React.FC = () => {
             </button>
           </a>
 
-          <a href="https://demofintech.vsource.online/contact" target="_blank">
+          <a href="https://www.vsourcefintech.com/contact" target="_blank">
             <button
               className="btn secondary"
               data-aos="zoom-in-left"
