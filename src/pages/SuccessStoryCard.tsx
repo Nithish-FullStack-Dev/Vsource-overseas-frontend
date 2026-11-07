@@ -1,47 +1,52 @@
 import React, { memo, useCallback, useRef, useState } from "react";
-import { useViewportWindow } from "./useViewportWindow";
+import { useLoadOnApproach } from "./useLoadOnApproach";
 import {
   SUCCESS_STORY_FALLBACK_ASPECT_RATIO,
   SuccessStory,
 } from "./successStoriesData";
-
-interface SuccessStoryImageProps {
-  src: string;
-  alt: string;
-  priority: boolean;
-  onMeasured: (aspectRatio: number) => void;
-  onFailed: () => void;
-}
 
 interface SuccessStoryCardProps {
   story: SuccessStory;
   priority: boolean;
 }
 
-const MOUNT_MARGIN = "1000px 0px";
-const RELEASE_MARGIN = "2500px 0px";
-const MOUNT_DELAY_MS = 120;
+const LOAD_MARGIN = "1000px 0px";
+const LOAD_DELAY_MS = 120;
 
 const measuredAspectRatios = new Map<string, number>();
 
-const SuccessStoryImage: React.FC<SuccessStoryImageProps> = ({
-  src,
-  alt,
+const SuccessStoryCard: React.FC<SuccessStoryCardProps> = ({
+  story,
   priority,
-  onMeasured,
-  onFailed,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [hasFailed, setHasFailed] = useState<boolean>(false);
+  const [aspectRatio, setAspectRatio] = useState<number>(
+    () =>
+      measuredAspectRatios.get(story.src) ??
+      SUCCESS_STORY_FALLBACK_ASPECT_RATIO,
+  );
+
+  const shouldLoad = useLoadOnApproach(containerRef, {
+    rootMargin: LOAD_MARGIN,
+    delayMs: LOAD_DELAY_MS,
+    initiallyLoaded: priority,
+  });
 
   const commitLoaded = useCallback(
     (image: HTMLImageElement) => {
       if (image.naturalWidth > 0 && image.naturalHeight > 0) {
-        onMeasured(image.naturalWidth / image.naturalHeight);
+        const measured = image.naturalWidth / image.naturalHeight;
+        measuredAspectRatios.set(story.src, measured);
+        setAspectRatio(measured);
       }
       setIsLoaded(true);
     },
-    [onMeasured],
+    [story.src],
   );
+
+  const handleFailed = useCallback(() => setHasFailed(true), []);
 
   const attachImage = useCallback(
     (image: HTMLImageElement | null) => {
@@ -52,57 +57,11 @@ const SuccessStoryImage: React.FC<SuccessStoryImageProps> = ({
       if (image.naturalWidth > 0) {
         commitLoaded(image);
       } else {
-        onFailed();
+        handleFailed();
       }
     },
-    [commitLoaded, onFailed],
+    [commitLoaded, handleFailed],
   );
-
-  return (
-    <img
-      ref={attachImage}
-      src={src}
-      alt={alt}
-      loading={priority ? "eager" : "lazy"}
-      decoding="async"
-      draggable={false}
-      onLoad={(event) => commitLoaded(event.currentTarget)}
-      onError={onFailed}
-      className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 ${
-        isLoaded ? "opacity-100" : "opacity-0"
-      }`}
-    />
-  );
-};
-
-const SuccessStoryCard: React.FC<SuccessStoryCardProps> = ({
-  story,
-  priority,
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [hasFailed, setHasFailed] = useState<boolean>(false);
-  const [aspectRatio, setAspectRatio] = useState<number>(
-    () =>
-      measuredAspectRatios.get(story.src) ??
-      SUCCESS_STORY_FALLBACK_ASPECT_RATIO,
-  );
-
-  const isActive = useViewportWindow(containerRef, {
-    mountMargin: MOUNT_MARGIN,
-    releaseMargin: RELEASE_MARGIN,
-    mountDelayMs: MOUNT_DELAY_MS,
-    initiallyActive: priority,
-  });
-
-  const handleMeasured = useCallback(
-    (measured: number) => {
-      measuredAspectRatios.set(story.src, measured);
-      setAspectRatio(measured);
-    },
-    [story.src],
-  );
-
-  const handleFailed = useCallback(() => setHasFailed(true), []);
 
   return (
     <div
@@ -112,13 +71,19 @@ const SuccessStoryCard: React.FC<SuccessStoryCardProps> = ({
         hasFailed ? "hidden" : ""
       }`}
     >
-      {isActive && (
-        <SuccessStoryImage
+      {shouldLoad && (
+        <img
+          ref={attachImage}
           src={story.src}
           alt={story.alt}
-          priority={priority}
-          onMeasured={handleMeasured}
-          onFailed={handleFailed}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          draggable={false}
+          onLoad={(event) => commitLoaded(event.currentTarget)}
+          onError={handleFailed}
+          className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
         />
       )}
     </div>
