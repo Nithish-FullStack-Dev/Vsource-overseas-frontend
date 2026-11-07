@@ -342,54 +342,63 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
       </div>
 
       {/* ===================================
-    FREE FLIGHT TICKET ANIMATION
+    FLIGHT GIF ANIMATION
     Bottom Left → Top Right
 ==================================== */}
 
-      {/* FLIGHT ANIMATION - DECORATIVE ONLY */}
       {showFlightAnimation && (
-        <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+        <motion.img
+          key="flight-animation"
+          src="/assets/images/flight.gif"
+          alt="Free Flight Ticket"
+          aria-hidden="true"
+          draggable={false}
           initial={{
             x: "-100vw",
             y: "100vh",
+            rotate: -25,
             opacity: 0,
           }}
           animate={{
             x: "100vw",
             y: "-100vh",
+            rotate: -25,
             opacity: [0, 1, 1, 0],
           }}
           transition={{
-            duration: 10,
-            ease: "easeInOut",
-            times: [0, 0.15, 0.8, 1],
+            x: {
+              duration: 10,
+              ease: "linear",
+            },
+            y: {
+              duration: 10,
+              ease: "linear",
+            },
+            opacity: {
+              duration: 10,
+              times: [0, 0.1, 0.85, 1],
+              ease: "linear",
+            },
           }}
           onAnimationComplete={finishClose}
+          className="
+      fixed
+      bottom-0
+      left-0
+      z-[100]
+      w-[350px]
+      sm:w-[450px]
+      md:w-[600px]
+      h-auto
+      object-contain
+      pointer-events-none
+      select-none
+    "
           style={{
-            pointerEvents: "none",
+            transformOrigin: "center center",
             willChange: "transform, opacity",
-            userSelect: "none",
           }}
-        >
-          <img
-            src="/assets/images/vsource-flight.png"
-            alt=""
-            aria-hidden="true"
-            draggable={false}
-            className="
-        pointer-events-none
-        block
-        w-[88vw]
-        sm:w-[70vw]
-        md:w-[50vw]
-        max-w-[600px]
-        h-auto
-        object-contain
-        select-none
-      "
-          />
-        </motion.div>
+        />
       )}
     </div>
   );

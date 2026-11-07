@@ -3,14 +3,7 @@ import { useLocation } from "react-router-dom";
 import SectionTitle from "@/components/SectionTitle";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
+import BranchImageCarousel from "./BranchImageCarousel";
 
 const ContactPage = () => {
   const location = useLocation();
@@ -71,7 +64,7 @@ const ContactPage = () => {
                 hours: "11:00 am to 07:30 pm",
                 locationUrl:
                   "https://www.google.com/maps/place/VSource/@17.3692602,78.519197,17z/data=!3m1!4b1!4m5!3m4!1s0x3bcb98f7d166d455:0x1d4049b98242ba23!8m2!3d17.3692602!4d78.5213857",
-                imageUrl: [
+                images: [
                   "/assets/images/branches/Dilsukhnagar.jpg",
                   "/assets/images/branches/Dilsukhnagar.jpg",
                   "/assets/images/branches/Dilsukhnagar.jpg",
@@ -96,7 +89,7 @@ const ContactPage = () => {
                 email: "Support@vsourceadmissions.com",
                 hours: "11:00 am to 07:30 pm",
                 locationUrl: "https://maps.app.goo.gl/YEPNx4qtezQ4SCjTA",
-                imageUrl: [
+                images: [
                   "/assets/images/branches/jntu-one.jpeg",
                   "/assets/images/branches/jntu branch.jpg",
                   "/assets/images/branches/jntu branch.jpg",
@@ -110,7 +103,7 @@ const ContactPage = () => {
                 email: "Support@vsourceadmissions.com",
                 hours: "11:00 am to 07:30 pm",
                 locationUrl: "https://maps.app.goo.gl/8S3veFkys9eqbEPJ8",
-                imageUrl: [
+                images: [
                   "/assets/images/branches/vijaywada branch.jpeg",
                   "/assets/images/branches/vijaywada branch.jpeg",
                   "/assets/images/branches/vijaywada branch.jpeg",
@@ -149,90 +142,37 @@ const ContactPage = () => {
               //   imageUrl: "/assets/images/branches/bangular.webp",
               // },
             ].map((branch, index) => (
-              <div
-                key={branch.city}
-                className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden"
-              >
-                <div className="h-56 bg-gray-200 relative overflow-hidden rounded-t-lg">
-                  {branch.imageUrl?.length > 0 ? (
-                    <Carousel
-                      opts={{
-                        align: "start",
-                        loop: branch.imageUrl.length > 1,
-                        watchDrag: true,
-                      }}
-                      className="relative w-full h-full"
-                    >
-                      <CarouselContent className="h-56 ml-0">
-                        {branch.imageUrl.map((image, imageIndex) => (
-                          <CarouselItem
-                            key={`${branch.city}-${imageIndex}`}
-                            className="h-56 basis-full pl-0"
-                          >
-                            <div className="w-full h-full overflow-hidden">
-                              <img
-                                src={image}
-                                alt={`${branch.city} Branch ${imageIndex + 1}`}
-                                className="w-full h-full object-cover object-center select-none"
-                                loading="lazy"
-                                draggable={false}
-                              />
-                            </div>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
+              <AnimateOnScroll key={index} delay={index * 100}>
+                <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
+                  <BranchImageCarousel
+                    images={branch.images}
+                    city={branch.city}
+                  />
 
-                      {branch.imageUrl.length > 1 && (
-                        <>
-                          <CarouselPrevious
-                            type="button"
-                            className="absolute left-3 top-1/2 -translate-y-1/2 z-20
-            h-9 w-9 bg-white/90 text-gray-900 shadow-md
-            opacity-100 hover:bg-white hover:text-black
-            focus-visible:ring-2 focus-visible:ring-primary"
-                          />
-
-                          <CarouselNext
-                            type="button"
-                            className="absolute right-3 top-1/2 -translate-y-1/2 z-20
-            h-9 w-9 bg-white/90 text-gray-900 shadow-md
-            opacity-100 hover:bg-white hover:text-black
-            focus-visible:ring-2 focus-visible:ring-primary"
-                          />
-                        </>
-                      )}
-                    </Carousel>
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                      <MapPin className="h-10 w-10 text-primary/60" />
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex flex-col justify-between flex-grow p-6">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4">
-                      {branch.city} Branch
-                    </h3>
-                    <div className="space-y-4">
-                      {/* Branch Address */}
-                      <div className="flex items-start gap-3">
-                        <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" />
-                        <span className="text-gray-700 leading-relaxed">
-                          {branch.address}
-                        </span>
-                      </div>
-
-                      {/* Nearby Landmark */}
-                      {branch.near && (
-                        <div className="flex items-center gap-3 pl-8">
-                          <span className="font-semibold text-gray-900 leading-relaxed">
-                            {branch.near}
+                  <div className="flex flex-col justify-between flex-grow p-6">
+                    <div>
+                      <h3 className="text-xl font-semibold mb-4">
+                        {branch.city} Branch
+                      </h3>
+                      <div className="space-y-4">
+                        {/* Branch Address */}
+                        <div className="flex items-start gap-3">
+                          <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" />
+                          <span className="text-gray-700 leading-relaxed">
+                            {branch.address}
                           </span>
                         </div>
-                      )}
-                    </div>
-                    {/* <div className="space-y-3">
+
+                        {/* Nearby Landmark */}
+                        {branch.near && (
+                          <div className="flex items-center gap-3 pl-8">
+                            <span className="font-semibold text-gray-900 leading-relaxed">
+                              {branch.near}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      {/* <div className="space-y-3">
                         <div className="flex">
                           <MapPin className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
                           <span className="text-gray-700">
@@ -254,20 +194,21 @@ const ContactPage = () => {
                           <Clock className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
                           <span className="text-gray-700">{branch.hours}</span>
                         </div> */}
-                    {/* </div> */}
-                  </div>
+                      {/* </div> */}
+                    </div>
 
-                  <a
-                    href={branch.locationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded font-medium transition-colors inline-flex items-center justify-center"
-                  >
-                    <MapPin className="h-4 w-4 mr-2" />
-                    Get Directions
-                  </a>
+                    <a
+                      href={branch.locationUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded font-medium transition-colors inline-flex items-center justify-center"
+                    >
+                      <MapPin className="h-4 w-4 mr-2" />
+                      Get Directions
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
