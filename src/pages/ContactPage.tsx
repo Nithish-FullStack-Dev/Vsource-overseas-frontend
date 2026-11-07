@@ -149,71 +149,90 @@ const ContactPage = () => {
               //   imageUrl: "/assets/images/branches/bangular.webp",
               // },
             ].map((branch, index) => (
-              <AnimateOnScroll key={index} delay={index * 100}>
-                <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="h-56 bg-gray-200 relative overflow-hidden">
-                    {branch.imageUrl?.length > 0 ? (
-                      <Carousel
-                        opts={{
-                          align: "start",
-                          loop: branch.imageUrl.length > 1,
-                        }}
-                        className="w-full h-full"
-                      >
-                        <CarouselContent className="h-56 ml-0">
-                          {branch.imageUrl.map((image, imageIndex) => (
-                            <CarouselItem
-                              key={`${branch.city}-${imageIndex}`}
-                              className="h-56 basis-full pl-0"
-                            >
+              <div
+                key={branch.city}
+                className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden"
+              >
+                <div className="h-56 bg-gray-200 relative overflow-hidden rounded-t-lg">
+                  {branch.imageUrl?.length > 0 ? (
+                    <Carousel
+                      opts={{
+                        align: "start",
+                        loop: branch.imageUrl.length > 1,
+                        watchDrag: true,
+                      }}
+                      className="relative w-full h-full"
+                    >
+                      <CarouselContent className="h-56 ml-0">
+                        {branch.imageUrl.map((image, imageIndex) => (
+                          <CarouselItem
+                            key={`${branch.city}-${imageIndex}`}
+                            className="h-56 basis-full pl-0"
+                          >
+                            <div className="w-full h-full overflow-hidden">
                               <img
                                 src={image}
-                                alt={`${branch.city} Branch - ${imageIndex + 1}`}
-                                className="w-full h-56 object-cover object-center"
+                                alt={`${branch.city} Branch ${imageIndex + 1}`}
+                                className="w-full h-full object-cover object-center select-none"
                                 loading="lazy"
+                                draggable={false}
                               />
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
 
-                        {branch.imageUrl.length > 1 && (
-                          <>
-                            <CarouselPrevious className="left-3 z-10 bg-white/90 hover:bg-white" />
-                            <CarouselNext className="right-3 z-10 bg-white/90 hover:bg-white" />
-                          </>
-                        )}
-                      </Carousel>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                        <MapPin className="h-10 w-10 text-primary/60" />
+                      {branch.imageUrl.length > 1 && (
+                        <>
+                          <CarouselPrevious
+                            type="button"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 z-20
+            h-9 w-9 bg-white/90 text-gray-900 shadow-md
+            opacity-100 hover:bg-white hover:text-black
+            focus-visible:ring-2 focus-visible:ring-primary"
+                          />
+
+                          <CarouselNext
+                            type="button"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 z-20
+            h-9 w-9 bg-white/90 text-gray-900 shadow-md
+            opacity-100 hover:bg-white hover:text-black
+            focus-visible:ring-2 focus-visible:ring-primary"
+                          />
+                        </>
+                      )}
+                    </Carousel>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                      <MapPin className="h-10 w-10 text-primary/60" />
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-col justify-between flex-grow p-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">
+                      {branch.city} Branch
+                    </h3>
+                    <div className="space-y-4">
+                      {/* Branch Address */}
+                      <div className="flex items-start gap-3">
+                        <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" />
+                        <span className="text-gray-700 leading-relaxed">
+                          {branch.address}
+                        </span>
                       </div>
-                    )}
-                  </div>
 
-                  <div className="flex flex-col justify-between flex-grow p-6">
-                    <div>
-                      <h3 className="text-xl font-semibold mb-4">
-                        {branch.city} Branch
-                      </h3>
-                      <div className="space-y-4">
-                        {/* Branch Address */}
-                        <div className="flex items-start gap-3">
-                          <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" />
-                          <span className="text-gray-700 leading-relaxed">
-                            {branch.address}
+                      {/* Nearby Landmark */}
+                      {branch.near && (
+                        <div className="flex items-center gap-3 pl-8">
+                          <span className="font-semibold text-gray-900 leading-relaxed">
+                            {branch.near}
                           </span>
                         </div>
-
-                        {/* Nearby Landmark */}
-                        {branch.near && (
-                          <div className="flex items-center gap-3 pl-8">
-                            <span className="font-semibold text-gray-900 leading-relaxed">
-                              {branch.near}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                      {/* <div className="space-y-3">
+                      )}
+                    </div>
+                    {/* <div className="space-y-3">
                         <div className="flex">
                           <MapPin className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
                           <span className="text-gray-700">
@@ -235,21 +254,20 @@ const ContactPage = () => {
                           <Clock className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
                           <span className="text-gray-700">{branch.hours}</span>
                         </div> */}
-                      {/* </div> */}
-                    </div>
-
-                    <a
-                      href={branch.locationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded font-medium transition-colors inline-flex items-center justify-center"
-                    >
-                      <MapPin className="h-4 w-4 mr-2" />
-                      Get Directions
-                    </a>
+                    {/* </div> */}
                   </div>
+
+                  <a
+                    href={branch.locationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded font-medium transition-colors inline-flex items-center justify-center"
+                  >
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Get Directions
+                  </a>
                 </div>
-              </AnimateOnScroll>
+              </div>
             ))}
           </div>
         </div>
