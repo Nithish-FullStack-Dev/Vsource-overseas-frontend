@@ -74,24 +74,24 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2 relative z-20 shrink-0">
           <img
             alt="Vsource Logo"
-            className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
+            className="h-14 md:h-20 w-auto object-contain rounded-xl shadow-md"
             src="/assets/images/red vs logo.webp"
           />
 
           <img
             src="/assets/images/21-years-logo.png"
             alt="21 Years Logo"
-            className="h-20 md:h-18 w-auto object-contain drop-shadow-md"
+            className="h-16 md:h-18 w-auto object-contain drop-shadow-md"
           />
         </Link>
 
         {isScrolled && (
           <div className="flex sm:hidden flex-1 justify-center items-center min-w-0 px-1">
-            <p className="text-red-600 font-extrabold text-[12px] leading-[1.3] tracking-wide text-center uppercase whitespace-normal animate-pulse">
+            <h1 className="text-red-600 font-extrabold text-[16px] leading-[1.3] tracking-wide text-center uppercase whitespace-normal animate-pulse">
               FREE FLIGHT
               <br />
-              TICKETS
-            </p>
+              TICKET
+            </h1>
           </div>
         )}
 
@@ -208,7 +208,7 @@ const Navbar = () => {
           {isOpen ? (
             <X size={28} strokeWidth={3} />
           ) : (
-            <Menu size={40} strokeWidth={4} />
+            <Menu size={28} strokeWidth={4} />
           )}
         </button>
       </div>

@@ -31,7 +31,7 @@ const services: Service[] = [
     icon: <IndianRupee size={40} color="#ffffffff" />,
     title: "Loan Assistance",
     description:
-      "We guide you through the edu-carm loan process with our trusted financial partners for a hassle-free experience",
+      "We guide you through the Non collateral educational loan process with our trusted financial partners for a hassle-free experience",
   },
   {
     backgroundImage:
