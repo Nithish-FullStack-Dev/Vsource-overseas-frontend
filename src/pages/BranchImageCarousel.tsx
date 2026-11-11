@@ -11,6 +11,12 @@ const BranchImageCarousel = ({
   city,
 }: BranchImageCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [portraitImages, setPortraitImages] = useState<Record<number, boolean>>(
+    {},
+  );
+
+  const currentImage = images[currentIndex];
+  const isPortrait = portraitImages[currentIndex] ?? false;
 
   const prevImage = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -31,14 +37,25 @@ const BranchImageCarousel = ({
   return (
     <div className="relative h-56 w-full overflow-hidden group bg-gray-200">
       <img
-        key={images[currentIndex]}
-        src={images[currentIndex]}
+        key={`${currentIndex}-${currentImage}`}
+        src={currentImage}
         alt={`${city} Branch ${currentIndex + 1}`}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        onLoad={(e) => {
+          const img = e.currentTarget;
+
+          setPortraitImages((prev) => ({
+            ...prev,
+            [currentIndex]: img.naturalHeight > img.naturalWidth,
+          }));
+        }}
+        className={`w-full h-full transition-transform duration-500 ${
+          isPortrait ? "object-contain" : "object-cover group-hover:scale-105"
+        }`}
       />
 
       {images.length > 1 && (
         <>
+          {/* Previous Button */}
           <button
             onClick={prevImage}
             aria-label="Previous image"
@@ -50,6 +67,7 @@ const BranchImageCarousel = ({
             <ChevronLeft size={22} />
           </button>
 
+          {/* Next Button */}
           <button
             onClick={nextImage}
             aria-label="Next image"
@@ -61,6 +79,7 @@ const BranchImageCarousel = ({
             <ChevronRight size={22} />
           </button>
 
+          {/* Carousel Indicators */}
           <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
             {images.map((_, index) => (
               <button
