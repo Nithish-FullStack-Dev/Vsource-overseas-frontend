@@ -2,7 +2,7 @@ import { Description, Image } from "@/types/LandingPage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const COUNTRIES = ["USA", "UK", "Canada", "Ireland", "France"] as const;
+export const COUNTRIES = ["USA", "UK", "Canada"] as const;
 export type Country = (typeof COUNTRIES)[number];
 
 /**
