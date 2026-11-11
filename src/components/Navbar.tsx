@@ -81,7 +81,7 @@ const Navbar = () => {
           <img
             src="/assets/images/21-years-logo.png"
             alt="21 Years Logo"
-            className="h-16 md:h-18 w-auto object-contain drop-shadow-md"
+            className="h-16 md:h-20 md:ml-4 w-auto object-contain drop-shadow-md"
           />
         </Link>
 
