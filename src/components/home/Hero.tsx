@@ -197,7 +197,7 @@ const Hero = () => {
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[280px] text-left shadow-sm"
+              className="absolute top-[40px] left-[-10px] bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[210px] text-left shadow-sm"
             >
               <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide">
                 STUDY MASTERS IN
@@ -208,6 +208,9 @@ const Hero = () => {
               </p>
               <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide mt-3">
                 FREE FLIGHT TICKET
+              </p>
+              <p className="text-red-600 text-[16px] font-bold leading-tight uppercase tracking-wide mt-3">
+                100% EDUCATION LOAN
               </p>
               {/* <p className="text-[10px] text-orange-400 font-semibold mt-2 animate-blink">
                 FALL-INTAKE 2025-2026

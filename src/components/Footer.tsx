@@ -20,7 +20,7 @@ const Footer = () => {
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               {[
                 {
-                  href: "https://www.facebook.com/share/Up9qaiBuTj25dG5z/?mibextid=qi2Omg",
+                  href: "https://www.facebook.com/vsourceoverseas1/",
                   src: "/assets/images/icons/fb.webp",
                   alt: "Facebook",
                 },
