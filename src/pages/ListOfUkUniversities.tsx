@@ -1,46 +1,119 @@
-import React from "react";
-import { useSearchParams } from "react-router-dom";
-import { useUniversities } from "@/lib/Universities";
+import React, { useEffect } from "react";
+import {
+  ExploreUniversitiesResponse,
+  useUniversities,
+} from "@/lib/Universities";
 import UniversityHomePageSkeleton from "@/Loaders/LandingPages/UniversityHomePageSkeleton";
 import UniversityList from "@/components/UniversityList";
 import { toast } from "sonner";
-import Pagination from "./university-pages/Pagination";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
+export const fetchAllUkUniversities =
+  async (): Promise<ExploreUniversitiesResponse> => {
+    const baseUrl = "https://backend.vsourceoverseas.com/api/uni-directories";
+
+    const fetchPage = async (page: number) => {
+      const params = new URLSearchParams();
+
+      // Same logo population
+      params.append("populate[logo][fields][0]", "url");
+      params.append("populate[logo][fields][1]", "documentId");
+      params.append("populate[logo][fields][2]", "name");
+
+      // Same banner population
+      params.append("populate[banner][fields][0]", "url");
+      params.append("populate[banner][fields][1]", "documentId");
+      params.append("populate[banner][fields][2]", "name");
+
+      // Filter UK universities
+      params.append("filters[country][$in][0]", "UK");
+      params.append("filters[country][$in][1]", "United Kingdom");
+
+      // Strapi API pagination (internal only)
+      params.append("pagination[page]", String(page));
+      params.append("pagination[pageSize]", "100");
+
+      const { data } = await axios.get(`${baseUrl}?${params.toString()}`);
+
+      return {
+        universities: data?.data || [],
+        pagination: data?.meta?.pagination || {
+          page: 1,
+          pageSize: 100,
+          pageCount: 1,
+          total: 0,
+        },
+      };
+    };
+
+    // Fetch first page
+    const firstPage = await fetchPage(1);
+
+    const totalPages = firstPage.pagination.pageCount;
+
+    // Fetch remaining pages
+    const remainingPages =
+      totalPages > 1
+        ? await Promise.all(
+            Array.from({ length: totalPages - 1 }, (_, index) =>
+              fetchPage(index + 2),
+            ),
+          )
+        : [];
+
+    const universities = [
+      ...firstPage.universities,
+      ...remainingPages.flatMap((result) => result.universities),
+    ];
+
+    return {
+      universities,
+      pagination: {
+        page: 1,
+        pageSize: universities.length,
+        pageCount: 1,
+        total: universities.length,
+      },
+    };
+  };
+
+export function useAllUkUniversities() {
+  return useQuery<ExploreUniversitiesResponse>({
+    queryKey: ["allUkUniversities"],
+    queryFn: fetchAllUkUniversities,
+    staleTime: 10 * 60 * 1000,
+  });
+}
 
 const ListOfUkUniversities: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams({
-    page: "1",
-  });
-
-  const page = Number(searchParams.get("page")) || 1;
-
-  // Fetch only UK universities
   const {
     data: UNIVERSITIES,
     isLoading,
     isError,
     error,
-  } = useUniversities(page, "UK");
+  } = useAllUkUniversities();
 
-  if (isError) {
-    console.error(error);
-    toast.error("Failed to load UK universities");
-    return null;
-  }
+  useEffect(() => {
+    if (isError) {
+      console.error(error);
+      toast.error("Failed to load UK universities");
+    }
+  }, [isError, error]);
 
-  if (isLoading || !UNIVERSITIES?.universities) {
+  if (isLoading) {
     return <UniversityHomePageSkeleton />;
   }
 
-  const ukUniversities = UNIVERSITIES.universities.filter(
-    (university) =>
-      university.country?.toLowerCase() === "united kingdom" ||
-      university.country?.toLowerCase() === "uk",
-  );
+  if (isError) {
+    return (
+      <div className="text-center py-20 text-red-600">
+        Failed to load UK universities.
+      </div>
+    );
+  }
 
-  const handlePageChange = (newPage: number) => {
-    setSearchParams({ page: newPage.toString() });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const ukUniversities = UNIVERSITIES?.universities ?? [];
 
   return (
     <>
@@ -71,14 +144,6 @@ const ListOfUkUniversities: React.FC = () => {
             No UK universities found.
           </div>
         )}
-
-        <div className="h-8" />
-
-        <Pagination
-          currentPage={page}
-          onPageChange={handlePageChange}
-          totalPages={UNIVERSITIES.pagination?.pageCount || 1}
-        />
       </section>
     </>
   );

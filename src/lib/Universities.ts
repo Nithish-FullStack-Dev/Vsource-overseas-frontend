@@ -188,7 +188,7 @@ export const fetchExploreUniversities = async (page = 1, country = "All") => {
 
 export const fetchUniversitiesByDocumentId = async (documentId: string) => {
   const { data } = await axios.get(
-    `https://backend.vsourceoverseas.com/api/uni-directories/${documentId}?populate[logo][fields][0]=url&populate[logo][fields][1]=documentId&populate[logo][fields][2]=name&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=name&populate[overview]=true&populate[stats]=true&populate[rankings][populate][items]=true&populate[intakes][populate][famous_intakes]=true&populate[courses][populate][famous_courses]=true&populate[cost_of_study][populate][expenses_table]=true&populate[scholarship][populate][scholarship_details]=true&populate[admissions][populate][admissions_req][populate][requirement_items]=true&populate[placements][populate][jobs]=true&populate[placements][populate][top_recruiters_imgs][fields][0]=url&populate[placements][populate][top_recruiters_imgs][fields][1]=documentId&populate[placements][populate][top_recruiters_imgs][fields][2]=name&populate[gallerys][fields][0]=url&populate[gallerys][fields][1]=documentId&populate[gallerys][fields][2]=name&populate[faqs][populate][accordion]=true`
+    `https://backend.vsourceoverseas.com/api/uni-directories/${documentId}?populate[logo][fields][0]=url&populate[logo][fields][1]=documentId&populate[logo][fields][2]=name&populate[banner][fields][0]=url&populate[banner][fields][1]=documentId&populate[banner][fields][2]=name&populate[overview]=true&populate[stats]=true&populate[rankings][populate][items]=true&populate[intakes][populate][famous_intakes]=true&populate[courses][populate][famous_courses]=true&populate[cost_of_study][populate][expenses_table]=true&populate[scholarship][populate][scholarship_details]=true&populate[admissions][populate][admissions_req][populate][requirement_items]=true&populate[placements][populate][jobs]=true&populate[placements][populate][top_recruiters_imgs][fields][0]=url&populate[placements][populate][top_recruiters_imgs][fields][1]=documentId&populate[placements][populate][top_recruiters_imgs][fields][2]=name&populate[gallerys][fields][0]=url&populate[gallerys][fields][1]=documentId&populate[gallerys][fields][2]=name&populate[faqs][populate][accordion]=true`,
   );
   return data.data;
 };
@@ -206,7 +206,7 @@ export const TABS: Tab[] = [
   { key: "faq", label: "FAQs" },
 ];
 
-type ExploreUniversitiesResponse = {
+export type ExploreUniversitiesResponse = {
   universities: University[];
   pagination: {
     page: number;
