@@ -167,9 +167,10 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[60] ${
-        isClosing ? "pointer-events-none" : ""
-      }`}
+      className="fixed inset-0 z-[60]"
+      style={{
+        pointerEvents: isClosing ? "none" : "auto",
+      }}
     >
       {/* Background overlay */}
       {backdropVisible && (
@@ -186,12 +187,15 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
       <div className="absolute inset-0 flex items-center justify-center overflow-y-auto p-4 pointer-events-none">
         <motion.div
           ref={cardRef}
-          className="relative w-full max-w-md max-h-[90vh] overflow-y-auto pointer-events-auto"
+          className={`relative w-full max-w-md max-h-[90vh] overflow-y-auto ${
+            isClosing ? "pointer-events-none" : "pointer-events-auto"
+          }`}
           initial={{
             opacity: 0,
             scale: 0.85,
           }}
           animate={controls}
+          aria-hidden={isClosing}
         >
           <div className="relative w-full rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-white md:p-6 p-3 text-gray-800 rounded-2xl">
@@ -397,6 +401,7 @@ const DelayedPopup: React.FC<DelayedPopupProps> = ({ onMinimize }) => {
           style={{
             transformOrigin: "center center",
             willChange: "transform, opacity",
+            pointerEvents: "none",
           }}
         />
       )}

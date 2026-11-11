@@ -71,20 +71,29 @@ const Navbar = () => {
       {/* Custom container */}
       <div className="w-full max-w-[1400px] mx-auto px-4 flex justify-between items-center h-20">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 relative z-20">
+        <Link to="/" className="flex items-center gap-2 relative z-20 shrink-0">
           <img
             alt="Vsource Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-md"
             src="/assets/images/red vs logo.webp"
           />
-          <div>
-            <img
-              src="/assets/images/20 years logo-01.webp"
-              alt="21 Years Logo"
-              className="h-20 md:h-18 ml-3 w-auto object-contain drop-shadow-md"
-            />
-          </div>
+
+          <img
+            src="/assets/images/21-years-logo.png"
+            alt="21 Years Logo"
+            className="h-20 md:h-18 w-auto object-contain drop-shadow-md"
+          />
         </Link>
+
+        {isScrolled && (
+          <div className="flex sm:hidden flex-1 justify-center items-center min-w-0 px-1">
+            <p className="text-red-600 font-extrabold text-[12px] leading-[1.3] tracking-wide text-center uppercase whitespace-normal animate-pulse">
+              FREE FLIGHT
+              <br />
+              TICKETS
+            </p>
+          </div>
+        )}
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
@@ -207,7 +216,9 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         className={`md:hidden fixed inset-0 bg-white z-10 transition-all duration-300 ease-in-out ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-4 pt-28 pb-8 space-y-4">

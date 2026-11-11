@@ -196,11 +196,11 @@ export default function TestimonialsSection() {
       <div className="animated-bg z-0"></div>
 
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-3xl mx-auto text-center ">
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-red-600 drop-shadow-lg">
             Success Stories
           </h2>
-          <p className="text-base md:text-lg text-black-900 mt-20 mt-35">
+          <p className="text-base md:text-lg text-black-900 mt-10">
             A legacy of trust, a journey of excellence, and countless dreams
             transformed into success
           </p>

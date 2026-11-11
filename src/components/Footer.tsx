@@ -79,12 +79,9 @@ const Footer = () => {
                 "Top UK Universities",
               ]?.map((service) => (
                 <li key={service}>
-                  <Link
-                    to="/"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
+                  <p className="text-gray-400 hover:text-white transition-colors">
                     {service}
-                  </Link>
+                  </p>
                 </li>
               ))}
             </ul>
